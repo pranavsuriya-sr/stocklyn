@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createClient, Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const supabaseClient = createClient(
@@ -34,6 +35,8 @@ const loginSchema = z.object({
 });
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [session, setSession] = useState<Session | null>(null);
   useEffect(() => {
     supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -112,6 +115,15 @@ const SignUp = () => {
               <Button type="submit">Submit</Button>
             </form>
           </Form>
+          <h1>
+            Already have an account?{" "}
+            <span
+              className="underline cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login!
+            </span>
+          </h1>
         </div>
       </>
     );
