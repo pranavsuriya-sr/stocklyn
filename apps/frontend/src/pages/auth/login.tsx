@@ -16,16 +16,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const supabaseClient = createClient(
-  "https://hqenglckisxxnilbjpim.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxZW5nbGNraXN4eG5pbGJqcGltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU3MDk0NDIsImV4cCI6MjA1MTI4NTQ0Mn0.0c0EPJVLBQUBVdXyWbCqrQkYRiOuU9yjNTKjCkr-Y-s"
+  process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ""
 );
 
 const loginSchema = z.object({
-  username: z
-    .string()
-    .nonempty()
-    .min(3, { message: "username must have at least 3 characters" })
-    .max(20, { message: "username must have at most 20 characters" }),
   email: z.string().email({ message: "Enter a valid email" }).nonempty(),
   password: z
     .string()
@@ -44,7 +39,6 @@ const Login = () => {
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
       email: "",
       password: "",
     },
@@ -57,60 +51,47 @@ const Login = () => {
   //not logged in
   if (!session) {
     return (
-      <div className="flex justify-center items-center h-screen ">
-        <Form {...loginForm}>
-          <form
-            onSubmit={loginForm.handleSubmit(onSubmit)}
-            className="space-y-2 border-black border rounded-md p-6"
-          >
-            <FormField
-              control={loginForm.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="username" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={loginForm.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Email" {...field} />
-                  </FormControl>
-                  <FormDescription>This is your Email.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={loginForm.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="password" {...field} />
-                  </FormControl>
-                  <FormDescription>This is your password.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Submit</Button>
-          </form>
-        </Form>
-      </div>
+      <>
+        <div className="flex flex-col justify-center items-center h-screen ">
+          <h1 className="text-gray-600 font-serif text-3xl p-3">Login</h1>
+          <Form {...loginForm}>
+            <form
+              onSubmit={loginForm.handleSubmit(onSubmit)}
+              className="space-y-4 border-black border rounded-md p-6 w-full max-w-md "
+            >
+              <FormField
+                control={loginForm.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xl ">Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Email" {...field} />
+                    </FormControl>
+                    <FormDescription>This is your Email.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={loginForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xl">Password</FormLabel>
+                    <FormControl>
+                      <Input placeholder="password" {...field} />
+                    </FormControl>
+                    <FormDescription>This is your password.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+          </Form>
+        </div>
+      </>
     );
   }
 
