@@ -1,7 +1,9 @@
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <nav
       className={cn(
@@ -10,7 +12,12 @@ export default function Navbar() {
       )}
     >
       {/* Logo */}
-      <div className="text-2xl font-bold">Stocklyn</div>
+      <h3
+        className="scroll-m-20 text-3xl font-semibold tracking-tight cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        Stocklyn
+      </h3>
 
       {/* Navigation Links */}
       <ul className="flex space-x-8">
@@ -55,6 +62,7 @@ export default function Navbar() {
             "px-4 py-2 text-md font-medium bg-blue-600 text-white",
             "rounded-lg shadow hover:bg-blue-700 transition-colors"
           )}
+          onClick={() => navigate("/login")}
         >
           Login
         </button>
@@ -63,6 +71,7 @@ export default function Navbar() {
             "px-4 py-2 text-md font-medium border border-blue-600 text-blue-600",
             "rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
           )}
+          onClick={() => navigate("/signup")}
         >
           Sign Up
         </button>
