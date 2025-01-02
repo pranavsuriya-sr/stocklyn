@@ -9,17 +9,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { supabaseClient } from "@/utils/supabase-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClient, Session } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-
-const supabaseClient = createClient(
-  import.meta.env.VITE_SUPABASE_URL ?? "",
-  import.meta.env.VITE_SUPABASE_ANON_KEY ?? ""
-);
 
 const loginSchema = z.object({
   username: z
@@ -41,8 +37,11 @@ const SignUp = () => {
   useEffect(() => {
     supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session) {
+        navigate("/");
+      }
     });
-  }, []);
+  }, [session]);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -53,11 +52,23 @@ const SignUp = () => {
     },
   });
 
-  function onSubmit() {
-    console.log("submit");
+  async function onSubmit(userInfo: z.infer<typeof loginSchema>) {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: userInfo.email,
+      password: userInfo.password,
+    });
+
+    if (error) {
+      console.error("Signup failed:", error.message);
+      alert(error.message);
+      return;
+    }
+
+    if (data.session) {
+      setSession(data.session);
+    }
   }
 
-  //sign up
   if (!session) {
     return (
       <>
@@ -128,8 +139,6 @@ const SignUp = () => {
       </>
     );
   }
-
-  return <div>login</div>;
 };
 
 export default SignUp;

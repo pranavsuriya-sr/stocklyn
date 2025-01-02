@@ -9,8 +9,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { supabaseClient } from "@/utils/supabase-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClient, Session } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -23,11 +24,6 @@ const loginSchema = z.object({
     .nonempty()
     .min(6, { message: "password must have at least 6 characters" }),
 });
-
-const supabaseClient = createClient(
-  import.meta.env.VITE_SUPABASE_URL ?? "",
-  import.meta.env.VITE_SUPABASE_ANON_KEY ?? ""
-);
 
 const Login = () => {
   const navigate = useNavigate();
