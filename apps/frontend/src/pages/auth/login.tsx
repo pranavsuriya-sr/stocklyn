@@ -33,8 +33,11 @@ const Login = () => {
   useEffect(() => {
     supabaseClient.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session) {
+        navigate("/");
+      }
     });
-  }, []);
+  }, [session]);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -44,11 +47,24 @@ const Login = () => {
     },
   });
 
-  function onSubmit() {
-    console.log("submit");
+  async function onSubmit(info: z.infer<typeof loginSchema>) {
+    const { email, password } = info;
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.error("Error logging in:", error.message);
+      alert("Error logging in");
+      return;
+    }
+
+    if (data.session) {
+      setSession(data.session);
+    }
   }
 
-  //not logged in
   if (!session) {
     return (
       <>
@@ -80,7 +96,11 @@ const Login = () => {
                   <FormItem>
                     <FormLabel className="text-xl">Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="password" {...field} />
+                      <Input
+                        placeholder="password"
+                        {...field}
+                        type="password"
+                      />
                     </FormControl>
                     <FormDescription>This is your password.</FormDescription>
                     <FormMessage />
@@ -103,8 +123,6 @@ const Login = () => {
       </>
     );
   }
-
-  return <div>login</div>;
 };
 
 export default Login;
