@@ -15,11 +15,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const supabaseClient = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ""
-);
-
 const loginSchema = z.object({
   email: z.string().email({ message: "Enter a valid email" }).nonempty(),
   password: z
@@ -27,6 +22,11 @@ const loginSchema = z.object({
     .nonempty()
     .min(6, { message: "password must have at least 6 characters" }),
 });
+
+const supabaseClient = createClient(
+  import.meta.env.VITE_SUPABASE_URL ?? "",
+  import.meta.env.VITE_SUPABASE_ANON_KEY ?? ""
+);
 
 const Login = () => {
   const [session, setSession] = useState<Session | null>(null);

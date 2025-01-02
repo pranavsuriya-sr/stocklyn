@@ -16,8 +16,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const supabaseClient = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ""
+  import.meta.env.VITE_SUPABASE_URL ?? "",
+  import.meta.env.VITE_SUPABASE_ANON_KEY ?? ""
 );
 
 const loginSchema = z.object({
@@ -54,7 +54,7 @@ const SignUp = () => {
     console.log("submit");
   }
 
-  //not logged in
+  //sign up
   if (!session) {
     return (
       <>
