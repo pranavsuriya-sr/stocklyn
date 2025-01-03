@@ -3,10 +3,10 @@ import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProtectedPage = ({ children }: { children: ReactNode }) => {
-  const { session, isLoading } = useSession();
+  const { session } = useSession();
   const navigate = useNavigate();
   useEffect(() => {
-    if (!isLoading && !session) {
+    if (session === null) {
       navigate("/login");
     }
   }, []);
