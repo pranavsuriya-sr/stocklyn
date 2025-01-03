@@ -21,7 +21,7 @@ export default function Navbar() {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4",
-        "bg-white/70 backdrop-blur-lg shadow-lg text-gray-800 h-30"
+        "bg-white/70 backdrop-blur-lg shadow-lg text-gray-800 h-30 sticky"
       )}
     >
       {/* Logo */}
@@ -35,12 +35,14 @@ export default function Navbar() {
       {/* Navigation Links */}
       <ul className="flex space-x-8">
         <li>
-          <Link
-            to="/home"
-            className="text-md font-medium hover:text-blue-600 transition-colors"
-          >
-            Home
-          </Link>
+          {session !== null && (
+            <Link
+              to="/home"
+              className="text-md font-medium hover:text-blue-600 transition-colors"
+            >
+              Home
+            </Link>
+          )}
         </li>
         <li>
           <Link
