@@ -116,7 +116,11 @@ const SignUp = () => {
                   <FormItem>
                     <FormLabel className="text-xl">Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="password" {...field} />
+                      <Input
+                        placeholder="password"
+                        {...field}
+                        type="password"
+                      />
                     </FormControl>
                     <FormDescription>This is your password.</FormDescription>
                     <FormMessage />

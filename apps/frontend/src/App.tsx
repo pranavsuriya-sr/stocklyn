@@ -8,7 +8,7 @@ const App = () => {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/home"
         element={
           <ProtectedPage>
             <Home />
