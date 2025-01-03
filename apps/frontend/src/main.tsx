@@ -9,9 +9,7 @@ createRoot(document.getElementById("root")!).render(
   <SessionProvider>
     <BrowserRouter>
       <Navbar />
-      <div className="pt-10">
-        <App />
-      </div>
+      <App />
     </BrowserRouter>
   </SessionProvider>
 );

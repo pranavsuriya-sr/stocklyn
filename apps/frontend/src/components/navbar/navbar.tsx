@@ -22,7 +22,7 @@ export default function Navbar() {
     <nav
       className={cn(
         " fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 border  mx-auto w-[75%] rounded-lg",
-        "bg-white/70 backdrop-blur-md shadow-lg text-gray-800 h-25 sticky"
+        "bg-white/70 backdrop-blur-md shadow-lg text-gray-800 h-25 "
       )}
     >
       {/* Logo */}
@@ -41,7 +41,7 @@ export default function Navbar() {
           {session !== null && (
             <Link
               to="/home"
-              className="text-md font-medium hover:text-blue-600 transition-colors"
+              className="text-gray-500 text-md font-medium hover:text-blue-600 transition-colors"
             >
               Home
             </Link>
@@ -50,7 +50,7 @@ export default function Navbar() {
         <li>
           <Link
             to="/about"
-            className="text-md font-medium hover:text-blue-600 transition-colors"
+            className="text-gray-500 text-md font-medium hover:text-blue-600 transition-colors"
           >
             About
           </Link>
@@ -58,7 +58,7 @@ export default function Navbar() {
         <li>
           <Link
             to="/"
-            className="text-md font-medium hover:text-blue-600 transition-colors"
+            className="text-gray-500 text-md font-medium hover:text-blue-600 transition-colors"
           >
             Services
           </Link>
@@ -66,7 +66,7 @@ export default function Navbar() {
         <li>
           <Link
             to="/"
-            className="text-md font-medium hover:text-blue-600 transition-colors"
+            className="text-gray-500 text-md font-medium hover:text-blue-600 transition-colors"
           >
             Contact
           </Link>
