@@ -72,7 +72,7 @@ const SignUp = () => {
   if (!session) {
     return (
       <>
-        <div className="flex flex-col justify-center items-center h-screen ">
+        <div className="flex flex-col justify-center items-center h-auto pt-10">
           <h1 className="text-gray-600 font-serif text-3xl p-3">Sign Up</h1>
           <Form {...loginForm}>
             <form

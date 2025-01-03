@@ -68,7 +68,7 @@ const Login = () => {
   if (!session) {
     return (
       <>
-        <div className="flex flex-col justify-center items-center h-screen ">
+        <div className="flex flex-col justify-center items-center h-5/6 pt-20">
           <h1 className="text-gray-600 font-serif text-3xl p-3">Login</h1>
           <Form {...loginForm}>
             <form
@@ -111,7 +111,7 @@ const Login = () => {
             </form>
           </Form>
           <h1>
-            Dont have an account?{" "}
+            Don't have an account?{" "}
             <span
               className="underline cursor-pointer"
               onClick={() => navigate("/signup")}

@@ -20,17 +20,19 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4",
-        "bg-white/70 backdrop-blur-lg shadow-lg text-gray-800 h-30 sticky"
+        " fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 border  mx-auto w-[75%] rounded-lg",
+        "bg-white/70 backdrop-blur-md shadow-lg text-gray-800 h-25 sticky"
       )}
     >
       {/* Logo */}
-      <h3
-        className="scroll-m-20 text-3xl font-semibold tracking-tight cursor-pointer"
-        onClick={() => navigate("/")}
-      >
-        Stocklyn
-      </h3>
+      <Link to={"/"}>
+        <h3
+          className="scroll-m-20 text-3xl font-semibold tracking-tight cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          Stocklyn
+        </h3>
+      </Link>
 
       {/* Navigation Links */}
       <ul className="flex space-x-8">
