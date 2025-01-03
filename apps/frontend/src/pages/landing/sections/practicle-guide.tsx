@@ -2,23 +2,25 @@ import picture from "../../../assets/bookandpen.jpg";
 
 const PracticleGuide = () => {
   return (
-    <div className="lg:grid lg:grid-cols-2 lg:gap-2 bg-gray-50 pb-20 pt-20 ">
-      <div className="pl-14 ml-6 mr-6 pr-14 sm:pb-5">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-gray-50 pb-10 lg:pb-20 pt-10 lg:pt-20">
+      <div className="px-6 lg:px-14">
         <img
           src={picture}
           alt="Book and Pen"
-          className="rounded-xl shadow-slate-400 transition-transform duration-500 transform hover:scale-110"
-        ></img>
+          className="rounded-xl shadow-slate-400 transition-transform duration-500 transform hover:scale-110 max-w-full h-auto"
+        />
       </div>
-      <div className="pl-10 sm:pt-10 text-start xs:pt-8 ">
-        <button className="border-2 rounded-full pl-2 pr-2 transition-transform duration-500 transform hover:scale-110 ">
-          <p className="xs:text-xl ">Latest Port</p>
+
+      <div className="px-6 lg:px-10 text-start">
+        <button className="border-2 rounded-full px-4 py-2 transition-transform duration-500 transform hover:scale-110">
+          <p className="text-md lg:text-xl">Latest Post</p>
         </button>
-        <p className="pl-2 pr-2 lg:text-4xl pt-4 sm:text-3xl xs:text-2xl py-3">
-          Learn to leverage innovative marketing strategies <br></br> Boost the
-          visibility of the Ads
+        <p className="pt-4 text-xl sm:text-2xl lg:text-4xl py-3">
+          Learn to leverage innovative marketing strategies using AI
+          <br />
+          Boost the visibility of the Ads
         </p>
-        <p className="pl-2 pr-2">
+        <p className="text-sm sm:text-base lg:text-lg">
           Why It's a Channel Worth Exploring to Grow Your E-commerce Business
         </p>
       </div>
