@@ -1,5 +1,6 @@
-const LandingPage = () => {
-  return <div className="pt-28">landingpage</div>;
-};
+import HeroSection from "./sections/hero-section";
 
+const LandingPage = () => {
+  return <HeroSection />;
+};
 export default LandingPage;
