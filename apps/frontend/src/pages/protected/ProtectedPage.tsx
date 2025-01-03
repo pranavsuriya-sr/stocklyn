@@ -1,17 +1,18 @@
 import { useSession } from "@/context/session-context";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProtectedPage = ({ children }: { children: ReactNode }) => {
-  const { session } = useSession();
+  const { session, isLoading } = useSession();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (session === null) {
-      navigate("/login");
-    }
-  }, []);
 
-  return <>{children}</>;
+  if (session === null) {
+    navigate("/login");
+  }
+
+  if (!isLoading && session !== null) {
+    return <>{children}</>;
+  }
 };
 
 export default ProtectedPage;
