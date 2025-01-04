@@ -11,8 +11,8 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        " fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 border  mx-auto w-[75%] rounded-lg",
-        "bg-white/70 backdrop-blur-md shadow-lg text-gray-800 h-25 "
+        "fixed top-5 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 border mx-auto w-[75%] rounded-lg overflow-hidden",
+        "bg-white/70 backdrop-blur-md shadow-lg text-gray-800 h-25"
       )}
     >
       {/* Logo */}
@@ -76,14 +76,7 @@ export default function Navbar() {
             </button>
           </Link>
 
-          <span
-            className={cn(
-              "px-4 py-2 text-md font-medium ",
-              "rounded-lg shadow hover:bg-blue-700 transition-colors"
-            )}
-          >
-            <ViewProfile />
-          </span>
+          <ViewProfile />
         </div>
       )}
 
