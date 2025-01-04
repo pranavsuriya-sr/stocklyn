@@ -1,22 +1,12 @@
 import { useSession } from "@/context/session-context";
 import { cn } from "@/lib/utils";
-import { supabaseClient } from "@/utils/supabase-client";
 import { ShoppingCart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import ViewProfile from "./navbar-components/view-profile";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { session } = useSession();
-
-  const HandleSignOut = async () => {
-    const { error } = await supabaseClient.auth.signOut();
-
-    if (error) {
-      console.error("Error signing out: ", error.message);
-      return;
-    }
-    navigate("/login");
-  };
 
   return (
     <nav
@@ -78,22 +68,22 @@ export default function Navbar() {
           <Link to="/">
             <button
               className={cn(
-                "px-4 py-2 text-md font-medium ",
+                "px-4 py-3 text-md font-medium ",
                 "rounded-lg shadow hover:bg-blue-700 transition-colors"
               )}
             >
               <ShoppingCart />
             </button>
           </Link>
-          <button
+
+          <span
             className={cn(
-              "px-4 py-2 text-md font-medium border border-blue-600 text-blue-600",
-              "rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
+              "px-4 py-2 text-md font-medium ",
+              "rounded-lg shadow hover:bg-blue-700 transition-colors"
             )}
-            onClick={() => HandleSignOut()}
           >
-            SignOut
-          </button>
+            <ViewProfile />
+          </span>
         </div>
       )}
 
