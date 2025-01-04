@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { supabaseClient } from "@/utils/supabase-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Session } from "@supabase/supabase-js";
+import { CornerDownRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -132,7 +133,13 @@ const SignUp = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button
+                type="submit"
+                className="flex justify-center items-center bg-green-500 hover:bg-green-400"
+              >
+                <span className="pb-0.5">SignUp</span>
+                <CornerDownRight />
+              </Button>
             </form>
           </Form>
           <h1>
