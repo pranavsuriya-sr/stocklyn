@@ -37,7 +37,7 @@ const ViewProfile = () => {
           sideOffset={4}
         >
           <DropdownMenuLabel className="text-lg">
-            {displayName} 😄
+            {displayName} Hello!😄
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>
