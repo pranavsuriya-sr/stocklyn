@@ -1,5 +1,5 @@
 # todo
 
--> add context of session to the application
--> add protected routes in the application
--> build landing page ui
+-> Building landing page ui 
+-> Building the cart items and populating with the dummydata
+-> Using the real data from db to do the cart items population
