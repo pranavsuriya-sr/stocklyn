@@ -1,5 +1,9 @@
+import { useSession } from "@/context/session-context";
+
 const Home = () => {
-  return <div>Hello</div>;
+  const { session } = useSession();
+
+  return <div>{}</div>;
 };
 
 export default Home;

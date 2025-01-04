@@ -56,6 +56,11 @@ const SignUp = () => {
     const { data, error } = await supabaseClient.auth.signUp({
       email: userInfo.email,
       password: userInfo.password,
+      options: {
+        data: {
+          display_name: userInfo.username,
+        },
+      },
     });
 
     if (error) {
