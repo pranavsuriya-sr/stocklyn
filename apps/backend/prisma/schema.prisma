@@ -32,4 +32,5 @@ model Products{
   category           String 
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
+  price              Decimal  @default(0)
 }
