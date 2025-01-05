@@ -1,6 +1,11 @@
+import cors from "cors";
 import express from "express";
+import { productRoute } from "./routes/product-route/product-route";
 
 const app = express();
+
+app.use(cors());
+app.use("/product", productRoute);
 
 const PORT = 5000;
 app.listen(PORT, () => {
