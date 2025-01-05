@@ -26,12 +26,11 @@ export default function Home() {
   useEffect(() => {
     FetchProductLists();
   }, []);
-  console.log("fetched details " + products);
 
   const navigate = useNavigate();
 
-  function HandleProductClick(productId: string) {
-    navigate(`/product/${productId}`);
+  function HandleProductClick({ product }: { product: Products }) {
+    navigate(`/product/${product.id}`, { state: product });
   }
 
   return (
@@ -42,12 +41,12 @@ export default function Home() {
             Our best collection
           </h2>
 
-          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 hover:cursor-pointer">
             {products.map((product) => (
               <div
                 key={product.id}
                 className="group relative"
-                onClick={() => HandleProductClick(product.id)}
+                onClick={() => HandleProductClick({ product })}
               >
                 <img
                   alt={product.name}
@@ -61,7 +60,7 @@ export default function Home() {
                       {product.name}
                     </h3>
                     <p className="text-sm font-medium text-gray-900">
-                      {product.price}
+                      ₹{product.price}
                     </p>
                   </div>
                 </div>

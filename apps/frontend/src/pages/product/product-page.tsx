@@ -1,6 +1,7 @@
 import { Radio, RadioGroup } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -54,6 +55,7 @@ const product = {
   details:
     'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 };
+
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
 function classNames(...classes: any) {
@@ -61,8 +63,13 @@ function classNames(...classes: any) {
 }
 
 export default function Example() {
+  const location = useLocation();
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const { productId } = useParams();
+
+  const productDetails = location.state;
+  console.log(productDetails);
 
   return (
     <div className="bg-white p-28">
@@ -72,28 +79,6 @@ export default function Example() {
             role="list"
             className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
-            {product.breadcrumbs.map((breadcrumb) => (
-              <li key={breadcrumb.id}>
-                <div className="flex items-center">
-                  <a
-                    href={breadcrumb.href}
-                    className="mr-2 text-sm font-medium text-gray-900"
-                  >
-                    {breadcrumb.name}
-                  </a>
-                  <svg
-                    fill="currentColor"
-                    width={16}
-                    height={20}
-                    viewBox="0 0 16 20"
-                    aria-hidden="true"
-                    className="h-5 w-4 text-gray-300"
-                  >
-                    <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                  </svg>
-                </div>
-              </li>
-            ))}
             <li className="text-sm">
               <a
                 href={product.href}
@@ -109,24 +94,24 @@ export default function Example() {
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <img
-            alt={product.images[0].alt}
+            alt="tshirt" //{/*product.images[0].alt*/}
             src={product.images[0].src}
             className="hidden size-full rounded-lg object-cover lg:block"
           />
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <img
-              alt={product.images[1].alt}
+              alt="tshirt" //{product.images[1].alt}
               src={product.images[1].src}
               className="aspect-[3/2] w-full rounded-lg object-cover"
             />
             <img
-              alt={product.images[2].alt}
+              alt="tshirt" //{product.images[2].alt}
               src={product.images[2].src}
               className="aspect-[3/2] w-full rounded-lg object-cover"
             />
           </div>
           <img
-            alt={product.images[3].alt}
+            alt="tshirt" //{product.images[3].alt}
             src={product.images[3].src}
             className="aspect-[4/5] size-full object-cover sm:rounded-lg lg:aspect-auto"
           />
