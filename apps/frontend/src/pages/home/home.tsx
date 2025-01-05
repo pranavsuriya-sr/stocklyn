@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 const products = [
   {
     id: 1,
@@ -82,6 +84,12 @@ const products = [
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  function HandleProductClick(productId: Number) {
+    navigate(`/product/${productId}`);
+  }
+
   return (
     <div className="bg-white pt-20">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -94,7 +102,7 @@ export default function Home() {
             <div
               key={product.id}
               className="group relative"
-              onClick={() => console.log("hello")}
+              onClick={() => HandleProductClick(product.id)}
             >
               <img
                 alt={product.imageAlt}

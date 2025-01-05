@@ -40,7 +40,7 @@ const App = () => {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [location]);
@@ -70,7 +70,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/product/:productid" element={<ProductPage />} />
+        <Route path="/product/:productId" element={<ProductPage />} />
       </Routes>
     </>
   );
