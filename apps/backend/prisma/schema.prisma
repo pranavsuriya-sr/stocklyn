@@ -33,7 +33,7 @@ model Products{
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   price              Decimal  @default(0)
-  colors             String   @default("white")
+  colors             String[]
   sizes              String   @default("M")
   highlights         String[] 
   details            String  @default("")

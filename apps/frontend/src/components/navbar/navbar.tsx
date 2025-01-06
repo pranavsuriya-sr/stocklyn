@@ -2,11 +2,13 @@ import { useSession } from "@/context/session-context";
 import { cn } from "@/lib/utils";
 import { ShoppingCart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Badge } from "../ui/badge";
 import ViewProfile from "./navbar-components/view-profile";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { session } = useSession();
+  const cartCount = 1;
 
   return (
     <nav
@@ -72,7 +74,14 @@ export default function Navbar() {
                 "rounded-lg shadow hover:bg-blue-700 transition-colors"
               )}
             >
-              <ShoppingCart />
+              <div className="relative">
+                {cartCount > 0 && (
+                  <Badge className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                    {cartCount}
+                  </Badge>
+                )}
+                <ShoppingCart size={28} className="text-gray-800" />
+              </div>
             </button>
           </Link>
 
