@@ -12,6 +12,7 @@ import {
 import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Products } from "../home/home";
 
 const addItemToCart = useCartStore.getState().AddItem;
 
@@ -20,10 +21,20 @@ const ProductPage = ({}) => {
   const location = useLocation();
   const product = location.state;
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
+  const [cartProducts, setCartProducts] = useState<Products[] | null>(null);
+  const products = useCartStore((state) => {
+    return state.GetCartProducts();
+  });
 
   const HandleAddToCart = () => {
     addItemToCart(product);
+    HandleGetAllCartItems();
   };
+
+  const HandleGetAllCartItems = () => {
+    setCartProducts(products);
+  };
+  console.log(cartProducts);
 
   return (
     <div className="bg-white  p-28 ">
@@ -90,19 +101,22 @@ const ProductPage = ({}) => {
                 Add to cart
               </Button>
             </SheetTrigger>
-            <SheetContent>
+            <SheetContent className="overflow-y-auto">
               <SheetHeader>
                 <SheetTitle>Your Cart Items!</SheetTitle>
                 <SheetDescription>
                   Here are all the items in your cart currently
                 </SheetDescription>
                 your cart available items are :
+                {cartProducts?.map((product) => {
+                  return <img src={product.imageUrl[0]} key={product.id}></img>;
+                })}
               </SheetHeader>
-              <SheetFooter>
+              <SheetFooter className="pt-8">
                 <SheetClose asChild>
                   <Button
                     type="submit"
-                    className="bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition"
+                    className="bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition "
                   >
                     Close Cart
                   </Button>
