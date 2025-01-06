@@ -1,4 +1,14 @@
-import CartSheet from "@/components/cart-sheet/cart-sheet";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -70,7 +80,36 @@ const ProductPage = ({}) => {
               );
             })}
           </div>
-          <CartSheet />
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition"
+                onClick={() => HandleAddToCart()}
+              >
+                Add to cart
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Your Cart Items!</SheetTitle>
+                <SheetDescription>
+                  Here are all the items in your cart currently
+                </SheetDescription>
+                your cart available items are :
+              </SheetHeader>
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button
+                    type="submit"
+                    className="bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition"
+                  >
+                    Close Cart
+                  </Button>
+                </SheetClose>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
           <div className="border-t mt-6 pt-4">
             {["Features", "Care", "Shipping", "Returns"].map((section) => (
               <div
