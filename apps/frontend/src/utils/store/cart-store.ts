@@ -11,8 +11,14 @@ interface CartStore {
 export const useCartStore = create<CartStore>((set, get) => ({
   products: [],
   GetCount: () => get().products.length,
-  AddItem: (product: Products) => {
-    set({ products: [...get().products, product] });
+  AddItem: (newProduct: Products) => {
+    const productExists = get().products.some(
+      (product) => product.id === newProduct.id
+    );
+
+    if (!productExists) {
+      set({ products: [...get().products, newProduct] });
+    }
   },
   GetCartProducts: () => get().products,
 }));

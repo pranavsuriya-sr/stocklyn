@@ -1,3 +1,4 @@
+import CartSheet from "@/components/cart-sheet/cart-sheet";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -69,13 +70,7 @@ const ProductPage = ({}) => {
               );
             })}
           </div>
-          <button
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition"
-            disabled={product.stockQuantity === 0}
-            onClick={() => HandleAddToCart()}
-          >
-            Add to cart
-          </button>
+          <CartSheet />
           <div className="border-t mt-6 pt-4">
             {["Features", "Care", "Shipping", "Returns"].map((section) => (
               <div
