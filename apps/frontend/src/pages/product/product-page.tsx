@@ -110,11 +110,11 @@ export default function Example() {
               className="aspect-[3/2] w-full rounded-lg object-cover"
             />
           </div>
-          <img
+          {/* <img
             alt="tshirt" //{product.images[3].alt}
             src={product.images[3].src}
             className="aspect-[4/5] size-full object-cover sm:rounded-lg lg:aspect-auto"
-          />
+          /> */}
         </div>
 
         {/* Product info */}
@@ -276,7 +276,7 @@ export default function Example() {
               </div>
             </div>
 
-            <div className="mt-10">
+            {/* <div className="mt-10">
               <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
 
               <div className="mt-4">
@@ -288,15 +288,15 @@ export default function Example() {
                   ))}
                 </ul>
               </div>
-            </div>
+            </div> */}
 
-            <div className="mt-10">
+            {/* <div className="mt-10">
               <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
               <div className="mt-4 space-y-6">
                 <p className="text-sm text-gray-600">{product.details}</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
