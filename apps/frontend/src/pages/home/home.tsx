@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface Products {
+export interface Products {
   id: string;
   name: string;
   imageUrl: string[];
@@ -38,7 +38,6 @@ export default function Home() {
   function HandleProductClick({ product }: { product: Products }) {
     navigate(`/product/${product.id}`, { state: product });
   }
-  console.log(products);
 
   return (
     products && (

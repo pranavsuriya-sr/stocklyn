@@ -1,5 +1,6 @@
 import { useSession } from "@/context/session-context";
 import { cn } from "@/lib/utils";
+import { useCartStore } from "@/utils/store/cart-store";
 import { ShoppingCart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "../ui/badge";
@@ -8,7 +9,7 @@ import ViewProfile from "./navbar-components/view-profile";
 export default function Navbar() {
   const navigate = useNavigate();
   const { session } = useSession();
-  const cartCount = 1;
+  const cartCount = useCartStore((state) => state.getCount());
 
   return (
     <nav

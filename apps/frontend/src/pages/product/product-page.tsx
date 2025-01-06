@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-//add accordions here
+//add accordions here // whole array of items are being passed we dont need that
 const ProductPage = ({}) => {
   const location = useLocation();
 
