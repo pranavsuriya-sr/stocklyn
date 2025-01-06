@@ -9,7 +9,7 @@ import ViewProfile from "./navbar-components/view-profile";
 export default function Navbar() {
   const navigate = useNavigate();
   const { session } = useSession();
-  const cartCount = useCartStore((state) => state.getCount());
+  const cartCount = useCartStore((state) => state.products.length);
 
   return (
     <nav
