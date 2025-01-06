@@ -9,6 +9,12 @@ interface Products {
   price: number;
   productDescription: string;
   category: string;
+  colors: [];
+  sizes: string;
+  highlights: string[];
+  details: string;
+  reviews: number;
+  stockQuantity: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -32,6 +38,7 @@ export default function Home() {
   function HandleProductClick({ product }: { product: Products }) {
     navigate(`/product/${product.id}`, { state: product });
   }
+  console.log(products);
 
   return (
     products && (

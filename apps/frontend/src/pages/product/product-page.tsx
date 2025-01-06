@@ -51,11 +51,17 @@ const ProductPage = ({}) => {
           </div>
           <p className="text-gray-700">{product.productDescription}</p>
           <div className="flex items-center space-x-4">
-            <span className="font-medium text-gray-700">Color:</span>
-            <div
-              className="w-6 h-6 rounded-full border"
-              style={{ backgroundColor: product.colors }}
-            />
+            <span className="font-medium text-gray-700">Available Color:</span>
+
+            {product.colors.map((color: string) => {
+              return (
+                <div
+                  key={color}
+                  className="w-6 h-6 rounded-full border"
+                  style={{ backgroundColor: `#${color}` }}
+                ></div>
+              );
+            })}
           </div>
           <button
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition"
