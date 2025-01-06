@@ -1,12 +1,18 @@
+import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 //add accordions here // whole array of items are being passed we dont need that
 const ProductPage = ({}) => {
   const location = useLocation();
-
   const product = location.state;
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
+
+  const addItemToCart = useCartStore((state) => state.addItem);
+
+  const HandleAddToCart = () => {
+    addItemToCart(product);
+  };
 
   return (
     <div className="bg-white  p-28 ">
@@ -66,6 +72,7 @@ const ProductPage = ({}) => {
           <button
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition"
             disabled={product.stockQuantity === 0}
+            onClick={() => HandleAddToCart()}
           >
             Add to cart
           </button>
