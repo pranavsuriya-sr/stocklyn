@@ -2,13 +2,13 @@ import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-//add accordions here // whole array of items are being passed we dont need that
+const addItemToCart = useCartStore.getState().AddItem;
+
+//add accordions here
 const ProductPage = ({}) => {
   const location = useLocation();
   const product = location.state;
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
-
-  const addItemToCart = useCartStore((state) => state.addItem);
 
   const HandleAddToCart = () => {
     addItemToCart(product);

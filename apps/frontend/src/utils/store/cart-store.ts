@@ -3,14 +3,16 @@ import { create } from "zustand";
 
 interface CartStore {
   products: Products[];
-  getCount: () => number;
-  addItem: (product: Products) => void;
+  GetCount: () => number;
+  AddItem: (product: Products) => void;
+  GetCartProducts: () => Products[];
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   products: [],
-  getCount: () => get().products.length,
-  addItem: (product: Products) => {
+  GetCount: () => get().products.length,
+  AddItem: (product: Products) => {
     set({ products: [...get().products, product] });
   },
+  GetCartProducts: () => get().products,
 }));

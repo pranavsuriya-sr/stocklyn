@@ -10,7 +10,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { session } = useSession();
   const cartCount = useCartStore((state) => {
-    return state.getCount();
+    return state.GetCount();
   });
 
   return (
