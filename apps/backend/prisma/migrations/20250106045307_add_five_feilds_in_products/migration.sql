@@ -1,7 +1,0 @@
--- AlterTable
-ALTER TABLE "Products" ADD COLUMN     "colors" TEXT NOT NULL DEFAULT 'white',
-ADD COLUMN     "details" TEXT NOT NULL DEFAULT '',
-ADD COLUMN     "highlights" TEXT[],
-ADD COLUMN     "reviews" DECIMAL(65,30) NOT NULL DEFAULT 0,
-ADD COLUMN     "sizes" TEXT NOT NULL DEFAULT 'M',
-ADD COLUMN     "stockQuantity" INTEGER NOT NULL DEFAULT 0;

@@ -24,9 +24,12 @@ model Products {
   colors             String[]
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model users {
-  id    String  @id @db.Uuid
-  email String?
-  name  String?
+model users{
+  id               String      @id @default(cuid())
+  name             String 
+  email            String 
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  hashedPassword   String      
 }
+
