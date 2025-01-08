@@ -21,5 +21,11 @@ model Products {
   reviews            Decimal  @default(0)
   sizes              String   @default("M")
   stockQuantity      Int      @default(0)
-  colors             String[]
+  colors             String[] 
+}
+
+model Users{
+  id        String @id @default(cuid())
+  name      String
+  email     String
 }
