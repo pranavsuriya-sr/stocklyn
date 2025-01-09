@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import express from "express";
-import authRoute from "./routes/auth/signup.route";
+import authRoute from "./routes/auth/auth.route";
 import { productRoute } from "./routes/product/product.route";
 
 const app = express();
