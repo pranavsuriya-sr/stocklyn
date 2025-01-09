@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2020", // Output JavaScript language level
-    "module": "CommonJS", // Module type for Node.js
-    "rootDir": "./src", // Base directory for TypeScript files
-    "outDir": "./dist", // Directory for compiled JavaScript files
-    "strict": true, // Enable all strict type-checking options
-    "esModuleInterop": true, // Allow CommonJS modules to be imported as ES modules
-    "moduleResolution": "node", // Resolve modules like Node.js
-    "typeRoots": ["./node_modules/@types"], // Type definition locations
-    "skipLibCheck": true // Skip checking declaration files
+    "target": "ES2020",
+    "module": "ESNext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types"],
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"], // Include all TypeScript files in the src folder
-  "exclude": ["node_modules", "dist"] // Files to exclude
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
