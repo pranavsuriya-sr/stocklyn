@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import express from "express";
+import { GenerateJwtToken, userType } from "../../service/jwt";
 
 const authRoute = express.Router();
 
@@ -101,11 +102,14 @@ authRoute.post("/login", async (req, res) => {
       return;
     }
 
-    const userWithoutPassword = { ...user, hashedPassword: undefined };
+    const userData: userType = { name: user.name, email: user.email };
+
+    const token = GenerateJwtToken(userData);
 
     res.status(200).json({
       message: "Login successful!",
-      user: userWithoutPassword,
+      token,
+      userData,
     });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
