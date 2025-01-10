@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { supabaseClient } from "@/utils/supabase-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Session } from "@supabase/supabase-js";
+import Cookies from "js-cookie";
 import { LogIn } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -32,12 +33,14 @@ const Login = () => {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    supabaseClient.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if (session) {
-        navigate("/");
-      }
-    });
+    // supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    //   setSession(session);
+    //   if (session) {
+    //     navigate("/");
+    //   }
+    // });
+
+    Cookies.get("authToken");
   }, [session]);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({

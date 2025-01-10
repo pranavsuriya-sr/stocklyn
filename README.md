@@ -9,19 +9,6 @@ A full-stack e-commerce application (in development)
 - [ ] Connect frontend to Docker
 - [ ] Create products route and populate the home page
 
-## Getting Started
-
-1. Clone the repository
-
-```bash
-git clone https://github.com/yourusername/stocklyn.git
-cd stocklyn
-```
-
-2. Install dependencies for both frontend and backend
-3. Configure Docker environment
-4. Run the development servers
-
 ## Features
 
 - E-commerce platform with product catalog
