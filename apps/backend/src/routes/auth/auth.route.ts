@@ -1,15 +1,16 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
 import express from "express";
-import { GenerateJwtToken, userType } from "../../service/jwt";
+import { AuthController } from "../../controllers/auth.controller";
+import { errorHandler } from "../../middlewares/error-handlers";
+import { validateRequest } from "../../middlewares/validateRequest";
+import { loginSchema, signupSchema } from "../../validators/auth.validator";
 
 const authRoute = express.Router();
 
-const prismaClient = new PrismaClient();
+authRoute.post("/signup", validateRequest(signupSchema), AuthController.signup);
 
-authRoute.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body;
+authRoute.post("/login", validateRequest(loginSchema), AuthController.login);
 
+<<<<<<< HEAD
   if (!name || !email || !password) {
     res.status(400).json({ error: "Missing required fields" });
     return;
@@ -129,5 +130,8 @@ authRoute.post("/login", async (req, res) => {
     await prismaClient.$disconnect();
   }
 });
+=======
+authRoute.use(errorHandler);
+>>>>>>> 3eee73290d7a8eecf842b55bbf224e02f1b555e5
 
 export default authRoute;
