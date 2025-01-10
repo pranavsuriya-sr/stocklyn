@@ -77,6 +77,7 @@ authRoute.post("/login", async (req, res) => {
     res.status(400).json({
       error: "Missing required fields",
     });
+    return;
   }
 
   try {
