@@ -106,9 +106,12 @@ authRoute.post("/login", async (req, res) => {
 
     const token = GenerateJwtToken(userData);
 
+    res.cookie("authToken", token, {
+      httpOnly: true,
+    });
+
     res.status(200).json({
       message: "Login successful!",
-      token,
       userData,
     });
   } catch (error) {
@@ -122,7 +125,7 @@ authRoute.post("/login", async (req, res) => {
     }
 
     res.status(500).json({
-      error: "Failed to login",
+      error: error.message,
     });
     return;
   } finally {
