@@ -40,7 +40,13 @@ const Login = () => {
     //   }
     // });
 
-    Cookies.get("authToken");
+    const token = Cookies.get("authToken");
+
+    if (token === undefined) {
+      navigate("/login");
+    }
+
+    console.log(token);
   }, [session]);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({

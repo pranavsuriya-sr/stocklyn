@@ -1,5 +1,4 @@
-import { supabaseClient } from "@/utils/supabase-client";
-import { Session } from "@supabase/supabase-js";
+import axios from "axios";
 import {
   createContext,
   ReactNode,
@@ -9,29 +8,37 @@ import {
 } from "react";
 
 interface SessionContextType {
-  session: Session | null;
+  session: Boolean | null;
   isLoading: boolean;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
-  const [session, setSession] = useState<Session | null>(null);
+  const api = axios.create({
+    baseURL: "http://localhost:5000/auth/isVerified",
+    timeout: 10000,
+  });
+
+  const [session, setSession] = useState<Boolean | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    supabaseClient.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setIsLoading(false);
-    });
-
-    const {
-      data: { subscription },
-    } = supabaseClient.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
+    setIsLoading(true);
+    api.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        setSession(true);
+        setIsLoading(false);
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
   }, []);
 
   return (
