@@ -9,9 +9,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { supabaseClient } from "@/utils/supabase-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Session } from "@supabase/supabase-js";
+import axios from "axios";
 import Cookies from "js-cookie";
 import { LogIn } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -30,23 +29,15 @@ const loginSchema = z.object({
 const Login = () => {
   const navigate = useNavigate();
 
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<Boolean | null>(null);
 
   useEffect(() => {
-    // supabaseClient.auth.getSession().then(({ data: { session } }) => {
-    //   setSession(session);
-    //   if (session) {
-    //     navigate("/");
-    //   }
-    // });
-
     const token = Cookies.get("authToken");
-
     if (token === undefined) {
       navigate("/login");
+      return;
     }
-
-    console.log(token);
+    navigate("/");
   }, [session]);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -59,19 +50,20 @@ const Login = () => {
 
   async function onSubmit(info: z.infer<typeof loginSchema>) {
     const { email, password } = info;
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      console.error("Error logging in:", error.message);
-      alert("Error logging in");
-      return;
-    }
-
-    if (data.session) {
-      setSession(data.session);
+    try {
+      await axios.post(
+        "http://localhost:5000/auth/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      setSession(true);
+    } catch (error) {
+      console.log(error);
     }
   }
 

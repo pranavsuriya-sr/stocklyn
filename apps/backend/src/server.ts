@@ -14,9 +14,13 @@ declare global {
 }
 
 const app = express();
-
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 dotenv.config({ path: "../.env" });
-app.use(cors());
 app.use(express.json());
 app.use("/product", productRoute);
 app.use("/auth", authRoute);

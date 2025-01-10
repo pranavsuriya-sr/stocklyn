@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import {
   createContext,
   ReactNode,
@@ -17,7 +18,7 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
   const api = axios.create({
     baseURL: "http://localhost:5000/auth/isVerified",
-    timeout: 10000,
+    timeout: 1000,
   });
 
   const [session, setSession] = useState<Boolean | null>(null);
@@ -27,12 +28,13 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
     api.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem("token");
+        const token = Cookies.get("token");
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
+          setSession(true);
+          setIsLoading(false);
         }
-        setSession(true);
-        setIsLoading(false);
+
         return config;
       },
       (error) => {
