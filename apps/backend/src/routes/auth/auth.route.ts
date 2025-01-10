@@ -1,7 +1,8 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import express from "express";
-import { GenerateJwtToken, userType } from "../../service/jwt";
+import { GenerateJwtToken } from "../../service/jwt";
+import { userType } from "../../types/jwt";
 
 const authRoute = express.Router();
 
