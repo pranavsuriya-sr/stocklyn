@@ -3,6 +3,15 @@ import dotenv from "dotenv";
 import express from "express";
 import authRoute from "./routes/auth/auth.route";
 import { productRoute } from "./routes/product/product.route";
+import { AuthenticatedRequest } from "./types/jwt";
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: AuthenticatedRequest;
+    }
+  }
+}
 
 const app = express();
 

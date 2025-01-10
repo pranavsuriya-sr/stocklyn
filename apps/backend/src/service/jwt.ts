@@ -3,7 +3,11 @@ import { userType } from "../types/jwt";
 
 export const GenerateJwtToken = (data: userType) => {
   try {
-    const payload: userType = { email: data.email, name: data.name };
+    const payload: userType = {
+      email: data.email,
+      name: data.name,
+      // role: data.role,
+    };
     const token = jwt.sign(payload, process.env.JWT_SECRET!, {
       expiresIn: "1h",
     });

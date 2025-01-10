@@ -72,7 +72,7 @@ authRoute.post("/signup", async (req, res) => {
 });
 
 authRoute.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
   if (!email || !password) {
     res.status(400).json({
@@ -104,7 +104,10 @@ authRoute.post("/login", async (req, res) => {
       return;
     }
 
-    const userData: userType = { name: user.name, email: user.email };
+    const userData: userType = {
+      name: user.name,
+      email: user.email,
+    };
 
     const token = GenerateJwtToken(userData);
 
