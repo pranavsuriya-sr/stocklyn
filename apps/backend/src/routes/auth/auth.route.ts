@@ -56,7 +56,7 @@ authRoute.post("/signup", async (req, res) => {
 
     res.cookie("authToken", token, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "none",
     });
 
