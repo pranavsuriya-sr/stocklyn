@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -23,6 +24,7 @@ app.use(
 );
 dotenv.config({ path: "../.env" });
 app.use(express.json());
+app.use(cookieParser());
 app.use("/product", productRoute);
 app.use("/auth", authRoute);
 

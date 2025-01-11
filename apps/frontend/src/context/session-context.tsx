@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import {
   createContext,
   ReactNode,
@@ -8,59 +7,72 @@ import {
   useState,
 } from "react";
 
+interface User {
+  name: string;
+  email: string;
+}
+
 interface SessionContextType {
-  session: boolean | null;
-  user: any;
+  session: boolean;
+  user: User | null;
   isLoading: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
+const api = axios.create({
+  baseURL: "http://localhost:5000",
+  withCredentials: true,
+});
+
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
-  const [session, setSession] = useState<boolean | null>(null);
-  const [user, setUser] = useState<any>(null);
+  const [session, setSession] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const checkAuth = async () => {
+    try {
+      const response = await api.get("/auth/isVerified");
+      setSession(true);
+      setUser(response.data.user);
+    } catch (error) {
+      setSession(false);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await api.post("/auth/login", { email, password });
+      setUser(response.data.userData);
+      setSession(true);
+    } catch (error: any) {
+      throw new Error(error.response?.data?.error || "Login failed");
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await api.post("/auth/logout");
+      setSession(false);
+      setUser(null);
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   useEffect(() => {
-    const verifySession = async () => {
-      setIsLoading(true);
-      const token = Cookies.get("authToken");
-
-      if (!token) {
-        setSession(false);
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/auth/isVerified",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          setSession(true);
-          setUser(response.data.user);
-        } else {
-          setSession(false);
-        }
-      } catch (error: any) {
-        console.error("Session verification failed:", error.message);
-        setSession(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    verifySession();
+    checkAuth();
   }, []);
 
   return (
-    <SessionContext.Provider value={{ session, user, isLoading }}>
+    <SessionContext.Provider
+      value={{ session, user, isLoading, login, logout }}
+    >
       {children}
     </SessionContext.Provider>
   );

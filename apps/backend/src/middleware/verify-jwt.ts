@@ -7,17 +7,14 @@ export const VerifyJwtMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies?.authToken;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    res
-      .status(401)
-      .json({ error: "Authorization header is missing or invalid" });
+  console.log(req.cookies);
 
+  if (!token) {
+    res.status(401).json({ error: "Authentication token is missing" });
     return;
   }
-
-  const token = authHeader.split(" ")[1];
 
   const secret = process.env.JWT_SECRET;
 
@@ -30,8 +27,7 @@ export const VerifyJwtMiddleware = (
     req.user = decoded;
     next();
   } catch (error) {
-    console.error("JWT verification failed:", error.message);
+    console.error("JWT verification failed:", (error as Error).message);
     res.status(403).json({ error: "Invalid or expired token" });
-    return;
   }
 };

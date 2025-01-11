@@ -13,7 +13,6 @@ import { supabaseClient } from "@/utils/supabase-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Session } from "@supabase/supabase-js";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { CornerDownRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -58,7 +57,7 @@ const SignUp = () => {
   async function onSubmit(userInfo: z.infer<typeof loginSchema>) {
     const { name, email, password } = userInfo;
 
-    const user = await axios.post(
+    await axios.post(
       "http://localhost:5000/auth/signup",
       {
         name,
@@ -69,10 +68,7 @@ const SignUp = () => {
         withCredentials: true,
       }
     );
-    console.log(user);
   }
-
-  console.log(Cookies.get("authToken"));
 
   if (!session) {
     return (

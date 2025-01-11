@@ -1,21 +1,21 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import express from "express";
+import express, { Request, Response } from "express";
 import { VerifyJwtMiddleware } from "../../middleware/verify-jwt";
 import { GenerateJwtToken } from "../../service/jwt";
 import { userType } from "../../types/jwt";
 
 const authRoute = express.Router();
-
 const prismaClient = new PrismaClient();
 
-authRoute.post("/signup", async (req, res) => {
+authRoute.post("/signup", async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
     res.status(400).json({ error: "Missing required fields" });
     return;
   }
+
   if (password.length < 6) {
     res.status(400).json({
       error: "Password must be at least 6 characters long",
@@ -41,7 +41,7 @@ authRoute.post("/signup", async (req, res) => {
       data: {
         name,
         email,
-        hashedPassword: hashedPassword,
+        hashedPassword,
         profileUrl: "",
       },
       select: {
@@ -56,60 +56,42 @@ authRoute.post("/signup", async (req, res) => {
 
     res.cookie("authToken", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // ---->  7 days session
     });
 
-    res.status(201).json(userData);
+    res.status(201).json({ message: "Signup successful!", user: userData });
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2002") {
-        res.status(409).json({
-          error: "A user with this email already exists",
-        });
-        return;
-      }
-    }
-
-    res.status(500).json({
-      error: "Failed to create user",
-    });
-    return;
+    console.error("Signup error:", error);
+    res.status(500).json({ error: "Failed to create user" });
   } finally {
     await prismaClient.$disconnect();
   }
 });
 
-authRoute.post("/login", async (req, res) => {
-  const { email, password, role } = req.body;
+authRoute.post("/login", async (req: Request, res: Response) => {
+  const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({
-      error: "Missing required fields",
-    });
+    res.status(400).json({ error: "Missing required fields" });
     return;
   }
 
   try {
     const user = await prismaClient.users.findUnique({
-      where: {
-        email: email,
-      },
+      where: { email },
     });
 
     if (!user) {
-      res.status(404).json({
-        error: "User not found",
-      });
+      res.status(404).json({ error: "User not found" });
       return;
     }
 
     const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
 
     if (!passwordMatch) {
-      res.status(401).json({
-        error: "Invalid Credentials",
-      });
+      res.status(401).json({ error: "Invalid credentials" });
       return;
     }
 
@@ -122,6 +104,9 @@ authRoute.post("/login", async (req, res) => {
 
     res.cookie("authToken", token, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
@@ -129,26 +114,30 @@ authRoute.post("/login", async (req, res) => {
       userData,
     });
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2025") {
-        res.status(409).json({
-          error: "A user with this email doesnt exist",
-        });
-        return;
-      }
-    }
-
-    res.status(500).json({
-      error: error.message,
-    });
-    return;
+    console.error("Login error:", error);
+    res.status(500).json({ error: "Login failed" });
   } finally {
     await prismaClient.$disconnect();
   }
 });
 
-authRoute.get("/isVerified", VerifyJwtMiddleware, (req, res) => {
-  res.status(200).json({ message: "Token is valid", user: req.user });
+authRoute.post("/logout", (req: Request, res: Response) => {
+  res.cookie("authToken", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: "Logged out successfully" });
 });
+
+authRoute.get(
+  "/isVerified",
+  VerifyJwtMiddleware,
+  (req: Request, res: Response) => {
+    res.status(200).json({ message: "Token is valid", user: req.user });
+  }
+);
 
 export default authRoute;
