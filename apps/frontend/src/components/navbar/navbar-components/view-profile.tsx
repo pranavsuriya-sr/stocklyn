@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const ViewProfile = () => {
   const context = useSession();
-  const displayName = context?.session?.user.user_metadata.display_name;
+  const displayName = "hello";
   const navigate = useNavigate();
 
   const HandleSignOut = async () => {

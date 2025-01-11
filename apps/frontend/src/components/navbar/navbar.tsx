@@ -12,6 +12,7 @@ export default function Navbar() {
   const cartCount = useCartStore((state) => {
     return state.GetCount();
   });
+  console.log(session);
 
   return (
     <nav
@@ -33,7 +34,7 @@ export default function Navbar() {
       {/* Navigation Links */}
       <ul className="flex space-x-8">
         <li>
-          {session !== null && (
+          {session !== false && (
             <Link
               to="/home"
               className="text-gray-500 text-md font-medium hover:text-blue-600 transition-colors"
@@ -68,7 +69,7 @@ export default function Navbar() {
         </li>
       </ul>
 
-      {session !== null && (
+      {session === true && (
         <div className="flex space-x-4">
           <Link to="/">
             <button
@@ -94,7 +95,7 @@ export default function Navbar() {
 
       {/* Action Buttons */}
 
-      {session === null && (
+      {session === false && (
         <div className="flex space-x-4">
           <button
             className={cn(

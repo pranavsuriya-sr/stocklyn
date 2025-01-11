@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { LogIn } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -29,7 +29,7 @@ const loginSchema = z.object({
 const Login = () => {
   const navigate = useNavigate();
 
-  const [session, setSession] = useState<Boolean | null>(null);
+  //const [session, setSession] = useState<Boolean | null>(null);
 
   useEffect(() => {
     const token = Cookies.get("authToken");
@@ -38,7 +38,7 @@ const Login = () => {
       return;
     }
     navigate("/");
-  }, [session]);
+  }, []);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -50,6 +50,7 @@ const Login = () => {
 
   async function onSubmit(info: z.infer<typeof loginSchema>) {
     const { email, password } = info;
+
     try {
       await axios.post(
         "http://localhost:5000/auth/login",
@@ -61,7 +62,6 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      setSession(true);
     } catch (error) {
       console.log(error);
     }

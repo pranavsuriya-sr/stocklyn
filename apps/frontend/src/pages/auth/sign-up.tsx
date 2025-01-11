@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { supabaseClient } from "@/utils/supabase-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Session } from "@supabase/supabase-js";
+import axios from "axios";
 import { CornerDownRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -19,11 +20,11 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const loginSchema = z.object({
-  username: z
+  name: z
     .string()
     .nonempty()
-    .min(3, { message: "username must have at least 3 characters" })
-    .max(20, { message: "username must have at most 20 characters" }),
+    .min(3, { message: "name must have at least 3 characters" })
+    .max(20, { message: "name must have at most 20 characters" }),
   email: z.string().email({ message: "Enter a valid email" }).nonempty(),
   password: z
     .string()
@@ -47,32 +48,28 @@ const SignUp = () => {
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       password: "",
     },
   });
 
   async function onSubmit(userInfo: z.infer<typeof loginSchema>) {
-    const { data, error } = await supabaseClient.auth.signUp({
-      email: userInfo.email,
-      password: userInfo.password,
-      options: {
-        data: {
-          display_name: userInfo.username,
-        },
+    const { name, email, password } = userInfo;
+
+    const user = await axios.post(
+      "http://localhost:5000/auth/signup",
+      {
+        name,
+        email,
+        password,
       },
-    });
+      {
+        withCredentials: true,
+      }
+    );
 
-    if (error) {
-      console.error("Signup failed:", error.message);
-      alert(error.message);
-      return;
-    }
-
-    if (data.session) {
-      setSession(data.session);
-    }
+    console.log(user);
   }
 
   if (!session) {
@@ -87,10 +84,10 @@ const SignUp = () => {
             >
               <FormField
                 control={loginForm.control}
-                name="username"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl ">Username</FormLabel>
+                    <FormLabel className="text-xl ">Display Name</FormLabel>
                     <FormControl>
                       <Input placeholder="username" {...field} />
                     </FormControl>

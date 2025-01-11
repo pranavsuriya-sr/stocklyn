@@ -9,42 +9,58 @@ import {
 } from "react";
 
 interface SessionContextType {
-  session: Boolean | null;
+  session: boolean | null;
+  user: any;
   isLoading: boolean;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
-  const api = axios.create({
-    baseURL: "http://localhost:5000/auth/isVerified",
-    timeout: 1000,
-  });
-
-  const [session, setSession] = useState<Boolean | null>(null);
+  const [session, setSession] = useState<boolean | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    api.interceptors.request.use(
-      (config) => {
-        const token = Cookies.get("token");
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-          setSession(true);
-          setIsLoading(false);
-        }
+    const verifySession = async () => {
+      setIsLoading(true);
+      const token = Cookies.get("authToken");
 
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
+      if (!token) {
+        setSession(false);
+        setIsLoading(false);
+        return;
       }
-    );
+
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/auth/isVerified",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          setSession(true);
+          setUser(response.data.user);
+        } else {
+          setSession(false);
+        }
+      } catch (error: any) {
+        console.error("Session verification failed:", error.message);
+        setSession(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    verifySession();
   }, []);
 
   return (
-    <SessionContext.Provider value={{ session, isLoading }}>
+    <SessionContext.Provider value={{ session, user, isLoading }}>
       {children}
     </SessionContext.Provider>
   );

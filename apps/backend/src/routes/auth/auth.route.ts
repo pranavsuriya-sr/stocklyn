@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import express from "express";
+import { VerifyJwtMiddleware } from "../../middleware/verify-jwt";
 import { GenerateJwtToken } from "../../service/jwt";
 import { userType } from "../../types/jwt";
 
@@ -36,7 +37,7 @@ authRoute.post("/signup", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await prismaClient.users.create({
+    const userData = await prismaClient.users.create({
       data: {
         name,
         email,
@@ -51,7 +52,13 @@ authRoute.post("/signup", async (req, res) => {
       },
     });
 
-    res.status(201).send(user);
+    const token = GenerateJwtToken(userData);
+
+    res.cookie("authToken", token, {
+      httpOnly: true,
+    });
+
+    res.status(201).json(userData);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
@@ -136,6 +143,10 @@ authRoute.post("/login", async (req, res) => {
   } finally {
     await prismaClient.$disconnect();
   }
+});
+
+authRoute.get("/isVerified", VerifyJwtMiddleware, (req, res) => {
+  res.status(200).json({ message: "Token is valid", user: req.user });
 });
 
 export default authRoute;
