@@ -12,7 +12,6 @@ export default function Navbar() {
   const cartCount = useCartStore((state) => {
     return state.GetCount();
   });
-  console.log(session);
 
   return (
     <nav
