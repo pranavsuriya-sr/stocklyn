@@ -67,7 +67,7 @@ const ProductPage = ({}) => {
         <div className="space-y-4">
           <h1 className="text-2xl font-bold text-gray-900">{product.name}</h1>
           <p className="text-lg font-semibold text-gray-700">
-            ${product.price}
+            ₹{product.price}
           </p>
           <div className="flex items-center">
             <span className="text-gray-700">Stock: </span>
@@ -118,7 +118,7 @@ const ProductPage = ({}) => {
                 <SheetDescription>
                   Here are all the items in your cart currently
                 </SheetDescription>
-                your cart available items are :
+
                 {cartProducts?.map((product) => {
                   return (
                     <div key={product.id} className="mb-4">
@@ -130,16 +130,37 @@ const ProductPage = ({}) => {
                             className="w-24 h-24 object-cover rounded-lg border border-gray-200"
                           />
                           <div className="flex-1">
-                            <h3 className="font-semibold text-lg text-gray-800">
-                              {product.name}
-                            </h3>
+                            <div className="flex items-center justify-between">
+                              <h3 className="font-semibold text-lg text-gray-800">
+                                {product.name}
+                              </h3>
+                              <button className=" text-red-600 hover:text-red-800 text-sm font-medium">
+                                Remove
+                              </button>
+                            </div>
+
                             <div className="mt-2 flex justify-between items-center">
                               <span className="text-indigo-600 font-medium">
-                                ${product.price}
+                                ₹{product.price}
                               </span>
                               <span className="text-sm text-gray-500">
-                                Quantity: 1
+                                Quantity:{" "}
+                                <select
+                                  className="ml-2 border rounded-md px-2 py-1 text-sm bg-white"
+                                  defaultValue={1}
+                                >
+                                  {[...Array(10)].map((_, i) => (
+                                    <option key={i + 1} value={i + 1}>
+                                      {i + 1}
+                                    </option>
+                                  ))}
+                                </select>
                               </span>
+                            </div>
+                            <div className="text-xs mt-2">
+                              <button className="pt-1 hover:text-gray-500">
+                                View Product
+                              </button>
                             </div>
                           </div>
                         </div>
