@@ -19,6 +19,7 @@ interface SessionContextType {
   login: (email: string, password: string) => Promise<void>;
   SignUp: (name: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  checkAuth: () => Promise<void>;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
@@ -86,7 +87,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <SessionContext.Provider
-      value={{ session, user, isLoading, login, logout, SignUp }}
+      value={{ session, user, isLoading, login, logout, SignUp, checkAuth }}
     >
       {children}
     </SessionContext.Provider>

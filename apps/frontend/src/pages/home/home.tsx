@@ -1,3 +1,4 @@
+import { useSession } from "@/context/session-context";
 import { ProductsType } from "@/types/product-type";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -5,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState<ProductsType[]>([]);
+  const { checkAuth, session } = useSession();
+  const navigate = useNavigate();
 
   const FetchProductLists = async () => {
     try {
@@ -17,10 +20,12 @@ export default function Home() {
   };
 
   useEffect(() => {
+    checkAuth();
+    if (session == false) {
+      navigate("/login");
+    }
     FetchProductLists();
   }, []);
-
-  const navigate = useNavigate();
 
   function HandleProductClick({ product }: { product: ProductsType }) {
     navigate(`/product/${product.id}`, { state: product });
