@@ -62,7 +62,11 @@ const ProductPage = ({}) => {
               );
             })}
           </div>
-          <CartSheet />
+          <CartSheet>
+            <button className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transitio">
+              Add to Cart
+            </button>
+          </CartSheet>
           <div className="border-t mt-6 pt-4">
             {["Features", "Care", "Shipping", "Returns"].map((section) => (
               <div

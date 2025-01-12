@@ -11,12 +11,12 @@ import {
 } from "@/components/ui/sheet";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const addItemToCart = useCartStore.getState().AddItem;
 
-const CartSheet = () => {
+const CartSheet = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const product = location.state;
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
@@ -36,14 +36,8 @@ const CartSheet = () => {
   return (
     <>
       <Sheet onOpenChange={() => HandleGetAllCartItems()}>
-        <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition"
-            onClick={() => HandleAddToCart()}
-          >
-            Add to cart
-          </Button>
+        <SheetTrigger asChild onClick={() => HandleAddToCart()}>
+          {children}
         </SheetTrigger>
         <SheetContent className="overflow-y-auto">
           <SheetHeader>

@@ -1,17 +1,17 @@
-import { Products } from "@/pages/home/home";
+import { ProductsType } from "@/types/product-type";
 import { create } from "zustand";
 
 interface CartStore {
-  products: Products[];
+  products: ProductsType[];
   GetCount: () => number;
-  AddItem: (product: Products) => void;
-  GetCartProducts: () => Products[];
+  AddItem: (product: ProductsType) => void;
+  GetCartProducts: () => ProductsType[];
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   products: [],
   GetCount: () => get().products.length,
-  AddItem: (newProduct: Products) => {
+  AddItem: (newProduct: ProductsType) => {
     const productExists = get().products.some(
       (product) => product.id === newProduct.id
     );

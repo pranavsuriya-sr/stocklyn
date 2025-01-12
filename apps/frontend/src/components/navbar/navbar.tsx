@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useCartStore } from "@/utils/store/cart-store";
 import { ShoppingCart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import CartSheet from "../cart-sheet/cart-sheet";
 import { Badge } from "../ui/badge";
 import ViewProfile from "./navbar-components/view-profile";
 
@@ -70,23 +71,23 @@ export default function Navbar() {
 
       {session === true && (
         <div className="flex space-x-4">
-          <Link to="/">
-            <button
-              className={cn(
-                "px-4 py-3 text-md font-medium ",
-                "rounded-lg shadow hover:bg-blue-700 transition-colors"
+          <button
+            className={cn(
+              "px-4 py-3 text-md font-medium ",
+              "rounded-lg shadow hover:bg-blue-700 transition-colors"
+            )}
+          >
+            <div className="relative">
+              {cartCount > 0 && (
+                <Badge className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  {cartCount}
+                </Badge>
               )}
-            >
-              <div className="relative">
-                {cartCount > 0 && (
-                  <Badge className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                    {cartCount}
-                  </Badge>
-                )}
+              <CartSheet>
                 <ShoppingCart size={28} className="text-gray-800" />
-              </div>
-            </button>
-          </Link>
+              </CartSheet>
+            </div>
+          </button>
 
           <ViewProfile />
         </div>
