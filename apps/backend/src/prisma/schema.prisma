@@ -10,9 +10,10 @@ datasource db {
 model Products {
   id                 String   @id @default(cuid())
   name               String
+  displayImage       String
   imageUrl           String[]
   productDescription String
-  category           String
+  category           String   @default("product")
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   price              Decimal  @default(0)

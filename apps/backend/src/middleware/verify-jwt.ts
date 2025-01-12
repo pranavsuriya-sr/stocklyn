@@ -9,8 +9,6 @@ export const VerifyJwtMiddleware = (
 ) => {
   const token = req.cookies?.authToken;
 
-  console.log(req.cookies);
-
   if (!token) {
     res.status(401).json({ error: "Authentication token is missing" });
     return;
