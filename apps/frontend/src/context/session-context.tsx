@@ -58,7 +58,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
 
   const SignUp = async (name: string, email: string, password: string) => {
     try {
-      const response = await axios.post("http://localhost:5000/auth/signup", {
+      const response = await api.post("/auth/signup", {
         name,
         email,
         password,

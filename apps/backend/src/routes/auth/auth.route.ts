@@ -54,6 +54,8 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
 
     const token = GenerateJwtToken(userData);
 
+    console.log(token);
+
     res.cookie("authToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -61,7 +63,10 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // ---->  7 days session
     });
 
-    res.status(201).json({ message: "Signup successful!", user: userData });
+    res.status(201).json({
+      message: "Login successful!",
+      userData,
+    });
   } catch (error) {
     console.error("Signup error:", error);
     res.status(500).json({ error: "Failed to create user" });
