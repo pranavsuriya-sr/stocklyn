@@ -24,7 +24,10 @@ export default function Home() {
 
   const FetchProductLists = async () => {
     try {
-      const productDetails = await axios.get(import.meta.env.VITE_ALL_PRODUCTS);
+      const productDetails = await axios.get(
+        import.meta.env.VITE_ALL_PRODUCTS,
+        { withCredentials: true }
+      );
       setProducts(productDetails.data);
     } catch (error) {}
   };

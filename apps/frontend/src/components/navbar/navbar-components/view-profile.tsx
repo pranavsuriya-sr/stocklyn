@@ -7,22 +7,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useSession } from "@/context/session-context";
-import { supabaseClient } from "@/utils/supabase-client";
 import { User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const ViewProfile = () => {
-  const context = useSession();
-  const displayName = "hello";
+  const { logout, user } = useSession();
+  const displayName = user?.name;
   const navigate = useNavigate();
 
   const HandleSignOut = async () => {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) {
-      console.error("Error signing out: ", error.message);
-      return;
-    }
-
+    await logout();
     navigate("/login");
   };
 
@@ -37,7 +31,7 @@ const ViewProfile = () => {
           sideOffset={4}
         >
           <DropdownMenuLabel className="text-lg">
-            {displayName} Hello!😄
+            Hello! {displayName}😄
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>
