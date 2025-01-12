@@ -105,7 +105,17 @@ const ProductPage = ({}) => {
                 </SheetDescription>
                 your cart available items are :
                 {cartProducts?.map((product) => {
-                  return <img src={product.imageUrl[0]} key={product.id}></img>;
+                  return (
+                    <div>
+                      <div>
+                        <img
+                          src={product.imageUrl[0]}
+                          key={product.id}
+                          className="w-20 h-20 object-cover rounded-md border border-gray-200"
+                        />
+                      </div>
+                    </div>
+                  );
                 })}
               </SheetHeader>
               <SheetFooter className="pt-8">
