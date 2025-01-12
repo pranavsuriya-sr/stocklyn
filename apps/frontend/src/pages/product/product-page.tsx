@@ -9,10 +9,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Products } from "../home/home";
 
 const addItemToCart = useCartStore.getState().AddItem;
 
@@ -21,7 +21,7 @@ const ProductPage = ({}) => {
   const location = useLocation();
   const product = location.state;
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
-  const [cartProducts, setCartProducts] = useState<Products[] | null>(null);
+  const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
   const products = useCartStore((state) => {
     return state.GetCartProducts();
   });
@@ -34,7 +34,6 @@ const ProductPage = ({}) => {
   const HandleGetAllCartItems = () => {
     setCartProducts(products);
   };
-  console.log(cartProducts);
 
   return (
     <div className="bg-white  p-28 ">

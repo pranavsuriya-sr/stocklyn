@@ -9,12 +9,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { supabaseClient } from "@/utils/supabase-client";
+import { useSession } from "@/context/session-context";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Session } from "@supabase/supabase-js";
-import axios from "axios";
 import { CornerDownRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -33,17 +31,8 @@ const loginSchema = z.object({
 });
 
 const SignUp = () => {
+  const { session, SignUp } = useSession();
   const navigate = useNavigate();
-
-  const [session, setSession] = useState<Session | null>(null);
-  useEffect(() => {
-    supabaseClient.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if (session) {
-        navigate("/");
-      }
-    });
-  }, [session]);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -54,20 +43,23 @@ const SignUp = () => {
     },
   });
 
+  useEffect(() => {
+    if (session) {
+      navigate("/");
+    }
+  }, [session, navigate]);
+
   async function onSubmit(userInfo: z.infer<typeof loginSchema>) {
     const { name, email, password } = userInfo;
 
-    await axios.post(
-      "http://localhost:5000/auth/signup",
-      {
-        name,
-        email,
-        password,
-      },
-      {
-        withCredentials: true,
-      }
-    );
+    try {
+      await SignUp(name, email, password);
+      navigate("/");
+    } catch (error: any) {
+      loginForm.setError("root", {
+        message: error.message || "Login failed",
+      });
+    }
   }
 
   if (!session) {

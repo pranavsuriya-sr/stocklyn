@@ -15,14 +15,13 @@ declare global {
 }
 
 const app = express();
-
+dotenv.config();
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
   })
 );
-dotenv.config({ path: "../.env" });
 app.use(express.json());
 app.use(cookieParser());
 app.use("/product", productRoute);

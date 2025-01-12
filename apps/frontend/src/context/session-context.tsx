@@ -17,6 +17,7 @@ interface SessionContextType {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  SignUp: (name: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -55,6 +56,20 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const SignUp = async (name: string, email: string, password: string) => {
+    try {
+      const response = await axios.post("http://localhost:5000/auth/signup", {
+        name,
+        email,
+        password,
+      });
+      setUser(response.data.userData);
+      setSession(true);
+    } catch (error: any) {
+      throw new Error(error.response?.data?.error || "Sign Up failed");
+    }
+  };
+
   const logout = async () => {
     try {
       await api.post("/auth/logout");
@@ -71,7 +86,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <SessionContext.Provider
-      value={{ session, user, isLoading, login, logout }}
+      value={{ session, user, isLoading, login, logout, SignUp }}
     >
       {children}
     </SessionContext.Provider>
