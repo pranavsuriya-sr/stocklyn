@@ -9,6 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
@@ -21,6 +22,7 @@ const ProductPage = ({}) => {
   const location = useLocation();
   const product = location.state;
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
+  const { toast } = useToast();
 
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
   const products = useCartStore((state) => {
@@ -93,7 +95,20 @@ const ProductPage = ({}) => {
           </div>
           <Sheet onOpenChange={() => HandleGetAllCartItems()}>
             <SheetTrigger asChild onClick={() => HandleAddToCart()}>
-              <button className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transitio">
+              <button
+                className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transitio"
+                onClick={() =>
+                  toast({
+                    variant: "default",
+                    title: "Added item to the cart.",
+                    duration: 1000,
+                    style: {
+                      backgroundColor: "white",
+                      color: "black",
+                    },
+                  })
+                }
+              >
                 Add to Cart
               </button>
             </SheetTrigger>
@@ -106,13 +121,28 @@ const ProductPage = ({}) => {
                 your cart available items are :
                 {cartProducts?.map((product) => {
                   return (
-                    <div>
-                      <div>
-                        <img
-                          src={product.imageUrl[0]}
-                          key={product.id}
-                          className="w-20 h-20 object-cover rounded-md border border-gray-200"
-                        />
+                    <div key={product.id} className="mb-4">
+                      <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div className="flex items-center space-x-4">
+                          <img
+                            src={product.imageUrl[0]}
+                            alt={product.name}
+                            className="w-24 h-24 object-cover rounded-lg border border-gray-200"
+                          />
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-lg text-gray-800">
+                              {product.name}
+                            </h3>
+                            <div className="mt-2 flex justify-between items-center">
+                              <span className="text-indigo-600 font-medium">
+                                ${product.price}
+                              </span>
+                              <span className="text-sm text-gray-500">
+                                Quantity: 1
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
