@@ -1,26 +1,10 @@
+import { ProductsType } from "@/types/product-type";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export interface Products {
-  id: string;
-  name: string;
-  imageUrl: string[];
-  price: number;
-  productDescription: string;
-  category: string;
-  colors: [];
-  sizes: string;
-  highlights: string[];
-  details: string;
-  reviews: number;
-  stockQuantity: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export default function Home() {
-  const [products, setProducts] = useState<Products[]>([]);
+  const [products, setProducts] = useState<ProductsType[]>([]);
 
   const FetchProductLists = async () => {
     try {
@@ -38,7 +22,7 @@ export default function Home() {
 
   const navigate = useNavigate();
 
-  function HandleProductClick({ product }: { product: Products }) {
+  function HandleProductClick({ product }: { product: ProductsType }) {
     navigate(`/product/${product.id}`, { state: product });
   }
 
