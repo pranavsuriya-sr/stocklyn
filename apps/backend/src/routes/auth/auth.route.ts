@@ -54,8 +54,6 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
 
     const token = GenerateJwtToken(userData);
 
-    console.log(token);
-
     res.cookie("authToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

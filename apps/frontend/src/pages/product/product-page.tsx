@@ -90,7 +90,7 @@ const ProductPage = ({}) => {
               );
             })}
           </div>
-          <Sheet>
+          <Sheet onOpenChange={() => HandleGetAllCartItems()}>
             <SheetTrigger asChild>
               <Button
                 variant="outline"
