@@ -6,7 +6,7 @@ const cartRoute = express.Router();
 const prismaClient = new PrismaClient();
 
 cartRoute.post(
-  "/addProduct",
+  "/add",
   VerifyJwtMiddleware,
   async (req: Request, res: Response) => {
     const { productId, cartId } = req.body;
@@ -28,5 +28,26 @@ cartRoute.post(
     }
   }
 );
+
+cartRoute.post("/get", async (req, res) => {
+  const { cartId } = req.body;
+
+  try {
+    const cartInfo = await prismaClient.cart.findUnique({
+      where: { id: cartId },
+      select: {
+        products: true,
+      },
+    });
+    res.json({
+      message: "Fetched the products successfully",
+      cartItems: cartInfo,
+    });
+  } catch (error) {
+    res.status(500).send({
+      error: "An error occurred while fetching the cart information.",
+    });
+  }
+});
 
 export default cartRoute;
