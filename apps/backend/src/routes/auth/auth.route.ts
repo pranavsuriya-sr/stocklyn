@@ -37,7 +37,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userData = await prismaClient.users.create({
+    const user = await prismaClient.users.create({
       data: {
         name,
         email,
@@ -52,9 +52,9 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
       include: { cart: true },
     });
 
-    userData.hashedPassword = "";
+    user.hashedPassword = "";
 
-    const token = GenerateJwtToken(userData);
+    const token = GenerateJwtToken(user);
 
     res.cookie("authToken", token, {
       httpOnly: true,
@@ -65,7 +65,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
 
     res.status(201).json({
       message: "Login successful!",
-      userData,
+      user,
     });
   } catch (error) {
     console.error("Signup error:", error);
@@ -146,6 +146,26 @@ authRoute.get(
   VerifyJwtMiddleware,
   (req: Request, res: Response) => {
     res.status(200).json({ message: "Token is valid", user: req.user });
+  }
+);
+
+authRoute.post(
+  "/getinfo",
+  VerifyJwtMiddleware,
+  async (req: Request, res: Response) => {
+    const { id } = req.body;
+    try {
+      const user = await prismaClient.users.findFirst({
+        where: { id },
+        include: { cart: true },
+      });
+      res.status(201).json({ message: "fetched user detaisl", user });
+    } catch (error) {
+      console.error("fetching user at /getInfo error:", error);
+      res.status(500).json({ error: "fetching info failed" });
+    } finally {
+      await prismaClient.$disconnect();
+    }
   }
 );
 

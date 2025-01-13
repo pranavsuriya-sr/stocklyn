@@ -7,11 +7,19 @@ import {
   useState,
 } from "react";
 
+interface Cart {
+  id: string;
+  products: string[];
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 interface User {
   id: string;
   name: string;
   email: string;
-  cart: string;
+  cart: Cart;
 }
 
 interface SessionContextType {
@@ -36,11 +44,21 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const getUserInfo = async (id: string) => {
+    const response = await api.post(
+      "/auth/getinfo",
+      { id: id },
+      { withCredentials: true }
+    );
+
+    setUser(response.data.user);
+  };
+
   const checkAuth = async () => {
     try {
       const response = await api.get("/auth/isVerified");
       setSession(true);
-      setUser(response.data.user);
+      getUserInfo(response.data.user.id);
     } catch (error) {
       setSession(false);
       setUser(null);
@@ -52,7 +70,8 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string) => {
     try {
       const response = await api.post("/auth/login", { email, password });
-      setUser(response.data.userData);
+
+      setUser(response.data.user);
       setSession(true);
     } catch (error: any) {
       throw new Error(error.response?.data?.error || "Login failed");
@@ -66,7 +85,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
         email,
         password,
       });
-      setUser(response.data.userData);
+      setUser(response.data.user);
       setSession(true);
     } catch (error: any) {
       throw new Error(error.response?.data?.error || "Sign Up failed");
