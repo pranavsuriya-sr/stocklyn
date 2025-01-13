@@ -11,6 +11,7 @@ interface User {
   id: string;
   name: string;
   email: string;
+  cart: string;
 }
 
 interface SessionContextType {

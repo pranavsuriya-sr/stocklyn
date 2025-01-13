@@ -29,7 +29,7 @@ cartRoute.post(
   }
 );
 
-cartRoute.post("/get", async (req, res) => {
+cartRoute.post("/get", VerifyJwtMiddleware, async (req, res) => {
   const { cartId } = req.body;
 
   try {
@@ -41,7 +41,7 @@ cartRoute.post("/get", async (req, res) => {
     });
     res.json({
       message: "Fetched the products successfully",
-      cartItems: cartInfo,
+      cartInfo,
     });
   } catch (error) {
     res.status(500).send({

@@ -9,6 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
@@ -21,6 +22,7 @@ const addItemToCart = useCartStore.getState().AddItem;
 const ProductPage = ({}) => {
   const location = useLocation();
   const product = location.state;
+  const { user } = useSession();
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
   const { toast } = useToast();
 
@@ -30,7 +32,8 @@ const ProductPage = ({}) => {
   });
 
   const HandleAddToCart = () => {
-    addItemToCart(product);
+    console.log(user);
+    //addItemToCart(product.id, user?.cart);
     HandleGetAllCartItems();
   };
 

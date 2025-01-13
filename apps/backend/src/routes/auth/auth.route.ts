@@ -54,6 +54,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
         name: true,
         email: true,
         createdAt: true,
+        cart: true,
       },
     });
 
