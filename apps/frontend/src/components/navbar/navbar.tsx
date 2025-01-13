@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useSession } from "@/context/session-context";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
@@ -24,6 +25,7 @@ export default function Navbar() {
 
   const navigate = useNavigate();
   const { session } = useSession();
+  const { toast } = useToast();
   const cartCount = useCartStore((state) => {
     return state.GetCount();
   });
@@ -154,7 +156,12 @@ export default function Navbar() {
               "px-4 py-2 text-md font-medium border border-blue-600 text-blue-600",
               "rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
             )}
-            onClick={() => navigate("/signup")}
+            onClick={() => {
+              navigate("/signup");
+              toast({
+                description: "Your message has been sent.",
+              });
+            }}
           >
             Sign Up
           </button>
