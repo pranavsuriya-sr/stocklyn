@@ -49,14 +49,10 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
           },
         },
       },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        createdAt: true,
-        cart: true,
-      },
+      include: { cart: true },
     });
+
+    userData.hashedPassword = "";
 
     const token = GenerateJwtToken(userData);
 
@@ -90,6 +86,7 @@ authRoute.post("/login", async (req: Request, res: Response) => {
   try {
     const user = await prismaClient.users.findUnique({
       where: { email },
+      include: { cart: true },
     });
 
     if (!user) {
@@ -119,9 +116,11 @@ authRoute.post("/login", async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    user.hashedPassword = "";
+
     res.status(200).json({
       message: "Login successful!",
-      userData,
+      user,
     });
   } catch (error) {
     console.error("Login error:", error);
