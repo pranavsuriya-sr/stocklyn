@@ -40,7 +40,6 @@ model Users{
 
 
 model Cart{
-
   id          String     @id @default(cuid())
   user        Users      @relation(fields: [userId] , references: [id])
   userId      String     @unique

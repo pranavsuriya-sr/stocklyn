@@ -43,6 +43,11 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
         email,
         hashedPassword,
         profileUrl: "",
+        cart: {
+          create: {
+            products: [],
+          },
+        },
       },
       select: {
         id: true,
@@ -99,6 +104,7 @@ authRoute.post("/login", async (req: Request, res: Response) => {
     }
 
     const userData: userType = {
+      id: user.id,
       name: user.name,
       email: user.email,
     };
