@@ -42,7 +42,7 @@ const ProductPage = ({}) => {
   };
 
   const HandleGetAllCartItems = async () => {
-    //const allCartProducts = await api.("/")
+    const productDetails = await api.post("/product/productDetails");
 
     setCartProducts(products);
   };
