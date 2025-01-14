@@ -1,12 +1,11 @@
-import { ProductsType } from "@/types/product-type";
 import axios from "axios";
 import { create } from "zustand";
 
 interface CartStore {
-  products: ProductsType[];
+  products: [];
   GetCount: () => number;
   AddItem: (product: string, cartId: string | undefined) => void;
-  GetCartProducts: () => ProductsType[];
+  GetCartProducts: (cartId: string | undefined) => [];
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
@@ -19,9 +18,10 @@ export const useCartStore = create<CartStore>((set, get) => ({
       { withCredentials: true }
     );
 
-    console.log(response);
+    console.log(response.data.products);
+    set({ products: response.data.products });
   },
-  GetCartProducts: () => {
+  GetCartProducts: (productId: string | undefined) => {
     return get().products;
   },
 }));

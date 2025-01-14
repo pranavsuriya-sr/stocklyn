@@ -24,13 +24,13 @@ export default function Navbar() {
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
 
   const navigate = useNavigate();
-  const { session } = useSession();
+  const { session, user } = useSession();
   const { toast } = useToast();
   const cartCount = useCartStore((state) => {
     return state.GetCount();
   });
   const products = useCartStore((state) => {
-    return state.GetCartProducts();
+    return state.GetCartProducts(user?.cart.id);
   });
   const HandleGetAllCartItems = () => {
     setCartProducts(products);

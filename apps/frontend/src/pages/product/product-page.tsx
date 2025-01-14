@@ -13,10 +13,15 @@ import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
+import axios from "axios";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const addItemToCart = useCartStore.getState().AddItem;
+const api = axios.create({
+  baseURL: "http://localhost:5000",
+  withCredentials: true,
+});
 
 //add accordions here
 const ProductPage = ({}) => {
@@ -25,19 +30,20 @@ const ProductPage = ({}) => {
   const { user } = useSession();
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
   const { toast } = useToast();
-
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
+
   const products = useCartStore((state) => {
-    return state.GetCartProducts();
+    return state.GetCartProducts(user?.cart.id);
   });
 
   const HandleAddToCart = () => {
-    console.log(user);
-    //addItemToCart(product.id, user?.cart);
+    addItemToCart(product.id, user?.cart.id);
     HandleGetAllCartItems();
   };
 
-  const HandleGetAllCartItems = () => {
+  const HandleGetAllCartItems = async () => {
+    //const allCartProducts = await api.("/")
+
     setCartProducts(products);
   };
 
