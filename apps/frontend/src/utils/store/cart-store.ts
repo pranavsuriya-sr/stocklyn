@@ -5,12 +5,13 @@ interface CartStore {
   products: [];
   GetCount: () => number;
   AddItem: (product: string, cartId: string | undefined) => void;
-  GetCartProducts: (cartId: string | undefined) => [];
+  GetCartProducts: () => [];
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   products: [],
   GetCount: () => get().products.length,
+  //add item in the product in the products array in the
   AddItem: async (productId: string, cartId: string | undefined) => {
     const response = await axios.post(
       "http://localhost:5000/cart/add",
@@ -18,10 +19,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
       { withCredentials: true }
     );
 
-    console.log(response.data.products);
     set({ products: response.data.products });
   },
-  GetCartProducts: (productId: string | undefined) => {
+  GetCartProducts: () => {
     return get().products;
   },
 }));

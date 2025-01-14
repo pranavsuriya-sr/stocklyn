@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const addItemToCart = useCartStore.getState().AddItem;
+
 const api = axios.create({
   baseURL: "http://localhost:5000",
   withCredentials: true,
@@ -25,26 +26,35 @@ const api = axios.create({
 
 //add accordions here
 const ProductPage = ({}) => {
+  const arr = useCartStore((state) => state.GetCartProducts);
   const location = useLocation();
   const product = location.state;
   const { user } = useSession();
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
   const { toast } = useToast();
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
+  const [productIds, setProductIds] = useState<any>([]);
 
   const products = useCartStore((state) => {
-    return state.GetCartProducts(user?.cart.id);
+    return state.GetCartProducts();
   });
 
   const HandleAddToCart = () => {
     addItemToCart(product.id, user?.cart.id);
+    setCartProducts(arr());
     HandleGetAllCartItems();
   };
 
+  //working - > change the fetching of the products array from the cart
   const HandleGetAllCartItems = async () => {
-    const productDetails = await api.post("/product/productDetails");
+    const productDetails: ProductsType[] = await api.post(
+      "/product/productDetails",
+      {
+        products,
+      }
+    );
 
-    setCartProducts(products);
+    setCartProducts(productDetails);
   };
 
   return (
