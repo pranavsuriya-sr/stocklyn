@@ -14,10 +14,11 @@ import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const addItemToCart = useCartStore.getState().AddItem;
+const getCartIds = useCartStore.getState().GetCartIds;
 
 const api = axios.create({
   baseURL: "http://localhost:5000",
@@ -34,18 +35,30 @@ const ProductPage = ({}) => {
   const { toast } = useToast();
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
   const [productIds, setProductIds] = useState<any>([]);
+  const cartId = user?.cart.id;
 
   const products = useCartStore((state) => {
     return state.GetCartProducts();
   });
 
-  const HandleAddToCart = () => {
-    addItemToCart(product.id, user?.cart.id);
-    setCartProducts(arr());
-    HandleGetAllCartItems();
-  };
+  const lol = getCartIds(cartId);
 
-  //working - > change the fetching of the products array from the cart
+  // Use useEffect to handle the Promise when cartId changes
+  useEffect(() => {
+    const fetchCartIds = async () => {
+      try {
+        const ids = await lol;
+        setProductIds(ids);
+      } catch (error) {
+        console.error("Error fetching cart IDs:", error);
+      }
+    };
+
+    if (cartId) {
+      fetchCartIds();
+    }
+  }, [cartId, lol]);
+
   const HandleGetAllCartItems = async () => {
     const productDetails: ProductsType[] = await api.post(
       "/product/productDetails",
@@ -114,6 +127,7 @@ const ProductPage = ({}) => {
           </div>
           <Sheet onOpenChange={() => HandleGetAllCartItems()}>
             <SheetTrigger asChild onClick={() => HandleAddToCart()}>
+              {/*Here I am tring to populate the cart-items on trigger*/}
               <button
                 className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transitio"
                 onClick={() =>

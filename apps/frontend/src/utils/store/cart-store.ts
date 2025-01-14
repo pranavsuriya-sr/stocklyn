@@ -1,10 +1,16 @@
 import axios from "axios";
 import { create } from "zustand";
 
+const api = axios.create({
+  baseURL: "http://localhost:5000",
+  withCredentials: true,
+});
+
 interface CartStore {
   products: [];
   GetCount: () => number;
   AddItem: (product: string, cartId: string | undefined) => void;
+  GetCartIds: (cartId: string | undefined) => Promise<string[]>;
   GetCartProducts: () => [];
 }
 
@@ -20,6 +26,10 @@ export const useCartStore = create<CartStore>((set, get) => ({
     );
 
     set({ products: response.data.products });
+  },
+  GetCartIds: async (cartId: string | undefined) => {
+    const response = await api.post("/cart/get", { cartId });
+    return response.data.cartInfo.products;
   },
   GetCartProducts: () => {
     return get().products;
