@@ -29,7 +29,7 @@ cartRoute.post(
   }
 );
 
-cartRoute.post("/get", VerifyJwtMiddleware, async (req, res) => {
+cartRoute.post("/getids", VerifyJwtMiddleware, async (req, res) => {
   const { cartId } = req.body;
 
   try {

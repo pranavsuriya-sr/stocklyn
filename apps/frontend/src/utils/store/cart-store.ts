@@ -10,13 +10,27 @@ interface CartStore {
   products: [];
   GetCount: () => number;
   AddItem: (product: string, cartId: string | undefined) => void;
-  GetCartIds: (cartId: string | undefined) => Promise<string[]>;
+  AddAllProducts: (productIds: string[]) => Promise<void>;
   GetCartProducts: () => [];
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   products: [],
+
   GetCount: () => get().products.length,
+
+  //adding all the products details to products array
+  AddAllProducts: async (productIds: string[]) => {
+    try {
+      const response = await api.post("/product/productDetails", {
+        productIds,
+      });
+      set({ products: response.data.products });
+    } catch (error) {
+      console.log(error, "Error at AddAllProducts in zustand cart store");
+    }
+  },
+
   //add item in the product in the products array in the
   AddItem: async (productId: string, cartId: string | undefined) => {
     const response = await axios.post(
@@ -24,13 +38,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
       { cartId, productId },
       { withCredentials: true }
     );
-
     set({ products: response.data.products });
   },
-  GetCartIds: async (cartId: string | undefined) => {
-    const response = await api.post("/cart/get", { cartId });
-    return response.data.cartInfo.products;
-  },
+
   GetCartProducts: () => {
     return get().products;
   },

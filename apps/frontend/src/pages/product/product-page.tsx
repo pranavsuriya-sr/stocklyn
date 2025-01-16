@@ -14,11 +14,11 @@ import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const addItemToCart = useCartStore.getState().AddItem;
-const getCartIds = useCartStore.getState().GetCartIds;
+const getAllProducts = useCartStore.getState().AddAllProducts;
 
 const api = axios.create({
   baseURL: "http://localhost:5000",
@@ -35,39 +35,44 @@ const ProductPage = ({}) => {
   const { toast } = useToast();
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
   const [productIds, setProductIds] = useState<any>([]);
+
   const cartId = user?.cart.id;
 
-  const products = useCartStore((state) => {
-    return state.GetCartProducts();
-  });
-
-  const lol = getCartIds(cartId);
-
-  // Use useEffect to handle the Promise when cartId changes
-  useEffect(() => {
-    const fetchCartIds = async () => {
-      try {
-        const ids = await lol;
-        setProductIds(ids);
-      } catch (error) {
-        console.error("Error fetching cart IDs:", error);
-      }
-    };
-
-    if (cartId) {
-      fetchCartIds();
+  //getting the product ids array
+  const GetProductIds = async () => {
+    try {
+      const response = await api.post("/cart/getids", {
+        cartId,
+      });
+      setProductIds(response.data.cartInfo.products);
+      getAllProducts(productIds);
+    } catch (error) {
+      console.error("Error fetching product IDs:", error);
+      return [];
     }
-  }, [cartId, lol]);
+  };
 
+  //handleGetting all the productsDetails from productIds
   const HandleGetAllCartItems = async () => {
-    const productDetails: ProductsType[] = await api.post(
-      "/product/productDetails",
-      {
-        products,
-      }
-    );
+    await GetProductIds();
 
-    setCartProducts(productDetails);
+    try {
+      const response = await api.post("/product/productDetails", {
+        productIds,
+      });
+
+      console.log(response);
+
+      setCartProducts(response.data.productDetails);
+    } catch (error) {
+      console.log(error + "Error at fetching the productDetails.");
+    }
+  };
+
+  //adding to the cart
+  const HandleAddToCart = async () => {
+    try {
+    } catch (error) {}
   };
 
   return (
@@ -145,7 +150,7 @@ const ProductPage = ({}) => {
                 Add to Cart
               </button>
             </SheetTrigger>
-            <SheetContent className="overflow-y-auto">
+            <SheetContent className="overflow-yx-auto">
               <SheetHeader>
                 <SheetTitle>Your Cart Items!</SheetTitle>
                 <SheetDescription>
