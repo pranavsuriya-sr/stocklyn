@@ -14,11 +14,10 @@ import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const addItemToCart = useCartStore.getState().AddItem;
-const SetCartProducts = useCartStore.getState().SetCartProducts;
 
 const api = axios.create({
   baseURL: "http://localhost:5000",
@@ -33,7 +32,6 @@ const ProductPage = ({}) => {
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
   const { toast } = useToast();
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
-
   const cartId = user?.cart.id;
 
   //getting the product ids array
@@ -51,24 +49,31 @@ const ProductPage = ({}) => {
 
   //handleGetting all the productsDetails from productIds
 
-  const HandleGetAllCartItems = async () => {
-    const productIds = await GetProductIds();
-    console.log(productIds);
+  useEffect(() => {
+    const HandleGetAllCartItems = async () => {
+      const productIds = await GetProductIds();
+      console.log(productIds);
 
-    try {
-      const response = await api.post("/product/productDetails", {
-        productIds,
-      });
+      try {
+        const response = await api.post("/product/productDetails", {
+          productIds,
+        });
 
-      console.log(response);
+        console.log(response);
 
-      setCartProducts(response.data.productDetails);
+        const productDetails = response.data;
 
-      SetCartProducts(cartProducts);
-    } catch (error) {
-      console.log(error + "Error at fetching the productDetails.");
-    }
-  };
+        useCartStore.getState().SetCartProducts(productDetails);
+      } catch (error) {
+        console.log(error + "Error at fetching the productDetails.");
+      }
+    };
+    HandleGetAllCartItems();
+  }, []);
+
+  function HandleRenderCartProducts() {
+    setCartProducts(useCartStore.getState().products);
+  }
 
   //adding to the cart
   const HandleAddToCart = async () => {
@@ -134,7 +139,7 @@ const ProductPage = ({}) => {
               );
             })}
           </div>
-          <Sheet onOpenChange={() => HandleGetAllCartItems()}>
+          <Sheet onOpenChange={() => HandleRenderCartProducts()}>
             <SheetTrigger asChild onClick={() => HandleAddToCart()}>
               {/*Here I am tring to populate the cart-items on trigger*/}
               <button
@@ -213,10 +218,7 @@ const ProductPage = ({}) => {
               </SheetHeader>
               <SheetFooter className="pt-8">
                 <SheetClose asChild>
-                  <Button
-                    type="submit"
-                    className="bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition "
-                  >
+                  <Button className="bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700 transition ">
                     Close Cart
                   </Button>
                 </SheetClose>
