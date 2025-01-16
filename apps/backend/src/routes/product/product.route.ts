@@ -18,8 +18,6 @@ productRoute.get("/info", VerifyJwtMiddleware, async (req, res) => {
 productRoute.post("/productDetails", VerifyJwtMiddleware, async (req, res) => {
   const { productIds } = req.body;
 
-  console.log(productIds);
-
   try {
     const productDetails = await prisma.products.findMany({
       where: {

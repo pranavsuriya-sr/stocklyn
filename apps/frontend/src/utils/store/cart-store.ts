@@ -1,3 +1,4 @@
+import { ProductsType } from "@/types/product-type";
 import axios from "axios";
 import { create } from "zustand";
 
@@ -7,11 +8,12 @@ const api = axios.create({
 });
 
 interface CartStore {
-  products: [];
+  products: ProductsType[];
   GetCount: () => number;
   AddItem: (product: string, cartId: string | undefined) => void;
   AddAllProducts: (productIds: string[]) => Promise<void>;
-  GetCartProducts: () => [];
+  GetCartProducts: () => ProductsType[];
+  SetCartProducts: (products: ProductsType[] | null) => void;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
@@ -43,5 +45,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   GetCartProducts: () => {
     return get().products;
+  },
+
+  SetCartProducts: (products) => {
+    if (products == null) {
+      return;
+    }
+    const newProductArray = [...get().products, ...products];
+    set({ products: newProductArray });
   },
 }));

@@ -11,6 +11,8 @@ cartRoute.post(
   async (req: Request, res: Response) => {
     const { productId, cartId } = req.body;
 
+    console.log(cartId);
+
     try {
       const cartInfo = await prismaClient.cart.update({
         where: { id: cartId },

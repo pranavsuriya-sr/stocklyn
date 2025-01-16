@@ -18,7 +18,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const addItemToCart = useCartStore.getState().AddItem;
-const getAllProducts = useCartStore.getState().AddAllProducts;
+const SetCartProducts = useCartStore.getState().SetCartProducts;
 
 const api = axios.create({
   baseURL: "http://localhost:5000",
@@ -27,25 +27,22 @@ const api = axios.create({
 
 //add accordions here
 const ProductPage = ({}) => {
-  const arr = useCartStore((state) => state.GetCartProducts);
   const location = useLocation();
   const product = location.state;
   const { user } = useSession();
   const [selectedImage, setSelectedImage] = useState(product.imageUrl[0]);
   const { toast } = useToast();
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
-  const [productIds, setProductIds] = useState<any>([]);
 
   const cartId = user?.cart.id;
 
   //getting the product ids array
-  const GetProductIds = async () => {
+  const GetProductIds = async (): Promise<string[]> => {
     try {
       const response = await api.post("/cart/getids", {
         cartId,
       });
-      setProductIds(response.data.cartInfo.products);
-      getAllProducts(productIds);
+      return response.data.cartInfo.products;
     } catch (error) {
       console.error("Error fetching product IDs:", error);
       return [];
@@ -53,8 +50,10 @@ const ProductPage = ({}) => {
   };
 
   //handleGetting all the productsDetails from productIds
+
   const HandleGetAllCartItems = async () => {
-    await GetProductIds();
+    const productIds = await GetProductIds();
+    console.log(productIds);
 
     try {
       const response = await api.post("/product/productDetails", {
@@ -64,6 +63,8 @@ const ProductPage = ({}) => {
       console.log(response);
 
       setCartProducts(response.data.productDetails);
+
+      SetCartProducts(cartProducts);
     } catch (error) {
       console.log(error + "Error at fetching the productDetails.");
     }
@@ -72,7 +73,10 @@ const ProductPage = ({}) => {
   //adding to the cart
   const HandleAddToCart = async () => {
     try {
-    } catch (error) {}
+      addItemToCart(product.id, cartId);
+    } catch (error) {
+      console.log("Error in adding the product to the cart", error);
+    }
   };
 
   return (
@@ -150,7 +154,7 @@ const ProductPage = ({}) => {
                 Add to Cart
               </button>
             </SheetTrigger>
-            <SheetContent className="overflow-yx-auto">
+            <SheetContent className="overflow-yx  -auto">
               <SheetHeader>
                 <SheetTitle>Your Cart Items!</SheetTitle>
                 <SheetDescription>
