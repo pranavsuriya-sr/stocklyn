@@ -42,7 +42,7 @@ productRoute.post("/productDetails", VerifyJwtMiddleware, async (req, res) => {
 
 //enable jwtverification later
 productRoute.post("/add", async (req, res) => {
-  const {
+  let {
     name,
     imageUrl,
     productDescription = "",
@@ -63,13 +63,28 @@ productRoute.post("/add", async (req, res) => {
     return;
   }
 
+  category = category.toLowerCase().trim();
+
+  //checking if the category exists
+
   try {
+    let categoryRecord = await prisma.category.findUnique({
+      where: {
+        name: category,
+      },
+    });
+
     const response = await prisma.products.create({
       data: {
         name,
         imageUrl,
         productDescription,
-        category,
+        category: {
+          create: {
+            name: category,
+            description: "Devices and gadgets",
+          },
+        },
         price,
         details,
         highlights,

@@ -12,7 +12,7 @@ model Products {
   name               String
   imageUrl           String[]
   productDescription String
-  category           String   @default("product")
+  category           Category?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   price              Decimal  @default(0)
@@ -22,7 +22,7 @@ model Products {
   sizes              String[] @default(["S", "M" , "L"])
   stockQuantity      Int      @default(0)
   colors             String[]
-  displayImage       String
+  displayImage       String       
 }
 
 model Users {
@@ -34,6 +34,7 @@ model Users {
   updatedAt      DateTime @updatedAt
   profileUrl     String
   cart           Cart?
+
 }
 
 model Cart {
@@ -43,4 +44,13 @@ model Cart {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      Users    @relation(fields: [userId], references: [id])
+}
+
+model Category{
+  id            String       @id @default(cuid())
+  productId     String       @unique
+  name          String       @unique
+  description   String
+  createdAt     DateTime     @default(now())
+  product       Products     @relation(fields: [productId] , references: [id])
 }
