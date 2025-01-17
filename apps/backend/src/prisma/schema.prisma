@@ -19,7 +19,7 @@ model Products {
   details            String   @default("")
   highlights         String[]
   reviews            Decimal  @default(0)
-  sizes              String   @default("M")
+  sizes              String[] @default(["S", "M" , "L"])
   stockQuantity      Int      @default(0)
   colors             String[]
   displayImage       String

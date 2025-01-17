@@ -7,7 +7,7 @@ export interface ProductsType {
   productDescription: string;
   category: string;
   colors: [];
-  sizes: string;
+  sizes: string[];
   highlights: string[];
   details: string;
   reviews: number;
