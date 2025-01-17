@@ -12,11 +12,10 @@ cartRoute.post(
     const { productId, cartId } = req.body;
 
     if (!productId || !cartId) {
-      res
-        .status(500)
-        .send(
-          "There is no productId or cartId provided in /add request in cart"
-        );
+      res.status(400).json({
+        message: "Required feilds missing ie: productId or cartId at /cart/add",
+      });
+      return;
     }
 
     try {
@@ -41,6 +40,13 @@ cartRoute.post(
 cartRoute.post("/getids", VerifyJwtMiddleware, async (req, res) => {
   const { cartId } = req.body;
 
+  if (!cartId) {
+    res
+      .status(400)
+      .json({ message: "Required feilds missing ie: cartId at /cart/getids" });
+    return;
+  }
+
   try {
     const cartInfo = await prismaClient.cart.findUnique({
       where: { id: cartId },
@@ -53,8 +59,9 @@ cartRoute.post("/getids", VerifyJwtMiddleware, async (req, res) => {
       cartInfo,
     });
   } catch (error) {
-    res.status(500).send({
-      error: "An error occurred while fetching the cart information.",
+    res.status(500).json({
+      message: "An error occurred while fetching the cart information.",
+      error,
     });
   }
 });

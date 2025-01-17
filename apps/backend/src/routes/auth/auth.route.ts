@@ -79,7 +79,9 @@ authRoute.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({ error: "Missing required fields" });
+    res
+      .status(400)
+      .json({ error: "Missing required fields , ie : Email and Password" });
     return;
   }
 
@@ -113,7 +115,7 @@ authRoute.post("/login", async (req: Request, res: Response) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
     user.hashedPassword = "";
@@ -154,6 +156,12 @@ authRoute.post(
   VerifyJwtMiddleware,
   async (req: Request, res: Response) => {
     const { id } = req.body;
+
+    if (!id) {
+      res.status(400).json({ message: "id is not defined at /auth/getinfo" });
+      return;
+    }
+
     try {
       const user = await prismaClient.users.findFirst({
         where: { id },

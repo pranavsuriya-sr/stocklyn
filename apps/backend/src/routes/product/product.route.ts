@@ -18,6 +18,16 @@ productRoute.get("/info", VerifyJwtMiddleware, async (req, res) => {
 productRoute.post("/productDetails", VerifyJwtMiddleware, async (req, res) => {
   const { productIds } = req.body;
 
+  if (!productIds) {
+    res
+      .status(400)
+      .json({
+        message:
+          "Required feild is missing , ie productIds[] at /product/productDetails",
+      });
+    return;
+  }
+
   try {
     const productDetails = await prisma.products.findMany({
       where: {
