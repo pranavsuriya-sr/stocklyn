@@ -6,8 +6,8 @@ A full-stack e-commerce application (in development)
 
 ## Todo List
 
-- [ ] Connect frontend to Docker
-- [ ] Create products route and populate the home page
+- Fix the cart in the navbar
+- Customize the cart items logic to scale up
 
 ## Features
 
