@@ -28,6 +28,7 @@ cartRoute.post(
           },
         },
       });
+
       res.status(200).send(cartInfo);
     } catch (error) {
       res.status(500).send({
@@ -40,7 +41,6 @@ cartRoute.post(
 cartRoute.post("/getids", VerifyJwtMiddleware, async (req, res) => {
   const { cartId } = req.body;
 
-  console.log(cartId);
   try {
     const cartInfo = await prismaClient.cart.findUnique({
       where: { id: cartId },

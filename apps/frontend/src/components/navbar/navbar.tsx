@@ -30,7 +30,7 @@ export default function Navbar() {
     return state.GetCount();
   });
   const products = useCartStore((state) => {
-    return state.GetCartProducts(user?.cart.id);
+    return state.GetCartProducts();
   });
   const HandleGetAllCartItems = () => {
     setCartProducts(products);

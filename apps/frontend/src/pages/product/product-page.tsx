@@ -33,6 +33,7 @@ const ProductPage = () => {
   const [cartProducts, setCartProducts] = useState<ProductsType[]>([]);
   const cartId = user?.cart?.id;
   const addItemToCart = useCartStore.getState().AddItem;
+  const [productIdsArray, setProductIdsArray] = useState<string[]>([]);
 
   const GetProductIds = async (): Promise<string[]> => {
     try {
@@ -50,15 +51,21 @@ const ProductPage = () => {
     if (!cartId) return;
 
     const HandleGetAllCartItems = async () => {
-      const productIds = await GetProductIds();
-      if (productIds.length === 0) return;
+      let productIds = await GetProductIds();
 
+      productIds = [...new Set(productIds)];
+      setProductIdsArray(productIds);
+
+      if (productIds.length === 0) return;
+      setProductIdsArray(productIds);
       try {
         const response = await api.post("/product/productDetails", {
           productIds,
         });
         const productDetails = response.data || [];
+
         useCartStore.getState().SetCartProducts(productDetails);
+
         setCartProducts(productDetails);
       } catch (error) {
         console.error("Error fetching product details:", error);
@@ -68,8 +75,15 @@ const ProductPage = () => {
     HandleGetAllCartItems();
   }, [cartId]);
 
+  console.log(productIdsArray);
+
   // Add product to the cart
   const HandleAddToCart = async () => {
+    if (productIdsArray.includes(product.id)) {
+      return;
+    }
+    setProductIdsArray([...productIdsArray, product.id]);
+
     try {
       addItemToCart(product.id, cartId);
       toast({
