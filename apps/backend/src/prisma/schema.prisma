@@ -10,7 +10,6 @@ datasource db {
 model Products {
   id                 String   @id @default(cuid())
   name               String
-  displayImage       String
   imageUrl           String[]
   productDescription String
   category           String   @default("product")
@@ -23,29 +22,25 @@ model Products {
   sizes              String   @default("M")
   stockQuantity      Int      @default(0)
   colors             String[]
+  displayImage       String
 }
 
-
-model Users{
-
-  id             String @id @default(cuid())
+model Users {
+  id             String   @id @default(cuid())
   name           String
-  email          String @unique
+  email          String   @unique
   hashedPassword String
-  profileUrl     String
-  cart           Cart?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  profileUrl     String
+  cart           Cart?
 }
 
-
-model Cart{
-  id          String     @id @default(cuid())
-  user        Users      @relation(fields: [userId] , references: [id])
-  userId      String     @unique
-  products    String[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+model Cart {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  products  String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      Users    @relation(fields: [userId], references: [id])
 }
-
-

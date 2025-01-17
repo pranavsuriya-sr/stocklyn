@@ -11,7 +11,13 @@ cartRoute.post(
   async (req: Request, res: Response) => {
     const { productId, cartId } = req.body;
 
-    console.log(cartId);
+    if (!productId || !cartId) {
+      res
+        .status(500)
+        .send(
+          "There is no productId or cartId provided in /add request in cart"
+        );
+    }
 
     try {
       const cartInfo = await prismaClient.cart.update({
@@ -25,7 +31,7 @@ cartRoute.post(
       res.status(200).send(cartInfo);
     } catch (error) {
       res.status(500).send({
-        error: "An error occurred while adding the product to the cart.",
+        error,
       });
     }
   }
@@ -34,6 +40,7 @@ cartRoute.post(
 cartRoute.post("/getids", VerifyJwtMiddleware, async (req, res) => {
   const { cartId } = req.body;
 
+  console.log(cartId);
   try {
     const cartInfo = await prismaClient.cart.findUnique({
       where: { id: cartId },
