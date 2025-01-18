@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import express from "express";
 import authRoute from "./routes/auth/auth.route";
 import cartRoute from "./routes/cart/cart.route";
+import categoryRoute from "./routes/category/category.route";
 import { productRoute } from "./routes/product/product.route";
 import { AuthenticatedRequest } from "./types/jwt";
 
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use("/cart", cartRoute);
 app.use("/product", productRoute);
 app.use("/auth", authRoute);
+app.use("/category", categoryRoute);
 
 const PORT = 5000;
 

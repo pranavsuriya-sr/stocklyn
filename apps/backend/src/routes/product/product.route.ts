@@ -69,7 +69,7 @@ productRoute.post("/add", async (req, res) => {
   //checking if the category exists
 
   try {
-    let categoryRecord = await prisma.category.findUnique({
+    let categoryRecord = await prisma.category.findFirst({
       where: {
         name: category,
       },
@@ -79,7 +79,7 @@ productRoute.post("/add", async (req, res) => {
       if (!categoryDescription) {
         res.status(400).json({
           message:
-            "Required feilds are missing , ie categoryDescription (since the category doesnt exist) at /product/add",
+            "Required feilds are missing , ie. categoryDescription (since the category doesnt exist) at /product/add",
         });
         return;
       }
@@ -98,6 +98,7 @@ productRoute.post("/add", async (req, res) => {
         imageUrl,
         productDescription,
         category: {
+          //fix this error
           connect: {
             name: category,
           },
