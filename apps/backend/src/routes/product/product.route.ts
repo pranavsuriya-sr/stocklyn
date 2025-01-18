@@ -100,6 +100,7 @@ productRoute.post("/add", async (req, res) => {
         category: {
           //fix this error
           connect: {
+            id: categoryRecord.id,
             name: category,
           },
         },
