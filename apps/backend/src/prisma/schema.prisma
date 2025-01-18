@@ -12,7 +12,8 @@ model Products {
   name               String
   imageUrl           String[]
   productDescription String
-  category           Category?
+  categoryName       String   @unique
+  category           Category @relation(fields: [categoryName] , references: [name])
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   price              Decimal  @default(0)
@@ -48,9 +49,8 @@ model Cart {
 
 model Category{
   id            String       @id @default(cuid())
-  productId     String?      @unique
-  name          String       
+  name          String       @unique
   description   String
   createdAt     DateTime     @default(now())
-  product       Products?    @relation(fields: [productId] , references: [id])
+  product       Products?
 }

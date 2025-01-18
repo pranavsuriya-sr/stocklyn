@@ -9,9 +9,7 @@ const prisma = new PrismaClient({
 
 categoryRoute.get("/allcategory", async (req: Request, res: Response) => {
   try {
-    const response = await prisma.category.groupBy({
-      by: ["name"],
-    });
+    const response = await prisma.category.count();
     res.send(response);
   } catch (error) {}
 });

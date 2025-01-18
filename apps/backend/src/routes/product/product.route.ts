@@ -101,7 +101,6 @@ productRoute.post("/add", async (req, res) => {
           //fix this error
           connect: {
             id: categoryRecord.id,
-            name: category,
           },
         },
         price,
