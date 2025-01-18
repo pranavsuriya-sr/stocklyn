@@ -48,9 +48,9 @@ model Cart {
 
 model Category{
   id            String       @id @default(cuid())
-  productId     String       @unique
+  productId     String?       @unique
   name          String       @unique
   description   String
   createdAt     DateTime     @default(now())
-  product       Products     @relation(fields: [productId] , references: [id])
+  product       Products?     @relation(fields: [productId] , references: [id])
 }

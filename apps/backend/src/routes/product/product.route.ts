@@ -46,6 +46,7 @@ productRoute.post("/add", async (req, res) => {
     name,
     imageUrl,
     productDescription = "",
+    categoryDescription,
     category,
     price,
     details = "",
@@ -74,15 +75,31 @@ productRoute.post("/add", async (req, res) => {
       },
     });
 
+    if (!categoryRecord) {
+      if (!categoryDescription) {
+        res.status(400).json({
+          message:
+            "Required feilds are missing , ie categoryDescription (since the category doesnt exist) at /product/add",
+        });
+        return;
+      }
+
+      await prisma.category.create({
+        data: {
+          name: category,
+          description: "Best category",
+        },
+      });
+    }
+
     const response = await prisma.products.create({
       data: {
         name,
         imageUrl,
         productDescription,
         category: {
-          create: {
+          connect: {
             name: category,
-            description: "Devices and gadgets",
           },
         },
         price,
