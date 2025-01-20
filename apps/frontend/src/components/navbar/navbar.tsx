@@ -49,7 +49,7 @@ export default function Navbar() {
           className="scroll-m-20 text-3xl font-semibold tracking-tight cursor-pointer"
           onClick={() => navigate("/")}
         >
-          Stocklyn
+          Maalelo
         </h3>
       </Link>
 

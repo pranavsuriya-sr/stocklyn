@@ -51,12 +51,28 @@ productRoute.post("/add", async (req, res) => {
     price,
     details = "",
     highlights = [],
-    stockQuantity = 0,
+    stockQuantity,
     colors,
     displayImage,
+    sizes,
   } = req.body;
 
-  if (!name || !category || !imageUrl || !price || !colors || !displayImage) {
+  if (stockQuantity <= 10) {
+    res.status(400).json({
+      message: "Stock should be atleast more than 10",
+    });
+    return;
+  }
+
+  if (
+    !name ||
+    !category ||
+    !imageUrl ||
+    !price ||
+    !colors ||
+    !displayImage ||
+    !stockQuantity
+  ) {
     res.status(400).json({
       message:
         "Required feilds are missing , ie (id,name,imageUrl,category,imageUrl[],price,colors,displayImage) at /product/add",
@@ -64,6 +80,7 @@ productRoute.post("/add", async (req, res) => {
     return;
   }
 
+  name = name.trim().substring(0, 30);
   category = category.toLowerCase().trim();
 
   //checking if the category exists
@@ -104,6 +121,7 @@ productRoute.post("/add", async (req, res) => {
           },
         },
         price,
+        sizes,
         details,
         highlights,
         reviews: 0,
