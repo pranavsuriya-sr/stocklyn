@@ -24,7 +24,7 @@ export default function Navbar() {
   const [cartProducts, setCartProducts] = useState<ProductsType[] | null>(null);
 
   const navigate = useNavigate();
-  const { session, user } = useSession();
+  const { session } = useSession();
   const { toast } = useToast();
   const cartCount = useCartStore((state) => {
     return state.GetCount();

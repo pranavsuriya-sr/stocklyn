@@ -1,3 +1,9 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -131,7 +137,7 @@ const ProductPage = () => {
             {product.name || "Product Name"}
           </h1>
           <p className="text-lg font-semibold text-gray-700">
-            ₹{product.price || "0"}
+            Price: ₹{product.price || "0"}
           </p>
           <div className="flex items-center">
             <span className="text-gray-700">Stock: </span>
@@ -144,6 +150,7 @@ const ProductPage = () => {
             </span>
           </div>
           <p className="text-gray-700">
+            <span className="font-semibold">About the Product : </span>{" "}
             {product.productDescription || "No description available."}
           </p>
           <div className="flex items-center space-x-4">
@@ -152,10 +159,35 @@ const ProductPage = () => {
               <div
                 key={color}
                 className="w-6 h-6 rounded-full border"
-                style={{ backgroundColor: `#${color}` }}
+                style={{ backgroundColor: `${color}` }}
               ></div>
             ))}
           </div>
+          <div className="flex items-center space-x-4 ">
+            <span className="font-medium text-gray-700">Available Sizes:</span>
+            {product.sizes?.map((size: string) => (
+              <div
+                key={size}
+                className="border rounded-full p-1 w-7 h-7 flex items-center justify-center text-sm font-semibold hover:cursor-pointer"
+              >
+                {" "}
+                {size}
+              </div>
+            ))}
+          </div>
+          {product.highlights.map((highlight: string, index: number) => {
+            if (index > 4) {
+              return;
+            }
+            return (
+              <Accordion type="single" collapsible key={index}>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Feature {index + 1}</AccordionTrigger>
+                  <AccordionContent>{highlight}</AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            );
+          })}
 
           <Sheet>
             <SheetTrigger asChild>
@@ -209,6 +241,7 @@ const ProductPage = () => {
           </Sheet>
         </div>
       </div>
+      <div className="pt-20 text-3xl underline">Comments</div>
     </div>
   );
 };
