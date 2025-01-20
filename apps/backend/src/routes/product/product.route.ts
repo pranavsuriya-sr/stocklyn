@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import express from "express";
+import express, { Request, Response } from "express";
 import { VerifyJwtMiddleware } from "../../middleware/verify-jwt";
 
 export const productRoute = express.Router();
@@ -116,5 +116,45 @@ productRoute.post("/add", async (req, res) => {
     res.status(201).json({ message: "Product added successfully", response });
   } catch (error) {
     res.status(500).json({ message: "Error at /product/add", error });
+  }
+});
+
+productRoute.post("/getbycategory", async (req: Request, res: Response) => {
+  const { category } = req.body;
+
+  if (!category) {
+    res.status(400).json({
+      message:
+        "Required feilds are missing , ie. category (since the category doesnt exist) at /product/getbycategory",
+    });
+    return;
+  }
+
+  try {
+    const isCategoryValid = await prisma.category.findUnique({
+      where: {
+        name: category,
+      },
+    });
+
+    if (!isCategoryValid) {
+      res.status(404).json({
+        message: `There is no such category as ${category} at /product/getbycategory`,
+      });
+      return;
+    }
+
+    const categoryProducts = await prisma.products.findMany({
+      where: {
+        categoryName: category,
+      },
+    });
+
+    res.status(201).json({
+      message: "Products by category fetched successfully.",
+      categoryProducts,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error at /product/getbycategory", error });
   }
 });

@@ -6,6 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState<ProductsType[]>([]);
+  const [shirts, setShirts] = useState<ProductsType[]>([]);
+  const [accessories, setAccessories] = useState<ProductsType[]>([]);
+  const [pants, setPants] = useState<ProductsType[]>([]);
+  const [gymItems, setGymItems] = useState<ProductsType[]>([]);
+
   const { checkAuth, session } = useSession();
   const navigate = useNavigate();
 
@@ -15,6 +20,11 @@ export default function Home() {
         import.meta.env.VITE_ALL_PRODUCTS,
         { withCredentials: true }
       );
+
+      const shirtDetails = await axios.get(import.meta.env.VITE_ALL_PRODUCTS, {
+        withCredentials: true,
+      });
+
       setProducts(productDetails.data);
     } catch (error) {}
   };

@@ -48,10 +48,13 @@ model Cart {
   user      Users    @relation(fields: [userId], references: [id])
 }
 
-model Category{
+model Category {
   id            String       @id @default(cuid())
   name          String       @unique
   description   String
   createdAt     DateTime     @default(now())
-  product       Products[]
+  products      Products[]
+  parentId      String?      
+  parent        Category?    @relation("Subcategories", fields: [parentId], references: [id])
+  subcategories Category[]   @relation("Subcategories")
 }
