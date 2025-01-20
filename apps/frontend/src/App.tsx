@@ -7,6 +7,7 @@ import Home from "./pages/home/home";
 import LandingPage from "./pages/landing/landing-page";
 import LoadingPage from "./pages/loading/loading-page";
 import ProductPage from "./pages/product/product-page";
+import UserProfile from "./pages/profile/user-profile";
 import ProtectedPage from "./pages/protected/ProtectedPage";
 
 const App = () => {
@@ -41,6 +42,16 @@ const App = () => {
             </ProtectedPage>
           }
         />
+
+        <Route
+          path="/userProfile"
+          element={
+            <ProtectedPage>
+              <UserProfile />
+            </ProtectedPage>
+          }
+        />
+
         <Route path="/about" element={<About />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />

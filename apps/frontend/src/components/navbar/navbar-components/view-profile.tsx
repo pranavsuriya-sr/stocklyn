@@ -20,6 +20,10 @@ const ViewProfile = () => {
     navigate("/login");
   };
 
+  const HandleProfileClick = () => {
+    navigate("/userprofile");
+  };
+
   return (
     <div className="p-1 relative">
       <DropdownMenu modal={false}>
@@ -34,7 +38,9 @@ const ViewProfile = () => {
             Hello! {displayName}😄
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => HandleProfileClick()}>
+            Profile
+          </DropdownMenuItem>
           <DropdownMenuItem>Billing</DropdownMenuItem>
           <DropdownMenuItem onClick={HandleSignOut}>SignOut</DropdownMenuItem>
         </DropdownMenuContent>

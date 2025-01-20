@@ -23,7 +23,9 @@ model Products {
   sizes              String[] @default(["S", "M" , "L"])
   stockQuantity      Int      @default(0)
   colors             String[]
-  displayImage       String       
+  displayImage       String   
+  usersPurchased     Int      @default(0)  
+  rating             Int      @default(0)
 }
 
 model Users {
