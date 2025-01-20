@@ -119,8 +119,8 @@ productRoute.post("/add", async (req, res) => {
   }
 });
 
-productRoute.post("/getbycategory", async (req: Request, res: Response) => {
-  const { category } = req.body;
+productRoute.get("/getbycategory", async (req: Request, res: Response) => {
+  const { category } = req.query;
 
   if (!category) {
     res.status(400).json({
@@ -133,7 +133,7 @@ productRoute.post("/getbycategory", async (req: Request, res: Response) => {
   try {
     const isCategoryValid = await prisma.category.findUnique({
       where: {
-        name: category,
+        name: category as string,
       },
     });
 
@@ -146,7 +146,7 @@ productRoute.post("/getbycategory", async (req: Request, res: Response) => {
 
     const categoryProducts = await prisma.products.findMany({
       where: {
-        categoryName: category,
+        categoryName: category as string,
       },
     });
 
