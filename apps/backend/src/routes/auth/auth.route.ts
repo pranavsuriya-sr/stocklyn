@@ -177,4 +177,51 @@ authRoute.post(
   }
 );
 
+authRoute.post("/resetpassword", async (req, res) => {
+  const { password, id, newPassword } = req.body;
+
+  if (!password || password.length < 6) {
+    res.status(403).json({ message: "Please enter a valid password" });
+    return;
+  }
+
+  if (!id) {
+    res
+      .status(403)
+      .json({ message: "User not authorized at auth/resetpassword" });
+    return;
+  }
+
+  try {
+    const userDetails = await prismaClient.users.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    const oldPassword = userDetails.hashedPassword;
+    const confirmPassword = await bcrypt.compare(password, oldPassword);
+
+    if (!confirmPassword) {
+      res.status(401).json({ message: "You have entered the wrong password" });
+      return;
+    }
+
+    const newHashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const newUserDetails = await prismaClient.users.update({
+      where: { id: id },
+      data: { hashedPassword: newHashedPassword },
+    });
+
+    newUserDetails.hashedPassword = null;
+
+    res
+      .status(200)
+      .json({ message: "Password reset successful", user: newUserDetails });
+  } catch (error) {
+    res.status(500).json({ message: "Error at /auth/resetpassword", error });
+  }
+});
+
 export default authRoute;
