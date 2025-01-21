@@ -6,7 +6,9 @@ import { GenerateJwtToken } from "../../service/jwt";
 import { userType } from "../../types/jwt";
 
 const authRoute = express.Router();
-const prismaClient = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ["query", "info", "warn", "error"],
+});
 
 authRoute.post("/signup", async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
@@ -24,7 +26,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
   }
 
   try {
-    const existingUser = await prismaClient.users.findUnique({
+    const existingUser = await prisma.users.findUnique({
       where: { email },
     });
 
@@ -37,7 +39,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await prismaClient.users.create({
+    const user = await prisma.users.create({
       data: {
         name,
         email,
@@ -71,7 +73,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
     console.error("Signup error:", error);
     res.status(500).json({ error: "Failed to create user" });
   } finally {
-    await prismaClient.$disconnect();
+    await prisma.$disconnect();
   }
 });
 
@@ -86,7 +88,7 @@ authRoute.post("/login", async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await prismaClient.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: { email },
       include: { cart: true },
     });
@@ -128,7 +130,7 @@ authRoute.post("/login", async (req: Request, res: Response) => {
     console.error("Login error:", error);
     res.status(500).json({ error: "Login failed" });
   } finally {
-    await prismaClient.$disconnect();
+    await prisma.$disconnect();
   }
 });
 
@@ -163,7 +165,7 @@ authRoute.post(
     }
 
     try {
-      const user = await prismaClient.users.findFirst({
+      const user = await prisma.users.findFirst({
         where: { id },
         include: { cart: true },
       });
@@ -172,7 +174,7 @@ authRoute.post(
       console.error("fetching user at /getInfo error:", error);
       res.status(500).json({ error: "fetching info failed" });
     } finally {
-      await prismaClient.$disconnect();
+      await prisma.$disconnect();
     }
   }
 );
@@ -193,7 +195,7 @@ authRoute.post("/resetpassword", async (req, res) => {
   }
 
   try {
-    const userDetails = await prismaClient.users.findUnique({
+    const userDetails = await prisma.users.findUnique({
       where: {
         id: id,
       },
@@ -209,7 +211,7 @@ authRoute.post("/resetpassword", async (req, res) => {
 
     const newHashedPassword = await bcrypt.hash(newPassword, 10);
 
-    const newUserDetails = await prismaClient.users.update({
+    const newUserDetails = await prisma.users.update({
       where: { id: id },
       data: { hashedPassword: newHashedPassword },
     });

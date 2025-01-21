@@ -3,8 +3,9 @@ import express, { Request, Response } from "express";
 import { VerifyJwtMiddleware } from "../../middleware/verify-jwt";
 
 const cartRoute = express.Router();
-const prismaClient = new PrismaClient();
-
+const prisma = new PrismaClient({
+  log: ["query", "info", "warn", "error"],
+});
 cartRoute.post(
   "/add",
   VerifyJwtMiddleware,
@@ -19,7 +20,7 @@ cartRoute.post(
     }
 
     try {
-      const cartInfo = await prismaClient.cart.update({
+      const cartInfo = await prisma.cart.update({
         where: { id: cartId },
         data: {
           products: {
@@ -48,7 +49,7 @@ cartRoute.post("/getids", VerifyJwtMiddleware, async (req, res) => {
   }
 
   try {
-    const cartInfo = await prismaClient.cart.findUnique({
+    const cartInfo = await prisma.cart.findUnique({
       where: { id: cartId },
       select: {
         products: true,
