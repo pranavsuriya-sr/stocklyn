@@ -14,6 +14,7 @@ model Products {
   productDescription String
   categoryName       String   
   category           Category @relation(fields: [categoryName] , references: [name])
+  cartItem           CartItems[]
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   price              Decimal  @default(0)
@@ -43,10 +44,21 @@ model Users {
 model Cart {
   id        String   @id @default(cuid())
   userId    String   @unique
-  products  String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      Users?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartItem  CartItems[]
+}
+
+
+model CartItems{
+  id          String   @id @default(cuid())
+  quantity    Int      @default(1)
+  price       Decimal    
+  productId   String   
+  product     Products[]
+  cartId      String   
+  cart        Cart     @relation(fields: [cartId] , references: [id])
 }
 
 model Category {

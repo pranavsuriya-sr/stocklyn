@@ -46,9 +46,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
         hashedPassword,
         profileUrl: "",
         cart: {
-          create: {
-            products: [],
-          },
+          create: {},
         },
       },
       include: { cart: true },
