@@ -29,16 +29,15 @@ model Products {
 }
 
 model Users {
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   name           String
-  email          String   @unique
+  email          String    @unique
   hashedPassword String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   profileUrl     String
-  cart           Cart?
-  role           String   @default("buyer")
-
+  cart           Cart?     
+  role           String    @default("buyer")
 }
 
 model Cart {
@@ -47,7 +46,7 @@ model Cart {
   products  String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      Users    @relation(fields: [userId], references: [id])
+  user      Users?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Category {
