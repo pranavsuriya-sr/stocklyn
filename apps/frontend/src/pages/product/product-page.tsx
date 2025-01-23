@@ -20,7 +20,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const api = axios.create({
@@ -29,38 +29,57 @@ const api = axios.create({
 });
 
 const ProductPage = () => {
-  const { toast } = useToast();
   const location = useLocation();
-
-  const product = location.state || {}; // this is the product info
-  const { user } = useSession(); // user info
-  const cartId = user?.cart?.id; // cartId
-
+  const product = location.state || {};
+  const { user } = useSession();
   const [selectedImage, setSelectedImage] = useState<string>(
     product.imageUrl ? product.imageUrl[0] : "/placeholder.png"
   );
-
+  const { toast } = useToast();
   const [cartProducts, setCartProducts] = useState<ProductsType[]>([]);
-
+  const cartId = user?.cart?.id;
   const addItemToCart = useCartStore.getState().AddItem;
-  const GetProductIdsArray = useCartStore.getState().GetCartProducts;
-
   const [productIdsArray, setProductIdsArray] = useState<string[]>([]);
 
-  const GetProductIds = () => {
-    // setProductIdsArray(GetProductIdsArray());
+  const GetProductIds = async (): Promise<string[]> => {
+    try {
+      const response = await api.post("/cart/getids", {
+        cartId,
+      });
+      return response.data.cartInfo?.products || [];
+    } catch (error) {
+      console.error("Error fetching product IDs:", error);
+      return [];
+    }
   };
 
-  // useEffect(() => {
-  //   if (!cartId) return;
+  useEffect(() => {
+    if (!cartId) return;
 
-  //   const HandleGetAllCartItems = async () => {
-  //     GetProductIds();
-  //     setProductIdsArray([...new Set(productIdsArray)]); // double checking for no repeating of the productids
-  //   };
+    const HandleGetAllCartItems = async () => {
+      let productIds = await GetProductIds();
 
-  //   HandleGetAllCartItems();
-  // }, [cartId]);
+      productIds = [...new Set(productIds)];
+      setProductIdsArray(productIds);
+
+      if (productIds.length === 0) return;
+      setProductIdsArray(productIds);
+      try {
+        const response = await api.post("/product/productDetails", {
+          productIds,
+        });
+        const productDetails = response.data || [];
+
+        useCartStore.getState().SetCartProducts(productDetails);
+
+        setCartProducts(productDetails);
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
+
+    HandleGetAllCartItems();
+  }, [cartId]);
 
   console.log(productIdsArray);
 

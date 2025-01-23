@@ -33,7 +33,7 @@ export default function Navbar() {
     return state.GetCartProducts();
   });
   const HandleGetAllCartItems = () => {
-    setCartProducts([]);
+    setCartProducts(products);
   };
 
   return (
