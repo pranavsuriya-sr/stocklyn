@@ -1,0 +1,160 @@
+[33m0879ee6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m refactor product and cart handling in ProductPage and CartStore
+[33mb36c469[m add userUpdateForm , add more later
+[33md79f965[m update consistency in the backend routes
+[33m7d2e260[m add newRoute to resetPassword
+[33m767a1ae[m add user profile page and integrate with navbar for navigation
+[33mfb4a622[m add loading-page for slow renders
+[33md2e60cc[m refactor UI  at product-page and fix api issues
+[33me130150[m fix: enforce minimum stock quantity of 10 for product addition and update navbar title to Maalelo
+[33m5584b8a[m refactor: change product route to use GET method for fetching products by category and integrate React Query for data fetching in Home component
+[33mfa8bd56[m refactor: enhance Category model to support subcategories and update product route to fetch products by category
+[33m96ae88f[m refactor: modify Products model to remove unique constraint on categoryName and update Category model to support multiple products
+[33mfcfea2c[m refactor: update Products and Category models for improved relations and unique constraints; modify category route to return category count
+[33m869a076[m fix: correct category connection in product addition route
+[33m1ac0e05[m add category route with endpoints for fetching all categories and category items
+[33md083f4d[m update Category model to remove circular dependency
+[33m86647fa[m update product model to include Category relation and enhance product addition route with category validation
+[33m4532dd2[m add product addition route with validation and error handling
+[33m8e98881[m update README todo
+[33me3cc930[m update product model: change sizes field to an array and ensure category has a trailing space
+[33m63f901e[m add error handling for every auth , cart , product route
+[33m2a4b79a[m refactor cart and product handling: remove unused logging, streamline product ID retrieval, and enhance cart product management
+[33m5807bd8[m update cart route: add validation for productId and cartId in add request, improve error handling, and restore displayImage field in Products model
+[33m165356d[m update product page: refactor cart item retrieval to use useEffect and improve product details fetching :: To fix - Onclose of the sheet and useEffect not fetching on reload
+[33m17de1b4[m update cart and product handling: add logging, refactor product ID retrieval, and enhance cart product management
+[33ma6c0dfe[m fixing complex issue
+[33m6affe52[m update product page: implement fetching of cart IDs and enhance product retrieval logic
+[33ma3e8a2d[m update product handling: add endpoint to fetch product details by IDs and refactor cart product retrieval
+[33mf45ad26[m update product page: modify cart item retrieval to fetch product details from API & need to fix the product-page. Easy but complicated
+[33md0ed69a[m update cart handling: refactor to use user-specific cart ID and enhance cart product retrieval
+[33me89bb01[m add toast notification on signup button click in navbar
+[33m8ce2fd0[m add consistency in fetching user-data
+[33m5cdc265[m update auth routes: include cart data in signup and login responses
+[33m4727f00[m update cart functionality: include cart in user signup response and enhance cart item handling in frontend
+[33me223680[m update cart route: change addProduct endpoint to /add and add /get endpoint for fetching cart items
+[33m993aa90[m add cart route and integrate cart functionality into user signup
+[33m3acad62[m add Cart model and link to Users model for cart functionality
+[33m3294011[m enhance cart item layout with remove button and quantity selector
+[33m71a7d75[m add toast notifications for cart actions and integrate Toaster component
+[33m84fa3d4[m refactor ProductPage: enhance cart item display with improved styling and structure
+[33m943ac34[m refactor cart handling: remove CartSheet component and integrate cart functionality directly into Navbar and ProductPage
+[33m2433bcb[m refactor CartSheet component to accept children and update cart item handling; modify Navbar and ProductPage to integrate new CartSheet structure
+[33m23624e5[m add checkAuth method to session context and implement cart sheet component
+[33m653121d[m update Sheet component to handle cart items
+[33mc42e6d7[m fix auth render issues
+[33mfadb04a[m add SignUp functionality and refactor session management; update product types
+[33m8ae7dc0[m update PrismaModel for products
+[33m2c3ba83[m replace Products interface with ProductsType & fixed verifyjwt in products
+[33m6245e52[m finally done with auth setup 😭
+[33m5ce4f2e[m improved session management and remove js-cookie dependency , add cookie-parser
+[33mc7284bf[m secure cookie settings and update CORS origin for local development (Was hard to figure out lol)
+[33m5c716e9[m fix(auth): update cookie settings and improve session handling in login and sign-up flows
+[33m2b1beaf[m fix auth in signUp page
+[33m620832a[m update authentication flow to use Axios and js-cookie for session management
+[33med94ab1[m refactor(auth): replace Supabase session management with Axios for token verification
+[33ma6dc6c3[m add js-cookie dependency
+[33m06af9e9[m update README with project overview, todo list, features, tech stack, and contributing guidelines
+[33m53b4b9d[m add role to login request and implement JWT verification middleware
+[33m917da66[m refactor(auth): move userType interface to a separate file and update imports
+[33mbc47c5c[m fix(auth): add return statement to prevent execution after missing fields error
+[33m643d356[m refactor: remove deprecated authentication and validation files, consolidate JWT service
+[33m53dcad8[m Merge branch 'main' of https://github.com/UdayRajVadeghar/stocklyn
+[33me788584[m revert to previous commit
+[33m3eee732[m refactor authentication flow: implement AuthController, add validation middleware, and replace jwt service
+[33mba4c0c0[m add cookie-parser middleware and set auth token in cookies on login
+[33m3a6f6ae[m add jwt authentication & adjust folder directories
+[33m2c1f66f[m add jsonwebtoken dependency
+[33m2a1055d[m  drop and recreate users table with updated schema
+[33mdc5b373[m add login route with user authentication
+[33mcbd9dd1[m refactor: consolidate signup route into auth route
+[33m78cd347[m implement signup route with user validation and password hashing
+[33m77ae605[m update Prisma dependencies to version 6.2.1 and add Users model to schema
+[33m02a7fed[m add authentication route with password hashing and update dependencies
+[33m49464cf[m feat: implement new product route and server setup with TypeScript
+[33m0cfc540[m feat: add product route and update TypeScript dependency
+[33m0f79c90[m refactor: remove old users model and update migrations for new user structure
+[33m6138ec3[m remove old migrations
+[33m1331422[m reinstall dependencies
+[33mb7e355c[m save current work berfore checkout
+[33mcfadda1[m add Users model and migration to replace User table
+[33m8f77632[m remove unused user details endpoint from server
+[33mc0755f0[m refactor Prisma schema and add user details endpoint in server
+[33meb40242[m remove User model from Prisma schema
+[33m97db4a4[m add cart demo
+[33me23be7e[m add sheet trigger on adding item to cart
+[33m7784685[m update cart-logic and implement sheet component in the ui
+[33m105073b[m add sheet component into the ui
+[33m22997a8[m update logic of fetch state from zustand
+[33mea4a5dc[m add zustand logic to store product in cart item
+[33m92f2764[m update cartCount calculation in Navbar
+[33m1b39c8d[m add static zustand cartCount
+[33mc9af6be[m updated product inteface & updated color rendering in product page
+[33mb2f7009[m refactor Products model to use array for colors
+[33m5d53579[m add new PorductPage
+[33m9f34a1e[m reset ProductPage
+[33mcce939b[m add Accordion component to UI library
+[33mb4d82c2[m add new fields to Products model and update migration
+[33m59cedc0[m update product navigation with state
+[33me448a42[m add fetching logic to home page & update prisma schema
+[33m11b7047[m add CORS support and product route to backend
+[33m73adbca[m add Products model and migration for product table
+[33md2fac8c[m refactor navbar UI
+[33m314577a[m update README
+[33mb41a534[m add product-page UI
+[33m9f4a627[m implement product navigation using useParams
+[33mea00c7e[m add ProductPage component and update Home page layout
+[33m1be0762[m add zustand store for state management
+[33m2e750f8[m add zustand && update home page
+[33m5774e09[m update README
+[33m654984e[m add About page
+[33mbc7db2a[m enhance login/signup UI
+[33m9ea0faa[m Merge branch 'main' of https://github.com/UdayRajVadeghar/stocklyn
+[33m2ebb137[m check commit
+[33mce0aa9d[m add loading spinner component
+[33m02108c3[m Update README.md
+[33m48ff48e[m add display name to profile dropdown in navbar
+[33m8c2af74[m refactor navbar to use dropdown
+[33md4e0fc6[m add dropdown menu component
+[33mfb6ea2d[m add display name option to sign-up and display user session in home page
+[33m43b1b8b[m add components to landing page
+[33m8b17ec9[m add PracticleGuide section to LandingPage and update ShopByCategory layout
+[33m1bb7677[m enhance ShopByCategory section with new layout and images
+[33mc475fbf[m add ShopByCategory section to LandingPage and adjust HeroSection layout
+[33me1adc9c[m add HeroSection component to LandingPage
+[33m2b6602f[m refactor ui padding
+[33m333aaaa[m add ShoppingCart icon && conditional rendering
+[33mb171ce2[m refactor Navbar and layout adjustments
+[33mb3d3aa7[m add LandingPage component and update routing to include it
+[33ma909bf6[m conditionally render Home link in Navbar based on session state
+[33m732b06b[m update routing to use '/home' path and enhance ProtectedPage with loading state handling
+[33m9bf7c09[m refactor ProtectedPage to handle session loading state and redirect to login if not authenticated
+[33mdbfbf70[m add sign out functionality to Navbar and conditionally render buttons based on session state
+[33m9ea1e4d[m refactor ProtectedPage to simplify session check logic
+[33md1101eb[m add ProtectedPage component to wrap Home route for session validation
+[33m8b04099[m add ProtectedPage component with session validation
+[33m6a7e7e8[m add session context provider and hook for session management
+[33m816064c[m add session context file
+[33m5d51590[m remove unused session context
+[33m7f07d80[m refactor session context: move to src and enhance type definitions
+[33m7297ee6[m add session context
+[33m2f34f6f[m implement login functionality with session handling and error alerts
+[33m0b9c0cc[m refactor authentication components to use centralized Supabase client
+[33m2106240[m add navigation links to login and sign-up pages
+[33m5ca95be[m add signup route and add progress ui
+[33m34536b2[m update Supabase client initialization to use Vite environment variables
+[33mecb0b8a[m add sign-up component with form handling and validation
+[33m850eb47[m refactor login component to remove username field and enhance layout
+[33m1498697[m add form components and dependencies for improved form handling
+[33me65bfa2[m disable WSL file watcher polling in VSCode settings
+[33m86bfe87[m add react-hook-form and zod dependencies for form handling and validation
+[33m512fdf9[m enhance Navbar component with navigation functionality and clickable logo
+[33md9d6dd2[m add routing and authentication components with Navbar and Home page
+[33m79dc588[m add role field to User model with default value
+[33m8a3fab4[m enhance authentication UI with centered layout and styling
+[33m96c4a20[m add Supabase authentication integration and related dependencies
+[33m363f926[m add @types/express and related type definitions
+[33m0dfc0e8[m add User model and Prisma client dependency
+[33m79d7063[m add prisma and initial schema setup
+[33m484daa5[m add docker-compose
+[33mf2dde60[m add shadcn and tailwind
+[33m0c5337c[m add monorepo
