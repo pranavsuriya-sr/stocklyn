@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import About from "./pages/about/about";
 import Login from "./pages/auth/login";
 import SignUp from "./pages/auth/sign-up";
+import Cart from "./pages/cart/cart";
 import Home from "./pages/home/home";
 import LandingPage from "./pages/landing/landing-page";
 import LoadingPage from "./pages/loading/loading-page";
@@ -52,6 +53,14 @@ const App = () => {
           }
         />
 
+        <Route
+          path="/cartItems"
+          element={
+            <ProtectedPage>
+              <Cart />
+            </ProtectedPage>
+          }
+        />
         <Route path="/about" element={<About />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />

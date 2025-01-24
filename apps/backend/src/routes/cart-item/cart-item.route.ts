@@ -10,6 +10,17 @@ cartItemRoute.get("/items/:cartId", async (req: Request, res: Response) => {
   const { cartId } = req.params;
 
   try {
+    const cart = await prisma.cart.findUnique({
+      where: {
+        id: cartId,
+      },
+    });
+
+    if (!cart) {
+      res.status(404).json({ message: "Cart not found" });
+      return;
+    }
+
     const response = await prisma.cartItems.findMany({
       where: {
         cartId,
