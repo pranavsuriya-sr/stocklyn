@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import express, { Request, Response } from "express";
 import { VerifyJwtMiddleware } from "../../middleware/verify-jwt";
 
-export const productRoute = express.Router();
+const productRoute = express.Router();
 
 const prisma = new PrismaClient({
   log: ["query", "info", "warn", "error"],
@@ -176,3 +176,5 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error at /product/getbycategory", error });
   }
 });
+
+export default productRoute;

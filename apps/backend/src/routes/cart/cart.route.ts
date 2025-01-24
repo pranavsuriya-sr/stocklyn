@@ -19,14 +19,11 @@ cartRoute.post(
       return;
     }
 
+    //update it
     try {
       const cartInfo = await prisma.cart.update({
         where: { id: cartId },
-        data: {
-          products: {
-            push: productId,
-          },
-        },
+        data: {},
       });
 
       res.status(200).send(cartInfo);
@@ -51,9 +48,6 @@ cartRoute.post("/getids", VerifyJwtMiddleware, async (req, res) => {
   try {
     const cartInfo = await prisma.cart.findUnique({
       where: { id: cartId },
-      select: {
-        products: true,
-      },
     });
     res.json({
       message: "Fetched the products successfully",
