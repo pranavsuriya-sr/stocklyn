@@ -8,66 +8,68 @@ datasource db {
 }
 
 model Products {
-  id                 String   @id @default(cuid())
+  id                 String       @id @default(cuid())
   name               String
   imageUrl           String[]
   productDescription String
   categoryName       String   
-  category           Category @relation(fields: [categoryName] , references: [name])
-  cartItem           CartItems[]
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  price              Decimal  @default(0)
-  details            String   @default("")
+  category           Category     @relation(fields: [categoryName] , references: [name])
+  price              Decimal      @default(0)
+  details            String       @default("")
   highlights         String[]
-  reviews            Decimal  @default(0)
-  sizes              String[] @default(["S", "M" , "L"])
-  stockQuantity      Int      @default(0)
+  reviews            Decimal      @default(0)
+  sizes              String[]     @default(["S", "M" , "L"])
+  stockQuantity      Int          @default(0)
   colors             String[]
   displayImage       String   
-  usersPurchased     Int      @default(0)  
-  rating             Int      @default(0)
+  usersPurchased     Int          @default(0)  
+  rating             Int          @default(0)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  @@index([categoryName])
 }
 
 model Users {
-  id             String    @id @default(cuid())
+  id             String           @id @default(cuid())
   name           String
-  email          String    @unique
+  email          String           @unique
   hashedPassword String
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   profileUrl     String
   cart           Cart?     
-  role           String    @default("buyer")
+  role           String           @default("buyer")
 }
 
 model Cart {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      Users?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String                @id @default(cuid())
+  userId    String                @unique
+  user      Users?                @relation(fields: [userId], references: [id], onDelete: Cascade)
   cartItem  CartItems[]
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
 }
 
 
 model CartItems{
-  id          String   @id @default(cuid())
-  quantity    Int      @default(1)
+  id          String              @id @default(cuid())
+  quantity    Int                 @default(1)
   price       Decimal    
   productId   String   
-  product     Products[]
   cartId      String   
-  cart        Cart     @relation(fields: [cartId] , references: [id])
+  cart        Cart                @relation(fields: [cartId] , references: [id])
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  @@unique([cartId , productId])
 }
 
 model Category {
-  id            String       @id @default(cuid())
-  name          String       @unique
+  id            String            @id @default(cuid())
+  name          String            @unique
   description   String
-  createdAt     DateTime     @default(now())
+  createdAt     DateTime          @default(now())
   products      Products[]
   parentId      String?      
-  parent        Category?    @relation("Subcategories", fields: [parentId], references: [id])
-  subcategories Category[]   @relation("Subcategories")
+  parent        Category?         @relation("Subcategories", fields: [parentId], references: [id])
+  subcategories Category[]        @relation("Subcategories")
 }

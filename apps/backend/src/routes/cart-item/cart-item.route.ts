@@ -50,4 +50,31 @@ cartItemRoute.put("/insert", async (req: Request, res: Response) => {
   }
 });
 
+cartItemRoute.delete("/deleteitem", async (req: Request, res: Response) => {
+  const { productId, cartId } = req.body;
+
+  if (!cartId || !productId) {
+    res.status(400).json({
+      message:
+        "Required feilds missing ie: productId or cartId or price at /cartitems/insert",
+    });
+    return;
+  }
+
+  try {
+    const response = await prisma.cartItems.delete({
+      where: {
+        cartId_productId: {
+          cartId: cartId,
+          productId: productId,
+        },
+      },
+    });
+
+    res.status(200).json({ message: "Deleted successfully", response });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete CartItem", error });
+  }
+});
+
 export default cartItemRoute;
