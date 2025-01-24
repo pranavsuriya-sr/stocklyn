@@ -34,7 +34,7 @@ cartItemRoute.put("/insert", async (req: Request, res: Response) => {
   }
 
   try {
-    const response = prisma.cartItems.create({
+    const response = await prisma.cartItems.create({
       data: {
         cartId,
         productId,
@@ -43,7 +43,7 @@ cartItemRoute.put("/insert", async (req: Request, res: Response) => {
     });
 
     res
-      .send(201)
+      .status(201)
       .json({ message: "Success! Item added in the cartItem ", response });
   } catch (error) {
     res.status(500).json({ message: "Error at /cartItem/insert", error });

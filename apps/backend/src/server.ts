@@ -31,7 +31,7 @@ app.use("/cart", cartRoute);
 app.use("/product", productRoute);
 app.use("/auth", authRoute);
 app.use("/category", categoryRoute);
-app.use("/cartItem", cartItemRoute);
+app.use("/cartitem", cartItemRoute);
 
 const PORT = 5000;
 
