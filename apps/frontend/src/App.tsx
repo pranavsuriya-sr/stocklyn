@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import About from "./pages/about/about";
-import Login from "./pages/auth/login";
-import SignUp from "./pages/auth/sign-up";
-import Cart from "./pages/cart/cart";
-import Home from "./pages/home/home";
+import About from "./pages/about/about-page";
+import Login from "./pages/auth/login-page";
+import SignUp from "./pages/auth/signup-page";
+import Cart from "./pages/cart/cart-page";
+import Home from "./pages/home/home-page";
 import LandingPage from "./pages/landing/landing-page";
 import LoadingPage from "./pages/loading/loading-page";
 import ProductPage from "./pages/product/product-page";
 import UserProfile from "./pages/profile/user-profile";
-import ProtectedPage from "./pages/protected/ProtectedPage";
+import ProtectedPage from "./pages/protected/procted-page";
 
 const App = () => {
   const [loading, setLoading] = useState(false);

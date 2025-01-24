@@ -83,7 +83,7 @@ export default function Navbar() {
           <div className="flex items-center justify-center pt-1">
             <div
               className="relative hover:cursor-pointer"
-              // onClick={() => HandleSheetOpen()}
+              onClick={() => navigate("/cartitems")}
             >
               <Badge className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
                 {itemsCount}
