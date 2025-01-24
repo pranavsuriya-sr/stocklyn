@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -102,6 +103,9 @@ const ProductPage = () => {
               </Accordion>
             );
           })}
+          <Button className="w-full bg-indigo-600 text-white hover:bg-indigo-500">
+            Add to cart
+          </Button>
         </div>
       </div>
       <div className="pt-20 text-3xl underline">Comments</div>

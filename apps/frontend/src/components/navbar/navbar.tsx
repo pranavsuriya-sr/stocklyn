@@ -1,13 +1,26 @@
 import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useCartStore } from "@/utils/store/cart-store";
+import { ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Badge } from "../ui/badge";
 import ViewProfile from "./navbar-components/view-profile";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { session } = useSession();
   const { toast } = useToast();
+  const [itemsCount, setItemsCount] = useState(0);
+  const getItemCount = useCartStore((state) => {
+    return state.GetCount;
+  });
+
+  useEffect(() => {
+    setItemsCount(getItemCount());
+    console.log("hello");
+  }, [itemsCount]);
 
   return (
     <nav
@@ -68,7 +81,15 @@ export default function Navbar() {
         <div className="flex space-x-4">
           {/*this is the cart item div*/}
           <div className="flex items-center justify-center pt-1">
-            <div className="relative"></div>
+            <div
+              className="relative hover:cursor-pointer"
+              // onClick={() => HandleSheetOpen()}
+            >
+              <Badge className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                {itemsCount}
+              </Badge>
+              <ShoppingCart size={30}></ShoppingCart>
+            </div>
           </div>
 
           {/*This is the view profile div*/}
