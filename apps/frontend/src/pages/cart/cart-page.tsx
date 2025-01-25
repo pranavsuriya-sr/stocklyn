@@ -1,12 +1,17 @@
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/context/session-context";
 import { useCartStore } from "@/utils/store/cart-store";
 
 const Cart = () => {
-  const { products } = useCartStore();
+  const { products, RemoveCartItem } = useCartStore();
   const { GetCount } = useCartStore();
-  const { cartItems } = useCartStore();
+  const { user } = useSession();
 
-  console.log(products);
+  // const { cartItems } = useCartStore();
+
+  const HandleRemoveItem = async (productId: string) => {
+    await RemoveCartItem(user?.cart.id, productId);
+  };
 
   return (
     <div className="pt-32 w-2/3 mx-auto">
@@ -41,7 +46,10 @@ const Cart = () => {
                     <option value="1">5</option>
                     <option value="2">6</option>
                   </select>
-                  <div className="text-red-600 p-1 hover:cursor-pointer">
+                  <div
+                    className="text-red-600 p-1 hover:cursor-pointer"
+                    onClick={() => HandleRemoveItem(id)}
+                  >
                     Remove
                   </div>
                 </div>

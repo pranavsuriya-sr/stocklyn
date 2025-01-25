@@ -64,7 +64,7 @@ cartItemRoute.post("/insert", async (req: Request, res: Response) => {
   }
 });
 
-cartItemRoute.delete("/deleteitem", async (req: Request, res: Response) => {
+cartItemRoute.delete("/delete", async (req: Request, res: Response) => {
   const { productId, cartId } = req.body;
 
   if (!cartId || !productId) {

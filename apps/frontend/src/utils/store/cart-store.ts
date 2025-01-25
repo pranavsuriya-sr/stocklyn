@@ -13,6 +13,10 @@ interface CartStore {
     price: number
   ) => Promise<void>;
   GetCount: () => number;
+  RemoveCartItem: (
+    cartId: string | undefined,
+    productId: string
+  ) => Promise<void>;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
@@ -46,6 +50,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
     productId: string,
     price: number
   ) => {
+    const productExists = get().products.some(
+      (product) => product.id === productId
+    );
+    if (productExists) {
+      return;
+    }
+
     try {
       await axios.post(
         `http://localhost:5000/cartItem/insert`,
@@ -56,10 +67,24 @@ export const useCartStore = create<CartStore>((set, get) => ({
         },
         { withCredentials: true }
       );
-
       get().LoadCartItems(cartId);
     } catch (error) {
       console.log({ message: "Error at the Zustand Store while add", error });
+    }
+  },
+
+  RemoveCartItem: async (cartId: string | undefined, productId: string) => {
+    try {
+      await axios.delete("http://localhost:5000/cartItem/delete", {
+        data: { cartId, productId },
+        withCredentials: true,
+      });
+      get().LoadCartItems(cartId);
+    } catch (error) {
+      console.log({
+        message: "Error at DeleteCartItem at zustand store",
+        error,
+      });
     }
   },
 }));
