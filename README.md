@@ -6,8 +6,8 @@ A full-stack e-commerce application (in development)
 
 ## Todo List
 
-- Fix the cart in the navbar
-- Customize the cart items logic to scale up
+- add , delete , update qunatity , fix the home page where the item shows out of stock even though the quantity is > 0
+- Ape the payment gateway for now , then complete role based access.
 
 ## Features
 
