@@ -49,6 +49,7 @@ cartRoute.post("/getids", VerifyJwtMiddleware, async (req, res) => {
     const cartInfo = await prisma.cart.findUnique({
       where: { id: cartId },
     });
+
     res.json({
       message: "Fetched the products successfully",
       cartInfo,

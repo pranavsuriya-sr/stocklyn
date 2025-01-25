@@ -14,6 +14,7 @@ model Products {
   productDescription String 
   categoryName       String   
   category           Category     @relation(fields: [categoryName] , references: [name])
+  cartItems          CartItems[]
   price              Decimal      @default(0)
   details            String       @default("")
   highlights         String[]
@@ -51,13 +52,14 @@ model Cart {
 }
 
 
-model CartItems{
+model CartItems {
   id          String              @id @default(cuid())
   quantity    Int                 @default(1)
   price       Decimal    
   productId   String   
+  product     Products            @relation(fields: [productId], references: [id]) // Add this line
   cartId      String   
-  cart        Cart                @relation(fields: [cartId] , references: [id])
+  cart        Cart                @relation(fields: [cartId], references: [id])
   createdAt   DateTime            @default(now())
   updatedAt   DateTime            @updatedAt
   @@unique([cartId , productId])

@@ -25,6 +25,9 @@ cartItemRoute.get("/items/:cartId", async (req: Request, res: Response) => {
       where: {
         cartId,
       },
+      include: {
+        product: true,
+      },
     });
 
     res.status(200).json({ message: "Success", response });
