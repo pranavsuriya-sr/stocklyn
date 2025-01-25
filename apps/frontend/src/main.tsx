@@ -7,6 +7,7 @@ import Navbar from "./components/navbar/navbar.tsx";
 import { Toaster } from "./components/ui/toaster.tsx";
 import { SessionProvider } from "./context/session-context.tsx";
 import "./index.css";
+import FooterPage from "./pages/footer/footer-page.tsx";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
         <Navbar />
         <App />
         <Toaster />
+        <FooterPage />
       </BrowserRouter>
     </SessionProvider>
   </QueryClientProvider>

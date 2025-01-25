@@ -9,34 +9,47 @@ const Cart = () => {
   console.log(products);
 
   return (
-    <div className="pt-20 px-24">
-      <div className="pt-10 text-3xl font-semibold">Shopping Cart</div>
+    <div className="pt-32 w-2/3 mx-auto">
+      <div className="pt-10 text-3xl font-semibold pb-10">Shopping Cart</div>
+      <hr className="w-full border-t border-gray-300 my-4" />
       {GetCount() > 0 &&
-        products.map(({ id, displayImage, price }) => {
+        products.map(({ id, name, displayImage, price }) => {
           return (
-            <div className="pt-10 flex items-center justify-between" key={id}>
-              {/*This is the left side of the shopping cart items*/}
-              <div>
-                <img src={displayImage} className="w-40 h-40"></img>
-              </div>
-              {/*This is the MIDDLE  of the shopping cart items*/}
-              <div>
+            <div>
+              <div className="pt-10 flex items-center justify-between" key={id}>
+                {/* Left side of shopping cart items */}
+                <div className="flex">
+                  <img
+                    src={displayImage}
+                    className="w-44 h-44 p-2"
+                    alt="product"
+                  />
+                  <div className="flex flex-col items-start justify-between px-3 w-40">
+                    <div className="truncate" title={name}>
+                      {name}
+                    </div>
+                    <div>In stock</div>
+                  </div>
+                </div>
+                {/* Middle section */}
                 <div>
-                  Quantity :{" "}
-                  <select>
+                  <select className="border p-1 rounded-md w-16">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
+                    <option value="1">5</option>
+                    <option value="2">6</option>
                   </select>
+                  <div className="text-red-600 p-1 hover:cursor-pointer">
+                    Remove
+                  </div>
                 </div>
+                {/* Right side */}
+                <div>Price: ₹{price}</div>
               </div>
-              {/*This is the right side of the shopping cart items*/}
-              <div>Price: ₹{price}</div>
+
+              <hr className="w-full border-t border-gray-300 my-4" />
             </div>
           );
         })}
@@ -52,7 +65,7 @@ const Cart = () => {
         </div>
         <hr className="w-full border-t border-gray-300 my-4" />
         <div className="flex items-center justify-between w-full px-4 pt-2">
-          <div className="font-thin">Tax</div>
+          <div className="font-thin">Shipping</div>
           <div>₹0</div>
         </div>
         <hr className="w-full border-t border-gray-300 my-4" />
@@ -69,7 +82,7 @@ const Cart = () => {
       <div className="flex justify-center items-center mt-10 font-thin">
         <div className="flex items-center justify-center">
           or
-          <span className="text-sm text-blue-700 ml-2">
+          <span className="text-sm text-blue-700 ml-2 hover:cursor-pointer">
             {" "}
             Continue Shopping →
           </span>
