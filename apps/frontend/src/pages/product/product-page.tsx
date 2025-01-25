@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/context/session-context";
+import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -14,7 +15,7 @@ const { AddCartItems } = useCartStore.getState();
 
 const ProductPage = () => {
   const location = useLocation();
-  const product = location.state || {};
+  const product: ProductsType = location.state || {};
   const [selectedImage, setSelectedImage] = useState<string>(
     product.imageUrl ? product.imageUrl[0] : "/placeholder.png"
   );
@@ -106,12 +107,14 @@ const ProductPage = () => {
               </Accordion>
             );
           })}
-          <Button
-            className="w-full bg-indigo-600 text-white hover:bg-indigo-500"
-            onClick={() => HandleAddToCart()}
-          >
-            Add to cart
-          </Button>
+          {product.stockQuantity > 0 && (
+            <Button
+              className="w-full bg-indigo-600 text-white hover:bg-indigo-500"
+              onClick={() => HandleAddToCart()}
+            >
+              Add to cart
+            </Button>
+          )}
         </div>
       </div>
       <div className="pt-20 text-3xl underline">Comments</div>
