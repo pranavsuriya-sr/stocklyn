@@ -21,6 +21,8 @@ const App = () => {
       return;
     }
 
+    window.scrollTo(0, 0);
+
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);

@@ -10,6 +10,8 @@ import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
+const { AddCartItems } = useCartStore.getState();
+
 const ProductPage = () => {
   const location = useLocation();
   const product = location.state || {};
@@ -17,8 +19,6 @@ const ProductPage = () => {
     product.imageUrl ? product.imageUrl[0] : "/placeholder.png"
   );
   const { user } = useSession();
-
-  const { AddCartItems } = useCartStore();
 
   const HandleAddToCart = async () => {
     await AddCartItems(user?.cart.id, product.id, product.price);

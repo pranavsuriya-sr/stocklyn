@@ -2,8 +2,10 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "@/context/session-context";
 import { useCartStore } from "@/utils/store/cart-store";
 
+const { RemoveCartItem } = useCartStore.getState();
+
 const Cart = () => {
-  const { products, RemoveCartItem } = useCartStore();
+  const { products } = useCartStore();
   const { GetCount } = useCartStore();
   const { user } = useSession();
 

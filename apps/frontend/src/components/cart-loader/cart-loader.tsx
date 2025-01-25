@@ -20,7 +20,7 @@ const CartLoader = () => {
     return () => {
       isMounted = false;
     };
-  }, [session, user?.cart.id]);
+  }, [user?.cart.id, LoadCartItems]);
 
   return null;
 };
