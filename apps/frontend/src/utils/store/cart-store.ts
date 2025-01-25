@@ -26,8 +26,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
       const cartProductResponse = response.data.response;
       set({ cartItems: cartProductResponse });
 
-      const newArr = cartProductResponse.map((product: any) => {
-        return product;
+      const newArr = cartProductResponse.map((item: any) => {
+        return item.product;
       });
 
       set({ products: newArr });
