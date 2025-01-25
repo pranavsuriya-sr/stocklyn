@@ -36,7 +36,7 @@ cartItemRoute.get("/items/:cartId", async (req: Request, res: Response) => {
   }
 });
 
-cartItemRoute.put("/insert", async (req: Request, res: Response) => {
+cartItemRoute.post("/insert", async (req: Request, res: Response) => {
   const { cartId, productId, price } = req.body;
 
   if (!cartId || !productId || !price) {

@@ -15,8 +15,8 @@ const Cart = () => {
       {GetCount() > 0 &&
         products.map(({ id, name, displayImage, price }) => {
           return (
-            <div>
-              <div className="pt-10 flex items-center justify-between" key={id}>
+            <div key={id}>
+              <div className="pt-10 flex items-center justify-between">
                 {/* Left side of shopping cart items */}
                 <div className="flex">
                   <img

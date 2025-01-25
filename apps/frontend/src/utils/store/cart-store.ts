@@ -6,15 +6,20 @@ import { create } from "zustand";
 interface CartStore {
   cartItems: CartItemType[];
   products: ProductsType[];
-  LoadCartItems: (cartId: string) => Promise<void>;
+  LoadCartItems: (cartId: string | undefined) => Promise<void>;
+  AddCartItems: (
+    cartId: string | undefined,
+    productId: string,
+    price: number
+  ) => Promise<void>;
   GetCount: () => number;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   cartItems: [],
   products: [],
-
-  LoadCartItems: async (cartId: string) => {
+  GetCount: () => get().products.length,
+  LoadCartItems: async (cartId: string | undefined) => {
     try {
       const response = await axios.get(
         `http://localhost:5000/cartItem/items/${cartId}`,
@@ -36,5 +41,25 @@ export const useCartStore = create<CartStore>((set, get) => ({
     }
   },
 
-  GetCount: () => get().products.length,
+  AddCartItems: async (
+    cartId: string | undefined,
+    productId: string,
+    price: number
+  ) => {
+    try {
+      await axios.post(
+        `http://localhost:5000/cartItem/insert`,
+        {
+          cartId,
+          productId,
+          price,
+        },
+        { withCredentials: true }
+      );
+
+      get().LoadCartItems(cartId);
+    } catch (error) {
+      console.log({ message: "Error at the Zustand Store while add", error });
+    }
+  },
 }));

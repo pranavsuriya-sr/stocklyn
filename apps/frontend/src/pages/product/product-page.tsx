@@ -5,14 +5,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
+import { useSession } from "@/context/session-context";
+import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-
-const api = axios.create({
-  baseURL: "http://localhost:5000",
-  withCredentials: true,
-});
 
 const ProductPage = () => {
   const location = useLocation();
@@ -20,6 +16,13 @@ const ProductPage = () => {
   const [selectedImage, setSelectedImage] = useState<string>(
     product.imageUrl ? product.imageUrl[0] : "/placeholder.png"
   );
+  const { user } = useSession();
+
+  const { AddCartItems } = useCartStore();
+
+  const HandleAddToCart = async () => {
+    await AddCartItems(user?.cart.id, product.id, product.price);
+  };
 
   return (
     <div className="bg-white p-28">
@@ -103,7 +106,10 @@ const ProductPage = () => {
               </Accordion>
             );
           })}
-          <Button className="w-full bg-indigo-600 text-white hover:bg-indigo-500">
+          <Button
+            className="w-full bg-indigo-600 text-white hover:bg-indigo-500"
+            onClick={() => HandleAddToCart()}
+          >
             Add to cart
           </Button>
         </div>
