@@ -13,14 +13,11 @@ export default function Navbar() {
   const { session } = useSession();
   const { toast } = useToast();
   const [itemsCount, setItemsCount] = useState(0);
-  const getItemCount = useCartStore((state) => {
-    return state.GetCount;
-  });
+  const { GetCount } = useCartStore();
 
   useEffect(() => {
-    setItemsCount(getItemCount());
-    console.log("hello");
-  }, [itemsCount]);
+    setItemsCount(GetCount());
+  }, [GetCount()]);
 
   return (
     <nav
@@ -86,7 +83,11 @@ export default function Navbar() {
               onClick={() => navigate("/cartitems")}
             >
               <Badge className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                {itemsCount}
+                {itemsCount == 0 ? (
+                  <span className="font-thin">null</span>
+                ) : (
+                  <span>{itemsCount}</span>
+                )}
               </Badge>
               <ShoppingCart size={30}></ShoppingCart>
             </div>

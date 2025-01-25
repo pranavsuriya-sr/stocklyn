@@ -36,5 +36,5 @@ export const useCartStore = create<CartStore>((set, get) => ({
     }
   },
 
-  GetCount: () => get().cartItems.length,
+  GetCount: () => get().products.length,
 }));
