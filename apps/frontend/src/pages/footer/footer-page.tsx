@@ -1,16 +1,14 @@
 const FooterPage = () => {
   return (
     <footer className="bg-gray-900 text-white pt-12 pb-3 mt-48">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-6">
+      <div className="container mx-auto flex items-center justify-between px-6">
         {/* About Us */}
         <div>
           <h2 className="text-lg font-semibold mb-4">About Us</h2>
           <p className="text-sm text-gray-400">
-            We are a leading e-commerce platform delivering quality products
-            with unmatched customer service. Shop with confidence and ease.
+            We are a leading e-commerce platform
           </p>
         </div>
-
         {/* Quick Links */}
         <div>
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
@@ -76,7 +74,7 @@ const FooterPage = () => {
         </div>
 
         {/* Newsletter */}
-        <div>
+        {/* <div>
           <h2 className="text-lg font-semibold mb-4">Newsletter</h2>
           <p className="text-sm text-gray-400 mb-4">
             Subscribe to our newsletter to get the latest updates on products
@@ -95,7 +93,7 @@ const FooterPage = () => {
               Subscribe
             </button>
           </form>
-        </div>
+        </div> */}
       </div>
 
       <hr className="border-t border-gray-700 mt-6 my-2" />

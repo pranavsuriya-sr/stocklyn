@@ -55,7 +55,7 @@ const Cart = () => {
       return;
     }
 
-    if (requiredQuantity >= getAvailableQuantityOfProduct.quantity) {
+    if (requiredQuantity > getAvailableQuantityOfProduct.quantity) {
       //working , continue from here later
       console.log("lol");
       return;
