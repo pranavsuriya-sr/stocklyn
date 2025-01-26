@@ -1,5 +1,7 @@
 # Stocklyn
 
+![Maalelo Logo](./assets/maalelo.png)
+
 ## Overview
 
 A full-stack e-commerce application (in development)
