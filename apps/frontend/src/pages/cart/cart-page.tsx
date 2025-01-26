@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { useCartStore } from "@/utils/store/cart-store";
+import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 
 const { RemoveCartItem } = useCartStore.getState();
@@ -11,14 +12,10 @@ const Cart = () => {
   const { products, GetCount, cartItems } = useCartStore();
   const { user } = useSession();
   const { toast } = useToast();
-  // const { data, isLoading, isError } = useQuery({
-  //   queryKey: ["fetchProductQuantity"],
-  //   queryFn: () => FetchProductQuantity(),
-  // });
+  const queryClient = useQueryClient();
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
-    const CalculateTotalCost = () => {};
     try {
       if (products.length !== cartItems.length) {
         throw new Error("Products and cart items length mismatch");
@@ -32,8 +29,6 @@ const Cart = () => {
     } catch (error) {
       console.log(error);
     }
-
-    CalculateTotalCost();
   }, [cartItems, products]);
 
   const HandleRemoveItem = async (productId: string) => {
@@ -70,35 +65,34 @@ const Cart = () => {
     }
 
     //database validation
-    const valid = await FetchProductQuantity(
-      currentProductId,
-      requiredQuantity
-    );
+    try {
+      const availableQuantity = await queryClient.fetchQuery({
+        queryKey: ["product-stock", currentProductId],
+        queryFn: () => FetchProductQuantity(currentProductId),
+        staleTime: 30000,
+      });
 
-    if (!valid) {
+      if (requiredQuantity > availableQuantity) {
+        toast({
+          variant: "destructive",
+          title: "Stock Unavailable",
+          description:
+            "The required quantity is greater than the available stock",
+        });
+      }
+    } catch (error) {
       toast({
         variant: "destructive",
-        title: "Stock Unavailable",
-        description:
-          "The required quantity is greater than the available stock",
+        title: "Validation Error",
+        description: "Failed to verify product stock",
       });
-      return;
     }
   };
 
-  const FetchProductQuantity = async (id: string, requiredQuantity: number) => {
-    try {
-      const response = await productRoute.get(`/individualProduct/${id}`);
-      const availableQuantity = response.data.stockQuantity;
-
-      if (availableQuantity >= requiredQuantity) {
-        return true;
-      }
-
-      return false;
-    } catch (error) {
-      console.log(error);
-    }
+  const FetchProductQuantity = async (id: string) => {
+    const response = await productRoute.get(`/individualProduct/${id}`);
+    console.log("Hello");
+    return response.data.stockQuantity;
   };
 
   return (

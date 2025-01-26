@@ -151,11 +151,11 @@ authRoute.get(
   }
 );
 
-authRoute.post(
-  "/getinfo",
+authRoute.get(
+  "/getinfo/:id",
   VerifyJwtMiddleware,
   async (req: Request, res: Response) => {
-    const { id } = req.body;
+    const { id } = req.params;
 
     if (!id) {
       res.status(400).json({ message: "id is not defined at /auth/getinfo" });

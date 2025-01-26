@@ -5,26 +5,6 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const FetchProductLists = async (categories: string[]) => {
-  const responses = await Promise.all(
-    categories.map((category) =>
-      axios
-        .get(import.meta.env.VITE_PRODUCTS_BY_CATEGORY, {
-          withCredentials: true,
-          params: { category },
-        })
-        .catch(() => ({ data: { categoryProducts: [] } }))
-    )
-  );
-
-  const result: { [key: string]: any } = {};
-  categories.forEach((category, index) => {
-    result[category] = responses[index].data;
-  });
-
-  return result;
-};
-
 export default function Home() {
   const { checkAuth, session } = useSession();
   const navigate = useNavigate();
@@ -43,6 +23,26 @@ export default function Home() {
     queryFn: () => FetchProductLists(categories),
     staleTime: 5 * 60 * 1000,
   });
+
+  const FetchProductLists = async (categories: string[]) => {
+    const responses = await Promise.all(
+      categories.map((category) =>
+        axios
+          .get(import.meta.env.VITE_PRODUCTS_BY_CATEGORY, {
+            withCredentials: true,
+            params: { category },
+          })
+          .catch(() => ({ data: { categoryProducts: [] } }))
+      )
+    );
+
+    const result: { [key: string]: any } = {};
+    categories.forEach((category, index) => {
+      result[category] = responses[index].data;
+    });
+
+    return result;
+  };
 
   function HandleProductClick({ product }: { product: ProductsType }) {
     navigate(`/product/${product.id}`, { state: product });

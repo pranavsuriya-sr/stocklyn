@@ -1,11 +1,6 @@
-import axios from "axios";
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { api } from "@/api/api";
+import { useQuery } from "@tanstack/react-query";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 interface Cart {
   id: string;
@@ -34,37 +29,37 @@ interface SessionContextType {
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
-const api = axios.create({
-  baseURL: "http://localhost:5000",
-  withCredentials: true,
-});
-
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  const getUserInfo = async (id: string) => {
-    const response = await api.post(
-      "/auth/getinfo",
-      { id: id },
-      { withCredentials: true }
-    );
-
-    setUser(response.data.user);
-  };
+  const { isLoading } = useQuery({
+    queryKey: ["checkAuth"],
+    queryFn: () => checkAuth(),
+    staleTime: Infinity,
+    retry: false,
+    refetchOnWindowFocus: false,
+    enabled: !user,
+  });
 
   const checkAuth = async () => {
     try {
       const response = await api.get("/auth/isVerified");
       setSession(true);
-      getUserInfo(response.data.user.id);
+      return getUserInfo(response.data.user.id);
     } catch (error) {
       setSession(false);
       setUser(null);
-    } finally {
-      setIsLoading(false);
+      return null;
     }
+  };
+  const getUserInfo = async (id: string) => {
+    if (!id) {
+      return null;
+    }
+    const response = await api.get(`/auth/getinfo/${id}`);
+    setUser(response.data.user);
+    return response.data.user;
   };
 
   const login = async (email: string, password: string) => {
@@ -101,10 +96,6 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
       console.error("Logout failed:", error);
     }
   };
-
-  useEffect(() => {
-    checkAuth();
-  }, []);
 
   return (
     <SessionContext.Provider
