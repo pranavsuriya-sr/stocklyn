@@ -1,18 +1,21 @@
+import { productRoute } from "@/api/api";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/context/session-context";
+import { useToast } from "@/hooks/use-toast";
 import { useCartStore } from "@/utils/store/cart-store";
 import React, { useEffect, useState } from "react";
 
 const { RemoveCartItem } = useCartStore.getState();
 
 const Cart = () => {
-  const { products } = useCartStore();
-  const { GetCount } = useCartStore();
+  const { products, GetCount, cartItems } = useCartStore();
   const { user } = useSession();
-
+  const { toast } = useToast();
+  // const { data, isLoading, isError } = useQuery({
+  //   queryKey: ["fetchProductQuantity"],
+  //   queryFn: () => FetchProductQuantity(),
+  // });
   const [totalCost, setTotalCost] = useState(0);
-
-  const { cartItems } = useCartStore();
 
   useEffect(() => {
     const CalculateTotalCost = () => {};
@@ -37,15 +40,15 @@ const Cart = () => {
     await RemoveCartItem(user?.cart.id, productId);
   };
 
-  const HandleSelectQuantity = (
+  const HandleSelectQuantity = async (
     e: React.ChangeEvent<HTMLSelectElement>,
     currentProductId: string
   ) => {
     const requiredQuantity = Number(e.target.value);
 
-    const getAvailableQuantityOfProduct = cartItems.find(
-      (item) => item.productId === currentProductId
-    );
+    const getAvailableQuantityOfProduct = products.find((item) => {
+      return item.id === currentProductId;
+    });
 
     if (
       getAvailableQuantityOfProduct === undefined ||
@@ -55,10 +58,46 @@ const Cart = () => {
       return;
     }
 
-    if (requiredQuantity > getAvailableQuantityOfProduct.quantity) {
-      //working , continue from here later
-      console.log("lol");
+    //frontend validation
+    if (requiredQuantity > getAvailableQuantityOfProduct.stockQuantity) {
+      toast({
+        variant: "destructive",
+        title: "Stock Unavailable",
+        description:
+          "The required quantity is greater than the available stock",
+      });
       return;
+    }
+
+    //database validation
+    const valid = await FetchProductQuantity(
+      currentProductId,
+      requiredQuantity
+    );
+
+    if (!valid) {
+      toast({
+        variant: "destructive",
+        title: "Stock Unavailable",
+        description:
+          "The required quantity is greater than the available stock",
+      });
+      return;
+    }
+  };
+
+  const FetchProductQuantity = async (id: string, requiredQuantity: number) => {
+    try {
+      const response = await productRoute.get(`/individualProduct/${id}`);
+      const availableQuantity = response.data.stockQuantity;
+
+      if (availableQuantity >= requiredQuantity) {
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      console.log(error);
     }
   };
 

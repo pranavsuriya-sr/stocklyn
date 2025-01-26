@@ -8,6 +8,32 @@ const prisma = new PrismaClient({
   log: ["query", "info", "warn", "error"],
 });
 
+productRoute.get("/individualProduct/:id", async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    res.status(400).json({
+      message:
+        "Required feild is missing , ie productId at /product/individualProduct",
+    });
+    return;
+  }
+
+  try {
+    const response = await prisma.products.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    res.status(201).json(response);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error at /product/individualProduct", error });
+  }
+});
+
 productRoute.get("/info", VerifyJwtMiddleware, async (req, res) => {
   try {
     const allProductInfo = await prisma.products.findMany();
