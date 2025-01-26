@@ -9,3 +9,8 @@ export const productRoute = axios.create({
   baseURL: "http://localhost:5000/product",
   withCredentials: true,
 });
+
+export const categoryRoute = axios.create({
+  baseURL: "http://localhost:5000/category",
+  withCredentials: true,
+});

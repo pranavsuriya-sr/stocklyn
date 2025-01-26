@@ -9,9 +9,11 @@ const prisma = new PrismaClient({
 
 categoryRoute.get("/allcategory", async (req: Request, res: Response) => {
   try {
-    const response = await prisma.category.count();
-    res.send(response);
-  } catch (error) {}
+    const response = await prisma.category.findMany({ select: { name: true } });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ message: "Error at /category/allcategory", error });
+  }
 });
 
 categoryRoute.post("/categoryitems", async (req: Request, res: Response) => {
@@ -36,7 +38,9 @@ categoryRoute.post("/categoryitems", async (req: Request, res: Response) => {
       .status(200)
       .json({ message: " Success in fetching the categories ", response });
   } catch (error) {
-    res.status(500).json({ message: "Error at /product/add", error });
+    res
+      .status(500)
+      .json({ message: "Error at /category/categoryitems", error });
   }
 });
 
