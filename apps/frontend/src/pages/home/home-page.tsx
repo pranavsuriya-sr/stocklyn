@@ -1,3 +1,4 @@
+import { categoryRoute } from "@/api/api";
 import { useSession } from "@/context/session-context";
 import { ProductsType } from "@/types/product-type";
 import { useQuery } from "@tanstack/react-query";
@@ -16,12 +17,30 @@ export default function Home() {
     }
   }, []);
 
-  const categories = ["shirt", "tshirt", "pants"];
+  const FetchAllCategories = async () => {
+    const response = await categoryRoute.get("/allcategory");
+
+    const categories = response.data.map((category: { name: string }) => {
+      return category.name;
+    });
+
+    return categories;
+  };
+
+  const { isLoading, data: categories } = useQuery({
+    queryKey: ["getAllCategories"],
+    queryFn: FetchAllCategories,
+    staleTime: 3 * 60 * 1000,
+  });
 
   const { data: products } = useQuery({
     queryKey: ["productsByCategory", categories],
-    queryFn: () => FetchProductLists(categories),
-    staleTime: 5 * 60 * 1000,
+    queryFn: () => {
+      if (!categories) throw new Error("Categories not loaded");
+      return FetchProductLists(categories);
+    },
+    staleTime: 3 * 60 * 1000,
+    enabled: !!categories,
   });
 
   const FetchProductLists = async (categories: string[]) => {
@@ -53,7 +72,7 @@ export default function Home() {
   return (
     <div className="bg-white pt-20">
       <div className="">
-        {categories.map((category, categoryIndex) => {
+        {categories.map((category: string, categoryIndex: number) => {
           const categoryProducts = products[category]?.categoryProducts;
           if (!categoryProducts?.length) return null;
 
@@ -67,33 +86,34 @@ export default function Home() {
               </h2>
 
               <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 hover:cursor-pointer ">
-                {categoryProducts.map((product: ProductsType) => (
-                  <div
-                    key={product.id}
-                    className="group relative"
-                    onClick={() => HandleProductClick({ product })}
-                  >
-                    <img
-                      alt={product.name}
-                      src={product.imageUrl[0]}
-                      className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
-                    />
-                    <div className="mt-4 flex justify-between">
-                      <div>
-                        <h3 className="text-sm text-gray-700">
-                          <span
-                            aria-hidden="true"
-                            className="absolute inset-0"
-                          />
-                          {product.name}
-                        </h3>
-                        <p className="text-sm font-medium text-gray-900">
-                          ₹{product.price}
-                        </p>
+                {!isLoading &&
+                  categoryProducts.map((product: ProductsType) => (
+                    <div
+                      key={product.id}
+                      className="group relative"
+                      onClick={() => HandleProductClick({ product })}
+                    >
+                      <img
+                        alt={product.name}
+                        src={product.imageUrl[0]}
+                        className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
+                      />
+                      <div className="mt-4 flex justify-between">
+                        <div>
+                          <h3 className="text-sm text-gray-700">
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-0"
+                            />
+                            {product.name}
+                          </h3>
+                          <p className="text-sm font-medium text-gray-900">
+                            ₹{product.price}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           );
