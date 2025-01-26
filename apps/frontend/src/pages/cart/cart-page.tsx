@@ -5,10 +5,12 @@ import { useToast } from "@/hooks/use-toast";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const { RemoveCartItem } = useCartStore.getState();
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { products, GetCount, cartItems } = useCartStore();
   const { user } = useSession();
   const { toast } = useToast();
@@ -32,7 +34,29 @@ const Cart = () => {
   }, [cartItems, products]);
 
   const HandleRemoveItem = async (productId: string) => {
-    await RemoveCartItem(user?.cart.id, productId);
+    const isRemoved = await RemoveCartItem(user?.cart.id, productId);
+
+    if (isRemoved === undefined) {
+      console.log("Error at handleRemoveItem");
+      return;
+    }
+
+    if (isRemoved) {
+      toast({
+        variant: "success",
+        title: "Removed product!",
+        description: "Product successfully removed from the cart!",
+        duration: 3000,
+      });
+    }
+    if (!isRemoved) {
+      toast({
+        variant: "destructive",
+        title: "Unable to remove product!",
+        description: "Error in removing the cart item , try again later",
+        duration: 3000,
+      });
+    }
   };
 
   const HandleSelectQuantity = async (
@@ -149,12 +173,12 @@ const Cart = () => {
       <div className="flex flex-col items-center justify-center mt-32 border w-2/4 mx-auto p-10">
         <div className="flex items-center justify-between w-full px-4 pt-2">
           <div className="font-thin">Subtotal</div>
-          <div>₹100</div>
+          <div>₹{totalCost}</div>
         </div>
         <hr className="w-full border-t border-gray-300 my-4" />
         <div className="flex items-center justify-between w-full px-4 pt-2">
           <div className="font-thin">Shipping</div>
-          <div>₹0</div>
+          <div>₹{totalCost > 0 ? 49 : 0}</div>
         </div>
         <hr className="w-full border-t border-gray-300 my-4" />
         <div className="flex items-center justify-between w-full px-4 pt-2">
@@ -175,7 +199,10 @@ const Cart = () => {
       <div className="flex justify-center items-center mt-10 font-thin">
         <div className="flex items-center justify-center">
           or
-          <span className="text-sm text-blue-700 ml-2 hover:cursor-pointer">
+          <span
+            className="text-sm text-blue-700 ml-2 hover:cursor-pointer"
+            onClick={() => navigate("/home")}
+          >
             {" "}
             Continue Shopping →
           </span>

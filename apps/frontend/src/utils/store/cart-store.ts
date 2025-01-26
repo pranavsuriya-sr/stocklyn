@@ -11,12 +11,12 @@ interface CartStore {
     cartId: string | undefined,
     productId: string,
     price: number
-  ) => Promise<void>;
+  ) => Promise<boolean | undefined>;
   GetCount: () => number;
   RemoveCartItem: (
     cartId: string | undefined,
     productId: string
-  ) => Promise<void>;
+  ) => Promise<boolean | undefined>;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
@@ -53,8 +53,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
     const productExists = get().products.some(
       (product) => product.id === productId
     );
+
     if (productExists) {
-      return;
+      return false;
     }
 
     try {
@@ -68,6 +69,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
         { withCredentials: true }
       );
       get().LoadCartItems(cartId);
+      return true;
     } catch (error) {
       console.log({ message: "Error at the Zustand Store while add", error });
     }
@@ -80,11 +82,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
         withCredentials: true,
       });
       get().LoadCartItems(cartId);
+      return true;
     } catch (error) {
       console.log({
         message: "Error at DeleteCartItem at zustand store",
         error,
       });
+      return false;
     }
   },
 }));

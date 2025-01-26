@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/context/session-context";
+import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
@@ -14,6 +15,7 @@ import { useLocation } from "react-router-dom";
 const { AddCartItems } = useCartStore.getState();
 
 const ProductPage = () => {
+  const { toast } = useToast();
   const location = useLocation();
   const product: ProductsType = location.state || {};
   const [selectedImage, setSelectedImage] = useState<string>(
@@ -22,7 +24,29 @@ const ProductPage = () => {
   const { user } = useSession();
 
   const HandleAddToCart = async () => {
-    await AddCartItems(user?.cart.id, product.id, product.price);
+    const isAddedToCart = await AddCartItems(
+      user?.cart.id,
+      product.id,
+      product.price
+    );
+
+    if (isAddedToCart == false) {
+      toast({
+        variant: "destructive",
+        title: "Product already exists!",
+        description: "This product is already present in your cart items!",
+        duration: 3000,
+      });
+    }
+
+    if (isAddedToCart == true) {
+      toast({
+        variant: "success",
+        title: "Added product!",
+        description: "Product successfully added to the cart!",
+        duration: 3000,
+      });
+    }
   };
 
   return (
