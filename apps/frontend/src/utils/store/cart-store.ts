@@ -37,14 +37,20 @@ export const useCartStore = create<CartStore>((set, get) => ({
         }
       );
 
-      const cartProductResponse = response.data.response;
-      set({ cartItems: cartProductResponse });
+      let cartItemList = response.data.response;
 
-      let newArr = cartProductResponse.map((item: any) => {
+      if (cartItemList.length > 1) {
+        cartItemList = cartItemList.sort((a: any, b: any) => {
+          return b.createdAt.localeCompare(a.createdAt);
+        });
+      }
+
+      set({ cartItems: cartItemList });
+
+      let newArr = cartItemList.map((item: any) => {
         return item.product;
       });
 
-      //need to fix the positioning of the cartitem on render
       set({ products: newArr });
     } catch (error) {
       console.log({ message: "Error at zustand", error });

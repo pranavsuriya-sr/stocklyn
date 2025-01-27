@@ -26,6 +26,9 @@ const Cart = () => {
       }
 
       const cost = products.reduce((acc, product, index) => {
+        if (product.stockQuantity < cartItems[index].quantity) {
+          return acc;
+        }
         return acc + product.price * cartItems[index].quantity;
       }, 0);
 
@@ -110,6 +113,16 @@ const Cart = () => {
           description:
             "The required quantity is greater than the available stock",
         });
+      } else {
+        toast({
+          title: "Cart Updated",
+          description: "Item quantity modified successfully",
+          style: {
+            backgroundColor: "#f0fdf4",
+            borderColor: "#4ade80",
+            color: "#166534",
+          },
+        });
       }
     } catch (error) {
       toast({
@@ -139,7 +152,7 @@ const Cart = () => {
       <div className="pt-10 text-3xl font-semibold pb-10">Shopping Cart</div>
       <hr className="w-full border-t border-gray-300 my-4" />
       {GetCount() > 0 &&
-        products.map(({ id, name, displayImage, price }) => {
+        products.map(({ id, name, displayImage, price, stockQuantity }) => {
           return (
             <div key={id}>
               <div className="pt-10 flex items-center justify-between">
@@ -154,7 +167,15 @@ const Cart = () => {
                     <div className="truncate" title={name}>
                       {name}
                     </div>
-                    <div className="text-green-600">In stock</div>
+                    <div>
+                      {stockQuantity > 0 ? (
+                        <div className="text-green-600">In stock</div>
+                      ) : (
+                        <div className="text-red-600">
+                          Sorry , The product is out of stock.
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
                 {/* Middle section */}

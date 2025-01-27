@@ -7,4 +7,6 @@ export interface CartItemType {
   product: ProductsType;
   productId: string;
   cartId: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
