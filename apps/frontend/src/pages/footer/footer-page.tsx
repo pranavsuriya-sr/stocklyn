@@ -4,7 +4,7 @@ const FooterPage = () => {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-gray-900 text-white pt-12 pb-3 mt-48">
+    <footer className="bg-gray-900 text-white pt-20 pb-3 ">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-around items-center text-center md:text-left gap-8">
           {/* About Us */}

@@ -58,7 +58,7 @@ const Login = () => {
   }
 
   return (
-    <div className="pt-28">
+    <div className="pt-28 pb-28">
       <div className="flex flex-col justify-center items-center h-5/6 pt-20">
         <h1 className="text-gray-600 font-serif text-3xl p-3">Login</h1>
         <Form {...loginForm}>

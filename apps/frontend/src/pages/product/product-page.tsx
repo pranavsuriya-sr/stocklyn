@@ -147,7 +147,8 @@ const ProductPage = () => {
             <SheetTrigger asChild>
               {product.stockQuantity > 0 && (
                 <Button
-                  className="w-full bg-indigo-600 text-white hover:bg-indigo-500"
+                  className="w-full"
+                  variant={"indigo"}
                   onClick={() => HandleAddToCart()}
                 >
                   Add to cart

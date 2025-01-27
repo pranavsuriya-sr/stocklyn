@@ -1,6 +1,10 @@
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import collage from "../../../assets/landingPageCollage.webp";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col lg:flex-row">
       <div className="w-full lg:w-1/2 h-screen pt-28 flex flex-col justify-center px-6 md:px-10">
@@ -12,9 +16,13 @@ const HeroSection = () => {
           elements of a world that doesn't care if you live or die.
         </span>
         <span>
-          <button className="bg-blue-600 p-3 rounded-lg text-white hover:bg-blue-700 transition duration-300">
+          <Button
+            className="p-6 text-lg"
+            variant={"indigo"}
+            onClick={() => navigate("/home")} // later change it to /shop
+          >
             Shop Collection
-          </button>
+          </Button>
         </span>
       </div>
 

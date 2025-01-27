@@ -1,11 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 const ShopByCategory = () => {
+  const navigate = useNavigate();
   return (
     <div className="p-5 sm:p-10">
       <div className="flex flex-col sm:flex-row justify-between mt-5 sm:mt-10">
         <span className="text-2xl sm:text-3xl font-bold font-mono">
           Shop here by category
         </span>
-        <button className="text-violet-700 text-sm sm:text-base mt-3 sm:mt-0">
+        <button
+          className="text-violet-700 text-sm sm:text-base mt-3 sm:mt-0"
+          onClick={() => navigate("/home")}
+        >
           Browse all categories →
         </button>
       </div>
