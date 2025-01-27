@@ -11,7 +11,8 @@ const { RemoveCartItem } = useCartStore.getState();
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { products, GetCount, cartItems } = useCartStore();
+  const { products, GetCount, cartItems, UpdateCartItemQuantity } =
+    useCartStore();
   const { user } = useSession();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -57,6 +58,11 @@ const Cart = () => {
         duration: 3000,
       });
     }
+  };
+
+  const FetchProductQuantity = async (id: string) => {
+    const response = await productRoute.get(`/individualProduct/${id}`);
+    return response.data.stockQuantity;
   };
 
   const HandleSelectQuantity = async (
@@ -111,13 +117,17 @@ const Cart = () => {
         description: "Failed to verify product stock",
       });
     }
+
+    const cartItemIdObject = cartItems.find((item) => {
+      return item.productId === currentProductId;
+    });
+    const cartItemId = cartItemIdObject?.id;
+    //updateIt
+
+    UpdateCartItemQuantity(requiredQuantity, cartItemId);
   };
 
-  const FetchProductQuantity = async (id: string) => {
-    const response = await productRoute.get(`/individualProduct/${id}`);
-    console.log("Hello");
-    return response.data.stockQuantity;
-  };
+  // const updateCartItemMutation = useMutation({});
 
   return (
     <div className="pt-32 w-2/3 mx-auto">
@@ -146,6 +156,10 @@ const Cart = () => {
                 <div>
                   <select
                     className="border p-1 rounded-md w-16"
+                    value={
+                      cartItems.find((item) => item.productId === id)
+                        ?.quantity ?? 1
+                    }
                     onChange={(e) => HandleSelectQuantity(e, id)}
                   >
                     <option value="1">1</option>
@@ -182,7 +196,7 @@ const Cart = () => {
         </div>
         <hr className="w-full border-t border-gray-300 my-4" />
         <div className="flex items-center justify-between w-full px-4 pt-2">
-          <div className="font-thin">Shipping</div>
+          <div className="font-thin">Tax</div>
           <div>₹0</div>
         </div>
         <hr className="w-full border-t border-gray-300 my-4" />

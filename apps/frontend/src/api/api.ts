@@ -14,3 +14,8 @@ export const categoryRoute = axios.create({
   baseURL: "http://localhost:5000/category",
   withCredentials: true,
 });
+
+export const cartItemRoute = axios.create({
+  baseURL: "http://localhost:5000/cartItem",
+  withCredentials: true,
+});

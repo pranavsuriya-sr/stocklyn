@@ -32,7 +32,7 @@ cartItemRoute.get("/items/:cartId", async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Success", response });
   } catch (error) {
-    res.status(500).json({ message: "Error at /items/:cartId", error });
+    res.status(500).json({ message: "Error at /cartitem/:cartId", error });
   }
 });
 
@@ -42,7 +42,7 @@ cartItemRoute.post("/insert", async (req: Request, res: Response) => {
   if (!cartId || !productId || !price) {
     res.status(400).json({
       message:
-        "Required feilds missing ie: productId or cartId or price at /cartitems/insert",
+        "Required feilds missing ie: productId or cartId or price at /cartitem/insert",
     });
     return;
   }
@@ -70,7 +70,7 @@ cartItemRoute.delete("/delete", async (req: Request, res: Response) => {
   if (!cartId || !productId) {
     res.status(400).json({
       message:
-        "Required feilds missing ie: productId or cartId or price at /cartitems/insert",
+        "Required feilds missing ie: productId or cartId or price at /cartitem/insert",
     });
     return;
   }
@@ -88,6 +88,47 @@ cartItemRoute.delete("/delete", async (req: Request, res: Response) => {
     res.status(200).json({ message: "Deleted successfully", response });
   } catch (error) {
     res.status(500).json({ message: "Failed to delete CartItem", error });
+  }
+});
+
+cartItemRoute.put("/updateQuantity", async (req: Request, res: Response) => {
+  let { cartItemId, quantity } = req.body;
+
+  quantity = Number(quantity);
+
+  if (!cartItemId || !quantity) {
+    res.status(400).json({
+      message:
+        "Required feilds missing ie: productId or cartId or quantity at /cartitem/updateQuantity",
+    });
+    return;
+  }
+
+  try {
+    const isCartItemIdValid = await prisma.cartItems.findFirst({
+      where: {
+        id: cartItemId,
+      },
+    });
+
+    if (!isCartItemIdValid) {
+      res
+        .status(400)
+        .json("Invalid cartItemId . Not found at /cartitem/updateQuantity");
+      return;
+    }
+
+    const response = await prisma.cartItems.update({
+      where: {
+        id: cartItemId,
+      },
+      data: {
+        quantity: quantity,
+      },
+    });
+    res.status(200).json({ message: "Updated", response });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete cartItem", error });
   }
 });
 
