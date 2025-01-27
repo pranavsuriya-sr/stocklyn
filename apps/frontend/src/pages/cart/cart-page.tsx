@@ -6,6 +6,7 @@ import { useCartStore } from "@/utils/store/cart-store";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import EmptyCart from "../empty-cart/empty-cart";
 
 const { RemoveCartItem } = useCartStore.getState();
 
@@ -126,6 +127,10 @@ const Cart = () => {
 
     UpdateCartItemQuantity(requiredQuantity, cartItemId);
   };
+
+  if (products.length === 0) {
+    return <EmptyCart />;
+  }
 
   // const updateCartItemMutation = useMutation({});
 
