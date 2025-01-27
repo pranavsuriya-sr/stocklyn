@@ -5,6 +5,17 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
@@ -22,6 +33,7 @@ const ProductPage = () => {
     product.imageUrl ? product.imageUrl[0] : "/placeholder.png"
   );
   const { user } = useSession();
+  const { products } = useCartStore();
 
   const HandleAddToCart = async () => {
     const isAddedToCart = await AddCartItems(
@@ -131,14 +143,54 @@ const ProductPage = () => {
               </Accordion>
             );
           })}
-          {product.stockQuantity > 0 && (
-            <Button
-              className="w-full bg-indigo-600 text-white hover:bg-indigo-500"
-              onClick={() => HandleAddToCart()}
-            >
-              Add to cart
-            </Button>
-          )}
+          <Sheet>
+            <SheetTrigger asChild>
+              {product.stockQuantity > 0 && (
+                <Button
+                  className="w-full bg-indigo-600 text-white hover:bg-indigo-500"
+                  onClick={() => HandleAddToCart()}
+                >
+                  Add to cart
+                </Button>
+              )}
+            </SheetTrigger>
+            <SheetContent className="overflow-y-auto max-h-screen">
+              <SheetHeader>
+                <SheetTitle>Cart Items</SheetTitle>
+                <SheetDescription>Your cart Items!</SheetDescription>
+              </SheetHeader>
+
+              {products.length === 0 ? (
+                <div>Your cart is Empty</div>
+              ) : (
+                products.map((product) => {
+                  return (
+                    <div
+                      key={product.id}
+                      className="flex items-center justify-between px-2 py-10 border mt-5"
+                    >
+                      <div>
+                        <img
+                          src={product.displayImage}
+                          className="w-[150px] h-[150px] object-cover"
+                        />
+                      </div>
+                      <div className="flex flex-col justify-between items-center ">
+                        <div>{product.name}</div>
+                        <div>{product.price}</div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+
+              <SheetFooter>
+                <SheetClose asChild>
+                  <Button type="submit">Save changes</Button>
+                </SheetClose>
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
       <div className="pt-20 text-3xl underline">Comments</div>
