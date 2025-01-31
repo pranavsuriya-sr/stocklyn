@@ -164,24 +164,36 @@ productRoute.post("/add", async (req, res) => {
 });
 
 productRoute.get("/getbycategory", async (req: Request, res: Response) => {
-  const { category } = req.query;
+  // const { category } = req.query;
 
-  if (!category) {
-    res.status(400).json({
-      message:
-        "Required feilds are missing , ie. category (since the category doesnt exist) at /product/getbycategory",
-    });
-    return;
-  }
+  // if (!category) {
+  //   res.status(400).json({
+  //     message:
+  //       "Required feilds are missing , ie. category (since the category doesnt exist) at /product/getbycategory",
+  //   });
+  //   return;
+  // }
 
   try {
-    const isCategoryValid = await prisma.category.findUnique({
+    //finding all the category
+
+    const allCategory = await prisma.category.findMany({
+      select: { name: true },
+    });
+
+    const category: string[] = allCategory.map((singleCategory) => {
+      return singleCategory.name;
+    });
+
+    const validCategories = await prisma.category.findMany({
       where: {
-        name: category as string,
+        name: {
+          in: category,
+        },
       },
     });
 
-    if (!isCategoryValid) {
+    if (validCategories.length === 0) {
       res.status(404).json({
         message: `There is no such category as ${category} at /product/getbycategory`,
       });
@@ -190,13 +202,16 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
 
     const categoryProducts = await prisma.products.findMany({
       where: {
-        categoryName: category as string,
+        categoryName: {
+          in: category,
+        },
       },
     });
 
     res.status(201).json({
       message: "Products by category fetched successfully.",
       categoryProducts,
+      category,
     });
   } catch (error) {
     res.status(500).json({ message: "Error at /product/getbycategory", error });
