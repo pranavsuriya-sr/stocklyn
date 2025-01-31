@@ -164,19 +164,7 @@ productRoute.post("/add", async (req, res) => {
 });
 
 productRoute.get("/getbycategory", async (req: Request, res: Response) => {
-  // const { category } = req.query;
-
-  // if (!category) {
-  //   res.status(400).json({
-  //     message:
-  //       "Required feilds are missing , ie. category (since the category doesnt exist) at /product/getbycategory",
-  //   });
-  //   return;
-  // }
-
   try {
-    //finding all the category
-
     const allCategory = await prisma.category.findMany({
       select: { name: true },
     });

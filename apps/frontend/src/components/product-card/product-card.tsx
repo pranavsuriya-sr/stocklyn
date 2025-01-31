@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ imgSrc, name, price }) => {
         <p className="text-gray-600 text-lg font-medium mt-2">₹{price}</p>
       </div>
 
-      {/* Add to Cart Button (Optional) */}
+      {/* Add to Cart Button*/}
       {/* <button
         className="mt-4 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
         onClick={() => console.log("Added to cart:", name)}
