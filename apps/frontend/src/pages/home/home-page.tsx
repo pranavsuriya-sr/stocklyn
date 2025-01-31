@@ -1,3 +1,4 @@
+import ProductCard from "@/components/product-card/product-card";
 import { useSession } from "@/context/session-context";
 import { ProductsType } from "@/types/product-type";
 import { useQuery } from "@tanstack/react-query";
@@ -19,6 +20,7 @@ export default function Home() {
   function HandleProductClick({ product }: { product: ProductsType }) {
     navigate(`/product/${product.id}`, { state: product });
   }
+
   const FetchProductLists = async () => {
     const response = await axios.get(
       import.meta.env.VITE_PRODUCTS_BY_CATEGORY,
@@ -26,7 +28,6 @@ export default function Home() {
         withCredentials: true,
       }
     );
-
     return response.data;
   };
 
@@ -36,44 +37,38 @@ export default function Home() {
     staleTime: 3 * 60 * 1000,
   });
 
-  //   const result: { [key: string]: any } = {};
-  //   categories.forEach((category, index) => {
-  //     result[category] = responses[index].data;
-  //   });
-
-  //   return result;
-  // };
-
-  // if (!products) return null;
-
   if (isLoading) {
     return <div>Loading</div>;
   }
 
   const category = data?.category ?? [];
   const categoryProducts = data?.categoryProducts ?? [];
-  // console.log(category);
 
   return (
-    <div className="bg-white pt-20">
-      <div className="grid grid-cols-4">
-        {!isLoading &&
-          category.map((someCategory: string) => {
-            return categoryProducts.map((product: ProductsType) => {
-              console.log(someCategory, product.categoryName);
-              if (product.categoryName == someCategory) {
-                return (
-                  <div
-                    key={product.id}
-                    onClick={() => HandleProductClick({ product })}
-                  >
-                    {product.name}
+    <div className="bg-white pt-28 p-20">
+      {category.map((someCategory: string) => (
+        <div key={someCategory} className="mb-12">
+          <h2 className="text-2xl font-bold mb-4 capitalize">{`Your favorite ${someCategory}'s`}</h2>
+          <hr className="w-full border-t border-gray-300 my-4" />
+          <div className="grid grid-cols-4 gap-4">
+            {categoryProducts
+              .filter(
+                (product: ProductsType) => product.categoryName === someCategory
+              )
+              .map((product: ProductsType) => (
+                <div key={product.id}>
+                  <div onClick={() => HandleProductClick({ product })}>
+                    <ProductCard
+                      name={product.name}
+                      imgSrc={product.displayImage}
+                      price={product.price}
+                    />
                   </div>
-                );
-              }
-            });
-          })}
-      </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
