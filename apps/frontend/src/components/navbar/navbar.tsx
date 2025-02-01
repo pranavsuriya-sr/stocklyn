@@ -28,10 +28,7 @@ export default function Navbar() {
     >
       {/* Logo */}
       <Link to={"/"}>
-        <h3
-          className="scroll-m-20 text-3xl font-semibold tracking-tight cursor-pointer"
-          onClick={() => navigate("/")}
-        >
+        <h3 className="scroll-m-20 text-3xl font-semibold tracking-tight cursor-pointer">
           Maalelo
         </h3>
       </Link>

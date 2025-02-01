@@ -10,6 +10,7 @@ import LoadingPage from "./pages/loading/loading-page";
 import ProductPage from "./pages/product/product-page";
 import UserProfile from "./pages/profile/user-profile";
 import ProtectedPage from "./pages/protected/procted-page";
+import ShopPage from "./pages/shop/shop-page";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -60,6 +61,14 @@ const App = () => {
           element={
             <ProtectedPage>
               <Cart />
+            </ProtectedPage>
+          }
+        />
+        <Route
+          path="/shop"
+          element={
+            <ProtectedPage>
+              <ShopPage />
             </ProtectedPage>
           }
         />
