@@ -179,6 +179,7 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
           in: category,
         },
       },
+      take: 10,
     });
 
     if (validCategories.length === 0) {
@@ -188,12 +189,26 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
       return;
     }
 
-    const categoryProducts = await prisma.products.findMany({
-      where: {
-        categoryName: {
-          in: category,
-        },
-      },
+    // const categoryProducts = await prisma.products.findMany({
+    //   where: {
+    //     categoryName: {
+    //       in: category,
+    //     },
+    //   },
+    //   take: 3,
+    // });
+
+    const categoryProducts = await Promise.all(
+      category.map((currentCategory) => {
+        return prisma.products.findMany({
+          where: {
+            categoryName: currentCategory,
+          },
+          take: 4,
+        });
+      })
+    ).then((result) => {
+      return result.flat();
     });
 
     res.status(201).json({
@@ -203,6 +218,35 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Error at /product/getbycategory", error });
+  }
+});
+
+//pagination
+
+productRoute.get("/productPagination", async (req: Request, res: Response) => {
+  const skip = +req.query.skip;
+  const take = +req.query.take;
+
+  console.log(skip, take);
+
+  if (skip == undefined || take == undefined || take == 0) {
+    res.status(400).json({
+      message:
+        "Required feilds are missing , ie. (skip or take) or take = 0 at /product/productPagination",
+    });
+    return;
+  }
+
+  try {
+    const response = await prisma.products.findMany({
+      skip: skip,
+      take: take,
+    });
+    res.status(200).json({ message: "Product fetched successfully", response });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error at /product/productPagination", error });
   }
 });
 
