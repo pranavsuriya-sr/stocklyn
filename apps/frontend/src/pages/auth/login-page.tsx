@@ -9,18 +9,20 @@ import {
 } from "@/components/ui/form";
 
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ArrowRightIcon,
   ArrowUpRightIcon,
   ChromeIcon,
+  Eye,
+  EyeOff,
   GitCompare,
   Loader2Icon,
   LockIcon,
-  LockKeyholeIcon,
   MailIcon,
 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -39,6 +41,8 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 const Login = () => {
   const navigate = useNavigate();
   const { login, session } = useSession();
+  const [showPassword, setShowPassword] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     // If already logged in, redirect to home
@@ -69,26 +73,18 @@ const Login = () => {
   return (
     <div className="min-h-screen py-28">
       <div className="flex flex-col items-center justify-center px-4">
-        <div className="w-full max-w-md space-y-8">
-          {/* Animated Header */}
+        <div className="w-full max-w-sm space-y-8">
           <div className="text-center animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 mb-4 ">
-              <LockKeyholeIcon className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-4xl font-bold text-indigo-600 hover:text-indigo-700 ">
-                Welcome Back
-              </h1>
-            </div>
-            <p className="text-gray-600 text-lg">
-              Continue your shopping journey
-            </p>
+            <p className="text-gray-600 text-lg">Welcome back to Maalelo!</p>
           </div>
 
-          {/* Card-like Form Container */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 transition-all hover:shadow-2xl">
+          <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 transition-all hover:shadow-2xl">
             <Form {...loginForm}>
+              <div className="pb-3 text-2xl font-light">Sign In</div>
+              <hr />
               <form
                 onSubmit={loginForm.handleSubmit(onSubmit)}
-                className="space-y-6"
+                className="space-y-6 pt-3"
               >
                 {loginForm.formState.errors.root && (
                   <div className="px-4 py-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
@@ -123,18 +119,26 @@ const Login = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-gray-700">Password</FormLabel>
+
                       <FormControl>
-                        <div className="relative">
+                        <div className="relative flex items-center justify-between">
                           <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                           <Input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="••••••••"
                             {...field}
                             className="pl-10 py-5 rounded-lg"
                           />
+                          <div
+                            className="p-2 border rounded-lg ml-1 bg-gray-100 hover:cursor-pointer hover:bg-gray-200"
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? <EyeOff /> : <Eye />}
+                          </div>
                         </div>
                       </FormControl>
-                      <FormMessage className="text-red-500" />
+
+                      <FormMessage className="text-red-500"></FormMessage>
                     </FormItem>
                   )}
                 />
@@ -173,6 +177,11 @@ const Login = () => {
                 <Button
                   variant="outline"
                   className="py-5 rounded-lg border-gray-300 hover:bg-gray-50"
+                  onClick={() => {
+                    toast({
+                      description: "Feature coming soon.",
+                    });
+                  }}
                 >
                   <GitCompare className="h-5 w-5 mr-2" />
                   GitHub
@@ -180,6 +189,11 @@ const Login = () => {
                 <Button
                   variant="outline"
                   className="py-5 rounded-lg border-gray-300 hover:bg-gray-50"
+                  onClick={() => {
+                    toast({
+                      description: "Feature coming soon.",
+                    });
+                  }}
                 >
                   <ChromeIcon className="h-5 w-5 mr-2" />
                   Google
@@ -188,7 +202,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Signup Link */}
           <div className="text-center text-gray-600">
             Don't have an account?{" "}
             <button

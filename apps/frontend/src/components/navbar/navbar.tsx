@@ -14,6 +14,7 @@ export default function Navbar() {
   const { toast } = useToast();
   const [itemsCount, setItemsCount] = useState(0);
   const { GetCount } = useCartStore();
+  const [selected, setSelected] = useState<string>("login");
 
   useEffect(() => {
     setItemsCount(GetCount());
@@ -110,21 +111,34 @@ export default function Navbar() {
 
       {session === false && (
         <div className="flex space-x-4">
+          {/* Login Button */}
           <button
             className={cn(
-              "px-4 py-2 text-md font-medium bg-indigo-600 text-white",
-              "rounded-lg shadow hover:bg-indigo-700 transition-colors"
+              "px-4 py-2 text-md font-medium rounded-lg shadow transition-colors",
+              selected === "login"
+                ? "bg-indigo-600 text-white"
+                : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
             )}
-            onClick={() => navigate("/login")}
+            onClick={() => {
+              setSelected("login");
+              navigate("/login");
+            }}
           >
             Login
           </button>
+
+          {/* Sign Up Button */}
           <button
             className={cn(
-              "px-4 py-2 text-md font-medium border border-indigo-600 text-indigo-600",
-              "rounded-lg hover:bg-indigo-600 hover:text-white transition-colors"
+              "px-4 py-2 text-md font-medium rounded-lg transition-colors",
+              selected === "signup"
+                ? "bg-indigo-600 text-white"
+                : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
             )}
-            onClick={() => navigate("/signup")}
+            onClick={() => {
+              setSelected("signup");
+              navigate("/signup");
+            }}
           >
             Sign Up
           </button>
