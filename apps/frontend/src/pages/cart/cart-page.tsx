@@ -1,4 +1,15 @@
 import { productRoute } from "@/api/api";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
@@ -18,6 +29,7 @@ const Cart = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [totalCost, setTotalCost] = useState(0);
+  const [confirmRemove, setConfirmRemove] = useState(false);
 
   useEffect(() => {
     try {
@@ -48,10 +60,10 @@ const Cart = () => {
 
     if (isRemoved) {
       toast({
-        variant: "success",
+        variant: "default",
         title: "Removed product!",
         description: "Product successfully removed from the cart!",
-        duration: 3000,
+        duration: 2000,
       });
     }
     if (!isRemoved) {
@@ -145,108 +157,124 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
-  // const updateCartItemMutation = useMutation({});
-
   return (
-    <div className="pt-32 w-2/3 mx-auto">
-      <div className="pt-10 text-3xl font-semibold pb-10">Shopping Cart</div>
+    <div className="pt-20 md:pt-32 px-4 md:px-0 max-w-7xl mx-auto">
+      <div className="text-2xl md:text-3xl font-semibold pb-6 md:pb-10">
+        Shopping Cart
+      </div>
       <hr className="w-full border-t border-gray-300 my-4" />
+
       {GetCount() > 0 &&
         products.map(({ id, name, displayImage, price, stockQuantity }) => {
           return (
             <div key={id}>
-              <div className="pt-10 flex items-center justify-between">
-                {/* Left side of shopping cart items */}
-                <div className="flex">
+              <div className="py-6 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                {/* Product Info */}
+                <div className="flex flex-1 gap-4 w-full">
                   <img
                     src={displayImage}
-                    className="w-44 h-44 p-2"
-                    alt="product"
+                    className="w-32 h-32 md:w-44 md:h-44 object-contain p-2"
+                    alt={name}
                   />
-                  <div className="flex flex-col items-start justify-between px-3 w-40">
-                    <div className="truncate" title={name}>
+                  <div className="flex flex-col justify-between">
+                    <h3 className="text-lg font-medium truncate" title={name}>
                       {name}
-                    </div>
+                    </h3>
                     <div>
                       {stockQuantity > 0 ? (
-                        <div className="text-green-600">In stock</div>
+                        <span className="text-green-600 text-sm">In stock</span>
                       ) : (
-                        <div className="text-red-600">
-                          Sorry , The product is out of stock.
-                        </div>
+                        <span className="text-red-600 text-sm">
+                          Out of stock
+                        </span>
                       )}
                     </div>
                   </div>
                 </div>
-                {/* Middle section */}
-                <div>
-                  <select
-                    className="border p-1 rounded-md w-16"
-                    value={
-                      cartItems.find((item) => item.productId === id)
-                        ?.quantity ?? 1
-                    }
-                    onChange={(e) => HandleSelectQuantity(e, id)}
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                  </select>
-                  <div
-                    className="text-red-600 p-1 hover:cursor-pointer"
-                    onClick={() => HandleRemoveItem(id)}
-                  >
-                    Remove
+
+                {/* Quantity Controls */}
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full md:w-auto">
+                  <div className="flex items-center gap-4">
+                    <select
+                      className="border p-2 rounded-md w-20 text-sm"
+                      value={
+                        cartItems.find((item) => item.productId === id)
+                          ?.quantity ?? 1
+                      }
+                      onChange={(e) => HandleSelectQuantity(e, id)}
+                    >
+                      {[1, 2, 3, 4, 5, 6].map((num) => (
+                        <option key={num} value={num}>
+                          {num}
+                        </option>
+                      ))}
+                    </select>
+                    <AlertDialog>
+                      <AlertDialogTrigger className="text-red-600 hover:text-red-700 text-sm p-2">
+                        Remove
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Remove item?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action will remove the product from your cart
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            className="bg-red-600 hover:bg-red-700"
+                            onClick={() => HandleRemoveItem(id)}
+                          >
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
+                  <div className="text-lg font-medium md:min-w-[120px] text-right">
+                    ₹{price}
                   </div>
                 </div>
-                {/* Right side */}
-                <div>Price: ₹{price}</div>
               </div>
-
               <hr className="w-full border-t border-gray-300 my-4" />
             </div>
           );
         })}
-      <div className="flex flex-col items-center justify-center mt-32 border w-2/4 mx-auto p-10">
-        <div className="flex items-center justify-between w-full px-4 pt-2">
-          <div className="font-thin">Subtotal</div>
-          <div>₹{totalCost}</div>
-        </div>
-        <hr className="w-full border-t border-gray-300 my-4" />
-        <div className="flex items-center justify-between w-full px-4 pt-2">
-          <div className="font-thin">Shipping</div>
-          <div>₹{totalCost > 0 ? 49 : 0}</div>
-        </div>
-        <hr className="w-full border-t border-gray-300 my-4" />
-        <div className="flex items-center justify-between w-full px-4 pt-2">
-          <div className="font-thin">Tax</div>
-          <div>₹0</div>
-        </div>
-        <hr className="w-full border-t border-gray-300 my-4" />
-        <div className="flex items-center justify-between w-full px-4 pt-2">
-          <div className="font-semibold">Order total</div>
-          <div>₹{totalCost}</div>
+
+      {/* Order Summary */}
+      <div className="mt-12 md:mt-20 border rounded-lg p-6 max-w-3xl mx-auto w-full">
+        <div className="space-y-4">
+          <div className="flex justify-between">
+            <span className="text-gray-600">Subtotal</span>
+            <span>₹{totalCost}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Shipping</span>
+            <span>₹{totalCost > 0 ? 49 : 0}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Tax</span>
+            <span>₹0</span>
+          </div>
+          <hr className="my-4" />
+          <div className="flex justify-between font-semibold text-lg">
+            <span>Order total</span>
+            <span>₹{totalCost}</span>
+          </div>
         </div>
       </div>
-      <div className="flex justify-center items-center mt-10">
-        <Button className="bg-indigo-600 hover:bg-indigo-500 w-1/2 mx-auto">
-          Checkout
+
+      <div className="flex flex-col items-center mt-8 gap-6">
+        <Button className="w-full md:w-1/2 max-w-md bg-indigo-600 hover:bg-indigo-500 h-12">
+          Proceed to Checkout
         </Button>
-      </div>
-      <div className="flex justify-center items-center mt-10 font-thin">
-        <div className="flex items-center justify-center">
-          or
-          <span
-            className="text-sm text-blue-700 ml-2 hover:cursor-pointer"
-            onClick={() => navigate("/home")}
-          >
-            {" "}
-            Continue Shopping →
-          </span>
-        </div>
+        <button
+          onClick={() => navigate("/home")}
+          className="text-indigo-600 hover:text-indigo-500 text-sm font-medium"
+        >
+          Continue Shopping →
+        </button>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { useSession } from "@/context/session-context";
-import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useCartStore } from "@/utils/store/cart-store";
 import { ShoppingCart } from "lucide-react";
@@ -11,7 +10,6 @@ import ViewProfile from "./navbar-components/view-profile";
 export default function Navbar() {
   const navigate = useNavigate();
   const { session } = useSession();
-  const { toast } = useToast();
   const [itemsCount, setItemsCount] = useState(0);
   const { GetCount } = useCartStore();
   const [selected, setSelected] = useState<string>("login");
@@ -37,25 +35,23 @@ export default function Navbar() {
       {/* Navigation Links */}
       <ul className="flex space-x-8">
         <li>
-          {session !== false && (
-            <Link
-              to="/home"
-              className="text-gray-500 text-md font-medium  hover:text-indigo-600 transition-colors "
-            >
-              Home
-            </Link>
-          )}
+          <Link
+            to="/home"
+            className="text-gray-500 text-md font-medium  hover:text-indigo-600 transition-colors "
+          >
+            Home
+          </Link>
         </li>
-        <li>
-          {session !== false && (
+        {session !== false && (
+          <li>
             <Link
               to="/shop"
               className="text-gray-500 text-md font-medium  hover:text-indigo-600 transition-colors "
             >
               Shop
             </Link>
-          )}
-        </li>
+          </li>
+        )}
 
         <li>
           <Link

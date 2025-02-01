@@ -39,15 +39,6 @@ const App = () => {
       {loading && <LoadingPage />}
       <Routes>
         <Route
-          path="/home"
-          element={
-            <ProtectedPage>
-              <Home />
-            </ProtectedPage>
-          }
-        />
-
-        <Route
           path="/userProfile"
           element={
             <ProtectedPage>
@@ -72,6 +63,7 @@ const App = () => {
             </ProtectedPage>
           }
         />
+        <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />

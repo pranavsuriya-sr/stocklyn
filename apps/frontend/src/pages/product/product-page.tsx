@@ -1,3 +1,4 @@
+import ProductCard from "@/components/product-card/product-card";
 import {
   Accordion,
   AccordionContent,
@@ -21,7 +22,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const { AddCartItems } = useCartStore.getState();
 
@@ -34,8 +35,17 @@ const ProductPage = () => {
   );
   const { user } = useSession();
   const { products } = useCartStore();
+  const navigate = useNavigate();
 
   const HandleAddToCart = async () => {
+    if (!user) {
+      toast({
+        variant: "destructive",
+        description: "Please login to add to cart",
+      });
+      return;
+    }
+
     const isAddedToCart = await AddCartItems(
       user?.cart.id,
       product.id,
@@ -86,7 +96,6 @@ const ProductPage = () => {
           </div>
         </div>
 
-        {/* Right Section: Product Details */}
         <div className="space-y-4">
           <h1 className="text-2xl font-bold text-gray-900">
             {product.name || "Product Name"}
@@ -143,6 +152,7 @@ const ProductPage = () => {
               </Accordion>
             );
           })}
+
           <Sheet>
             <SheetTrigger asChild>
               {product.stockQuantity > 0 && (
@@ -166,28 +176,40 @@ const ProductPage = () => {
               ) : (
                 products.map((product) => {
                   return (
-                    <div
+                    // <div
+                    //   key={product.id}
+                    //   className="flex items-center justify-between px-2 py-10 border mt-5"
+                    // >
+                    //   <div>
+                    //     <img
+                    //       src={product.displayImage}
+                    //       className="w-[150px] h-[150px] object-cover"
+                    //     />
+                    //   </div>
+                    //   <div className="flex flex-col justify-between items-center ">
+                    //     <div>{product.name}</div>
+                    //     <div>{product.price}</div>
+                    //   </div>
+                    // </div>
+                    <ProductCard
+                      imgSrc={product.displayImage}
+                      name={product.name}
+                      price={product.price}
                       key={product.id}
-                      className="flex items-center justify-between px-2 py-10 border mt-5"
-                    >
-                      <div>
-                        <img
-                          src={product.displayImage}
-                          className="w-[150px] h-[150px] object-cover"
-                        />
-                      </div>
-                      <div className="flex flex-col justify-between items-center ">
-                        <div>{product.name}</div>
-                        <div>{product.price}</div>
-                      </div>
-                    </div>
+                    ></ProductCard>
                   );
                 })
               )}
 
-              <SheetFooter>
+              <SheetFooter className="pt-10 pb-5">
                 <SheetClose asChild>
-                  <Button type="submit">Save changes</Button>
+                  <Button
+                    type="submit"
+                    variant={"indigo"}
+                    onClick={() => navigate("/cartitems")}
+                  >
+                    Checkout
+                  </Button>
                 </SheetClose>
               </SheetFooter>
             </SheetContent>
