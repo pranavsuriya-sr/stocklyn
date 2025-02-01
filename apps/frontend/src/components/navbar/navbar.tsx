@@ -15,131 +15,116 @@ export default function Navbar() {
   const [selected, setSelected] = useState<string>("login");
 
   useEffect(() => {
-    setItemsCount(GetCount());
-  }, [GetCount()]);
+    setItemsCount(GetCount()); // Corrected useEffect dependency
+  }, [GetCount]);
 
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 border mx-auto w-[75%] rounded-lg overflow-hidden",
-        "bg-white/70 backdrop-blur-md shadow-lg text-gray-800 h-25"
-      )}
-    >
-      {/* Logo */}
-      <Link to={"/"}>
-        <h3 className="scroll-m-20 text-3xl font-semibold tracking-tight cursor-pointer">
-          Maalelo
-        </h3>
-      </Link>
+    <>
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 shadow-md ">
+        <div className="max-w-[80%] mx-auto flex items-center justify-between px-6 md:px-10 py-4">
+          {/* Logo */}
+          <Link to={"/"}>
+            <h3 className="text-3xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800">
+              Maalelo
+            </h3>
+          </Link>
 
-      {/* Navigation Links */}
-      <ul className="flex space-x-8">
-        <li>
-          <Link
-            to="/home"
-            className="text-gray-500 text-md font-medium  hover:text-indigo-600 transition-colors "
-          >
-            Home
-          </Link>
-        </li>
-        {session !== false && (
-          <li>
-            <Link
-              to="/shop"
-              className="text-gray-500 text-md font-medium  hover:text-indigo-600 transition-colors "
-            >
-              Shop
-            </Link>
-          </li>
-        )}
+          {/* Navigation Links */}
+          <ul className="hidden md:flex space-x-6">
+            <li>
+              <Link to="/home" className="text-gray-600 hover:text-indigo-600">
+                Home
+              </Link>
+            </li>
+            {session !== false && (
+              <li>
+                <Link
+                  to="/shop"
+                  className="text-gray-600 hover:text-indigo-600"
+                >
+                  Shop
+                </Link>
+              </li>
+            )}
+            <li>
+              <Link to="/about" className="text-gray-600 hover:text-indigo-600">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/services"
+                className="text-gray-600 hover:text-indigo-600"
+              >
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                className="text-gray-600 hover:text-indigo-600"
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
 
-        <li>
-          <Link
-            to="/about"
-            className="text-gray-500 text-md font-medium  hover:text-indigo-600 transition-colors "
-          >
-            About
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/"
-            className="text-gray-500 text-md font-medium  hover:text-indigo-600 transition-colors "
-          >
-            Services
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/"
-            className="text-gray-500 text-md font-medium  hover:text-indigo-600 transition-colors "
-          >
-            Contact
-          </Link>
-        </li>
-      </ul>
+          {/* Right Side: Profile & Cart */}
+          {session === true && (
+            <div className="flex space-x-4 items-center">
+              {/* Cart Icon */}
+              <div className="relative hover:cursor-pointer hover:bg-gray-100 rounded-full p-2 ">
+                <Badge className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                  {itemsCount > 0 ? itemsCount : "0"}
+                </Badge>
+                <ShoppingCart
+                  size={30}
+                  onClick={() => navigate("/cartitems")}
+                />
+              </div>
 
-      {session === true && (
-        <div className="flex space-x-4 ">
-          {/*this is the cart item div*/}
-          <div className="flex items-center justify-center pt-1 ">
-            <div
-              className="relative hover:cursor-pointer hover:bg-gray-100 border-1 rounded-full p-2"
-              onClick={() => navigate("/cartitems")}
-            >
-              <Badge className="absolute -top-0 -right-1 bg-red-500 hover:bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                {itemsCount == 0 ? (
-                  <span className="font-thin">null</span>
-                ) : (
-                  <span>{itemsCount}</span>
-                )}
-              </Badge>
-              <ShoppingCart size={30}></ShoppingCart>
+              {/* Profile Dropdown */}
+              <ViewProfile />
             </div>
-          </div>
+          )}
 
-          {/*This is the view profile div*/}
-          <ViewProfile />
+          {/* Login & Sign Up Buttons */}
+          {session === false && (
+            <div className="flex space-x-4">
+              <button
+                className={cn(
+                  "px-4 py-2 text-md font-medium rounded-lg shadow transition-all",
+                  selected === "login"
+                    ? "bg-indigo-600 text-white"
+                    : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
+                )}
+                onClick={() => {
+                  setSelected("login");
+                  navigate("/login");
+                }}
+              >
+                Login
+              </button>
+
+              <button
+                className={cn(
+                  "px-4 py-2 text-md font-medium rounded-lg transition-all",
+                  selected === "signup"
+                    ? "bg-indigo-600 text-white"
+                    : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
+                )}
+                onClick={() => {
+                  setSelected("signup");
+                  navigate("/signup");
+                }}
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
         </div>
-      )}
-
-      {/* Action Buttons */}
-
-      {session === false && (
-        <div className="flex space-x-4">
-          {/* Login Button */}
-          <button
-            className={cn(
-              "px-4 py-2 text-md font-medium rounded-lg shadow transition-colors",
-              selected === "login"
-                ? "bg-indigo-600 text-white"
-                : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
-            )}
-            onClick={() => {
-              setSelected("login");
-              navigate("/login");
-            }}
-          >
-            Login
-          </button>
-
-          {/* Sign Up Button */}
-          <button
-            className={cn(
-              "px-4 py-2 text-md font-medium rounded-lg transition-colors",
-              selected === "signup"
-                ? "bg-indigo-600 text-white"
-                : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
-            )}
-            onClick={() => {
-              setSelected("signup");
-              navigate("/signup");
-            }}
-          >
-            Sign Up
-          </button>
-        </div>
-      )}
-    </nav>
+      </nav>
+    </>
   );
 }

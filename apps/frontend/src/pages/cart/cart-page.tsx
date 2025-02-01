@@ -29,7 +29,6 @@ const Cart = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [totalCost, setTotalCost] = useState(0);
-  const [confirmRemove, setConfirmRemove] = useState(false);
 
   useEffect(() => {
     try {

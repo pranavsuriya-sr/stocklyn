@@ -25,10 +25,13 @@ const ViewProfile = () => {
   };
 
   return (
-    <div className="p-1 relative">
+    <div className="p-1 relative border-black ">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger className="relative">
-          <User className="border rounded-full mt-1" size={34} />
+          <User
+            className="border-2 rounded-full mt-1 border-black "
+            size={34}
+          />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           className="absolute z-50 bg-white border rounded shadow-md p-2"

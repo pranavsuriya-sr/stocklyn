@@ -6,7 +6,6 @@ const EmptyCart = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 text-center">
-        {/* Animated Shopping Cart Icon */}
         <div className="mx-auto animate-bounce">
           <svg
             className="h-24 w-24 text-gray-300"
@@ -24,12 +23,11 @@ const EmptyCart = () => {
           </svg>
         </div>
 
-        {/* Text Content */}
         <div className="space-y-4">
-          <h2 className="text-3xl font-extrabold text-gray-900">
+          <h2 className="text-3xl font-montserrat font-bold text-gray-900">
             Your Cart Feels Lonely
           </h2>
-          <p className="text-xl text-gray-500">
+          <p className="text-lg font-montserrat text-gray-500">
             Your shopping cart is empty. Let's fill it with your favorite items!
           </p>
         </div>

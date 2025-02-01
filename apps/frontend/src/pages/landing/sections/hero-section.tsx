@@ -1,37 +1,60 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import collage from "../../../assets/landingPageCollage.webp";
+import image from "../../../assets/woman-2564660_1280.jpg";
 
 const HeroSection = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col lg:flex-row">
-      <div className="w-full lg:w-1/2 h-screen pt-28 flex flex-col justify-center px-6 md:px-10">
-        <span className="text-3xl md:text-5xl lg:text-6xl font-semibold font-mono">
-          Summer styles are finally here
-        </span>
-        <span className="text-gray-500 py-5 text-lg md:text-xl lg:text-2xl">
-          This year, our new summer collection will shelter you from the harsh
-          elements of a world that doesn't care if you live or die.
-        </span>
-        <span>
-          <Button
-            className="p-6 text-lg"
-            variant={"indigo"}
-            onClick={() => navigate("/home")} // later change it to /shop
-          >
-            Shop Collection
-          </Button>
-        </span>
-      </div>
-
-      <div className="w-full lg:w-1/2 h-1/2 lg:h-screen pt-10 lg:pt-28 px-6 md:px-10 flex items-center justify-center">
+    <div className="">
+      <div className="relative w-full pt-20">
         <img
-          src={collage}
-          alt="Collage"
-          className="rounded-lg shadow-sm max-w-full h-auto"
+          src={image}
+          className="w-full h-[600px] md:h-[750px] lg:h-[850px] object-cover"
+          alt="banner"
         />
+
+        <div className="absolute inset-0 flex flex-col items-start justify-center text-left text-white bg-black/40 px-6 md:px-16">
+          <h1 className="text-4xl md:text-6xl font-bold font-montserrat">
+            FOR THIS SUMMER
+          </h1>
+          <p className="mt-2 text-lg md:text-xl">SALE UP TO 40% OFF</p>
+          <Button
+            className="mt-4 px-6 py-2 text-white font-semibold rounded-lg"
+            variant={"indigo"}
+          >
+            Shop Now
+          </Button>
+        </div>
+      </div>
+      <div className="flex flex-col lg:flex-row">
+        <div className="w-full lg:w-1/2 h-screen pt-28 flex flex-col justify-center px-6 md:px-10">
+          <span className="text-3xl md:text-5xl lg:text-6xl font-semibold font-mono">
+            Summer styles are finally here
+          </span>
+          <span className="text-gray-500 py-5 text-lg md:text-xl lg:text-2xl">
+            This year, our new summer collection will shelter you from the harsh
+            elements of a world that doesn't care if you live or die.
+          </span>
+          <span>
+            <Button
+              className="p-6 text-lg"
+              variant={"indigo"}
+              onClick={() => navigate("/home")} // later change it to /shop
+            >
+              Shop Collection
+            </Button>
+          </span>
+        </div>
+
+        <div className="w-full lg:w-1/2 h-1/2 lg:h-screen pt-10 lg:pt-28 px-6 md:px-10 flex items-center justify-center">
+          <img
+            src={collage}
+            alt="Collage"
+            className="rounded-lg shadow-sm max-w-full h-auto"
+          />
+        </div>
       </div>
     </div>
   );

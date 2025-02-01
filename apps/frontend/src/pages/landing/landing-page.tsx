@@ -5,7 +5,7 @@ import ShopByCategory from "./sections/shop-by-category";
 
 const LandingPage = () => {
   return (
-    <div className="w-[90%] mx-auto border-2">
+    <div className="">
       <HeroSection />
       <ShopByCategory />
       <PracticleGuide />
