@@ -10,11 +10,19 @@ import {
 } from "@/components/ui/pagination";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const ShopPage = () => {
+  const navigate = useNavigate();
+
   const [pageNumber, setPageNumber] = useState(1);
 
   const HandleFetchProductsByPageNumber = async () => {
+    const [searchParams] = useSearchParams();
+    const skip = searchParams.get("skip");
+    const take = searchParams.get("take");
+    console.log(skip, take);
+
     const response = await productRoute.get("/productPagination");
   };
 
@@ -23,7 +31,6 @@ const ShopPage = () => {
     queryFn: () => HandleFetchProductsByPageNumber(),
   });
 
-  console.log(window.location.href);
   return (
     <div className="pt-28">
       <div>hello</div>
@@ -33,7 +40,13 @@ const ShopPage = () => {
             <PaginationPrevious />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink>1</PaginationLink>
+            <PaginationLink
+              onClick={() =>
+                navigate(`/shop?skip=${(pageNumber - 1) * 2}&take=2`)
+              }
+            >
+              1
+            </PaginationLink>
             <PaginationLink>2</PaginationLink>
             <PaginationLink>3</PaginationLink>
             <PaginationLink>4</PaginationLink>
