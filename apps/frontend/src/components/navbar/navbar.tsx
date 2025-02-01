@@ -21,7 +21,7 @@ export default function Navbar() {
   return (
     <>
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 shadow-md ">
+      <nav className="fixed top-0 left-0 w-full z-40 bg-white/80 shadow-md ">
         <div className="max-w-[80%] mx-auto flex items-center justify-between px-6 md:px-10 py-4">
           {/* Logo */}
           <Link to={"/"}>

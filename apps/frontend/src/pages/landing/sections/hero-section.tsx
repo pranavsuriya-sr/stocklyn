@@ -1,7 +1,32 @@
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import collage from "../../../assets/landingPageCollage.webp";
 import image from "../../../assets/woman-2564660_1280.jpg";
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -15,18 +40,32 @@ const HeroSection = () => {
           alt="banner"
         />
 
-        <div className="absolute inset-0 flex flex-col items-start justify-center text-left text-white bg-black/40 px-6 md:px-16">
-          <h1 className="text-4xl md:text-6xl font-bold font-montserrat">
-            FOR THIS SUMMER
-          </h1>
-          <p className="mt-2 text-lg md:text-xl">SALE UP TO 40% OFF</p>
-          <Button
-            className="mt-4 px-6 py-2 text-white font-semibold rounded-lg"
-            variant={"indigo"}
+        <motion.div
+          className="absolute inset-0 flex flex-col items-start justify-center text-left text-white bg-black/40 px-6 md:px-16"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.h1
+            className="text-4xl md:text-6xl font-bold font-montserrat"
+            variants={itemVariants}
           >
-            Shop Now
-          </Button>
-        </div>
+            FOR THIS SUMMER
+          </motion.h1>
+
+          <motion.p className="mt-2 text-lg md:text-xl" variants={itemVariants}>
+            SALE UP TO 40% OFF
+          </motion.p>
+
+          <motion.div variants={itemVariants} className="mt-4">
+            <Button
+              className="px-6 py-2 text-white font-semibold rounded-lg"
+              variant={"indigo"}
+            >
+              Shop Now
+            </Button>
+          </motion.div>
+        </motion.div>
       </div>
       <div className="flex flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 h-screen pt-28 flex flex-col justify-center px-6 md:px-10">
@@ -41,7 +80,7 @@ const HeroSection = () => {
             <Button
               className="p-6 text-lg"
               variant={"indigo"}
-              onClick={() => navigate("/home")} // later change it to /shop
+              onClick={() => navigate("/shop")}
             >
               Shop Collection
             </Button>
