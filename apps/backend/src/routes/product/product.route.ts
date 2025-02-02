@@ -227,7 +227,7 @@ productRoute.get("/productPagination", async (req: Request, res: Response) => {
   const skip = +req.query.skip;
   const take = +req.query.take;
 
-  console.log(skip, take);
+  console.log(skip, take, "hello world");
 
   if (skip == undefined || take == undefined || take == 0) {
     res.status(400).json({
@@ -242,7 +242,9 @@ productRoute.get("/productPagination", async (req: Request, res: Response) => {
       skip: skip,
       take: take,
     });
-    res.status(200).json({ message: "Product fetched successfully", response });
+    res
+      .status(200)
+      .json({ message: "Product fetched successfully", products: response });
   } catch (error) {
     res
       .status(500)
