@@ -35,18 +35,18 @@ export default function Home() {
   const categoryProducts = data?.categoryProducts ?? [];
 
   return (
-    <div className="bg-white pt-32 p-4 md:p-10 lg:p-20 lg:pt-40">
+    <div className="bg-white pt-28 p-4 md:p-10 lg:p-20 lg:pt-32">
       {category.map((someCategory: string) => (
         <div key={someCategory} className="mb-12 pt-10">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 capitalize text-left w-[75%] mx-auto animate-fade-in-up fancy-text">
+          <h2 className="text-2xl font-montserrat md:text-3xl font-bold mb-4 capitalize text-left w-[75%] mx-auto animate-fade-in-up fancy-text ">
             {`Our best ${someCategory}'s Collection`}
           </h2>
 
           <hr className="w-[75%] mx-auto border-t border-gray-300 my-4" />
 
           {/* Flex to center on small screens */}
-          <div className="flex justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex justify-center pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {categoryProducts
                 .filter(
                   (product: ProductsType) =>

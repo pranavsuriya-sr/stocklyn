@@ -54,6 +54,10 @@ const ShopPage = () => {
     setPageNumber(pageNumber - 1);
   };
 
+  function HandleProductClick({ product }: { product: ProductsType }) {
+    navigate(`/product/${product.id}`, { state: product });
+  }
+
   if (isError) {
     console.log(isError);
     return <div>Error in Fetching</div>;
@@ -73,12 +77,14 @@ const ShopPage = () => {
               {data !== undefined &&
                 data.map((product) => {
                   return (
-                    <ProductCard
-                      name={product.name}
-                      imgSrc={product.displayImage}
-                      price={product.price}
-                      key={product.id}
-                    ></ProductCard>
+                    <div onClick={() => HandleProductClick({ product })}>
+                      <ProductCard
+                        name={product.name}
+                        imgSrc={product.displayImage}
+                        price={product.price}
+                        key={product.id}
+                      ></ProductCard>
+                    </div>
                   );
                 })}
             </div>

@@ -157,7 +157,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="pt-20 md:pt-32 px-4 md:px-0 max-w-7xl mx-auto">
+    <div className="pt-20 md:pt-32 px-4 md:px-0 w-[80%] mx-auto">
       <div className="text-2xl md:text-3xl font-semibold pb-6 md:pb-10">
         Shopping Cart
       </div>
@@ -178,6 +178,7 @@ const Cart = () => {
                     <h3 className="text-lg font-medium truncate" title={name}>
                       {name}
                     </h3>
+
                     <div>
                       {stockQuantity > 0 ? (
                         <span className="text-green-600 text-sm">In stock</span>
@@ -187,49 +188,49 @@ const Cart = () => {
                         </span>
                       )}
                     </div>
+                    <div className="flex items-center gap-4">
+                      <select
+                        className="border p-2 rounded-md w-20 text-sm hover:cursor-pointer"
+                        value={
+                          cartItems.find((item) => item.productId === id)
+                            ?.quantity ?? 1
+                        }
+                        onChange={(e) => HandleSelectQuantity(e, id)}
+                      >
+                        {[1, 2, 3, 4, 5, 6].map((num) => (
+                          <option key={num} value={num}>
+                            {num}
+                          </option>
+                        ))}
+                      </select>
+                      <AlertDialog>
+                        <AlertDialogTrigger className="text-red-600 hover:text-red-700 text-sm p-2">
+                          Remove
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Remove item?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action will remove the product from your cart
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              className="bg-red-600 hover:bg-red-700"
+                              onClick={() => HandleRemoveItem(id)}
+                            >
+                              Continue
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full md:w-auto">
-                  <div className="flex items-center gap-4">
-                    <select
-                      className="border p-2 rounded-md w-20 text-sm"
-                      value={
-                        cartItems.find((item) => item.productId === id)
-                          ?.quantity ?? 1
-                      }
-                      onChange={(e) => HandleSelectQuantity(e, id)}
-                    >
-                      {[1, 2, 3, 4, 5, 6].map((num) => (
-                        <option key={num} value={num}>
-                          {num}
-                        </option>
-                      ))}
-                    </select>
-                    <AlertDialog>
-                      <AlertDialogTrigger className="text-red-600 hover:text-red-700 text-sm p-2">
-                        Remove
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Remove item?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            This action will remove the product from your cart
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction
-                            className="bg-red-600 hover:bg-red-700"
-                            onClick={() => HandleRemoveItem(id)}
-                          >
-                            Continue
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </div>
-                  <div className="text-lg font-medium md:min-w-[120px] text-right">
+                  <div className="text-xl font-medium md:min-w-[120px] text-right">
                     ₹{price}
                   </div>
                 </div>
