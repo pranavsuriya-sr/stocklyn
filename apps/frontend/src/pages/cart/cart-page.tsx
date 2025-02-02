@@ -268,8 +268,8 @@ const Cart = () => {
           Proceed to Checkout
         </Button>
         <button
-          onClick={() => navigate("/home")}
-          className="text-indigo-600 hover:text-indigo-500 text-sm font-medium"
+          onClick={() => navigate("/shop")}
+          className="text-indigo-600 hover:text-indigo-500 text-sm font-medium pb-10"
         >
           Continue Shopping →
         </button>

@@ -60,71 +60,78 @@ const ShopPage = () => {
   }
 
   return (
-    <div className="pt-28">
-      {isLoading ? (
-        <div>Loading please wait</div>
-      ) : (
-        <div className="grid grid-cols-4">
-          {data !== undefined &&
-            data.map((product) => {
-              return (
-                <ProductCard
-                  name={product.name}
-                  imgSrc={product.displayImage}
-                  price={product.price}
-                  key={product.id}
-                ></ProductCard>
-              );
-            })}
-        </div>
-      )}
+    <div className="pt-28 h-screen flex items-center justify-center">
+      <div>
+        {isLoading ? (
+          <div>Loading please wait</div>
+        ) : (
+          <div>
+            <div className="font-montserrat text-4xl font-bold py-10">
+              All available Items
+            </div>
+            <div className="grid grid-cols-4 gap-10">
+              {data !== undefined &&
+                data.map((product) => {
+                  return (
+                    <ProductCard
+                      name={product.name}
+                      imgSrc={product.displayImage}
+                      price={product.price}
+                      key={product.id}
+                    ></ProductCard>
+                  );
+                })}
+            </div>
+          </div>
+        )}
 
-      <Pagination className="hover:cursor-pointer">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => {
-                HandleGoPrevious();
-              }}
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink
-              onClick={() => HandleGetInfoByPageNumber(pageNumber)}
-            >
-              {pageNumber}
-            </PaginationLink>
-            <PaginationLink
-              onClick={() => HandleGetInfoByPageNumber(pageNumber + 1)}
-            >
-              {pageNumber + 1}
-            </PaginationLink>
-            <PaginationLink
-              onClick={() => HandleGetInfoByPageNumber(pageNumber + 2)}
-            >
-              {pageNumber + 2}
-            </PaginationLink>
-            <PaginationLink
-              onClick={() => HandleGetInfoByPageNumber(pageNumber + 3)}
-            >
-              {pageNumber + 3}
-            </PaginationLink>
-            <PaginationLink
-              onClick={() => HandleGetInfoByPageNumber(pageNumber + 4)}
-            >
-              {pageNumber + 4}
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem></PaginationItem>
-          <PaginationItem>
-            <PaginationNext
-              onClick={() => {
-                setPageNumber(pageNumber + 1);
-              }}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+        <Pagination className="hover:cursor-pointer pt-10">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => {
+                  HandleGoPrevious();
+                }}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink
+                onClick={() => HandleGetInfoByPageNumber(pageNumber)}
+              >
+                {pageNumber}
+              </PaginationLink>
+              <PaginationLink
+                onClick={() => HandleGetInfoByPageNumber(pageNumber + 1)}
+              >
+                {pageNumber + 1}
+              </PaginationLink>
+              <PaginationLink
+                onClick={() => HandleGetInfoByPageNumber(pageNumber + 2)}
+              >
+                {pageNumber + 2}
+              </PaginationLink>
+              <PaginationLink
+                onClick={() => HandleGetInfoByPageNumber(pageNumber + 3)}
+              >
+                {pageNumber + 3}
+              </PaginationLink>
+              <PaginationLink
+                onClick={() => HandleGetInfoByPageNumber(pageNumber + 4)}
+              >
+                {pageNumber + 4}
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem></PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => {
+                  setPageNumber(pageNumber + 1);
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
     </div>
   );
 };

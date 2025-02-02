@@ -15,15 +15,13 @@ export default function Navbar() {
   const [selected, setSelected] = useState<string>("login");
 
   useEffect(() => {
-    setItemsCount(GetCount()); // Corrected useEffect dependency
-  }, [GetCount]);
+    setItemsCount(() => GetCount());
+  }, [GetCount()]);
 
   return (
     <>
-      {/* Navbar */}
       <nav className="fixed top-0 left-0 w-full z-40 bg-white/80 shadow-md ">
         <div className="max-w-[80%] mx-auto flex items-center justify-between px-6 md:px-10 py-4">
-          {/* Logo */}
           <Link to={"/"}>
             <h3 className="text-3xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800">
               Maalelo
@@ -70,10 +68,8 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* Right Side: Profile & Cart */}
           {session === true && (
             <div className="flex space-x-4 items-center">
-              {/* Cart Icon */}
               <div className="relative hover:cursor-pointer hover:bg-gray-100 rounded-full p-2 ">
                 <Badge className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                   {itemsCount > 0 ? itemsCount : "0"}
@@ -84,12 +80,10 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Profile Dropdown */}
               <ViewProfile />
             </div>
           )}
 
-          {/* Login & Sign Up Buttons */}
           {session === false && (
             <div className="flex space-x-4">
               <button
