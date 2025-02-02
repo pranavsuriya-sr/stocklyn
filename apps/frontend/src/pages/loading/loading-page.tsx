@@ -6,8 +6,7 @@ const LoadingPage = () => {
   const [fadeIn, setFadeIn] = useState(true);
   const [shouldShow, setShouldShow] = useState(true);
 
-  const MIN_DISPLAY_TIME = 1000;
-  const startTime = Date.now();
+  const MIN_DISPLAY_TIME = 800;
 
   const quotes = [
     "Shop the best deals today! 🛍️",
@@ -21,20 +20,14 @@ const LoadingPage = () => {
   ];
 
   useEffect(() => {
-    const remainingTime = Math.max(
-      0,
-      MIN_DISPLAY_TIME - (Date.now() - startTime)
-    );
-    const timer = setTimeout(() => {
-      setShouldShow(false);
-    }, remainingTime);
+    const timer = setTimeout(() => setShouldShow(false), MIN_DISPLAY_TIME);
 
     const quoteInterval = setInterval(() => {
       setFadeIn(false);
       setTimeout(() => {
         setQuoteIndex((prev) => (prev + 1) % quotes.length);
         setFadeIn(true);
-      }, 500);
+      }, 200);
     }, 1000);
 
     return () => {
@@ -43,17 +36,15 @@ const LoadingPage = () => {
     };
   }, []);
 
-  if (!shouldShow) {
-    return null;
-  }
+  if (!shouldShow) return null;
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 z-50 animate-fadeIn">
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 z-50">
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className={`absolute animate-float opacity-10
+            className={`absolute animate-float opacity-20 
               ${i % 4 === 0 ? "text-blue-500" : ""}
               ${i % 4 === 1 ? "text-purple-500" : ""}
               ${i % 4 === 2 ? "text-pink-500" : ""}
@@ -62,8 +53,8 @@ const LoadingPage = () => {
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${1 + Math.random() * 3}s`,
+              animationDelay: `${Math.random() * 1}s`,
+              animationDuration: `${1 + Math.random() * 2}s`,
             }}
           >
             {i % 4 === 0 && <ShoppingBag size={24} />}
@@ -76,14 +67,17 @@ const LoadingPage = () => {
 
       <div className="relative z-10 flex flex-col items-center space-y-8">
         <div className="relative">
-          <div className="absolute -inset-4 animate-pulse rounded-full bg-gradient-to-r from-blue-400 to-purple-400 opacity-75 blur-xl" />
-          <Loader className="relative animate-spin text-white" size={48} />
+          <div className="absolute -inset-4 animate-glow rounded-full bg-gradient-to-r from-blue-400 to-purple-400 opacity-75 blur-xl" />
+          <Loader
+            className="relative animate-expand-spin text-white"
+            size={48}
+          />
         </div>
 
         <div className="relative">
           <div className="absolute -inset-4 rounded-lg bg-white/50 backdrop-blur-sm" />
           <p
-            className={`relative text-xl font-medium text-gray-800 transition-opacity duration-300 ${
+            className={`relative text-xl font-medium text-gray-800 transition-opacity duration-200 animate-text-pulse ${
               fadeIn ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -103,7 +97,7 @@ const style = document.createElement("style");
 style.textContent = `
   @keyframes float {
     0%, 100% { transform: translateY(0) rotate(0); }
-    50% { transform: translateY(-20px) rotate(5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
   }
   @keyframes progress {
     0% { width: 0%; }
@@ -113,14 +107,33 @@ style.textContent = `
     from { opacity: 0; }
     to { opacity: 1; }
   }
+  @keyframes glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  @keyframes expand-spin {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1) rotate(360deg); }
+  }
+  @keyframes text-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
   .animate-float {
     animation: float 1.5s ease-in-out infinite;
   }
   .animate-progress {
-    animation: progress 1s linear infinite; // Updated to 1 second
+    animation: progress 0.8s linear infinite;
   }
-  .animate-fadeIn {
-    animation: fadeIn 0.3s ease-in-out;
+  .animate-glow {
+    animation: glow 1.5s ease-in-out infinite;
+  }
+  .animate-expand-spin {
+    animation: expand-spin 1.5s ease-in-out infinite;
+  }
+  .animate-text-pulse {
+    animation: text-pulse 1s ease-in-out infinite;
   }
 `;
 document.head.appendChild(style);

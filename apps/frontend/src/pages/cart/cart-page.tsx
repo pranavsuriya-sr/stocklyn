@@ -17,7 +17,7 @@ import { useCartStore } from "@/utils/store/cart-store";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EmptyCart from "../empty-cart/empty-cart";
+import EmptyCart from "./empty-cart";
 
 const { RemoveCartItem } = useCartStore.getState();
 
@@ -168,7 +168,6 @@ const Cart = () => {
           return (
             <div key={id}>
               <div className="py-6 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                {/* Product Info */}
                 <div className="flex flex-1 gap-4 w-full">
                   <img
                     src={displayImage}
@@ -191,7 +190,6 @@ const Cart = () => {
                   </div>
                 </div>
 
-                {/* Quantity Controls */}
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full md:w-auto">
                   <div className="flex items-center gap-4">
                     <select
@@ -259,7 +257,8 @@ const Cart = () => {
           <hr className="my-4" />
           <div className="flex justify-between font-semibold text-lg">
             <span>Order total</span>
-            <span>₹{totalCost}</span>
+            <span>₹{totalCost + 49}</span>
+            {/*Change after adding the payment gateway*/}
           </div>
         </div>
       </div>

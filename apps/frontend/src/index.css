@@ -5,7 +5,9 @@
 /* Your custom styles go here */
 
 /* ... */
-
+html {
+  scrollbar-gutter: stable;
+}
 @layer base {
   :root {
     --radius: 0.5rem;
