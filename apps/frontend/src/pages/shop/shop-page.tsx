@@ -1,5 +1,4 @@
 import { productRoute } from "@/api/api";
-import ProductCard from "@/components/product-card/product-card";
 import {
   Pagination,
   PaginationContent,
@@ -8,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import ProductCard from "@/pages/product/product-card";
 import { ProductsType } from "@/types/product-type";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";

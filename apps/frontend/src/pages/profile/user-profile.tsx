@@ -15,7 +15,7 @@ const UserProfile = () => {
   //   }
   // });
 
-  return <div className="pt-20">UserProfile</div>;
+  return <div className="pt-20 h-screen">UserProfile</div>;
 };
 
 export default UserProfile;

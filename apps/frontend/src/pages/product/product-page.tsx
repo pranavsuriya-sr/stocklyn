@@ -1,4 +1,3 @@
-import ProductCard from "@/components/product-card/product-card";
 import {
   Accordion,
   AccordionContent,
@@ -6,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import ProductCard from "@/pages/product/product-card";
 
 import {
   Sheet,
