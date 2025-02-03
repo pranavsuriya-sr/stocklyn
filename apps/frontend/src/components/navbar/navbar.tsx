@@ -17,27 +17,38 @@ export default function Navbar() {
   const [itemsCount, setItemsCount] = useState(0);
   const { GetCount } = useCartStore();
   const [selected, setSelected] = useState<string>("login");
-
   const [searchValue, setSearchValue] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   useEffect(() => {
     setItemsCount(() => GetCount());
   }, [GetCount()]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchValue);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchValue]);
+
   const { data: searchSuggestions } = useQuery({
-    queryKey: ["searchSuggestions", searchValue],
+    queryKey: ["searchSuggestions", debouncedSearch],
     queryFn: () => FetchSearchSuggestions(),
+    staleTime: 5000,
+    enabled: !!searchValue,
+    refetchOnWindowFocus: false,
   });
 
   const FetchSearchSuggestions = async () => {
-    // console.log(searchValue);
+    console.log(searchValue);
+
     const response = await productRoute.get(
       `/search?searchValue=${searchValue}`
     );
 
     return response.data;
   };
-  console.log(searchSuggestions);
+
   const HandleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -67,7 +78,10 @@ export default function Navbar() {
                     <div className="absolute w-96 text-lg font-montserrat ">
                       {searchSuggestions.map((suggestion: ProductsType) => {
                         return (
-                          <div className="bg-white p-1 px-3 border flex justify-start gap-2 hover:bg-gray-100">
+                          <div
+                            className="bg-white p-1 px-3 border flex justify-start gap-2 hover:bg-gray-100"
+                            key={suggestion.id}
+                          >
                             <Search className="text-gray-400"></Search>
                             {suggestion.name.substring(0, 33)}
                           </div>
