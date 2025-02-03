@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import exchange from "../../../assets/exchange_icon.png";
 import quality from "../../../assets/quality_icon.png";
 import support from "../../../assets/support_img.png";
@@ -45,7 +46,9 @@ const MonthlyNewsLetter = () => {
             placeholder="Enter your email"
             className="w-full p-2 outline-none"
           />
-          <button className="bg-black text-white px-4 py-2">SUBSCRIBE</button>
+          <Button className=" text-white px-4 py-3" variant={"indigo"}>
+            SUBSCRIBE
+          </Button>
         </div>
       </div>
     </div>

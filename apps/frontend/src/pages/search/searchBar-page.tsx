@@ -63,6 +63,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
         onChange={(e) => setSearchValue(e.target.value)}
         value={searchValue}
         onFocus={() => setShowSuggestions(true)}
+        name="search"
       />
 
       <AnimatePresence>

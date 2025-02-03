@@ -59,7 +59,7 @@ const HeroSection = () => {
 
           <motion.div variants={itemVariants} className="mt-4">
             <Button
-              className="px-6 py-2 text-white font-semibold rounded-lg"
+              className="px-10 py-6 text-white font-semibold text-lg rounded-lg"
               variant={"indigo"}
               onClick={() => navigate("/shop")}
             >
