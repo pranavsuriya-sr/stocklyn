@@ -20,7 +20,7 @@ const ShopPage = () => {
 
   const HandleFetchProductsByPageNumber = async (): Promise<ProductsType[]> => {
     const skip = searchParams.get("skip") || 0;
-    const take = searchParams.get("take") || 4;
+    const take = searchParams.get("take") || 8;
 
     // console.log("Fetching products with skip:", skip, "take:", take);
 
@@ -43,7 +43,7 @@ const ShopPage = () => {
   // console.log(data);
 
   const HandleGetInfoByPageNumber = (currentPage: number) => {
-    navigate(`/shop?skip=${(currentPage - 1) * 4}&take=4`);
+    navigate(`/shop?skip=${(currentPage - 1) * 8}&take=8`);
   };
 
   const HandleGoPrevious = () => {
@@ -64,7 +64,7 @@ const ShopPage = () => {
   }
 
   return (
-    <div className="pt-28 h-screen flex items-center justify-center">
+    <div className="pt-28 min-h-screen flex items-center justify-center">
       <div>
         {isLoading ? (
           <div>Loading please wait</div>
@@ -94,7 +94,7 @@ const ShopPage = () => {
           </div>
         )}
 
-        <Pagination className="hover:cursor-pointer pt-10">
+        <Pagination className="hover:cursor-pointer pt-10 text-4xl mb-10">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious

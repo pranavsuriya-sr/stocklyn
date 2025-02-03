@@ -50,16 +50,16 @@ export default function Navbar() {
             </li>
           )}
           <li>
-            <Link to="/about" className="text-gray-600 hover:text-indigo-600">
-              About
+            <Link
+              to="/searchResults/you-won-the-search-lottery-congratulations-DM-me!-something-is-waiting-for-you"
+              className="text-gray-600 hover:text-indigo-600"
+            >
+              Search
             </Link>
           </li>
           <li>
-            <Link
-              to="/services"
-              className="text-gray-600 hover:text-indigo-600"
-            >
-              Services
+            <Link to="/about" className="text-gray-600 hover:text-indigo-600">
+              About
             </Link>
           </li>
           <li>

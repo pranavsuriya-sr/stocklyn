@@ -1,11 +1,45 @@
-import { useLocation } from "react-router-dom";
+import { ProductsType } from "@/types/product-type";
+import { useLocation, useParams } from "react-router-dom";
+import ProductSuggestionCard from "../product/product-suggestion-card";
+import EmptySearch from "./empty-search";
 
 const SearchPage = () => {
   const location = useLocation();
-  const lol = location.state;
-  console.log(lol);
+  const { id } = useParams() || 100;
 
-  return <div className="h-screen pt-28">SearchPage</div>;
+  const productsArray = location.state || [];
+
+  if (productsArray.length == 0) {
+    return <EmptySearch />;
+  }
+
+  return (
+    <div className="min-h-screen pt-28 w-[60%] mx-auto">
+      <h2 className="text-2xl font-semibold mb-4">Search Results</h2>
+      <div>
+        {productsArray.length > 0 &&
+          productsArray.map((product: ProductsType) => {
+            if (product.id == id) {
+              return (
+                <ProductSuggestionCard product={product} key={product.id} />
+              );
+            }
+          })}
+      </div>
+      <div>
+        {productsArray.length > 0 &&
+          productsArray.map((product: ProductsType) => {
+            if (product.id != id) {
+              return (
+                <div key={product.id} className="w-full mt-5">
+                  <ProductSuggestionCard product={product} />
+                </div>
+              );
+            }
+          })}
+      </div>
+    </div>
+  );
 };
 
 export default SearchPage;
