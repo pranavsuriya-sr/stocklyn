@@ -254,7 +254,7 @@ productRoute.get("/productPagination", async (req: Request, res: Response) => {
 
 //search
 
-productRoute.get("/search", (req: Request, res: Response) => {
+productRoute.get("/search", async (req: Request, res: Response) => {
   const searchValue = req.query.searchValue;
 
   if (!searchValue || typeof searchValue !== "string") {
@@ -263,6 +263,29 @@ productRoute.get("/search", (req: Request, res: Response) => {
         "Required feilds are missing or unmatched types, ie. searchValue at /product/search",
     });
     return;
+  }
+
+  try {
+    const suggestions = await prisma.products.findMany({
+      where: {
+        OR: [
+          { name: { contains: searchValue, mode: "insensitive" } },
+          {
+            productDescription: { contains: searchValue, mode: "insensitive" },
+          },
+          {
+            category: { name: { contains: searchValue, mode: "insensitive" } },
+          },
+        ],
+      },
+      include: {
+        category: true,
+      },
+      take: 10,
+    });
+    res.status(200).send(suggestions);
+  } catch (error) {
+    res.status(500).json({ message: "Error at /product/search", error });
   }
 });
 

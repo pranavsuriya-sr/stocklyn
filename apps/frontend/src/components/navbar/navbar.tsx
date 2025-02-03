@@ -1,9 +1,10 @@
 import { productRoute } from "@/api/api";
 import { useSession } from "@/context/session-context";
 import { cn } from "@/lib/utils";
+import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useQuery } from "@tanstack/react-query";
-import { LucideSearch, ShoppingCart } from "lucide-react";
+import { LucideSearch, Search, ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "../ui/badge";
@@ -29,15 +30,15 @@ export default function Navbar() {
   });
 
   const FetchSearchSuggestions = async () => {
-    const response = await productRoute.get("/search", {
-      params: searchValue,
-    });
+    // console.log(searchValue);
+    const response = await productRoute.get(
+      `/search?searchValue=${searchValue}`
+    );
 
-    return [];
+    return response.data;
   };
-
+  console.log(searchSuggestions);
   const HandleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setSearchValue(e.target.value);
   };
 
@@ -62,9 +63,18 @@ export default function Navbar() {
                     onChange={(e) => HandleInputChange(e)}
                     value={searchValue}
                   />
-                  {/* { searchSuggestions !== undefined && searchSuggestions.map((suggestion) => {
-
-                 })} */}
+                  {searchSuggestions !== undefined && (
+                    <div className="absolute w-96 text-lg font-montserrat ">
+                      {searchSuggestions.map((suggestion: ProductsType) => {
+                        return (
+                          <div className="bg-white p-1 px-3 border flex justify-start gap-2 hover:bg-gray-100">
+                            <Search className="text-gray-400"></Search>
+                            {suggestion.name.substring(0, 33)}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
                 <div className="border border-black rounded-lg p-1.5">
                   <LucideSearch />
