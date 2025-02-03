@@ -28,7 +28,6 @@ const ContactPage = () => {
           <input
             type="text"
             className="border border-black mt-2 p-10 w-full rounded-lg bg-gray-100"
-            placeholder="Comment"
           />
         </div>
         <Button className="mt-5 w-32" variant={"indigo"}>

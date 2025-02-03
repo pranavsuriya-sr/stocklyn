@@ -69,11 +69,11 @@ const HeroSection = () => {
         </motion.div>
       </div>
       <div className="flex flex-col lg:flex-row">
-        <div className="w-full lg:w-1/2 h-screen pt-28 flex flex-col justify-center px-6 md:px-10">
-          <span className="text-3xl md:text-5xl lg:text-6xl font-semibold font-mono">
+        <div className="w-full lg:w-1/2 h-screen pt-28 flex flex-col justify-center px-6 md:px-10 font-montserrat">
+          <span className="text-3xl md:text-5xl lg:text-6xl font-montserrat ">
             Summer styles are finally here
           </span>
-          <span className="text-gray-500 py-5 text-lg md:text-xl lg:text-2xl">
+          <span className="text-gray-500 py-5 text-lg md:text-xl lg:text-2xl font-montserrat">
             This year, our new summer collection will shelter you from the harsh
             elements of a world that doesn't care if you live or die.
           </span>

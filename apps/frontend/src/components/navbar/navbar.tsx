@@ -43,7 +43,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-40 bg-white/80 shadow-md ">
+      <nav className="fixed top-0 left-0 w-full z-40 bg-white/80 shadow-sm ">
         <div className="max-w-[100%] mx-auto flex items-center justify-evenly px-6 md:px-5 py-4">
           {/* part1 */}
           <Link to={"/"}>
