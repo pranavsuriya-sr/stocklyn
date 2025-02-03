@@ -19,7 +19,7 @@ import {
   MailIcon,
   UserIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -41,6 +41,7 @@ const SignUp = () => {
   const { session, SignUp } = useSession();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const inputRef = useRef<any>();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -55,6 +56,7 @@ const SignUp = () => {
     if (session) {
       navigate("/");
     }
+    inputRef.current.focus();
   }, [session, navigate]);
 
   async function onSubmit(userInfo: z.infer<typeof loginSchema>) {
@@ -108,6 +110,7 @@ const SignUp = () => {
                             placeholder="Your Name"
                             {...field}
                             className="pl-10 py-5 rounded-lg"
+                            ref={inputRef}
                           />
                         </div>
                       </FormControl>

@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
 
 const ContactPage = () => {
+  const inputRef = useRef<any>();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
       <div className="w-[50%] mx-auto flex flex-col ">
@@ -11,6 +18,7 @@ const ContactPage = () => {
           <input
             className="border border-black mt-10 w-full p-2 rounded-lg bg-gray-100"
             placeholder="Name"
+            ref={inputRef}
           />
           <input
             className="border border-black mt-10 w-full p-2 rounded-lg bg-gray-100"

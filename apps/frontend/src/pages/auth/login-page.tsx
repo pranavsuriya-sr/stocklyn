@@ -22,7 +22,7 @@ import {
   LockIcon,
   MailIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -43,12 +43,14 @@ const Login = () => {
   const { login, session } = useSession();
   const [showPassword, setShowPassword] = useState(false);
   const { toast } = useToast();
+  const inputRef = useRef<any>();
 
   useEffect(() => {
     // If already logged in, redirect to home
     if (session) {
       navigate("/");
     }
+    inputRef.current.focus();
   }, [session, navigate]);
 
   const loginForm = useForm<LoginFormValues>({
@@ -105,6 +107,7 @@ const Login = () => {
                             placeholder="hello@example.com"
                             {...field}
                             className="pl-10 py-5 rounded-lg"
+                            ref={inputRef}
                           />
                         </div>
                       </FormControl>
