@@ -8,8 +8,8 @@ A full-stack e-commerce application (in development)
 
 ## Todo List
 
-- add , delete , update qunatity , fix the home page where the item shows out of stock even though the quantity is > 0
-- Ape the payment gateway for now , then complete role based access.
+- wrap up the infinite scroll and lucia auth sessions.
+- add the payment gateway.
 
 ## Features
 
