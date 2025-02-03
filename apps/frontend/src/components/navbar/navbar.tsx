@@ -1,10 +1,13 @@
+import { productRoute } from "@/api/api";
 import { useSession } from "@/context/session-context";
 import { cn } from "@/lib/utils";
 import { useCartStore } from "@/utils/store/cart-store";
-import { ShoppingCart } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { LucideSearch, ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "../ui/badge";
+import { Input } from "../ui/input";
 import ViewProfile from "./navbar-components/view-profile";
 
 export default function Navbar() {
@@ -14,22 +17,64 @@ export default function Navbar() {
   const { GetCount } = useCartStore();
   const [selected, setSelected] = useState<string>("login");
 
+  const [searchValue, setSearchValue] = useState("");
+
   useEffect(() => {
     setItemsCount(() => GetCount());
   }, [GetCount()]);
 
+  const { data: searchSuggestions } = useQuery({
+    queryKey: ["searchSuggestions", searchValue],
+    queryFn: () => FetchSearchSuggestions(),
+  });
+
+  const FetchSearchSuggestions = async () => {
+    const response = await productRoute.get("/search", {
+      params: searchValue,
+    });
+
+    return [];
+  };
+
+  const HandleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setSearchValue(e.target.value);
+  };
+
   return (
     <>
       <nav className="fixed top-0 left-0 w-full z-40 bg-white/80 shadow-md ">
-        <div className="max-w-[80%] mx-auto flex items-center justify-between px-6 md:px-10 py-4">
+        <div className="max-w-[100%] mx-auto flex items-center justify-evenly px-6 md:px-5 py-4">
+          {/* part1 */}
           <Link to={"/"}>
             <h3 className="text-3xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800">
               Maalelo
             </h3>
-          </Link>
 
-          {/* Navigation Links */}
-          <ul className="hidden md:flex space-x-6">
+            {/* part2 */}
+          </Link>
+          <div className="">
+            {session !== false && (
+              <div className="flex items-center justify-center hover:cursor-pointer">
+                <div>
+                  <Input
+                    className="border-black w-96"
+                    onChange={(e) => HandleInputChange(e)}
+                    value={searchValue}
+                  />
+                  {/* { searchSuggestions !== undefined && searchSuggestions.map((suggestion) => {
+
+                 })} */}
+                </div>
+                <div className="border border-black rounded-lg p-1.5">
+                  <LucideSearch />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* part3 */}
+          <ul className="hidden md:flex space-x-6 items-center justify-center">
             <li>
               <Link to="/home" className="text-gray-600 hover:text-indigo-600">
                 Home
@@ -68,6 +113,7 @@ export default function Navbar() {
             </li>
           </ul>
 
+          {/* part4 */}
           {session === true && (
             <div className="flex space-x-4 items-center">
               <div className="relative hover:cursor-pointer hover:bg-gray-100 rounded-full p-2 ">
