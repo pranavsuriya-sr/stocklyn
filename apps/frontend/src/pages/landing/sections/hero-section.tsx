@@ -61,6 +61,7 @@ const HeroSection = () => {
             <Button
               className="px-6 py-2 text-white font-semibold rounded-lg"
               variant={"indigo"}
+              onClick={() => navigate("/shop")}
             >
               Shop Now
             </Button>

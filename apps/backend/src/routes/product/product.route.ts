@@ -252,4 +252,18 @@ productRoute.get("/productPagination", async (req: Request, res: Response) => {
   }
 });
 
+//search
+
+productRoute.get("/search", (req: Request, res: Response) => {
+  const searchValue = req.query.searchValue;
+
+  if (!searchValue || typeof searchValue !== "string") {
+    res.status(400).json({
+      message:
+        "Required feilds are missing or unmatched types, ie. searchValue at /product/search",
+    });
+    return;
+  }
+});
+
 export default productRoute;
