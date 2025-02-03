@@ -77,7 +77,10 @@ const ShopPage = () => {
               {data !== undefined &&
                 data.map((product) => {
                   return (
-                    <div onClick={() => HandleProductClick({ product })}>
+                    <div
+                      onClick={() => HandleProductClick({ product })}
+                      key={product.id}
+                    >
                       <ProductCard
                         name={product.name}
                         imgSrc={product.displayImage}

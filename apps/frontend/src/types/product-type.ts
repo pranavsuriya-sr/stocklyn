@@ -14,4 +14,5 @@ export interface ProductsType {
   stockQuantity: number;
   createdAt: Date;
   updatedAt: Date;
+  usersPurchased: number;
 }

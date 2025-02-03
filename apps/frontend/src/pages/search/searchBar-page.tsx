@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { LoaderCircle, LucideSearch, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface SearchBarProps {
   searchValue: string;
@@ -15,6 +16,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(searchValue), 300);
@@ -47,6 +49,10 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const HandleRouteToSearchPage = (id: string) => {
+    navigate(`/searchResults/${id}`, { state: searchSuggestions });
+  };
+
   return (
     <div
       className="relative flex items-center hover:cursor-pointer"
@@ -76,6 +82,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
               searchSuggestions.map((suggestion: ProductsType) => (
                 <div
                   key={suggestion.id}
+                  onClick={() => HandleRouteToSearchPage(suggestion.id)}
                   className="p-2 px-3 flex items-center gap-2 hover:bg-gray-100"
                 >
                   <Search className="text-gray-400" />

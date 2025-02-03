@@ -12,6 +12,7 @@ import LandingPage from "./pages/landing/landing-page";
 import ProductPage from "./pages/product/product-page";
 import UserProfile from "./pages/profile/user-profile";
 import ProtectedPage from "./pages/protected/procted-page";
+import SearchPage from "./pages/search/search-page";
 import ShopPage from "./pages/shop/shop-page";
 
 const pageVariants = {
@@ -82,21 +83,6 @@ const App = () => {
             }
           />
           <Route
-            path="/contact"
-            element={
-              <motion.div
-                initial="initial"
-                animate="in"
-                exit="out"
-                variants={pageVariants}
-                transition={pageTransition}
-              >
-                <ContactPage />
-              </motion.div>
-            }
-          />
-
-          <Route
             path="/cartItems"
             element={
               <ProtectedPage>
@@ -128,6 +114,37 @@ const App = () => {
               </ProtectedPage>
             }
           />
+          <Route
+            path="/searchResults/:id"
+            element={
+              <ProtectedPage>
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <SearchPage />
+                </motion.div>
+              </ProtectedPage>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <ContactPage />
+              </motion.div>
+            }
+          />
+
           <Route
             path="/home"
             element={
