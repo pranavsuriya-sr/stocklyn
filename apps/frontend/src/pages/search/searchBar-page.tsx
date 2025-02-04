@@ -67,7 +67,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
       />
 
       <AnimatePresence>
-        {showSuggestions && searchSuggestions?.length > 0 && (
+        {showSuggestions && (
           <motion.div
             className="absolute left-0 top-full mt-1 w-96 bg-white shadow-md rounded-md z-50"
             initial={{ opacity: 0, y: -10 }}
@@ -79,7 +79,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
               <div className="p-3 flex justify-center">
                 <LoaderCircle className="animate-spin" />
               </div>
-            ) : (
+            ) : searchSuggestions?.length > 0 ? (
               searchSuggestions.map((suggestion: ProductsType) => (
                 <div
                   key={suggestion.id}
@@ -90,6 +90,16 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
                   {suggestion.name.substring(0, 33)}
                 </div>
               ))
+            ) : (
+              <div>
+                <div className="p-2 px-3 flex items-center gap-2 text-gray-600">
+                  ⚠️ Try searching for available products. The app is still
+                  evolving and will be updated in V2.
+                </div>
+                <div className="p-2 px-3 flex items-center gap-2 text-green-600">
+                  ✅ Try searching for "phones", "clothing", etc.
+                </div>
+              </div>
             )}
           </motion.div>
         )}

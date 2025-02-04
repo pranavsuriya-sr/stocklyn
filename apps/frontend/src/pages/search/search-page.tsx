@@ -1,5 +1,4 @@
 import { ProductsType } from "@/types/product-type";
-import { useQuery } from "@tanstack/react-query";
 import { useLocation, useParams } from "react-router-dom";
 import ProductSuggestionCard from "../product/product-suggestion-card";
 import EmptySearch from "./empty-search";
@@ -9,12 +8,13 @@ const SearchPage = () => {
   const { id } = useParams() || 100;
   const productsArray = location.state || [];
 
-  const { data } = useQuery({
-    queryKey: ["searchSuggestions"],
-    queryFn: () => FetchSimilarProducts(),
-  });
+  // const { data } = useQuery({
+  //   queryKey: ["searchSuggestions"],
+  //   queryFn: () => FetchSimilarProducts(),
+  // });
 
-  const FetchSimilarProducts = async () => {};
+  // const FetchSimilarProducts = async () => {};
+  //implement this later
 
   if (productsArray.length == 0) {
     return <EmptySearch />;
