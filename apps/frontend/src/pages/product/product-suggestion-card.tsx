@@ -16,7 +16,7 @@ const ProductSuggestionCard = ({ product }: ProductCardProps) => {
           alt={product.name}
         />
       </div>
-
+      sakjndnbdhadsbhabdhvgu
       <div className="flex-1 flex-col gap-3">
         <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
 
