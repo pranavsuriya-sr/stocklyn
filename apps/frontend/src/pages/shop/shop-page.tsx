@@ -60,39 +60,41 @@ const ShopPage = () => {
 
   if (isError) {
     console.log(isError);
-    return <div>Error in Fetching</div>;
+    return <div className="">Error in Fetching</div>;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="text-center text-lg p-10 min-h-screen">Loading...</div>
+    );
   }
 
   return (
     <div className="pt-28 min-h-screen flex items-center justify-center">
       <div>
-        {isLoading ? (
-          <div>Loading please wait</div>
-        ) : (
-          <div>
-            <div className="font-montserrat text-4xl font-bold py-10">
-              All available Items
-            </div>
-            <div className="grid grid-cols-4 gap-10">
-              {data !== undefined &&
-                data.map((product) => {
-                  return (
-                    <div
-                      onClick={() => HandleProductClick({ product })}
-                      key={product.id}
-                    >
-                      <ProductCard
-                        name={product.name}
-                        imgSrc={product.displayImage}
-                        price={product.price}
-                        key={product.id}
-                      ></ProductCard>
-                    </div>
-                  );
-                })}
-            </div>
+        <div>
+          <div className="font-montserrat text-4xl font-bold py-10">
+            All available Items
           </div>
-        )}
+          <div className="grid grid-cols-4 gap-10">
+            {data !== undefined &&
+              data.map((product) => {
+                return (
+                  <div
+                    onClick={() => HandleProductClick({ product })}
+                    key={product.id}
+                  >
+                    <ProductCard
+                      name={product.name}
+                      imgSrc={product.displayImage}
+                      price={product.price}
+                      key={product.id}
+                    ></ProductCard>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
 
         <Pagination className="hover:cursor-pointer pt-10 text-4xl mb-10">
           <PaginationContent>

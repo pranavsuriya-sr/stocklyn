@@ -28,7 +28,7 @@ export default function Home() {
   });
 
   if (isLoading) {
-    return <div className="text-center text-lg p-10">Loading...</div>;
+    return <div className="text-center text-lg p-10 h-screen">Loading...</div>;
   }
 
   const category = data?.category ?? [];

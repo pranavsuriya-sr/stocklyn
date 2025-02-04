@@ -1,6 +1,7 @@
 import { useSession } from "@/context/session-context";
 import { cn } from "@/lib/utils";
 import { useCartStore } from "@/utils/store/cart-store";
+import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,23 +11,31 @@ import ViewProfile from "./navbar-components/view-profile";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { session } = useSession();
+  const { session, isLoading } = useSession();
   const [itemsCount, setItemsCount] = useState(0);
   const { GetCount } = useCartStore();
   const [selected, setSelected] = useState<string>("login");
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    setItemsCount(() => GetCount());
-  }, [GetCount()]);
+    setItemsCount(GetCount());
+  }, [GetCount]);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-40 bg-white/80 shadow-sm">
+    <motion.nav
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="fixed top-0 left-0 w-full z-40 bg-white/80 shadow-sm"
+    >
       <div className="max-w-[100%] mx-auto flex items-center justify-evenly px-6 md:px-5 py-4">
         <Link to={"/"}>
-          <h3 className="text-3xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800">
+          <motion.h3
+            whileHover={{ scale: 1.05 }}
+            className="text-3xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800"
+          >
             Maalelo
-          </h3>
+          </motion.h3>
         </Link>
 
         {session && (
@@ -69,54 +78,64 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {session ? (
-          <div className="flex space-x-4 items-center">
-            <div className="relative hover:cursor-pointer hover:bg-gray-100 rounded-full p-2">
-              {itemsCount == 0 ? (
-                <></>
-              ) : (
-                <Badge className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center">
-                  {itemsCount}
-                </Badge>
-              )}
-              <ShoppingCart size={30} onClick={() => navigate("/cartitems")} />
+        {!isLoading ? (
+          session ? (
+            <div className="flex space-x-4 items-center">
+              <div className="relative hover:cursor-pointer hover:bg-gray-100 rounded-full p-2">
+                {itemsCount > 0 && (
+                  <Badge className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center">
+                    {itemsCount}
+                  </Badge>
+                )}
+                <ShoppingCart
+                  size={30}
+                  onClick={() => navigate("/cartitems")}
+                />
+              </div>
+              <ViewProfile />
             </div>
-            <ViewProfile />
-          </div>
-        ) : (
-          <div className="flex space-x-4">
-            <button
-              className={cn(
-                "px-4 py-2 text-md font-medium rounded-lg shadow transition-all",
-                selected === "login"
-                  ? "bg-indigo-600 text-white"
-                  : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
-              )}
-              onClick={() => {
-                setSelected("login");
-                navigate("/login");
-              }}
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="flex space-x-4"
             >
-              Login
-            </button>
+              <button
+                className={cn(
+                  "px-4 py-2 text-md font-medium rounded-lg shadow transition-all hover:scale-105",
+                  selected === "login"
+                    ? "bg-indigo-600 text-white"
+                    : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
+                )}
+                onClick={() => {
+                  setSelected("login");
+                  navigate("/login");
+                }}
+              >
+                Login
+              </button>
 
-            <button
-              className={cn(
-                "px-4 py-2 text-md font-medium rounded-lg transition-all",
-                selected === "signup"
-                  ? "bg-indigo-600 text-white"
-                  : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
-              )}
-              onClick={() => {
-                setSelected("signup");
-                navigate("/signup");
-              }}
-            >
-              Sign Up
-            </button>
-          </div>
+              <button
+                className={cn(
+                  "px-4 py-2 text-md font-medium rounded-lg transition-all hover:scale-105",
+                  selected === "signup"
+                    ? "bg-indigo-600 text-white"
+                    : "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
+                )}
+                onClick={() => {
+                  setSelected("signup");
+                  navigate("/signup");
+                }}
+              >
+                Sign Up
+              </button>
+            </motion.div>
+          )
+        ) : (
+          <p className="text-gray-600">Loading...</p>
         )}
       </div>
-    </nav>
+    </motion.nav>
   );
 }
