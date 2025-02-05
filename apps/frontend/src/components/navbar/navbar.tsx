@@ -18,8 +18,8 @@ export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    setItemsCount(GetCount());
-  }, [GetCount]);
+    setItemsCount(() => GetCount());
+  }, [GetCount()]);
 
   return (
     <motion.nav
@@ -113,7 +113,7 @@ export default function Navbar() {
                   navigate("/login");
                 }}
               >
-                Login
+                Sign In
               </button>
 
               <button
