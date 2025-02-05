@@ -5,7 +5,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import ProductCard from "@/pages/product/product-card";
 
 import {
   Sheet,
@@ -24,7 +23,7 @@ import { useCartStore } from "@/utils/store/cart-store";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const { AddCartItems } = useCartStore.getState();
+const { AddCartItems, RemoveCartItem } = useCartStore.getState();
 
 const ProductPage = () => {
   const { toast } = useToast();
@@ -69,6 +68,9 @@ const ProductPage = () => {
         duration: 3000,
       });
     }
+  };
+  const RouteToProductPage = (product: ProductsType) => {
+    navigate(`/product/${product.id}`, { state: product });
   };
 
   return (
@@ -153,7 +155,7 @@ const ProductPage = () => {
             );
           })}
 
-          <Sheet>
+          <Sheet modal={false}>
             <SheetTrigger asChild>
               {product.stockQuantity > 0 && (
                 <Button
@@ -165,7 +167,7 @@ const ProductPage = () => {
                 </Button>
               )}
             </SheetTrigger>
-            <SheetContent className="overflow-y-auto max-h-screen">
+            <SheetContent className="overflow-y-auto max-h-screen shadow-slate-600 bg-gray-50 r">
               <SheetHeader>
                 <SheetTitle>Cart Items</SheetTitle>
                 <SheetDescription>Your cart Items!</SheetDescription>
@@ -176,27 +178,35 @@ const ProductPage = () => {
               ) : (
                 products.map((product) => {
                   return (
-                    // <div
-                    //   key={product.id}
-                    //   className="flex items-center justify-between px-2 py-10 border mt-5"
-                    // >
-                    //   <div>
-                    //     <img
-                    //       src={product.displayImage}
-                    //       className="w-[150px] h-[150px] object-cover"
-                    //     />
-                    //   </div>
-                    //   <div className="flex flex-col justify-between items-center ">
-                    //     <div>{product.name}</div>
-                    //     <div>{product.price}</div>
-                    //   </div>
-                    // </div>
-                    <ProductCard
-                      imgSrc={product.displayImage}
-                      name={product.name}
-                      price={product.price}
+                    <div
                       key={product.id}
-                    ></ProductCard>
+                      className="flex items-center gap-4 p-4 border border-gray-300 rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow mt-5 hover:cursor-pointer"
+                      onClick={() => RouteToProductPage(product)}
+                    >
+                      <img
+                        src={product.displayImage}
+                        className="w-24 h-24 rounded-md object-cover "
+                        alt={product.name}
+                      />
+
+                      <div className="flex flex-col flex-1">
+                        <h3 className="text-lg font-semibold text-gray-800">
+                          {product.name}
+                        </h3>
+                        <p className="text-gray-600 text-sm">
+                          ₹{product.price.toLocaleString()}
+                        </p>
+                      </div>
+
+                      <button
+                        className="text-red-500 hover:text-red-700 text-sm font-medium"
+                        onClick={() =>
+                          RemoveCartItem(user?.cart.id, product.id)
+                        }
+                      >
+                        Remove
+                      </button>
+                    </div>
                   );
                 })
               )}
