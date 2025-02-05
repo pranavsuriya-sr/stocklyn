@@ -13,7 +13,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
+import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
+
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -152,6 +154,10 @@ const Cart = () => {
     UpdateCartItemQuantity(requiredQuantity, cartItemId);
   };
 
+  const RouteToProductPage = (product: ProductsType) => {
+    navigate(`/product/${product.id}`, { state: product });
+  };
+
   if (products.length === 0) {
     return <EmptyCart />;
   }
@@ -164,23 +170,28 @@ const Cart = () => {
       <hr className="w-full border-t border-gray-300 my-4" />
 
       {GetCount() > 0 &&
-        products.map(({ id, name, displayImage, price, stockQuantity }) => {
+        products.map((product: ProductsType) => {
           return (
-            <div key={id}>
+            <div key={product.id}>
               <div className="py-6 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div className="flex flex-1 gap-4 w-full">
                   <img
-                    src={displayImage}
-                    className="w-32 h-32 md:w-44 md:h-44 object-contain p-2"
-                    alt={name}
+                    src={product.displayImage}
+                    className="w-32 h-32 md:w-44 md:h-44 object-contain p-2 hover:cursor-pointer"
+                    alt={product.name}
+                    onClick={() => RouteToProductPage(product)}
                   />
                   <div className="flex flex-col justify-between">
-                    <h3 className="text-lg font-medium truncate" title={name}>
-                      {name}
+                    <h3
+                      className="text-lg font-medium truncate hover:cursor-pointer"
+                      title={product.name}
+                      onClick={() => RouteToProductPage(product)}
+                    >
+                      {product.name}
                     </h3>
 
                     <div>
-                      {stockQuantity > 0 ? (
+                      {product.stockQuantity > 0 ? (
                         <span className="text-green-600 text-sm">In stock</span>
                       ) : (
                         <span className="text-red-600 text-sm">
@@ -192,10 +203,11 @@ const Cart = () => {
                       <select
                         className="border p-2 rounded-md w-20 text-sm hover:cursor-pointer"
                         value={
-                          cartItems.find((item) => item.productId === id)
-                            ?.quantity ?? 1
+                          cartItems.find(
+                            (item) => item.productId === product.id
+                          )?.quantity ?? 1
                         }
-                        onChange={(e) => HandleSelectQuantity(e, id)}
+                        onChange={(e) => HandleSelectQuantity(e, product.id)}
                       >
                         {[1, 2, 3, 4, 5, 6].map((num) => (
                           <option key={num} value={num}>
@@ -218,7 +230,7 @@ const Cart = () => {
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                             <AlertDialogAction
                               className="bg-red-600 hover:bg-red-700"
-                              onClick={() => HandleRemoveItem(id)}
+                              onClick={() => HandleRemoveItem(product.id)}
                             >
                               Continue
                             </AlertDialogAction>
@@ -231,7 +243,7 @@ const Cart = () => {
 
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full md:w-auto">
                   <div className="text-xl font-medium md:min-w-[120px] text-right">
-                    ₹{price}
+                    ₹{product.price}
                   </div>
                 </div>
               </div>
@@ -240,7 +252,6 @@ const Cart = () => {
           );
         })}
 
-      {/* Order Summary */}
       <div className="mt-12 md:mt-20 border rounded-lg p-6 max-w-3xl mx-auto w-full">
         <div className="space-y-4">
           <div className="flex justify-between">
@@ -259,7 +270,7 @@ const Cart = () => {
           <div className="flex justify-between font-semibold text-lg">
             <span>Order total</span>
             <span>₹{totalCost + 49}</span>
-            {/*Change after adding the payment gateway*/}
+            {/* should change after adding the payment gateway*/}
           </div>
         </div>
       </div>
