@@ -14,7 +14,7 @@ const SearchPage = () => {
   // });
 
   // const FetchSimilarProducts = async () => {};
-  //implement this later
+  //implement this later -> basically i should fetch similar category when something is searched
 
   if (productsArray.length == 0) {
     return <EmptySearch />;

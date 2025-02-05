@@ -93,8 +93,8 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
             ) : (
               <div>
                 <div className="p-2 px-3 flex items-center gap-2 text-gray-600">
-                  ⚠️ Try searching for available products. The app is still
-                  evolving and will be updated in V2.
+                  ⚠️ Try searching for available products. The database only has
+                  about 1000 entries
                 </div>
                 <div className="p-2 px-3 flex items-center gap-2 text-green-600">
                   ✅ Try searching for "phones", "clothing", etc.
