@@ -33,10 +33,10 @@ const ContactPage = () => {
           />
         </div>
         <div>
-          <input
-            type="text"
-            className="border border-black mt-2 p-10 w-full rounded-lg bg-gray-100"
-          />
+          <textarea
+            className="border border-black mt-2 w-full rounded-lg bg-gray-100 h-40 p-2 placeholder:text-gray-500 placeholder:top-0 placeholder:text-start"
+            placeholder="Contact"
+          ></textarea>
         </div>
         <Button className="mt-5 w-32" variant={"indigo"}>
           Send
