@@ -46,6 +46,7 @@ const locationSchema = z.object({
 });
 
 const createAddress = async (addressInfo: AddAddress) => {
+  // console.log(addressInfo);
   const response = await addressRoute.post("/addAddress", addressInfo);
 
   return response;
@@ -53,9 +54,14 @@ const createAddress = async (addressInfo: AddAddress) => {
 
 const LocationAdd = () => {
   const { user } = useSession();
-
-  const { mutate } = useMutation({
+  const mutation = useMutation({
     mutationFn: createAddress,
+    onError: (error) => {
+      console.error("Error creating post:", error);
+    },
+    onSuccess: (data) => {
+      console.log("Post created successfully!", data);
+    },
   });
 
   const locationForm = useForm<z.infer<typeof locationSchema>>({
@@ -76,9 +82,10 @@ const LocationAdd = () => {
     if (user == undefined) {
       return;
     }
+
     const newAddressInfo = { ...values, userId: user.id };
 
-    createAddress(newAddressInfo);
+    mutation.mutate(newAddressInfo);
 
     // console.log(newAddressInfo);
   }
@@ -254,13 +261,17 @@ const LocationAdd = () => {
           />
 
           <div className="flex justify-center mt-6">
-            <Button
-              className="px-6 py-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
-              variant={"indigo"}
-              type="submit"
-            >
-              Submit
-            </Button>
+            {mutation.isPending ? (
+              <div>Loading</div>
+            ) : (
+              <Button
+                className="px-6 py-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
+                variant={"indigo"}
+                type="submit"
+              >
+                Submit
+              </Button>
+            )}
           </div>
         </form>
       </Form>
