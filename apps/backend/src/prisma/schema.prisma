@@ -84,9 +84,9 @@ model Location{
   state        String
   pincode      String
   city         String
-  Address1     String
-  Address2     String    
-  Landmark     String 
+  address1     String
+  address2     String    
+  landmark     String 
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   userId       String?

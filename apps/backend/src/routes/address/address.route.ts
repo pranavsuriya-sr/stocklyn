@@ -10,9 +10,9 @@ addressRoute.post("/addAddress", async (req: Request, res: Response) => {
     state,
     pincode,
     city,
-    Address1,
-    Address2,
-    Landmark,
+    address1,
+    address2,
+    landmark,
     userId,
   } = req.body;
 
@@ -22,9 +22,8 @@ addressRoute.post("/addAddress", async (req: Request, res: Response) => {
     !state ||
     !pincode ||
     !city ||
-    !Address1 ||
-    !Address2 ||
-    !Landmark ||
+    !address1 ||
+    !landmark ||
     !userId
   ) {
     console.log("Error at /address/addAddress , missing feilds");
@@ -51,9 +50,9 @@ addressRoute.post("/addAddress", async (req: Request, res: Response) => {
         state,
         pincode,
         city,
-        Address1,
-        Address2,
-        Landmark,
+        address1,
+        address2,
+        landmark,
         user: {
           connect: {
             id: userId,
