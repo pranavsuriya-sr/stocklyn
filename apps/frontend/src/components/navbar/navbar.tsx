@@ -32,9 +32,10 @@ export default function Navbar() {
         <Link to={"/"}>
           <motion.h3
             whileHover={{ scale: 1.05 }}
-            className="text-3xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800"
+            className="text-4xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800"
           >
-            Maalelo
+            <span className="text-indigo-600">Maal</span>
+            <span className="text-lime-500">elo</span>
           </motion.h3>
         </Link>
 
