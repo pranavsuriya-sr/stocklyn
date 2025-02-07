@@ -69,4 +69,20 @@ addressRoute.post("/addAddress", async (req: Request, res: Response) => {
   }
 });
 
+addressRoute.get("/getAddress/:userId", async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+    const response = await prisma.location.findMany({
+      where: {
+        userId: userId,
+      },
+    });
+    res.status(200).json({ message: "Fetched all the locations ", response });
+  } catch (error) {
+    console.log("Error at /address/addAddress", error);
+    res.status(500).send("Something went wrong!");
+  }
+});
+
 export default addressRoute;
