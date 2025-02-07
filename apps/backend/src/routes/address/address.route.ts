@@ -43,7 +43,7 @@ addressRoute.post("/addAddress", async (req: Request, res: Response) => {
       res.status(500).send("Something went wrong!");
     }
 
-    const response = await prisma.location.create({
+    const response = await prisma.address.create({
       data: {
         name,
         mobileNumber,
@@ -72,7 +72,7 @@ addressRoute.get("/getAddress/:userId", async (req: Request, res: Response) => {
   const { userId } = req.params;
 
   try {
-    const response = await prisma.location.findMany({
+    const response = await prisma.address.findMany({
       where: {
         userId: userId,
       },
