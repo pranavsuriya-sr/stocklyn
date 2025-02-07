@@ -36,7 +36,7 @@ const HeroSection = () => {
       <div className="relative w-full pt-20">
         <img
           src={image}
-          className="w-full h-[600px] md:h-[750px] lg:h-[850px] object-cover"
+          className="w-full h-[600px] md:h-[750px] lg:h-[850px] object-cover "
           alt="banner"
         />
 

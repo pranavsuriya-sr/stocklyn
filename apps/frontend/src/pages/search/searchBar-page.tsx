@@ -93,11 +93,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
             ) : (
               <div>
                 <div className="p-2 px-3 flex items-center gap-2 text-gray-600">
-                  ⚠️ Try searching for available products. The database only has
-                  about 1000 entries
-                </div>
-                <div className="p-2 px-3 flex items-center gap-2 text-green-600">
-                  ✅ Try searching for "phones", "clothing", etc.
+                  ⚠️ Try searching for products
                 </div>
               </div>
             )}
@@ -105,7 +101,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
         )}
       </AnimatePresence>
 
-      <div className="border border-black rounded-lg p-1.5">
+      <div className="border border-black rounded-lg p-1.5 ml-2 hover:bg-gray-100">
         <LucideSearch />
       </div>
     </div>

@@ -5,7 +5,7 @@ import support from "../../../assets/support_img.png";
 
 const MonthlyNewsLetter = () => {
   return (
-    <div className="w-screen bg-white py-12 flex flex-col items-center font-montserrat my-20">
+    <div className="min-w-full bg-white py-12 flex flex-col items-center font-montserrat my-20 overflow-hidden">
       <div className="flex flex-col md:flex-row justify-center gap-48 text-center mb-10">
         <div className="flex flex-col items-center">
           <img
