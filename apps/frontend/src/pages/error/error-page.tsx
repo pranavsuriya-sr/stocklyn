@@ -11,11 +11,11 @@ const NotFoundPage = () => {
         The page you are looking for could not be found.
       </p>
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate(-1)}
         className="flex items-center space-x-2 border border-gray-800 text-gray-800 px-6 py-3 rounded hover:bg-gray-100 transition"
       >
         <ArrowLeft size={20} />
-        <span className="font-medium">Go Home</span>
+        <span className="font-medium">Go Back</span>
       </button>
     </div>
   );
