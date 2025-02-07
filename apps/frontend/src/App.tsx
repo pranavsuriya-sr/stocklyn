@@ -133,7 +133,7 @@ const App = () => {
             }
           />
           <Route
-            path="/editUserLocation"
+            path="/editUserAddress"
             element={
               <ProtectedPage>
                 <motion.div
@@ -149,7 +149,7 @@ const App = () => {
             }
           ></Route>
           <Route
-            path="/addUserLocation"
+            path="/addUserAddress"
             element={
               <ProtectedPage>
                 <motion.div

@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const LocationsDisplayPage = () => {
+  const navigate = useNavigate();
   const addresses = [
     {
       id: 1,
@@ -16,7 +19,10 @@ const LocationsDisplayPage = () => {
       <h2 className="text-3xl mb-6">Your Addresses</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="border-2 border-gray-400 border-dashed flex flex-col items-center justify-center p-4 rounded-lg shadow-md bg-white h-auto min-h-[200px] cursor-pointer hover:bg-gray-100">
+        <div
+          className="border-2 border-gray-400 border-dashed flex flex-col items-center justify-center p-4 rounded-lg shadow-md bg-white h-auto min-h-[200px] cursor-pointer hover:bg-gray-100"
+          onClick={() => navigate("/addUserAddress")}
+        >
           <span className="text-2xl font-semibold">+</span>
           <span className="text-lg">Add Address</span>
         </div>

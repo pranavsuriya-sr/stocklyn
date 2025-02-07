@@ -163,7 +163,6 @@ const Login = () => {
               </form>
             </Form>
 
-            {/* Social Login Divider */}
             <div className="mt-8">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">

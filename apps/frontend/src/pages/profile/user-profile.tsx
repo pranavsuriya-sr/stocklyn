@@ -18,7 +18,7 @@ const UserProfile = () => {
             name="Location"
             description="Edit Addresses for orders and gifts"
             imgUrl={location}
-            onClick={() => navigate("/editUserLocation")}
+            onClick={() => navigate("/editUserAddress")}
           />
           <UserInfoCard
             name="Orders"
