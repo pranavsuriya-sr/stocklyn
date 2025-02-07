@@ -40,6 +40,7 @@ model Users {
   profileUrl     String
   cart           Cart?     
   role           String           @default("buyer")
+  locations      Location[]
 }
 
 model Cart {
@@ -74,4 +75,20 @@ model Category {
   parentId      String?      
   parent        Category?         @relation("Subcategories", fields: [parentId], references: [id])
   subcategories Category[]        @relation("Subcategories")
+}
+
+model Location{
+  id           String             @id @default(uuid()) 
+  name         String
+  mobileNumber Int               
+  state        String
+  pincode      Int
+  city         String
+  Address1     String
+  Address2     String    
+  LandMark     String 
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  userId       String?
+  user         Users?             @relation(fields: [userId] , references: [id])
 }
