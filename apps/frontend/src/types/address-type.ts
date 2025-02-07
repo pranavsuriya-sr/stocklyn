@@ -12,3 +12,15 @@ export interface AddressType {
   updatedAt: Date;
   userId: string;
 }
+
+export interface AddAddress {
+  name: string;
+  mobileNumber: string;
+  state: string;
+  pincode: string;
+  city: string;
+  address1: string;
+  address2?: string;
+  landmark: string;
+  userId: string;
+}

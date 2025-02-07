@@ -1,3 +1,4 @@
+import { addressRoute } from "@/api/api";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -8,46 +9,78 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useSession } from "@/context/session-context";
+import { AddAddress } from "@/types/address-type";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const locationSchema = z.object({
-  Name: z
+  name: z
     .string()
     .min(3, { message: "Name should have a minimum of 3 characters" })
     .max(30, { message: "Name can have a maximum of 30 characters" }),
-  MobileNumber: z
+  mobileNumber: z
     .string()
     .length(10, { message: "Mobile number must be exactly 10 digits" }),
-  State: z.string().min(1, { message: "State cannot be empty" }),
-  Pincode: z
+  state: z.string().min(1, { message: "State cannot be empty" }),
+  pincode: z
     .string()
     .length(6, { message: "Pincode must be exactly 6 digits" }),
-  City: z.string().min(1, { message: "City cannot be empty" }),
-  Address1: z
+  city: z.string().min(1, { message: "City cannot be empty" }),
+  address1: z
     .string()
     .min(10, { message: "Address should have a minimum of 10 characters" })
     .max(120, { message: "Address can have a maximum of 120 characters" }),
-  Address2: z.optional(
+  address2: z.optional(
     z
       .string()
       .min(10, { message: "Address should have a minimum of 10 characters" })
       .max(120, { message: "Address can have a maximum of 120 characters" })
   ),
-  Landmark: z
+  landmark: z
     .string()
     .min(10, { message: "Landmark should have a minimum of 10 characters" })
     .max(120, { message: "Landmark can have a maximum of 120 characters" }),
 });
 
+const createAddress = async (addressInfo: AddAddress) => {
+  const response = await addressRoute.post("/addAddress", addressInfo);
+
+  return response;
+};
+
 const LocationAdd = () => {
+  const { user } = useSession();
+
+  const { mutate } = useMutation({
+    mutationFn: createAddress,
+  });
+
   const locationForm = useForm<z.infer<typeof locationSchema>>({
     resolver: zodResolver(locationSchema),
+    defaultValues: {
+      name: "",
+      mobileNumber: "",
+      state: "",
+      pincode: "",
+      city: "",
+      address1: "",
+      address2: "",
+      landmark: "",
+    },
   });
 
   function onSubmit(values: z.infer<typeof locationSchema>) {
-    console.log(values);
+    if (user == undefined) {
+      return;
+    }
+    const newAddressInfo = { ...values, userId: user.id };
+
+    createAddress(newAddressInfo);
+
+    // console.log(newAddressInfo);
   }
 
   return (
@@ -63,7 +96,7 @@ const LocationAdd = () => {
           {/* Name Field */}
           <FormField
             control={locationForm.control}
-            name="Name"
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700 font-medium text-lg ml-2">
@@ -83,7 +116,7 @@ const LocationAdd = () => {
           {/* Mobile Number Field */}
           <FormField
             control={locationForm.control}
-            name="MobileNumber"
+            name="mobileNumber"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700 font-medium text-lg ml-2">
@@ -102,7 +135,7 @@ const LocationAdd = () => {
 
           <FormField
             control={locationForm.control}
-            name="State"
+            name="state"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700 font-medium text-lg ml-2">
@@ -121,7 +154,7 @@ const LocationAdd = () => {
 
           <FormField
             control={locationForm.control}
-            name="Pincode"
+            name="pincode"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700 font-medium text-lg ml-2">
@@ -142,7 +175,7 @@ const LocationAdd = () => {
           {/* City Field */}
           <FormField
             control={locationForm.control}
-            name="City"
+            name="city"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700 font-medium text-lg ml-2">
@@ -162,7 +195,7 @@ const LocationAdd = () => {
           {/* Address1 Field */}
           <FormField
             control={locationForm.control}
-            name="Address1"
+            name="address1"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700 font-medium text-lg ml-2">
@@ -182,7 +215,7 @@ const LocationAdd = () => {
           {/* Address2 Field */}
           <FormField
             control={locationForm.control}
-            name="Address2"
+            name="address2"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700 font-medium text-lg ml-2">
@@ -202,7 +235,7 @@ const LocationAdd = () => {
           {/* Landmark Field */}
           <FormField
             control={locationForm.control}
-            name="Landmark"
+            name="landmark"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700 font-medium text-lg ml-2">
