@@ -1,11 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import express, { Request, Response } from "express";
+import { prisma } from "../../server";
 
 const categoryRoute = express.Router();
-
-const prisma = new PrismaClient({
-  log: ["query", "info", "warn", "error"],
-});
 
 categoryRoute.get("/allcategory", async (req: Request, res: Response) => {
   try {

@@ -2,6 +2,8 @@ import { sendEmailRoute } from "@/api/api";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 
+//use RESEND for it
+
 const ContactPage = () => {
   const inputRef = useRef<any>();
   const [formData, setFormData] = useState({

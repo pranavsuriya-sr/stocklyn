@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -16,6 +17,9 @@ declare global {
     }
   }
 }
+export const prisma = new PrismaClient({
+  log: ["error"],
+});
 
 const app = express();
 dotenv.config();

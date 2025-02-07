@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import express, { Request, Response } from "express";
+import { prisma } from "../../server";
 
 const cartItemRoute = express.Router();
-const prisma = new PrismaClient({
-  log: ["query", "info", "warn", "error"],
-});
 
 cartItemRoute.get("/items/:cartId", async (req: Request, res: Response) => {
   const { cartId } = req.params;

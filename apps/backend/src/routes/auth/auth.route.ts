@@ -1,14 +1,11 @@
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import express, { Request, Response } from "express";
 import { VerifyJwtMiddleware } from "../../middleware/verify-jwt";
+import { prisma } from "../../server";
 import { GenerateJwtToken } from "../../service/jwt";
 import { userType } from "../../types/jwt";
 
 const authRoute = express.Router();
-const prisma = new PrismaClient({
-  log: ["query", "info", "warn", "error"],
-});
 
 authRoute.post("/signup", async (req: Request, res: Response) => {
   const { name, email, password } = req.body;

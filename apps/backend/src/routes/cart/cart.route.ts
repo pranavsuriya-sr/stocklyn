@@ -1,11 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import express, { Request, Response } from "express";
 import { VerifyJwtMiddleware } from "../../middleware/verify-jwt";
+import { prisma } from "../../server";
 
 const cartRoute = express.Router();
-const prisma = new PrismaClient({
-  log: ["query", "info", "warn", "error"],
-});
+
 cartRoute.post(
   "/add",
   VerifyJwtMiddleware,
