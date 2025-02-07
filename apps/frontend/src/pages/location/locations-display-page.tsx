@@ -21,7 +21,6 @@ const LocationsDisplayPage = () => {
           <span className="text-lg">Add Address</span>
         </div>
 
-        {/* Address Cards */}
         {addresses.map((address) => (
           <div
             key={address.id}

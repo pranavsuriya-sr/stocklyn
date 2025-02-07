@@ -9,6 +9,7 @@ import ContactPage from "./pages/contact/contact-page";
 import NotFoundPage from "./pages/error/error-page";
 import Home from "./pages/home/home-page";
 import LandingPage from "./pages/landing/landing-page";
+import LocationAdd from "./pages/location/location-add-page";
 import LocationsDisplayPage from "./pages/location/locations-display-page";
 import ProductPage from "./pages/product/product-page";
 import UserProfile from "./pages/profile/user-profile";
@@ -143,6 +144,22 @@ const App = () => {
                   transition={pageTransition}
                 >
                   <LocationsDisplayPage />
+                </motion.div>
+              </ProtectedPage>
+            }
+          ></Route>
+          <Route
+            path="/addUserLocation"
+            element={
+              <ProtectedPage>
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <LocationAdd />
                 </motion.div>
               </ProtectedPage>
             }
