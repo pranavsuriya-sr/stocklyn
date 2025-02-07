@@ -1,18 +1,22 @@
+import { addressRoute } from "@/api/api";
+import { useSession } from "@/context/session-context";
+import { AddressType } from "@/types/address-type";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 const LocationsDisplayPage = () => {
   const navigate = useNavigate();
-  const addresses = [
-    {
-      id: 1,
-      name: "Uday",
-      address:
-        "loremas askndaksndkankldn naln klsna klan kln klank naslk nklsan lknklans kld",
-      city: "HYDERABAD, TELANGANA 500050",
-      phone: "8812912800",
-      isDefault: true,
-    },
-  ];
+  const { user } = useSession();
+  const { data: addresses } = useQuery({
+    queryKey: ["addresses"],
+    queryFn: () => GetAllAddress(),
+  });
+
+  const GetAllAddress = async () => {
+    const response = await addressRoute.get(`/getaddress/${user?.id}`);
+
+    return response.data.response;
+  };
 
   return (
     <div className="w-[75%] mx-auto min-h-screen pt-28 font-montserrat">
@@ -27,33 +31,37 @@ const LocationsDisplayPage = () => {
           <span className="text-lg">Add Address</span>
         </div>
 
-        {addresses.map((address) => (
-          <div
-            key={address.id}
-            className="border p-4 rounded-lg shadow-md bg-white"
-          >
-            {address.isDefault && (
+        {addresses != undefined &&
+          addresses.length > 0 &&
+          addresses.map((address: AddressType) => (
+            <div
+              key={address.id}
+              className="border p-4 rounded-lg shadow-md bg-white"
+            >
+              {/* {address.isDefault && (
               <span className="text-sm text-gray-600 font-semibold">
                 Default
               </span>
-            )}
-            <h3 className="text-lg font-semibold">{address.name}</h3>
-            <p className="text-gray-600">{address.address}</p>
-            <p className="text-gray-600">{address.city}</p>
-            <p className="text-gray-600 font-medium">Phone: {address.phone}</p>
-            <div className="mt-3 text-sm text-indigo-600 cursor-pointer">
-              Add delivery instructions
-            </div>
+            )} */}
+              <h3 className="text-lg font-semibold">{address.name}</h3>
+              <p className="text-gray-600">{address.Address1}</p>
+              <p className="text-gray-600">{address.city}</p>
+              <p className="text-gray-600 font-medium">
+                Phone: {address.mobileNumber}
+              </p>
+              <div className="mt-3 text-sm text-indigo-600 cursor-pointer">
+                Add delivery instructions
+              </div>
 
-            <div className="flex gap-4 mt-3 text-sm text-indigo-600">
-              <span className="cursor-pointer">Edit</span>
-              <span className="cursor-pointer">Remove</span>
-              {!address.isDefault && (
+              <div className="flex gap-4 mt-3 text-sm text-indigo-600">
+                {/* <span className="cursor-pointer">Edit</span> */}
+                <span className="cursor-pointer">Remove</span>
+                {/* {!address.isDefault && (
                 <span className="cursor-pointer">Set as Default</span>
-              )}
+              )} */}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

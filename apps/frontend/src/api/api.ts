@@ -23,3 +23,7 @@ export const cartItemRoute = axios.create({
 export const sendEmailRoute = axios.create({
   baseURL: "http://localhost:5000/email",
 });
+
+export const addressRoute = axios.create({
+  baseURL: "http://localhost:5000/address",
+});
