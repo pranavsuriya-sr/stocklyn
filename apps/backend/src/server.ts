@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import addressRoute from "./routes/address/address.route";
 import authRoute from "./routes/auth/auth.route";
 import cartItemRoute from "./routes/cart-item/cart-item.route";
 import cartRoute from "./routes/cart/cart.route";
@@ -36,6 +37,7 @@ app.use("/product", productRoute);
 app.use("/auth", authRoute);
 app.use("/category", categoryRoute);
 app.use("/cartitem", cartItemRoute);
+app.use("/address", addressRoute);
 
 const PORT = 5000;
 

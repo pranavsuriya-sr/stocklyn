@@ -80,13 +80,13 @@ model Category {
 model Location{
   id           String             @id @default(uuid()) 
   name         String
-  mobileNumber Int               
+  mobileNumber String               
   state        String
-  pincode      Int
+  pincode      String
   city         String
   Address1     String
   Address2     String    
-  LandMark     String 
+  Landmark     String 
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   userId       String?
