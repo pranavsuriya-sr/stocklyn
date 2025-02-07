@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSession } from "@/context/session-context";
+import { useToast } from "@/hooks/use-toast";
 import { AddAddress } from "@/types/address-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -54,6 +55,7 @@ const createAddress = async (addressInfo: AddAddress) => {
 
 const LocationAdd = () => {
   const { user } = useSession();
+  const { toast } = useToast();
   const mutation = useMutation({
     mutationFn: createAddress,
     onError: (error) => {
@@ -61,6 +63,11 @@ const LocationAdd = () => {
     },
     onSuccess: (data) => {
       console.log("Post created successfully!", data);
+      toast({
+        title: "Your Location has been saved",
+        variant: "success",
+      });
+      locationForm.reset();
     },
   });
 
