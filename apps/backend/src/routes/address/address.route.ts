@@ -84,4 +84,26 @@ addressRoute.get("/getAddress/:userId", async (req: Request, res: Response) => {
   }
 });
 
+addressRoute.delete("/delete/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) {
+    console.log("Error at /deleteAddress , missing feilds");
+    res.status(500).send("Something went wrong!");
+    return;
+  }
+
+  try {
+    await prisma.address.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    res.status(200).json({ message: "Successfully deleted" });
+  } catch (error) {
+    res.status(500).send(error);
+    console.log("Error at the /address/deleteAddress", error);
+  }
+});
+
 export default addressRoute;

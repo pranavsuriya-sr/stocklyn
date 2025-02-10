@@ -104,9 +104,8 @@ const Cart = () => {
     if (requiredQuantity > getAvailableQuantityOfProduct.stockQuantity) {
       toast({
         variant: "destructive",
-        title: "Stock Unavailable",
-        description:
-          "The required quantity is greater than the available stock",
+        title: `Stock Unavailable of ${requiredQuantity}`,
+        description: `The required quantity of ${requiredQuantity} is greater than the available stock`,
       });
       return;
     }

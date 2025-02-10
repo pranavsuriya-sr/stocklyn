@@ -186,7 +186,6 @@ const LocationAdd = () => {
             )}
           />
 
-          {/* City Field */}
           <FormField
             control={locationForm.control}
             name="city"
@@ -206,7 +205,6 @@ const LocationAdd = () => {
             )}
           />
 
-          {/* Address1 Field */}
           <FormField
             control={locationForm.control}
             name="address1"
@@ -226,7 +224,6 @@ const LocationAdd = () => {
             )}
           />
 
-          {/* Address2 Field */}
           <FormField
             control={locationForm.control}
             name="address2"

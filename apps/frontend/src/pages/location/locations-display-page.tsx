@@ -1,14 +1,27 @@
 import { addressRoute } from "@/api/api";
 import { useSession } from "@/context/session-context";
 import { AddressType } from "@/types/address-type";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 const LocationsDisplayPage = () => {
   const navigate = useNavigate();
   const { user } = useSession();
+
+  const HandleRemoveAddress = async (id: string) => {
+    try {
+      await addressRoute.delete(`/delete/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { mutate, isSuccess } = useMutation({
+    mutationFn: (id: string) => HandleRemoveAddress(id),
+  });
+
   const { data: addresses } = useQuery({
-    queryKey: ["addresses"],
+    queryKey: ["addresses", isSuccess],
     queryFn: () => GetAllAddress(),
   });
 
@@ -55,7 +68,12 @@ const LocationsDisplayPage = () => {
 
               <div className="flex gap-4 mt-3 text-sm text-indigo-600">
                 {/* <span className="cursor-pointer">Edit</span> */}
-                <span className="cursor-pointer">Remove</span>
+                <span
+                  className="cursor-pointer"
+                  onClick={() => mutate(address.id)}
+                >
+                  Remove
+                </span>
                 {/* {!address.isDefault && (
                 <span className="cursor-pointer">Set as Default</span>
               )} */}
