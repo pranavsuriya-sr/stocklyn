@@ -11,8 +11,18 @@ import { User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const ViewProfile = () => {
+  const Capitalize = (displayName: string | undefined) => {
+    if (displayName == undefined) {
+      return displayName;
+    }
+    let capitalizedString =
+      displayName.substring(0, 1).toUpperCase() +
+      displayName.substring(1, displayName.length);
+
+    return capitalizedString;
+  };
   const { logout, user } = useSession();
-  const displayName = user?.name;
+  const displayName = Capitalize(user?.name);
   const navigate = useNavigate();
 
   const HandleSignOut = async () => {
