@@ -20,7 +20,7 @@ const ShopPage = () => {
 
   const HandleFetchProductsByPageNumber = async (): Promise<ProductsType[]> => {
     const skip = searchParams.get("skip") || 0;
-    const take = searchParams.get("take") || 8;
+    const take = searchParams.get("take") || 2;
 
     // console.log("Fetching products with skip:", skip, "take:", take);
 
@@ -43,7 +43,7 @@ const ShopPage = () => {
   // console.log(data);
 
   const HandleGetInfoByPageNumber = (currentPage: number) => {
-    navigate(`/shop?skip=${(currentPage - 1) * 8}&take=8`);
+    navigate(`/shop?skip=${(currentPage - 1) * 2}&take=2`);
   };
 
   const HandleGoPrevious = () => {
