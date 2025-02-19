@@ -20,9 +20,6 @@ importers:
 
   apps/backend:
     dependencies:
-      '@prisma/client':
-        specifier: 6.2.1
-        version: 6.2.1(prisma@6.2.1)
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -48,6 +45,9 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
+      '@prisma/client':
+        specifier: 6.2.1
+        version: 6.2.1(prisma@6.2.1)
       '@types/bcryptjs':
         specifier: ^2.4.6
         version: 2.4.6

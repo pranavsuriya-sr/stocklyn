@@ -13,7 +13,7 @@ export default function Home() {
 
   const FetchProductLists = async () => {
     const response = await axios.get(
-      import.meta.env.VITE_PRODUCTS_BY_CATEGORY,
+      "http://localhost:5000/product/getbycategory",
       {
         withCredentials: true,
       }
