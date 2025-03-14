@@ -83,7 +83,7 @@ const ContactPage = () => {
         </Button>
       </form>
 
-      <div className="flex flex-col items-center justify-center mt-32">
+      <div className="flex flex-col items-center justify-center mt-32 mb-10">
         <div className="text-4xl font-thin ">Contact Details</div>
         <div className="mt-5 text-sm text-gray-600">
           Email : udayraj.vadeghar@gmail.com
