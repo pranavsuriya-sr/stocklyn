@@ -7,8 +7,6 @@ const CartLoader = () => {
   const { LoadCartItems } = useCartStore();
 
   useEffect(() => {
-    let isMounted = true;
-
     const loadData = async () => {
       if (session == true && user?.cart.id) {
         await LoadCartItems(user?.cart.id);
@@ -16,10 +14,6 @@ const CartLoader = () => {
     };
 
     loadData();
-
-    return () => {
-      isMounted = false;
-    };
   }, [user?.cart.id, LoadCartItems]);
 
   return null;
