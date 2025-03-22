@@ -30,6 +30,11 @@ app.use(
     credentials: true,
   })
 );
+
+//testing purpose
+app.get("/", (req, res) => {
+  res.json("Hello from port");
+});
 app.use(express.json());
 app.use(cookieParser());
 app.use("/cart", cartRoute);
