@@ -6,10 +6,13 @@
 
 A full-stack e-commerce application (in development)
 
-## Todo List
+## Progress
 
-- wrap up the infinite scroll and lucia auth sessions.
-- add the payment gateway.
+- Frontend Sorted and working in both development and production
+
+## todo
+
+- Sort Backend and do.
 
 ## Features
 
