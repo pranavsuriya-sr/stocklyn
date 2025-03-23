@@ -1,7 +1,7 @@
+import { productRoute } from "@/api/api";
 import ProductCard from "@/pages/product/product-card";
 import { ProductsType } from "@/types/product-type";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
@@ -12,12 +12,9 @@ export default function Home() {
   }
 
   const FetchProductLists = async () => {
-    const response = await axios.get(
-      "http://localhost:5000/product/getbycategory",
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await productRoute.get("/getbycategory", {
+      withCredentials: true,
+    });
     return response.data;
   };
 

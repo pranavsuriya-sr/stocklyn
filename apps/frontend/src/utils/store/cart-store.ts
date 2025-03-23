@@ -1,7 +1,6 @@
 import { cartItemRoute } from "@/api/api";
 import { CartItemType } from "@/types/cart-item-type";
 import { ProductsType } from "@/types/product-type";
-import axios from "axios";
 import { create } from "zustand";
 
 interface CartStore {
@@ -30,12 +29,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
   GetCount: () => get().products.length,
   LoadCartItems: async (cartId: string | undefined) => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/cartItem/items/${cartId}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await cartItemRoute.get(`/items/${cartId}`, {
+        withCredentials: true,
+      });
 
       let cartItemList = response.data.response;
 
@@ -71,8 +67,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
     }
 
     try {
-      await axios.post(
-        `http://localhost:5000/cartItem/insert`,
+      await cartItemRoute.post(
+        `/insert`,
         {
           cartId,
           productId,
@@ -89,7 +85,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   RemoveCartItem: async (cartId: string | undefined, productId: string) => {
     try {
-      await axios.delete("http://localhost:5000/cartItem/delete", {
+      await cartItemRoute.delete("/delete", {
         data: { cartId, productId },
         withCredentials: true,
       });
