@@ -227,7 +227,7 @@ productRoute.get("/productPagination", async (req: Request, res: Response) => {
   const skip = +req.query.skip;
   const take = +req.query.take;
 
-  console.log(skip, take, "hello world");
+  // console.log(skip, take, "hello world");
 
   if (skip == undefined || take == undefined || take == 0) {
     res.status(400).json({

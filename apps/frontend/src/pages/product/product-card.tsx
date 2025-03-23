@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ imgSrc, name, price }) => {
         </p>
 
         <button
-          onClick={() => console.log("Added to cart:", name)}
+          // onClick={() => console.log("Added to cart:", name)}
           className="mt-auto py-2 border border-indigo-600 text-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white transition duration-200"
         >
           Buy Now
