@@ -1,29 +1,43 @@
 import axios from "axios";
 
+const isProd = import.meta.env.MODE === "production";
+
 export const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: isProd
+    ? import.meta.env.VITE_BASE_URL_PROD
+    : import.meta.env.VITE_BASE_URL,
   withCredentials: true,
 });
 
 export const productRoute = axios.create({
-  baseURL: "http://localhost:5000/product",
+  baseURL: isProd
+    ? import.meta.env.VITE_PRODUCT_ROUTE_PROD
+    : import.meta.env.VITE_PRODUCT_ROUTE,
   withCredentials: true,
 });
 
 export const categoryRoute = axios.create({
-  baseURL: "http://localhost:5000/category",
+  baseURL: isProd
+    ? import.meta.env.VITE_CATEGORY_ROUTE_PROD
+    : import.meta.env.VITE_CATEGORY_ROUTE,
   withCredentials: true,
 });
 
 export const cartItemRoute = axios.create({
-  baseURL: "http://localhost:5000/cartItem",
+  baseURL: isProd
+    ? import.meta.env.VITE_CART_ITEM_ROUTE_PROD
+    : import.meta.env.VITE_CART_ITEM_ROUTE,
   withCredentials: true,
 });
 
 export const sendEmailRoute = axios.create({
-  baseURL: "http://localhost:5000/email",
+  baseURL: isProd
+    ? import.meta.env.VITE_SEND_EMAIL_ROUTE_PROD
+    : import.meta.env.VITE_SEND_EMAIL_ROUTE,
 });
 
 export const addressRoute = axios.create({
-  baseURL: "http://localhost:5000/address",
+  baseURL: isProd
+    ? import.meta.env.VITE_ADDRESS_ROUTE_PROD
+    : import.meta.env.VITE_ADDRESS_ROUTE,
 });
