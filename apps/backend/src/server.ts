@@ -22,11 +22,13 @@ export const prisma = new PrismaClient({
   log: ["error"],
 });
 
+const allowedOrigins = ["http://localhost:5173", "https://maalelo.vercel.app"];
+
 const app = express();
 dotenv.config();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
@@ -35,6 +37,7 @@ app.use(
 app.get("/", (req, res) => {
   res.json("Hello from port");
 });
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/cart", cartRoute);
