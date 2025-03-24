@@ -57,6 +57,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // ---->  7 days session
     });
 
@@ -112,6 +113,7 @@ authRoute.post("/login", async (req: Request, res: Response) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
@@ -134,6 +136,7 @@ authRoute.post("/logout", (req: Request, res: Response) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/",
     expires: new Date(0),
   });
 
