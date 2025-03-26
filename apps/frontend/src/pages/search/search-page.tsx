@@ -45,6 +45,9 @@ const SearchPage = () => {
             }
           })}
       </div>
+      <div className="mt-10 text-4xl font-montserrat border-2 p-2">
+        Similar search : Coming soon
+      </div>
     </div>
   );
 };
