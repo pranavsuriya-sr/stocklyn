@@ -21,7 +21,7 @@ const SearchPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-28 w-[60%] mx-auto">
+    <div className="min-h-screen pt-28 w-[60%] mx-auto  mb-20">
       <h2 className="text-2xl font-semibold mb-4">Search Results</h2>
       <div>
         {productsArray.length > 0 &&
