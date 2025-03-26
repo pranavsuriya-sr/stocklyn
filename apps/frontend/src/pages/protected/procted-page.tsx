@@ -12,7 +12,7 @@ const ProtectedPage = ({ children }: { children: ReactNode }) => {
   }, [isLoading, session, navigate]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="mt-72">Loading...</div>;
   }
 
   if (!isLoading && session !== null) {
