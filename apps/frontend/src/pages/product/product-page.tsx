@@ -92,7 +92,7 @@ const ProductPage = () => {
       variants={fadeIn}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-        {/* Left Section: Product Images */}
+        {/*Product Images */}
         <motion.div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-xl shadow-md">
             <img
@@ -122,7 +122,7 @@ const ProductPage = () => {
           </div>
         </motion.div>
 
-        {/* Right Section: Product Details */}
+        {/* Product Details */}
         <motion.div className="space-y-6" variants={containerVariants}>
           <motion.div variants={itemVariants}>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">

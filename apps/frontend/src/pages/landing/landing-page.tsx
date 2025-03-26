@@ -44,7 +44,7 @@ const LandingPage = () => {
 
   return (
     <div className="overflow-x-hidden">
-      {/* Hero Section */}
+      {/* hero section part : - >  */}
       <motion.div
         className="relative w-full h-screen pt-16"
         initial="hidden"
@@ -87,7 +87,7 @@ const LandingPage = () => {
         </motion.div>
       </motion.div>
 
-      {/* Collection Section */}
+      {/* Collection part of the page */}
       <motion.section
         className="flex flex-col lg:flex-row min-h-screen"
         initial="hidden"
@@ -134,7 +134,7 @@ const LandingPage = () => {
         </motion.div>
       </motion.section>
 
-      {/* Categories Section */}
+      {/* Categories part of the page */}
       <motion.section
         className="px-6 md:px-12 lg:px-24 py-16 md:py-24"
         initial="hidden"
@@ -210,7 +210,7 @@ const LandingPage = () => {
         </motion.div>
       </motion.section>
 
-      {/* Blog Section */}
+      {/* Blog part of the page , */}
       <motion.section
         className="px-6 md:px-12 lg:px-24 py-16 md:py-24 bg-gray-50"
         initial="hidden"
@@ -262,7 +262,7 @@ const LandingPage = () => {
         </div>
       </motion.section>
 
-      {/* Features Section */}
+      {/* Features is below , {*/}
       <motion.section
         className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white"
         initial="hidden"
