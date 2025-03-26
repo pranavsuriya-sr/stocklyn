@@ -4,12 +4,12 @@ const FooterPage = () => {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-gray-900 text-white pt-20 pb-3 ">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-around items-center text-center md:text-left gap-8">
+    <footer className="bg-gray-900 text-white pt-10 md:pt-20 pb-3 px-4">
+      <div className="container mx-auto">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-8 md:gap-12">
           {/* About Us */}
-          <div className="max-w-xs">
-            <h2 className="text-lg font-semibold mb-4">About Us</h2>
+          <div className="w-full md:w-auto max-w-xs mx-auto md:mx-0 text-center md:text-left">
+            <h2 className="text-lg font-semibold mb-3 md:mb-4">About Us</h2>
             <p className="text-sm text-gray-400">
               We are a leading e-commerce platform dedicated to providing
               quality products and exceptional customer service.
@@ -17,9 +17,11 @@ const FooterPage = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
-            <ul className="space-y-2">
+          <div className="w-full md:w-auto mx-auto md:mx-0">
+            <h2 className="text-lg font-semibold mb-3 md:mb-4 text-center md:text-left">
+              Quick Links
+            </h2>
+            <ul className="grid grid-cols-2 gap-2 md:flex md:flex-col md:space-y-2">
               {[
                 { name: "Home", path: "/home" },
                 { name: "Shop", path: "/shop" },
@@ -29,7 +31,7 @@ const FooterPage = () => {
                 <li key={link.name}>
                   <button
                     onClick={() => navigate(link.path)}
-                    className="text-sm text-gray-400 hover:text-white transition-colors w-full py-1"
+                    className="text-sm text-gray-400 hover:text-white transition-colors w-full py-1 text-center md:text-left"
                   >
                     {link.name}
                   </button>
@@ -39,8 +41,8 @@ const FooterPage = () => {
           </div>
 
           {/* Social Media */}
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Follow Us</h2>
+          <div className="w-full md:w-auto mx-auto md:mx-0 text-center md:text-left">
+            <h2 className="text-lg font-semibold mb-3 md:mb-4">Follow Us</h2>
             <div className="flex justify-center md:justify-start space-x-4">
               {[
                 {
@@ -63,6 +65,7 @@ const FooterPage = () => {
                   key={index}
                   href="#"
                   className="text-gray-400 hover:text-white transition-colors"
+                  aria-label={`Social media link ${index + 1}`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -78,8 +81,8 @@ const FooterPage = () => {
           </div>
         </div>
 
-        <hr className="border-t border-gray-700 mt-8 mb-4 mx-auto w-4/5" />
-        <div className="text-center text-sm text-gray-500">
+        <hr className="border-t border-gray-700 mt-8 mb-4 mx-auto w-full md:w-4/5" />
+        <div className="text-center text-xs md:text-sm text-gray-500">
           © 2025 Maddie. All rights reserved.
         </div>
       </div>
