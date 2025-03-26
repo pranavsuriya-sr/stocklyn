@@ -162,8 +162,8 @@ const Cart = () => {
   }
 
   return (
-    <div className="pt-20 md:pt-32 px-4 md:px-0 w-[80%] mx-auto">
-      <div className="text-2xl md:text-3xl font-semibold pb-6 md:pb-10">
+    <div className="pt-28 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto">
+      <div className="text-2xl sm:text-3xl font-semibold pb-6 sm:pb-10">
         Shopping Cart
       </div>
       <hr className="w-full border-t border-gray-300 my-4" />
@@ -172,17 +172,17 @@ const Cart = () => {
         products.map((product: ProductsType) => {
           return (
             <div key={product.id}>
-              <div className="py-6 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="py-6 sm:py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
                 <div className="flex flex-1 gap-4 w-full">
                   <img
                     src={product.displayImage}
-                    className="w-32 h-32 md:w-44 md:h-44 object-contain p-2 hover:cursor-pointer"
+                    className="w-20 h-20 sm:w-32 sm:h-32 md:w-44 md:h-44 object-contain p-2 hover:cursor-pointer"
                     alt={product.name}
                     onClick={() => RouteToProductPage(product)}
                   />
-                  <div className="flex flex-col justify-between">
+                  <div className="flex flex-col justify-between flex-1">
                     <h3
-                      className="text-lg font-medium truncate hover:cursor-pointer"
+                      className="text-base sm:text-lg font-medium line-clamp-2 hover:cursor-pointer"
                       title={product.name}
                       onClick={() => RouteToProductPage(product)}
                     >
@@ -191,16 +191,18 @@ const Cart = () => {
 
                     <div>
                       {product.stockQuantity > 0 ? (
-                        <span className="text-green-600 text-sm">In stock</span>
+                        <span className="text-green-600 text-xs sm:text-sm">
+                          In stock
+                        </span>
                       ) : (
-                        <span className="text-red-600 text-sm">
+                        <span className="text-red-600 text-xs sm:text-sm">
                           Out of stock
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
                       <select
-                        className="border p-2 rounded-md w-20 text-sm hover:cursor-pointer"
+                        className="border p-1 sm:p-2 rounded-md w-16 sm:w-20 text-xs sm:text-sm hover:cursor-pointer"
                         value={
                           cartItems.find(
                             (item) => item.productId === product.id
@@ -215,10 +217,10 @@ const Cart = () => {
                         ))}
                       </select>
                       <AlertDialog>
-                        <AlertDialogTrigger className="text-red-600 hover:text-red-700 text-sm p-2">
+                        <AlertDialogTrigger className="text-red-600 hover:text-red-700 text-xs sm:text-sm p-1 sm:p-2">
                           Remove
                         </AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className="max-w-[95vw] sm:max-w-md">
                           <AlertDialogHeader>
                             <AlertDialogTitle>Remove item?</AlertDialogTitle>
                             <AlertDialogDescription>
@@ -240,8 +242,8 @@ const Cart = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full md:w-auto">
-                  <div className="text-xl font-medium md:min-w-[120px] text-right">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full sm:w-auto self-end sm:self-auto">
+                  <div className="text-lg sm:text-xl font-medium sm:min-w-[120px] text-right">
                     ₹{product.price}
                   </div>
                 </div>
@@ -251,22 +253,22 @@ const Cart = () => {
           );
         })}
 
-      <div className="mt-12 md:mt-20 border rounded-lg p-6 max-w-3xl mx-auto w-full">
-        <div className="space-y-4">
-          <div className="flex justify-between">
+      <div className="mt-8 sm:mt-12 border rounded-lg p-4 sm:p-6 max-w-3xl mx-auto w-full">
+        <div className="space-y-3 sm:space-y-4">
+          <div className="flex justify-between text-sm sm:text-base">
             <span className="text-gray-600">Subtotal</span>
             <span>₹{totalCost}</span>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between text-sm sm:text-base">
             <span className="text-gray-600">Shipping</span>
             <span>₹{totalCost > 0 ? 49 : 0}</span>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between text-sm sm:text-base">
             <span className="text-gray-600">Tax</span>
             <span>₹0</span>
           </div>
-          <hr className="my-4" />
-          <div className="flex justify-between font-semibold text-lg">
+          <hr className="my-3 sm:my-4" />
+          <div className="flex justify-between font-semibold text-base sm:text-lg">
             <span>Order total</span>
             <span>₹{totalCost + 49}</span>
             {/* should change after adding the payment gateway*/}
@@ -274,13 +276,13 @@ const Cart = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center mt-8 gap-6">
-        <Button className="w-full md:w-1/2 max-w-md bg-indigo-600 hover:bg-indigo-500 h-12">
+      <div className="flex flex-col items-center mt-6 sm:mt-8 gap-4 sm:gap-6 pb-8 sm:pb-12">
+        <Button className="w-full sm:w-1/2 max-w-md bg-indigo-600 hover:bg-indigo-500 h-10 sm:h-12 text-sm sm:text-base">
           Proceed to Checkout
         </Button>
         <button
           onClick={() => navigate("/shop")}
-          className="text-indigo-600 hover:text-indigo-500 text-sm font-medium pb-10"
+          className="text-indigo-600 hover:text-indigo-500 text-xs sm:text-sm font-medium"
         >
           Continue Shopping →
         </button>
