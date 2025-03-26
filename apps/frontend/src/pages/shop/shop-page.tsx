@@ -70,19 +70,20 @@ const ShopPage = () => {
   }
 
   return (
-    <div className="pt-28 min-h-screen flex items-center justify-center">
-      <div>
+    <div className="pt-20 md:pt-28 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl">
         <div>
-          <div className="font-montserrat text-4xl font-bold py-10">
+          <div className="font-montserrat text-2xl sm:text-3xl md:text-4xl font-bold py-6 md:py-10 text-center sm:text-left">
             All available Items
           </div>
-          <div className="grid grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {data !== undefined &&
               data.map((product) => {
                 return (
                   <div
                     onClick={() => HandleProductClick({ product })}
                     key={product.id}
+                    className="w-full"
                   >
                     <ProductCard
                       name={product.name}
@@ -96,48 +97,62 @@ const ShopPage = () => {
           </div>
         </div>
 
-        <Pagination className="hover:cursor-pointer pt-10 text-4xl mb-10">
+        <Pagination className="hover:cursor-pointer pt-6 md:pt-10 mb-6 md:mb-10">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => {
                   HandleGoPrevious();
                 }}
+                className="text-sm md:text-base"
               />
             </PaginationItem>
-            <PaginationItem>
+            <PaginationItem className="hidden sm:flex">
               <PaginationLink
                 onClick={() => HandleGetInfoByPageNumber(pageNumber)}
+                className="text-sm md:text-base"
               >
                 {pageNumber}
               </PaginationLink>
               <PaginationLink
                 onClick={() => HandleGetInfoByPageNumber(pageNumber + 1)}
+                className="text-sm md:text-base"
               >
                 {pageNumber + 1}
               </PaginationLink>
               <PaginationLink
                 onClick={() => HandleGetInfoByPageNumber(pageNumber + 2)}
+                className="text-sm md:text-base"
               >
                 {pageNumber + 2}
               </PaginationLink>
               <PaginationLink
                 onClick={() => HandleGetInfoByPageNumber(pageNumber + 3)}
+                className="text-sm md:text-base"
               >
                 {pageNumber + 3}
               </PaginationLink>
               <PaginationLink
                 onClick={() => HandleGetInfoByPageNumber(pageNumber + 4)}
+                className="text-sm md:text-base"
               >
                 {pageNumber + 4}
               </PaginationLink>
             </PaginationItem>
-            <PaginationItem></PaginationItem>
+            <PaginationItem className="flex sm:hidden">
+              <PaginationLink
+                onClick={() => HandleGetInfoByPageNumber(pageNumber)}
+                className="text-sm md:text-base"
+              >
+                {pageNumber}
+              </PaginationLink>
+            </PaginationItem>
             <PaginationItem>
               <PaginationNext
                 onClick={() => {
                   setPageNumber(pageNumber + 1);
                 }}
+                className="text-sm md:text-base"
               />
             </PaginationItem>
           </PaginationContent>
