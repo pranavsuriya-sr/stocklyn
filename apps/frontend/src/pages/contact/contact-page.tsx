@@ -34,7 +34,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-100 mt-16 pb-10">
       <form
         className="w-[50%] mx-auto flex flex-col"
         onSubmit={HandleEmailFormSubmit}

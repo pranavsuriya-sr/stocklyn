@@ -83,7 +83,7 @@ const FooterPage = () => {
 
         <hr className="border-t border-gray-700 mt-8 mb-4 mx-auto w-full md:w-4/5" />
         <div className="text-center text-xs md:text-sm text-gray-500">
-          © 2025 Maddie. All rights reserved.
+          © 2025 Maalelo. All rights reserved.
         </div>
       </div>
     </footer>
