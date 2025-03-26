@@ -12,7 +12,6 @@ import react from "../../assets/icons/react.svg";
 import supabase from "../../assets/icons/supabase-icon.svg";
 import tailwind from "../../assets/icons/tailwind.svg";
 import zustand from "../../assets/icons/zustand.svg";
-import onlineShopping from "../../assets/online-shopping.png";
 
 const About = () => {
   const navigate = useNavigate();
@@ -39,13 +38,13 @@ const About = () => {
             Start Shopping
           </Button>
         </div>
-        <div className="flex-1 pt-8 order-1 lg:order-2">
+        {/* <div className="flex-1 pt-8 order-1 lg:order-2">
           <img
             src={onlineShopping}
             className="block w-full max-w-md mx-auto lg:max-w-none"
             alt="Image showcasing people browsing products on a website"
           />
-        </div>
+        </div> */}
       </div>
 
       <section className="py-8">
