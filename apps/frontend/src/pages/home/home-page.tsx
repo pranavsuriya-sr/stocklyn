@@ -33,6 +33,7 @@ export default function Home() {
 
   return (
     <div className="bg-white pt-28 p-4 md:p-10 lg:p-20 lg:pt-32">
+      <h1>Frontend Test 1!</h1>
       {category.map((someCategory: string) => (
         <div key={someCategory} className="mb-12 pt-10">
           <h2 className="text-2xl font-montserrat md:text-3xl font-bold mb-4 capitalize text-left w-[75%] mx-auto animate-fade-in-up fancy-text ">
