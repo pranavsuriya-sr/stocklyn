@@ -45,7 +45,9 @@ const ViewProfile = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           className="absolute z-50 bg-white border rounded shadow-md p-2"
-          sideOffset={4}
+          sideOffset={100}
+          side="left"
+          align="end"
         >
           <DropdownMenuLabel className="text-lg">
             Hello! {displayName}😄
