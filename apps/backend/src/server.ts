@@ -35,7 +35,7 @@ app.use(
 
 //testing purpose
 app.get("/", (req, res) => {
-  res.json("Hello from VM");
+  res.json("Hello from VM 1");
 });
 
 app.use(express.json());
