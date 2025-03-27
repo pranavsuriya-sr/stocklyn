@@ -35,7 +35,7 @@ app.use(
 
 //testing purpose
 app.get("/", (req, res) => {
-  res.json("Backend Test Success!");
+  res.json("cookie Test Success!");
 });
 
 app.use(express.json());
