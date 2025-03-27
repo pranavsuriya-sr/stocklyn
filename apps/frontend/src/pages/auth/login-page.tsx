@@ -99,15 +99,18 @@ const Login = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-700">Email</FormLabel>
+                      <FormLabel  htmlFor="email-input" className="text-gray-700">Email</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                           <Input
+                            id="email-input"
                             placeholder="hello@example.com"
                             {...field}
                             className="pl-10 py-5 rounded-lg"
                             ref={inputRef}
+                            autoComplete="username"
+                            name="email"
                           />
                         </div>
                       </FormControl>
@@ -121,16 +124,19 @@ const Login = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-700">Password</FormLabel>
+                      <FormLabel htmlFor="password-input" className="text-gray-700">Password</FormLabel>
 
                       <FormControl>
                         <div className="relative flex items-center justify-between">
                           <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                           <Input
+                            id="password-input"
                             type={showPassword ? "text" : "password"}
                             placeholder="••••••••"
                             {...field}
                             className="pl-10 py-5 rounded-lg"
+                            autoComplete="current-password"
+                            name="password"
                           />
                           <div
                             className="p-2 border rounded-lg ml-1 bg-gray-100 hover:cursor-pointer hover:bg-gray-200"
@@ -140,8 +146,7 @@ const Login = () => {
                           </div>
                         </div>
                       </FormControl>
-
-                      <FormMessage className="text-red-500"></FormMessage>
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />

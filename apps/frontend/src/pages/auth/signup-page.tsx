@@ -76,12 +76,11 @@ const SignUp = () => {
     <div className="min-h-screen py-28">
       <div className="flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-sm space-y-8">
-          {/* Title */}
+ 
           <div className="text-center animate-fade-in-up">
             <p className="text-gray-600 text-lg">Join Maalelo today!</p>
           </div>
 
-          {/* Form Container */}
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 transition-all hover:shadow-2xl">
             <Form {...loginForm}>
               <div className="pb-3 text-2xl font-light">Sign Up</div>
@@ -96,17 +95,17 @@ const SignUp = () => {
                   </div>
                 )}
 
-                {/* Name Field */}
                 <FormField
                   control={loginForm.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-700">Name</FormLabel>
+                      <FormLabel  htmlFor="signup-name" className="text-gray-700">Name</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                           <Input
+                            id="signup-name"
                             placeholder="Your Name"
                             {...field}
                             className="pl-10 py-5 rounded-lg"
@@ -119,20 +118,21 @@ const SignUp = () => {
                   )}
                 />
 
-                {/* Email Field */}
                 <FormField
                   control={loginForm.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-700">Email</FormLabel>
+                      <FormLabel htmlFor="signup-email" className="text-gray-700">Email</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                           <Input
+                            id="signup-email"
                             placeholder="hello@example.com"
                             {...field}
                             className="pl-10 py-5 rounded-lg"
+                            autoComplete="email"
                           />
                         </div>
                       </FormControl>
@@ -141,22 +141,22 @@ const SignUp = () => {
                   )}
                 />
 
-                {/* Password Field */}
                 <FormField
                   control={loginForm.control}
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-700">Password</FormLabel>
-
+                      <FormLabel htmlFor="signup-password" className="text-gray-700">Password</FormLabel>
                       <FormControl>
                         <div className="relative flex items-center justify-between">
                           <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                           <Input
+                            id="signup-password"
                             type={showPassword ? "text" : "password"}
                             placeholder="••••••••"
                             {...field}
                             className="pl-10 py-5 rounded-lg"
+                            autoComplete="new-password"
                           />
                           <div
                             className="p-2 border rounded-lg ml-1 bg-gray-100 hover:cursor-pointer hover:bg-gray-200"
@@ -171,8 +171,6 @@ const SignUp = () => {
                     </FormItem>
                   )}
                 />
-
-                {/* Submit Button */}
                 <Button
                   type="submit"
                   className="w-full py-6 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all transform hover:scale-[1.01] shadow-md hover:shadow-lg"
@@ -191,7 +189,6 @@ const SignUp = () => {
             </Form>
           </div>
 
-          {/* Login Redirect */}
           <div className="text-center text-gray-600">
             Already have an account?{" "}
             <button
