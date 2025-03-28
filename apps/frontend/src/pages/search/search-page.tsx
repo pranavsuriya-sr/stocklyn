@@ -7,6 +7,7 @@ const SearchPage = () => {
   const location = useLocation();
   const { id } = useParams() || 100;
   const productsArray = location.state || [];
+  // console.log(location.state)
 
   // const { data } = useQuery({
   //   queryKey: ["searchSuggestions"],

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ProductsType } from "@/types/product-type";
 import { motion } from "framer-motion";
-import { ShoppingCart, Star } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface ProductCardProps {
@@ -31,11 +31,11 @@ const ProductSuggestionCard = ({ product, onClick }: ProductCardProps) => {
             alt={product.name}
             loading="lazy"
           />
-          {/* Rating sec is hre */}
+          {/* Rating sec is hre
           <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
             <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
             <span className="text-xs font-bold">{rating.toFixed(1)}</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Product sec is here cuh*/}
