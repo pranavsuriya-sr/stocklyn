@@ -20,22 +20,19 @@ import ShopPage from "./pages/shop/shop-page";
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 20,
+    y: 10,
   },
   in: {
     opacity: 1,
+    transition : {duration : 0.2},  
     y: 0,
-  },
-  out: {
-    opacity: 0,
-    y: -20,
-  },
+  },  
 };
 
 const pageTransition = {
   type: "tween",
   ease: "anticipate",
-  duration: 0.5,
+  duration: 0.2,
 };
 
 const App = () => {
@@ -75,7 +72,8 @@ const App = () => {
                 <motion.div
                   initial="initial"
                   animate="in"
-                  exit="out"
+                  // exit="out"
+                  
                   variants={pageVariants}
                   transition={pageTransition}
                 >

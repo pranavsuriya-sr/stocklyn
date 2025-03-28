@@ -26,12 +26,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 const { AddCartItems, RemoveCartItem } = useCartStore.getState();
 
 const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
+  // hidden: { opacity: 0, y: 20 },
+  // visible: {
+  //   opacity: 1,
+  //   y: 0,
+  //   transition: { duration: 0.1, ease: "easeOut" },
+  // },
 };
 
 const ProductPage = () => {
@@ -324,26 +324,26 @@ const ProductPage = () => {
 };
 
 const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
+  // hidden: { opacity: 0 },
+  // visible: {
+  //   opacity: 1,
+  //   transition: {
+  //     staggerChildren: 0.1,
+  //     delayChildren: 0.2,
+  //   },
+  // },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
+  // hidden: { opacity: 0, y: 20 },
+  // visible: {
+  //   opacity: 1,
+  //   y: 0,
+  //   transition: {
+  //     duration: 0.5,
+  //     ease: "easeOut",
+  //   },
+  // },
 };
 
 export default ProductPage;
