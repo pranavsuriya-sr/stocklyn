@@ -20,7 +20,7 @@ const ShopPage = () => {
 
   const HandleFetchProductsByPageNumber = async (): Promise<ProductsType[]> => {
     const skip = searchParams.get("skip") || 0;
-    const take = searchParams.get("take") || 2;
+    const take = searchParams.get("take") || 12;
 
     // console.log("Fetching products with skip:", skip, "take:", take);
 
@@ -43,7 +43,8 @@ const ShopPage = () => {
   // console.log(data);
 
   const HandleGetInfoByPageNumber = (currentPage: number) => {
-    navigate(`/shop?skip=${(currentPage - 1) * 2}&take=2`);
+    setPageNumber(currentPage);
+    navigate(`/shop?skip=${(currentPage - 1) * 12}&take=12`);
   };
 
   const HandleGoPrevious = () => {
@@ -110,7 +111,7 @@ const ShopPage = () => {
             <PaginationItem className="hidden sm:flex">
               <PaginationLink
                 onClick={() => HandleGetInfoByPageNumber(pageNumber)}
-                className="text-sm md:text-base"
+                className="text-sm md:text-base bg-indigo-500 border-2"
               >
                 {pageNumber}
               </PaginationLink>
