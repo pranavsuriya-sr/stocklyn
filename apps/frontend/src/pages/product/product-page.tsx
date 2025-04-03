@@ -1,4 +1,3 @@
-import { productRoute } from "@/api/api";
 import {
   Accordion,
   AccordionContent,
@@ -19,6 +18,7 @@ import {
 import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
+import { FetchSimilarProducts } from "@/utils/functions";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
@@ -86,16 +86,9 @@ const ProductPage = () => {
     navigate(`/product/${product.id}`, { state: product });
   };
 
-  const FetchSimilarProducts = async () => {
-    const response = await productRoute.get(
-      `/similarProducts/${product.categoryName}`
-    );
-    return response.data.filter((item: ProductsType) => item.id !== product.id);
-  };
-
   const { data, isLoading } = useQuery({
-    queryKey: ["similarProducts"],
-    queryFn: FetchSimilarProducts,
+    queryKey: ["similarProducts", product.id],
+    queryFn: () => FetchSimilarProducts(product),
     staleTime: 3 * 60 * 1000,
   });
 
