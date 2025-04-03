@@ -1,97 +1,97 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient({
+const prismaLocal = new PrismaClient({
   datasources: {
     db: {
-      url: ""
-    }
-  }
+      url: "",
+    },
+  },
 });
+
+const prismaProd = new PrismaClient({
+  datasources: {
+    db: {
+      url: "",
+    },
+  },
+});
+
+const category = "gym";
 
 async function main() {
   const matter = [
-    "https://frontends-demo.vercel.app/logo.svg",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/43/67/fa/himbeereis.jpg?width=400&ts=1596695159",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/33/88…/Barefoot-Living-2746.jpg?width=280&ts=1596695193",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/f7/47/04/Barefoot_02.jpg?width=400&ts=1596695153",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/5b/34…-MoI_cHNcSK8-unsplash.jpg?width=400&ts=1596695157",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/bc/ba…annon-294645-unsplash.jpg?width=400&ts=1732024576",
-    "",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/a6/a0…-c9FQyqIECds-unsplash.jpg?width=400&ts=1676640063",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/3c/da…jpg?width=280&ts=1596695206?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/31/10…jpg?width=280&ts=1596695206?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/dd/c6…jpg?width=280&ts=1596695205?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/e3/4e…jpg?width=280&ts=1596695206?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/22/1a…jpg?width=280&ts=1596695206?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/d1/8e…jpg?width=280&ts=1596695194?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/02/23…jpg?width=280&ts=1596695205?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/f7/d4…jpg?width=280&ts=1596695206?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/3c/6e…jpg?width=280&ts=1596695205?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/40/1f…jpg?width=280&ts=1596695205?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/4b/8a…jpg?width=280&ts=1596695206?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/65/d3…jpg?width=280&ts=1596695206?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/a6/29…jpg?width=280&ts=1596695206?&height=300&fit=cover",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/12/b2/b9/1671435737/aaa.png?ts=1671435737",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/12/b2/b9/1671435737/aaa.png?ts=1671435737",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/ec/03…haelter_01j58XkqfbdjI9K_800x800.jpg?ts=1596695206",
-    "https://cdn.shopware.store/a/B/m/pPkDE/media/02/02…ne-Elli-mit-Kompressor-1-2L_003.jpg?ts=1596695206",
-    "https://frontends-demo.vercel.app/logo.svg",
+    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHwxfHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHwyfHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHwzfHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1550345332-09e3ac987658?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHw0fHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHw1fHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1577221084712-45b0445d2b00?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHw2fHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1593079831268-3381b0db4a77?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHw3fHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHw4fHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1576678927484-cc907957088c?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHw5fHxneW18ZW58MHx8fHwxNzQzNjYzMzA5fDA&ixlib=rb-4.0.3&w=600",
+    "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixid=M3w3MzIxMzJ8MHwxfHNlYXJjaHwxMHx8Z3ltfGVufDB8fHx8MTc0MzY2MzMwOXww&ixlib=rb-4.0.3&w=600",
   ];
 
   const names = [
-    "logo of the shop",
-    "Category image",
-    "Category image",
-    "Category image",
-    "Category image",
-    "Category image",
-    "Category image",
-    "Category image",
-    "Bay leaves",
-    'Blue sapphire salt "Sel Bleu De Perse"',
-    "Curry Madras, original indian, seasoning",
-    "Fleur de Sel",
-    "Ground mustard (brown)",
-    'Hawaii sea-salt "Black Lava"',
-    "Himalaya natural crystal salt, rough",
-    "Mediterrarean seasoning",
-    "Mustard, yellow",
-    "Pepper black, ground",
-    "Pepper black, Tellicherry extrabold",
-    "Pepper white, ground, Muntok pearl",
-    "Pepper white, Muntok pearl",
-    "",
-    "",
-    "",
-    "",
-    "logo of the shop",
+    "GymFlex Pro Dumbbells",
+    "IronGrip Gym Kettlebell",
+    "PowerLift Gym Bench",
+    "CardioMax Gym Treadmill",
+    "MuscleForge Gym Barbell",
+    "CoreCrush Gym Mat",
+    "EnduroSpin Gym Bike",
+    "FlexiFit Gym Resistance Bands",
+    "TitanGym Power Rack",
+    "GymPulse Rowing Machine",
   ];
-
-  // await prisma.category.create({
-  //   data: {
-  //     name: "groceries",
-  //     description: "Food and household items"
-  //   }
-  // });
 
   const products = Array.from({ length: matter.length }).map((_, index) => ({
     name: names[index],
-    imageUrl: [matter[index].replace("https://", "")],
-    productDescription:
-      "This is one of the best products in the world in the category of groceries",
-    categoryName: "groceries",
-    price: Math.ceil(Math.random() * 100) + 0.99,
+    imageUrl: [matter[index]],
+    productDescription: `This is one of the best products in the world in the category of ${category}`,
+    categoryName: category,
+    price: Math.ceil(Math.random() * 1000) + 400,
     details: "Excellent product and used for extra benefits",
-    highlights: ["An amazing product"],
+    highlights: ["Great deal", "Amazing product", "Maalelo Certified"],
     sizes: ["S", "M", "L"],
-    stockQuantity: Math.floor(Math.random() * 100) + 1,
+    stockQuantity: Math.floor(Math.random() * 1000) + 400,
     colors: [],
     displayImage: matter[index],
     rating: 0,
     usersPurchased: 0,
   }));
-  await prisma.products.createMany({ data: products });
-  console.log("done");
+  await Promise.all([
+    prismaLocal.category.upsert({
+      where: { name: category },
+      update: {},
+      create: {
+        name: category,
+        description: "good item",
+      },
+    }),
+    prismaProd.category.upsert({
+      where: { name: category },
+      update: {},
+      create: {
+        name: category,
+        description: "good item",
+      },
+    }),
+  ]);
+
+  await Promise.all([
+    prismaLocal.products.createMany({ data: products }),
+    prismaProd.products.createMany({ data: products }),
+  ]);
+
+  console.log("Done inserting into both databases");
 }
 
-main();
+main()
+  .catch((error) => {
+    console.error("Error:", error);
+  })
+  .finally(async () => {
+    await prismaLocal.$disconnect();
+    await prismaProd.$disconnect();
+  });
