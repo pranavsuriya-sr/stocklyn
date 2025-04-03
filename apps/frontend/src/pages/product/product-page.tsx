@@ -19,6 +19,7 @@ import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -83,6 +84,15 @@ const ProductPage = () => {
   const RouteToProductPage = (product: ProductsType) => {
     navigate(`/product/${product.id}`, { state: product });
   };
+
+  const FetchSimilarProducts = async () => {};
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["similarProducts"],
+    queryFn: FetchSimilarProducts,
+    staleTime: 3 * 60 * 1000,
+  });
+  console.log(product.categoryName);
 
   return (
     <motion.div
@@ -300,6 +310,9 @@ const ProductPage = () => {
             </Sheet>
           </motion.div>
         </motion.div>
+      </div>
+      <div className="mt-16 pt-10">
+        <h1 className="text-3xl font-bold">Users also purchase</h1>
       </div>
 
       <motion.section
