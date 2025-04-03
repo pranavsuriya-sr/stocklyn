@@ -214,8 +214,7 @@ const ProductPage = () => {
               <SheetTrigger asChild>
                 {product.stockQuantity > 0 ? (
                   <Button
-                    className="w-full py-6 text-lg hover:scale-105 transition-transform"
-                    variant={"indigo"}
+                    className="w-full py-6 bg-white hover:bg-gray-100 text-slate-700 border border-slate-300 text-lg hover:scale-105 transition-transform"
                     onClick={HandleAddToCart}
                   >
                     Add to Cart
