@@ -88,7 +88,6 @@ const ContactPage = () => {
         <div className="mt-5 text-sm text-gray-600">
           Email : udayraj.vadeghar@gmail.com
         </div>
-        <div className="mt-5 text-sm text-gray-600">Phone No: 799310614</div>
       </div>
     </div>
   );
