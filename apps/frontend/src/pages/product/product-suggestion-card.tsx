@@ -118,17 +118,12 @@ const ProductSuggestionCard = ({
 
         <div className="mt-auto pt-3">
           <Button
-            className="w-full bg-slate-900 hover:bg-slate-800 text-white text-sm font-medium px-4 py-2 rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-white hover:bg-gray-100 text-slate-700 border border-slate-300 text-sm font-medium px-4 py-2 rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
             size="sm"
             disabled={product.stockQuantity <= 0}
-            onClick={(e) => {
-              e.stopPropagation();
-              console.log("Add to cart:", product.id);
-              // Implement your actual add to cart logic here
-            }}
           >
             <ShoppingCart size={16} className="mr-2" />
-            {product.stockQuantity > 0 ? "Add to Cart" : "Out of Stock"}
+            {product.stockQuantity > 0 ? "Buy Now" : "Out of Stock"}
           </Button>
         </div>
       </div>
