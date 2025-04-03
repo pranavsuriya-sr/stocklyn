@@ -165,18 +165,27 @@ productRoute.post("/add", async (req, res) => {
 
 productRoute.get("/getbycategory", async (req: Request, res: Response) => {
   try {
-    const allCategory = await prisma.category.findMany({
+    const allCategoryJSONformat = await prisma.category.findMany({
       select: { name: true },
     });
 
-    const category: string[] = allCategory.map((singleCategory) => {
-      return singleCategory.name;
-    });
+    // res.send(allCategory);
+    // return;
+
+    const categoryArrayFormat: string[] = allCategoryJSONformat.map(
+      (singleCategory) => {
+        return singleCategory.name;
+      }
+    );
+
+    const randomCategories = categoryArrayFormat
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 10);
 
     const validCategories = await prisma.category.findMany({
       where: {
         name: {
-          in: category,
+          in: randomCategories,
         },
       },
       take: 10,
@@ -184,7 +193,7 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
 
     if (validCategories.length === 0) {
       res.status(404).json({
-        message: `There is no such category as ${category} at /product/getbycategory`,
+        message: `There is no such category as ${randomCategories} at /product/getbycategory`,
       });
       return;
     }
@@ -199,10 +208,10 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
     // });
 
     const categoryProducts = await Promise.all(
-      category.map((currentCategory) => {
+      validCategories.map((currentCategory) => {
         return prisma.products.findMany({
           where: {
-            categoryName: currentCategory,
+            categoryName: currentCategory.name,
           },
           take: 4,
         });
@@ -214,7 +223,7 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
     res.status(201).json({
       message: "Products by category fetched successfully.",
       categoryProducts,
-      category,
+      randomCategories,
     });
   } catch (error) {
     res.status(500).json({ message: "Error at /product/getbycategory", error });

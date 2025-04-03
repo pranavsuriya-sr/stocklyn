@@ -28,7 +28,7 @@ export default function Home() {
     return <div className="text-center text-lg p-10 h-screen">Loading...</div>;
   }
 
-  const category = data?.category ?? [];
+  const category = data?.randomCategories ?? [];
   const categoryProducts = data?.categoryProducts ?? [];
 
   return (
