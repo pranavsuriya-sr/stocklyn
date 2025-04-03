@@ -1,14 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import actions from "../../assets/icons/actions.svg";
+import axios from "../../assets/icons/axios.svg";
 import docker from "../../assets/icons/docker.svg";
 import express from "../../assets/icons/express.svg";
+import figma from "../../assets/icons/figma.svg";
 import nginx from "../../assets/icons/nginx.svg";
 import node from "../../assets/icons/nodejs.svg";
+import pm2 from "../../assets/icons/pm2.svg";
 import postgres from "../../assets/icons/postgres.svg";
+import postman from "../../assets/icons/postman.svg";
 import prisma from "../../assets/icons/prisma.svg";
 import reactquery from "../../assets/icons/react-query.svg";
 import react from "../../assets/icons/react.svg";
+import redis from "../../assets/icons/redis.svg";
+import ssh from "../../assets/icons/ssh.svg";
 import supabase from "../../assets/icons/supabase-icon.svg";
 import tailwind from "../../assets/icons/tailwind.svg";
 import zustand from "../../assets/icons/zustand.svg";
@@ -27,9 +33,9 @@ const About = () => {
             E-Commerce Experience
           </h1>
           <p className="my-6 text-base sm:text-lg text-gray-700 max-w-2xl">
-            An innovative e-commerce platform that combines the best features of top
-            e-commerce sites like Amazon, Shopify, and eBay, delivering a superior
-            shopping experience for both customers and vendors.
+            An innovative e-commerce platform that combines the best features of
+            top e-commerce sites like Amazon, Shopify, and eBay, delivering a
+            superior shopping experience for both customers and vendors.
           </p>
           <Button
             className="px-8 sm:px-12 py-4 sm:py-6 mt-4 text-base sm:text-lg text-white rounded-md shadow-lg hover:shadow-xl transition-all duration-300"
@@ -50,7 +56,10 @@ const About = () => {
 
       <section className="py-16">
         <h1 className="mb-12 md:mb-20 font-bold text-center text-gray-800 text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
-          <span className="bg-gradient-to-r from-indigo-600 to-blue-500 text-transparent bg-clip-text">Technologies</span> Used
+          <span className="bg-gradient-to-r from-indigo-600 to-blue-500 text-transparent bg-clip-text">
+            Technologies
+          </span>{" "}
+          Used
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
@@ -67,7 +76,7 @@ const About = () => {
               user interfaces.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={reactquery}
@@ -82,7 +91,7 @@ const About = () => {
               websites.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={tailwind}
@@ -97,7 +106,7 @@ const About = () => {
               e-commerce designs.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={zustand}
@@ -111,7 +120,7 @@ const About = () => {
               Zustand is a fast and scalable state management library for React.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={node}
@@ -126,7 +135,7 @@ const About = () => {
               efficiently.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={express}
@@ -141,7 +150,7 @@ const About = () => {
               for e-commerce platforms.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={docker}
@@ -156,7 +165,7 @@ const About = () => {
               e-commerce apps.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={nginx}
@@ -171,7 +180,7 @@ const About = () => {
               of e-commerce content.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={prisma}
@@ -186,7 +195,7 @@ const About = () => {
               efficiently in e-commerce apps.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={postgres}
@@ -201,7 +210,7 @@ const About = () => {
               user info, and order details.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={supabase}
@@ -212,11 +221,11 @@ const About = () => {
               Supabase
             </p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              Supabase was used for S3 storage and Postgres Database for
-              the e-commerce application.
+              Supabase was used for S3 storage and Postgres Database for the
+              e-commerce application.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <img
               src={actions}
@@ -231,67 +240,78 @@ const About = () => {
               deployments and maintain e-commerce systems.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
-            <div className="w-16 sm:w-20 md:w-20 h-16 sm:h-20 md:h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl mb-3">
-              PM2
-            </div>
-            <p className="text-lg sm:text-xl font-medium text-gray-700">
-              PM2
-            </p>
+            <img
+              src={pm2}
+              className="w-16 sm:w-20 md:w-20 h-auto mb-3"
+              alt="GitHub Actions"
+            />
+            <p className="text-lg sm:text-xl font-medium text-gray-700">PM2</p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              PM2 is a process manager for Node.js applications that keeps apps alive and ensures they restart after crashes.
+              PM2 is a process manager for Node.js applications that keeps apps
+              alive and ensures they restart after crashes.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
-            <div className="w-16 sm:w-20 md:w-20 h-16 sm:h-20 md:h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl mb-3">
-              SSH
-            </div>
-            <p className="text-lg sm:text-xl font-medium text-gray-700">
-              SSH
-            </p>
+            <img
+              src={ssh}
+              className="w-16 sm:w-20 md:w-20 h-auto mb-3"
+              alt="ssh"
+            />
+            <p className="text-lg sm:text-xl font-medium text-gray-700">SSH</p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              Secure Shell (SSH) protocol provides secure remote access to servers and deployment environments.
+              Secure Shell (SSH) protocol provides secure remote access to
+              servers and deployment environments.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
-            <div className="w-16 sm:w-20 md:w-20 h-16 sm:h-20 md:h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl mb-3">
+            <img
+              src={figma}
+              className="w-16 sm:w-20 md:w-20 h-auto mb-3"
+              alt="Figma"
+            />
+            <p className="text-lg sm:text-xl font-medium text-gray-700">
               Figma
-            </div>
-            <p className="text-lg sm:text-xl font-medium text-gray-700">
-              Figma
             </p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              Figma was used for collaborative UI/UX design, creating responsive layouts and visual components.
+              Figma was used for collaborative UI/UX design, creating responsive
+              layouts and visual components.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
-            <div className="w-16 sm:w-20 md:w-20 h-16 sm:h-20 md:h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl mb-3">
-              Postman
-            </div>
+            <img
+              src={postman}
+              className="w-16 sm:w-20 md:w-20 h-auto mb-3"
+              alt="postman"
+            />
             <p className="text-lg sm:text-xl font-medium text-gray-700">
               Postman
             </p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              Postman enabled API testing, documentation, and collaboration throughout development.
+              Postman enabled API testing, documentation, and collaboration
+              throughout development.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
-            <div className="w-16 sm:w-20 md:w-20 h-16 sm:h-20 md:h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl mb-3">
-              Redis
-            </div>
+            <img
+              src={redis}
+              className="w-16 sm:w-20 md:w-20 h-auto mb-3"
+              alt="postman"
+            />
             <p className="text-lg sm:text-xl font-medium text-gray-700">
               Redis
             </p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              Redis provides in-memory caching for improved performance and session management.
+              Redis provides in-memory caching for improved performance and
+              session management.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <div className="w-16 sm:w-20 md:w-20 h-16 sm:h-20 md:h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl mb-3">
               Azure
@@ -300,10 +320,11 @@ const About = () => {
               Azure
             </p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              Microsoft Azure cloud services power scalable infrastructure and deployment solutions.
+              Microsoft Azure cloud services power scalable infrastructure and
+              deployment solutions.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
             <div className="w-16 sm:w-20 md:w-20 h-16 sm:h-20 md:h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl mb-3">
               DNS
@@ -312,36 +333,42 @@ const About = () => {
               DNS & HTTP
             </p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              Domain Name System and HTTP protocols form the foundation of web communication for the application.
+              Domain Name System and HTTP protocols form the foundation of web
+              communication for the application.
             </p>
           </div>
-          
+
           <div className="flex flex-col items-center justify-center py-8 sm:py-10 px-4 text-center bg-gray-100 rounded-xl bg-opacity-40 hover:bg-opacity-70 hover:shadow-md transition-all duration-200 border border-gray-200">
-            <div className="w-16 sm:w-20 md:w-20 h-16 sm:h-20 md:h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xl mb-3">
-              Axios
-            </div>
+            <img
+              src={axios}
+              className="w-16 sm:w-20 md:w-20 h-auto mb-3"
+              alt="postman"
+            />
             <p className="text-lg sm:text-xl font-medium text-gray-700">
               Axios
             </p>
             <p className="w-full mt-2 text-sm sm:text-base text-gray-600">
-              Axios handles HTTP requests with elegant promise-based architecture for frontend-backend communication.
+              Axios handles HTTP requests with elegant promise-based
+              architecture for frontend-backend communication.
             </p>
           </div>
         </div>
       </section>
-      
+
       <section className="py-16 mb-12">
         <div className="bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-2xl p-10 md:p-16 shadow-xl relative overflow-hidden">
           {/* Abstract shape decorations */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-lime-400 opacity-10 rounded-full -translate-y-1/2 translate-x-1/4"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-300 opacity-20 rounded-full translate-y-1/3 -translate-x-1/4"></div>
-          
+
           <div className="relative z-10">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 text-center leading-tight">
               Transform Your Shopping Experience Today
             </h2>
             <p className="text-center text-indigo-100 max-w-3xl mx-auto mb-10 text-lg">
-              Join our innovative e-commerce platform where cutting-edge technology meets seamless user experience, providing you with the best online shopping journey.
+              Join our innovative e-commerce platform where cutting-edge
+              technology meets seamless user experience, providing you with the
+              best online shopping journey.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <Button
