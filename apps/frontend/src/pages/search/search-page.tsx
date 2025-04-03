@@ -43,7 +43,11 @@ const SearchPage = () => {
           productsArray.map((product: ProductsType) => {
             if (product.id == id) {
               return (
-                <ProductSuggestionCard product={product} key={product.id} />
+                <ProductSuggestionCard
+                  product={product}
+                  key={product.id}
+                  onClick={() => RouteToProductPage(product)}
+                />
               );
             }
           })}
@@ -54,7 +58,10 @@ const SearchPage = () => {
             if (product.id != id) {
               return (
                 <div key={product.id} className="w-full mt-5">
-                  <ProductSuggestionCard product={product} />
+                  <ProductSuggestionCard
+                    product={product}
+                    onClick={() => RouteToProductPage(product)}
+                  />
                 </div>
               );
             }
