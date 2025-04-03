@@ -298,4 +298,38 @@ productRoute.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+productRoute.get(
+  `/similarProducts/:category`,
+  async (req: Request, res: Response) => {
+    const category = req.params.category;
+
+    if (!category) {
+      res.status(400).json({
+        message:
+          "Required feilds are missing , ie. category at /product/similarSearch",
+      });
+      return;
+    }
+
+    try {
+      const similarProducts = await prisma.products.findMany({
+        where: {
+          category: {
+            name: {
+              contains: category,
+            },
+          },
+        },
+        take: 13,
+      });
+      // console.log(similarProducts);
+      res.status(200).send(similarProducts);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error at /product/similarSearch", error });
+    }
+  }
+);
+
 export default productRoute;

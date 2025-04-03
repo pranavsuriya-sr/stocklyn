@@ -1,3 +1,4 @@
+import { productRoute } from "@/api/api";
 import {
   Accordion,
   AccordionContent,
@@ -85,14 +86,18 @@ const ProductPage = () => {
     navigate(`/product/${product.id}`, { state: product });
   };
 
-  const FetchSimilarProducts = async () => {};
+  const FetchSimilarProducts = async () => {
+    const response = await productRoute.get(
+      `/similarProducts/${product.categoryName}`
+    );
+    return response.data.filter((item: ProductsType) => item.id !== product.id);
+  };
 
   const { data, isLoading } = useQuery({
     queryKey: ["similarProducts"],
     queryFn: FetchSimilarProducts,
     staleTime: 3 * 60 * 1000,
   });
-  console.log(product.categoryName);
 
   return (
     <motion.div
@@ -312,7 +317,40 @@ const ProductPage = () => {
         </motion.div>
       </div>
       <div className="mt-16 pt-10">
-        <h1 className="text-3xl font-bold">Users also purchase</h1>
+        <h2 className="text-2xl md:text-3xl font-bold mb-8">
+          Users Also Purchase
+        </h2>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-40">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {data.map((product: any, index: number) => (
+              <div
+                key={index}
+                className="group cursor-pointer border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300"
+                onClick={() => RouteToProductPage(product)}
+              >
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={product.displayImage}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    alt={product.name}
+                  />
+                </div>
+                <div className="p-2 space-y-0.5">
+                  <h3 className="font-medium text-gray-800 truncate text-xs">
+                    {product.name}
+                  </h3>
+                  <p className="text-indigo-600 font-semibold text-xs">
+                    ₹{product.price.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <motion.section
