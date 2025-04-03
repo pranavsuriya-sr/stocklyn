@@ -8,33 +8,50 @@ A full-stack e-commerce application (in development)
 
 ## Progress
 
-- Frontend Sorted and working in both development and production
+- Left only with payment gateway.
 
 ## todo
 
-- Sort Backend and do.
+- Add payment Gateway
 
 ## Features
 
 - E-commerce platform with product catalog
 - User authentication and authorization
+- Lazy Loading
 - Shopping cart functionality
 - Secure checkout process
 - Order management
-- more coming soon
+- more coming soon..
 
 ## Tech Stack
 
 - Frontend:
   - React.js
-  - Modern UI/UX design
   - Zustand
   - React Query
+  - ShadCN
+  - Tailwind
 - Backend:
   - Node.js
+  - Express
   - Database (PostGres)
+  - Prisma (ORM)
+  - JWT Authentication
+  - RBAC (Role Based Access Control)
   - RESTful API architecture
   - Docker (for development)
+- Devops:
+  - Shell Scripting
+  - SSH
+  - SSL/TLS
+  - TCP/IP
+  - UFW
+  - Nginx(Web server)
+  - Reverse Proxy (using Nginx)
+  - DNS
+  - PM2
+  - CI operations with Git Actions
 
 ## Contributing
 
