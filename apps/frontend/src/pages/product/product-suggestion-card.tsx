@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { ProductsType } from "@/types/product-type";
 import { motion } from "framer-motion";
-import { Check, ShoppingCart, Star } from "lucide-react";
+import { Check, ShoppingCart } from "lucide-react";
 import { useMemo } from "react";
 
 const possibleBrands = ["maalelo exclusive", "maalelo"];
 
-const getRandomRating = (): number => {
-  return parseFloat((Math.random() * (5.0 - 3.5) + 3.5).toFixed(1));
-};
+// const getRandomRating = (): number => {
+//   return parseFloat((Math.random() * (5.0 - 3.5) + 3.5).toFixed(1));
+// };
 
 const getRandomBrand = (): string => {
   return possibleBrands[Math.floor(Math.random() * possibleBrands.length)];
@@ -23,7 +23,7 @@ const ProductSuggestionCard = ({
   product,
   onClick,
 }: ProductSuggestionCardProps) => {
-  const displayRating = useMemo(getRandomRating, []);
+  // const displayRating = useMemo(getRandomRating, []);
   const displayBrand = useMemo(getRandomBrand, []);
 
   const estimatedOriginalPrice = product.price / (1 - 0.2);
@@ -49,10 +49,10 @@ const ProductSuggestionCard = ({
           alt={product.name}
           loading="lazy"
         />
-        <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full flex items-center gap-1 text-xs font-semibold text-gray-700 shadow-sm">
+        {/* <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-full flex items-center gap-1 text-xs font-semibold text-gray-700 shadow-sm">
           <Star className="w-3 h-3 fill-yellow-400 text-yellow-500" />
           <span>{displayRating.toFixed(1)}</span>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-4">
