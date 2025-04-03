@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { ProductsType } from "@/types/product-type";
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
-import { LoaderCircle, LucideSearch, Search } from "lucide-react";
+import { LoaderCircle, LucideSearch } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -69,15 +69,28 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
           name="search"
           placeholder="Search products..."
         />
-        <LucideSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-        
+        <LucideSearch
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          size={18}
+        />
+
         {searchValue && (
-          <button 
+          <button
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
             onClick={() => setSearchValue("")}
           >
             <span className="sr-only">Clear search</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -106,9 +119,12 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
                     onClick={() => HandleRouteToSearchPage(suggestion.id)}
                     className="p-3 flex items-center gap-3 hover:bg-indigo-50 transition-colors duration-150 border-b border-gray-100 last:border-0"
                   >
-                    <Search className="text-indigo-400 flex-shrink-0" size={18} />
+                    <img
+                      className="text-indigo-400 flex-shrink-0 w-14 h-14 rounded-lg"
+                      src={suggestion.displayImage}
+                    />
                     <span className="text-gray-700 truncate">
-                      {suggestion.name.substring(0, 70)}
+                      {suggestion.name.substring(0, 100)}
                     </span>
                   </div>
                 ))}
@@ -118,9 +134,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
                 No products found matching "{searchValue}"
               </div>
             ) : (
-              <div className="p-4 flex items-center gap-2 text-gray-600 justify-center">
-                <span className="text-amber-500 text-lg">⚠️</span> Try searching for products
-              </div>
+              <></>
             )}
           </motion.div>
         )}
