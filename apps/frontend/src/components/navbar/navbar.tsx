@@ -17,12 +17,11 @@ export default function Navbar() {
   const [selected, setSelected] = useState<string>("login");
   const [searchValue, setSearchValue] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
 
   const currentPath = window.location.pathname;
-  
-  const isActive = (path : any) => {
-    if (path === '/home' && currentPath === '/') return true;
+
+  const isActive = (path: any) => {
+    if (path === "/home" && currentPath === "/") return true;
     return currentPath === path || currentPath.startsWith(path);
   };
 
@@ -65,11 +64,11 @@ export default function Navbar() {
 
         <ul className="hidden md:flex space-x-6 items-center justify-center">
           <li>
-            <Link 
-              to="/home" 
+            <Link
+              to="/home"
               className={`transition-colors duration-200 px-3 py-2 rounded-md ${
-                isActive('/home') 
-                  ? "text-indigo-700 bg-indigo-50 font-medium" 
+                isActive("/home")
+                  ? "text-indigo-700 bg-indigo-50 font-medium"
                   : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
               }`}
             >
@@ -78,11 +77,11 @@ export default function Navbar() {
           </li>
           {session && (
             <li>
-              <Link 
-                to="/shop" 
+              <Link
+                to="/shop"
                 className={`transition-colors duration-200 px-3 py-2 rounded-md ${
-                  isActive('/shop') 
-                    ? "text-indigo-700 bg-indigo-50 font-medium" 
+                  isActive("/shop")
+                    ? "text-indigo-700 bg-indigo-50 font-medium"
                     : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
                 }`}
               >
@@ -90,7 +89,7 @@ export default function Navbar() {
               </Link>
             </li>
           )}
-          <li>
+          {/* <li>
             <Link
               to="/searchResults/you-won-the-search-lottery-congratulations-DM-me!-something-is-waiting-for-you"
               className={`transition-colors duration-200 px-3 py-2 rounded-md ${
@@ -101,13 +100,13 @@ export default function Navbar() {
             >
               Search
             </Link>
-          </li>
+          </li> */}
           <li>
-            <Link 
-              to="/about" 
+            <Link
+              to="/about"
               className={`transition-colors duration-200 px-3 py-2 rounded-md ${
-                isActive('/about') 
-                  ? "text-indigo-700 bg-indigo-50 font-medium" 
+                isActive("/about")
+                  ? "text-indigo-700 bg-indigo-50 font-medium"
                   : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
               }`}
             >
@@ -115,11 +114,11 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className={`transition-colors duration-200 px-3 py-2 rounded-md ${
-                isActive('/contact') 
-                  ? "text-indigo-700 bg-indigo-50 font-medium" 
+                isActive("/contact")
+                  ? "text-indigo-700 bg-indigo-50 font-medium"
                   : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
               }`}
             >
@@ -143,7 +142,7 @@ export default function Navbar() {
                 />
               </div>
               <ViewProfile />
-              <button 
+              <button
                 className="md:hidden rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none"
                 onClick={toggleMobileMenu}
               >
@@ -188,7 +187,7 @@ export default function Navbar() {
                   Sign Up
                 </button>
               </motion.div>
-              <button 
+              <button
                 className="md:hidden rounded-md p-2 text-gray-600 hover:bg-gray-100 focus:outline-none"
                 onClick={toggleMobileMenu}
               >
@@ -220,11 +219,11 @@ export default function Navbar() {
           )}
           <ul className="flex flex-col space-y-3">
             <li>
-              <Link 
-                to="/home" 
+              <Link
+                to="/home"
                 className={`block py-2 px-3 rounded-md ${
-                  isActive('/home') 
-                    ? "text-indigo-700 bg-indigo-50 font-medium" 
+                  isActive("/home")
+                    ? "text-indigo-700 bg-indigo-50 font-medium"
                     : "text-gray-600 hover:text-indigo-600"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
@@ -234,11 +233,11 @@ export default function Navbar() {
             </li>
             {session && (
               <li>
-                <Link 
-                  to="/shop" 
+                <Link
+                  to="/shop"
                   className={`block py-2 px-3 rounded-md ${
-                    isActive('/shop') 
-                      ? "text-indigo-700 bg-indigo-50 font-medium" 
+                    isActive("/shop")
+                      ? "text-indigo-700 bg-indigo-50 font-medium"
                       : "text-gray-600 hover:text-indigo-600"
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
@@ -251,8 +250,8 @@ export default function Navbar() {
               <Link
                 to="/searchResults/you-won-the-search-lottery-congratulations-DM-me!-something-is-waiting-for-you"
                 className={`block py-2 px-3 rounded-md ${
-                  currentPath.includes('/searchResults') 
-                    ? "text-indigo-700 bg-indigo-50 font-medium" 
+                  currentPath.includes("/searchResults")
+                    ? "text-indigo-700 bg-indigo-50 font-medium"
                     : "text-gray-600 hover:text-indigo-600"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
@@ -261,11 +260,11 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className={`block py-2 px-3 rounded-md ${
-                  isActive('/about') 
-                    ? "text-indigo-700 bg-indigo-50 font-medium" 
+                  isActive("/about")
+                    ? "text-indigo-700 bg-indigo-50 font-medium"
                     : "text-gray-600 hover:text-indigo-600"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
@@ -274,11 +273,11 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className={`block py-2 px-3 rounded-md ${
-                  isActive('/contact') 
-                    ? "text-indigo-700 bg-indigo-50 font-medium" 
+                  isActive("/contact")
+                    ? "text-indigo-700 bg-indigo-50 font-medium"
                     : "text-gray-600 hover:text-indigo-600"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
