@@ -1,11 +1,13 @@
+import dotenv from "dotenv";
 import express from "express";
 import Stripe from "stripe";
+dotenv.config();
 
-const stripe = new Stripe(
-  "sk_test_51PSzU1FQzSEBZEvhWhz0lrAv3oCxzEigUsxV3A0Cp7lCnazG5CNlwBTkFF31s9gY40PxsdyEDDpmgNPZ9ULe8HB8000Tqzs1Eb"
-);
+const secretKey = process.env.STRIPE_SECRET_KEY;
 
 const paymentRoute = express.Router();
+
+const stripe = new Stripe(secretKey);
 
 paymentRoute.post("/create-checkout-session", async (req, res) => {
   const products = req.body;
