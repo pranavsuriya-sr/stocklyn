@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -24,9 +25,9 @@ const pageVariants = {
   },
   in: {
     opacity: 1,
-    transition : {duration : 0.2},  
+    transition: { duration: 0.2 },
     y: 0,
-  },  
+  },
 };
 
 const pageTransition = {
@@ -36,28 +37,13 @@ const pageTransition = {
 };
 
 const App = () => {
-  // const [loading, setLoading] = useState(false);
-  // const [currentLocation, setCurentLocation] = useState("");
   const location = useLocation();
 
   useEffect(() => {
-    //   if (currentLocation === location.pathname) {
-    //     return;
-    //   }
-    //
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    //
-    //   setLoading(true);
-    //   const timer = setTimeout(() => {
-    //     setLoading(false);
-    //   }, 1000);
-    //
-    //   setCurentLocation(location.pathname);
-    //
-    //   return () => clearTimeout(timer);
   }, [location]);
 
   return (
@@ -73,7 +59,7 @@ const App = () => {
                   initial="initial"
                   animate="in"
                   // exit="out"
-                  
+
                   variants={pageVariants}
                   transition={pageTransition}
                 >
@@ -278,6 +264,7 @@ const App = () => {
             }
           />
         </Routes>
+        <Analytics />
       </AnimatePresence>
     </>
   );
