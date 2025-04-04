@@ -17,6 +17,8 @@ import UserProfile from "./pages/profile/user-profile";
 import ProtectedPage from "./pages/protected/procted-page";
 import SearchPage from "./pages/search/search-page";
 import ShopPage from "./pages/shop/shop-page";
+import PaymentFailurePage from "./pages/stripe-redirect/failure-page";
+import PaymentSuccessPage from "./pages/stripe-redirect/success-page";
 
 const pageVariants = {
   initial: {
@@ -144,6 +146,38 @@ const App = () => {
                   transition={pageTransition}
                 >
                   <LocationAdd />
+                </motion.div>
+              </ProtectedPage>
+            }
+          ></Route>
+          <Route
+            path="/success"
+            element={
+              <ProtectedPage>
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <PaymentSuccessPage />
+                </motion.div>
+              </ProtectedPage>
+            }
+          ></Route>
+          <Route
+            path="/failure"
+            element={
+              <ProtectedPage>
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <PaymentFailurePage />
                 </motion.div>
               </ProtectedPage>
             }
