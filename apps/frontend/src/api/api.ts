@@ -41,3 +41,8 @@ export const addressRoute = axios.create({
     ? import.meta.env.VITE_ADDRESS_ROUTE_PROD
     : import.meta.env.VITE_ADDRESS_ROUTE,
 });
+export const paymentRoute = axios.create({
+  baseURL: isProd
+    ? import.meta.env.VITE_PAYMENT_ROUTE_PROD
+    : import.meta.env.VITE_PAYMENT_ROUTE,
+});

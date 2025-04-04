@@ -8,6 +8,7 @@ import authRoute from "./routes/auth/auth.route";
 import cartItemRoute from "./routes/cart-item/cart-item.route";
 import cartRoute from "./routes/cart/cart.route";
 import categoryRoute from "./routes/category/category.route";
+import paymentRoute from "./routes/payment/payment.route";
 import productRoute from "./routes/product/product.route";
 import { AuthenticatedRequest } from "./types/jwt";
 
@@ -46,6 +47,7 @@ app.use("/auth", authRoute);
 app.use("/category", categoryRoute);
 app.use("/cartitem", cartItemRoute);
 app.use("/address", addressRoute);
+app.use("/payment", paymentRoute);
 
 const PORT = 5000;
 

@@ -1,4 +1,4 @@
-import { productRoute } from "@/api/api";
+import { paymentRoute, productRoute } from "@/api/api";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,7 +15,7 @@ import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
-
+import { loadStripe } from "@stripe/stripe-js";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -161,6 +161,26 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
+  const makePayement = async () => {
+    const stripe = await loadStripe(
+      import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+    );
+
+    const response = await paymentRoute.post(
+      "/create-checkout-session",
+      cartItems
+    );
+    console.log(response);
+    const session = await response.data;
+    const result = stripe?.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (!result) {
+      console.log(result);
+    }
+  };
+
   return (
     <div className="pt-28 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto">
       <div className="text-2xl sm:text-3xl font-semibold pb-6 sm:pb-10">
@@ -277,7 +297,10 @@ const Cart = () => {
       </div>
 
       <div className="flex flex-col items-center mt-6 sm:mt-8 gap-4 sm:gap-6 pb-8 sm:pb-12">
-        <Button className="w-full sm:w-1/2 max-w-md bg-indigo-600 hover:bg-indigo-500 h-10 sm:h-12 text-sm sm:text-base">
+        <Button
+          className="w-full sm:w-1/2 max-w-md bg-indigo-600 hover:bg-indigo-500 h-10 sm:h-12 text-sm sm:text-base"
+          onClick={() => makePayement()}
+        >
           Proceed to Checkout
         </Button>
         <button
