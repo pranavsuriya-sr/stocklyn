@@ -9,18 +9,17 @@ const paymentRoute = express.Router();
 
 paymentRoute.post("/create-checkout-session", async (req, res) => {
   const products = req.body;
-  console.log(products);
 
   const lineItems = products.map((product: any) => {
     return {
       price_data: {
         currency: "inr",
         product_data: {
-          name: product.name,
+          name: product.product.name,
         },
         unit_amount: Math.round(product.price) * 100,
       },
-      quantity: product.stockQuantity,
+      quantity: product.quantity,
     };
   });
   // console.log(lineItems);
@@ -28,7 +27,7 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: `http://localhost:5173/about`,
+    success_url: `http://localhost:5173/about`, // should change this after the success page is created
     cancel_url: `http://localhost:5173/contact`,
   });
 

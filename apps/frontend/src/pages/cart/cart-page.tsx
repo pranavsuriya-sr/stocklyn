@@ -168,7 +168,7 @@ const Cart = () => {
 
     const response = await paymentRoute.post(
       "/create-checkout-session",
-      products
+      cartItems
     );
     console.log(response);
     const session = await response.data;
