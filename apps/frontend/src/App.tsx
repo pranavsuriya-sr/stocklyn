@@ -264,8 +264,8 @@ const App = () => {
             }
           />
         </Routes>
-        <Analytics />
       </AnimatePresence>
+      <Analytics />
     </>
   );
 };
