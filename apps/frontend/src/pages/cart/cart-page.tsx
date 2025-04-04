@@ -176,9 +176,7 @@ const Cart = () => {
       sessionId: session.id,
     });
 
-    if (!result) {
-      console.log(result);
-    }
+    console.log(result);
   };
 
   return (
