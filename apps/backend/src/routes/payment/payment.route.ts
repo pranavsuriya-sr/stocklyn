@@ -10,9 +10,10 @@ const secretKey = process.env.STRIPE_SECRET_KEY;
 const stripe = new Stripe(secretKey);
 
 paymentRoute.post("/create-checkout-session", async (req, res) => {
-  const products = req.body;
+  const { cartItems } = req.body;
+  const { user } = req.body;
 
-  const lineItems = products.map((product: any) => {
+  const lineItems = cartItems.map((product: any) => {
     return {
       price_data: {
         currency: "inr",
@@ -25,7 +26,23 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
       quantity: product.quantity,
     };
   });
-  // console.log(lineItems);
+
+  if (user.isPremuim == false) {
+    lineItems.push({
+      price_data: {
+        currency: "inr",
+        product_data: {
+          name: "Delivery Charges",
+          images: [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAktxu7k-JJYHjuNGFDlLqg-jim8m-jFa6rQ&s",
+          ],
+        },
+        unit_amount: 49 * 100,
+      },
+      quantity: 1,
+    });
+  }
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: lineItems,

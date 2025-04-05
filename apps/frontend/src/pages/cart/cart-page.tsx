@@ -166,10 +166,10 @@ const Cart = () => {
       import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
     );
 
-    const response = await paymentRoute.post(
-      "/create-checkout-session",
-      cartItems
-    );
+    const response = await paymentRoute.post("/create-checkout-session", {
+      cartItems,
+      user,
+    });
     console.log(response);
     const session = await response.data;
     const result = stripe?.redirectToCheckout({
