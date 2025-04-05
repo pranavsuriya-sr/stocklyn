@@ -357,7 +357,6 @@ const About = () => {
 
       <section className="py-16 mb-12">
         <div className="bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-2xl p-10 md:p-16 shadow-xl relative overflow-hidden">
-          {/* Abstract shape decorations */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-lime-400 opacity-10 rounded-full -translate-y-1/2 translate-x-1/4"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-300 opacity-20 rounded-full translate-y-1/3 -translate-x-1/4"></div>
 

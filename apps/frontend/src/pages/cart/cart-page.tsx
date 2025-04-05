@@ -279,11 +279,7 @@ const Cart = () => {
           </div>
           <div className="flex justify-between text-sm sm:text-base">
             <span className="text-gray-600">Shipping</span>
-            <span>₹{totalCost > 0 ? 49 : 0}</span>
-          </div>
-          <div className="flex justify-between text-sm sm:text-base">
-            <span className="text-gray-600">Tax</span>
-            <span>₹0</span>
+            <span>₹{totalCost > 0 ? (user?.isPremium ? 0 : 49) : 0}</span>
           </div>
           <hr className="my-3 sm:my-4" />
           <div className="flex justify-between font-semibold text-base sm:text-lg">
