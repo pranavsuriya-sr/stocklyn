@@ -15,6 +15,8 @@ interface User {
   name: string;
   email: string;
   cart: Cart;
+  isPremium: boolean;
+  role: string;
 }
 
 interface SessionContextType {
