@@ -37,7 +37,10 @@ const allowedOrigins = ["http://localhost:5173", "https://maalelo.vercel.app"];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://maalelo.vercel.app"
+        : "http://localhost:5173",
     credentials: true,
   })
 );

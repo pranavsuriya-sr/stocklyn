@@ -55,7 +55,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
 
     res.cookie("authToken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production" ? true : false,
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // ---->  7 days session
