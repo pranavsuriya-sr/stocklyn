@@ -27,7 +27,7 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
     };
   });
 
-  if (user.isPremuim == false) {
+  if (user.isPremuim !== true) {
     lineItems.push({
       price_data: {
         currency: "inr",
