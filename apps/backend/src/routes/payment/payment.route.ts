@@ -52,7 +52,7 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
     metadata: { userId: user.id },
   });
 
-  console.log(session);
+  // console.log(session);
 
   res.status(200).send({ id: session.id });
   return;

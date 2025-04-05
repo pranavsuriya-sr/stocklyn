@@ -27,7 +27,11 @@ dotenv.config();
 
 const app = express();
 
-app.post("/webhook", express.raw({ type: "application/json" }), webhookHandler);
+app.post(
+  "/payment/webhook",
+  express.raw({ type: "application/json" }),
+  webhookHandler
+);
 
 const allowedOrigins = ["http://localhost:5173", "https://maalelo.vercel.app"];
 
