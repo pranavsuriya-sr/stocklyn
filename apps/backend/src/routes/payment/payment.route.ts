@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
 import Stripe from "stripe";
+
 dotenv.config();
 
-const secretKey = process.env.STRIPE_SECRET_KEY;
-
 const paymentRoute = express.Router();
+const secretKey = process.env.STRIPE_SECRET_KEY;
 
 const stripe = new Stripe(secretKey);
 
