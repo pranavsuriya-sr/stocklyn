@@ -10,6 +10,7 @@ import cartRoute from "./routes/cart/cart.route";
 import categoryRoute from "./routes/category/category.route";
 import paymentRoute from "./routes/payment/payment.route";
 import productRoute from "./routes/product/product.route";
+import webhookHandler from "./routes/webhook/webhook.route";
 import { AuthenticatedRequest } from "./types/jwt";
 
 declare global {
@@ -22,11 +23,14 @@ declare global {
 export const prisma = new PrismaClient({
   log: ["error"],
 });
+dotenv.config();
+
+const app = express();
+
+app.post("/webhook", express.raw({ type: "application/json" }), webhookHandler);
 
 const allowedOrigins = ["http://localhost:5173", "https://maalelo.vercel.app"];
 
-const app = express();
-dotenv.config();
 app.use(
   cors({
     origin: allowedOrigins,

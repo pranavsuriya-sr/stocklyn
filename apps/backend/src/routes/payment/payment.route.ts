@@ -49,7 +49,10 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
     mode: "payment",
     success_url: process.env.SUCCESS_PAGE,
     cancel_url: process.env.FAILURE_PAGE,
+    metadata: { userId: user.id },
   });
+
+  console.log(session);
 
   res.status(200).send({ id: session.id });
   return;
