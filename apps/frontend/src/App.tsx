@@ -19,6 +19,7 @@ import SearchPage from "./pages/search/search-page";
 import ShopPage from "./pages/shop/shop-page";
 import PaymentFailurePage from "./pages/stripe-redirect/failure-page";
 import PaymentSuccessPage from "./pages/stripe-redirect/success-page";
+import TrackOrderPage from "./pages/track/track-page";
 
 const pageVariants = {
   initial: {
@@ -179,6 +180,23 @@ const App = () => {
                 >
                   <PaymentFailurePage />
                 </motion.div>
+              </ProtectedPage>
+            }
+          ></Route>
+
+          <Route
+            path="/trackOrders"
+            element={
+              <ProtectedPage>
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <TrackOrderPage />
+                </motion.div>{" "}
               </ProtectedPage>
             }
           ></Route>
