@@ -36,34 +36,36 @@ const webhookHandler = async (req: Request, res: Response) => {
     const totalAmount = session.metadata?.totalAmount;
 
     if (userId) {
-      try {
-        const orderDetails = await prisma.cart.findUnique({
-          where: {
-            userId: userId,
-          },
-        });
+      //should create a order detail in the table , this should be done after payment is successful --- pending status
 
-        if (!orderDetails) {
-          console.error(
-            "Cart is Empty and details not found for user:",
-            userId
-          );
-          res.status(404).json({ error: "Order/Cart details not found" });
-          return;
-        }
+      // try {
+      //   const orderDetails = await prisma.cart.findUnique({
+      //     where: {
+      //       userId: userId,
+      //     },
+      //   });
 
-        await prisma.order.create({
-          data: {
-            userId: userId,
-          },
-        });
-      } catch (error) {
-        console.error("Failed to update user:", error);
-        res.status(500).json({
-          error: "Failed to update user but your payment was successful",
-        });
-        return;
-      }
+      //   if (!orderDetails) {
+      //     console.error(
+      //       "Cart is Empty and details not found for user:",
+      //       userId
+      //     );
+      //     res.status(404).json({ error: "Order/Cart details not found" });
+      //     return;
+      //   }
+
+      //   await prisma.order.create({
+      //     data: {
+      //       userId: userId,
+      //     },
+      //   });
+      // } catch (error) {
+      //   console.error("Failed to update user:", error);
+      //   res.status(500).json({
+      //     error: "Failed to update user but your payment was successful",
+      //   });
+      //   return;
+      // }
 
       try {
         const cartId = await prisma.cart.findFirst({
