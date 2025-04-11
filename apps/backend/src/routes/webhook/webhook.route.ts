@@ -12,7 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 const webhookHandler = async (req: Request, res: Response) => {
   const sig = req.headers["stripe-signature"];
   let stripeEvent: Stripe.Event;
-  //   console.log(process.env.STRIPE_SECRET_KEY);
+  // console.log(process.env.STRIPE_SECRET_KEY);
 
   try {
     stripeEvent = stripe.webhooks.constructEvent(
@@ -25,12 +25,46 @@ const webhookHandler = async (req: Request, res: Response) => {
     res.status(400).send(`Webhook Error: ${err.message}`);
     return;
   }
+  console.log("Webhook event received");
+
+  //succesful payment
 
   if (stripeEvent.type === "checkout.session.completed") {
     const session = stripeEvent.data.object;
+
     const userId = session.metadata?.userId;
+    const totalAmount = session.metadata?.totalAmount;
 
     if (userId) {
+      try {
+        const orderDetails = await prisma.cart.findUnique({
+          where: {
+            userId: userId,
+          },
+        });
+
+        if (!orderDetails) {
+          console.error(
+            "Cart is Empty and details not found for user:",
+            userId
+          );
+          res.status(404).json({ error: "Order/Cart details not found" });
+          return;
+        }
+
+        await prisma.order.create({
+          data: {
+            userId: userId,
+          },
+        });
+      } catch (error) {
+        console.error("Failed to update user:", error);
+        res.status(500).json({
+          error: "Failed to update user but your payment was successful",
+        });
+        return;
+      }
+
       try {
         const cartId = await prisma.cart.findFirst({
           where: {

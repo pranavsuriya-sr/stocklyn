@@ -33,7 +33,7 @@ app.post(
   webhookHandler
 );
 
-const allowedOrigins = ["http://localhost:5173", "https://maalelo.vercel.app"];
+// const allowedOrigins = ["http://localhost:5173", "https://maalelo.vercel.app"];
 
 app.use(
   cors({

@@ -42,14 +42,23 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
       quantity: 1,
     });
   }
+  let totalAmount = 0;
 
+  cartItems.forEach((product: any) => {
+    totalAmount += Math.round(product.price) * product.quantity;
+  });
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
     success_url: process.env.SUCCESS_PAGE,
     cancel_url: process.env.FAILURE_PAGE,
-    metadata: { userId: user.id },
+    metadata: {
+      userId: user.id,
+      totalAmount: totalAmount,
+      mode: "payment",
+      paymentType: "card",
+    },
   });
 
   // console.log(session);
