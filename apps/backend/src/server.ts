@@ -8,6 +8,7 @@ import authRoute from "./routes/auth/auth.route";
 import cartItemRoute from "./routes/cart-item/cart-item.route";
 import cartRoute from "./routes/cart/cart.route";
 import categoryRoute from "./routes/category/category.route";
+import orderRoute from "./routes/order/order.route";
 import paymentRoute from "./routes/payment/payment.route";
 import productRoute from "./routes/product/product.route";
 import webhookHandler from "./routes/webhook/webhook.route";
@@ -59,6 +60,7 @@ app.use("/category", categoryRoute);
 app.use("/cartitem", cartItemRoute);
 app.use("/address", addressRoute);
 app.use("/payment", paymentRoute);
+app.use("/order", orderRoute);
 
 const PORT = 5000;
 
