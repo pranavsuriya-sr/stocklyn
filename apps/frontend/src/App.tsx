@@ -6,6 +6,7 @@ import About from "./pages/about/about-page";
 import Login from "./pages/auth/login-page";
 import SignUp from "./pages/auth/signup-page";
 import Cart from "./pages/cart/cart-page";
+import CheckOut from "./pages/checkout/checkout-page";
 import ContactPage from "./pages/contact/contact-page";
 import NotFoundPage from "./pages/error/error-page";
 import Home from "./pages/home/home-page";
@@ -196,6 +197,22 @@ const App = () => {
                   transition={pageTransition}
                 >
                   <OrderHistory />
+                </motion.div>{" "}
+              </ProtectedPage>
+            }
+          ></Route>
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedPage>
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <CheckOut />
                 </motion.div>{" "}
               </ProtectedPage>
             }
