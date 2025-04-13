@@ -72,7 +72,11 @@ const SearchPage = () => {
             })}
         </div>
         <h2 className="text-2xl font-semibold mt-10 mb-4">
-          Similar Products You May Like
+          {data?.length > 0 ? (
+            <span>Similar Products You May Like</span>
+          ) : (
+            <span></span>
+          )}
         </h2>
         {isLoading ? (
           <div className="flex justify-center items-center h-40">

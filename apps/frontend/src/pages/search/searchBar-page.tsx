@@ -54,6 +54,20 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
     setSearchValue("");
     navigate(`/searchResults/${id}`, { state: searchSuggestions });
   };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchValue.trim()) {
+      e.preventDefault();
+
+      if (searchSuggestions && searchSuggestions.length > 0) {
+        HandleRouteToSearchPage(searchSuggestions[0].id);
+      } else if (!isLoading) {
+        navigate(`/searchResults`, {
+          state: { searchQuery: searchValue },
+        });
+        setShowSuggestions(false);
+      }
+    }
+  };
 
   return (
     <div
@@ -67,6 +81,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
           value={searchValue}
           onFocus={() => setShowSuggestions(true)}
           name="search"
+          onKeyDown={handleKeyDown}
           placeholder="Search products..."
         />
         <LucideSearch
