@@ -45,7 +45,7 @@ productRoute.get("/info", VerifyJwtMiddleware, async (req, res) => {
 
 productRoute.post("/productDetails", VerifyJwtMiddleware, async (req, res) => {
   const { productIds } = req.body;
-
+  console.log(req.body);
   if (!productIds) {
     res.status(400).json({
       message:

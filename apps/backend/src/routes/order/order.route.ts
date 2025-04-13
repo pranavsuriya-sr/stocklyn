@@ -15,7 +15,7 @@ orderRoute.get("/getOrder/:userId", async (req: Request, res: Response) => {
         OrderItems: true,
       },
     });
-    console.log(ordersDetail);
+    // console.log(ordersDetail);
 
     res.status(200).send(ordersDetail);
   } catch (error) {

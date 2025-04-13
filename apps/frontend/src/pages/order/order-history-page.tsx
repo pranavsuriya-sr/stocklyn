@@ -3,7 +3,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { orderRoute } from "@/api/api";
+import { orderRoute, productRoute } from "@/api/api";
 import { useSession } from "@/context/session-context";
 import { OrderType } from "@/types/order-type";
 
@@ -23,6 +23,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
+import { ProductsType } from "@/types/product-type";
 import {
   AlertCircle,
   ChevronDown,
@@ -37,17 +38,19 @@ const formatCurrency = (amount: number | string): string => {
   const numericAmount =
     typeof amount === "string" ? parseFloat(amount) : amount;
   if (isNaN(numericAmount)) {
-    return "$0.00";
+    return "₹0.00";
   }
-  return numericAmount.toLocaleString("en-US", {
+  return numericAmount.toLocaleString("en-IN", {
     style: "currency",
-    currency: "USD",
+    currency: "INR",
   });
 };
 
 const OrderHistory = () => {
   const { user } = useSession();
   const navigate = useNavigate();
+  const [productDetails, setProductDetails] = useState<ProductsType[]>([]);
+  const [quantityArr, setQuantityArr] = useState<Number[]>([]);
 
   const [expandedOrders, setExpandedOrders] = useState<Record<string, boolean>>(
     {}
@@ -146,8 +149,31 @@ const OrderHistory = () => {
     );
   }
 
+  const getProductDetailArray = async (orderId: String) => {
+    const currentOrder = orders.find((order) => {
+      return order.id === orderId;
+    });
+    const productIds = currentOrder?.OrderItems.map((item) => item.productId);
+    const currentQuatity = currentOrder?.OrderItems.map(
+      (item) => item.quantity
+    );
+
+    try {
+      const response = await productRoute.post("/productDetails", {
+        productIds,
+      });
+      setQuantityArr(currentQuatity != undefined ? currentQuatity : []);
+      setProductDetails(response.data);
+    } catch (fetchError) {
+      console.error("Failed to fetch product details:", fetchError);
+
+      setProductDetails([]);
+      setQuantityArr([]);
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 mt-28">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -170,7 +196,14 @@ const OrderHistory = () => {
           <Collapsible
             key={order.id.toString()}
             open={expandedOrders[order.id.toString()] ?? false}
-            onOpenChange={() => toggleOrderExpansion(order.id.toString())}
+            onOpenChange={() => {
+              const isOpen = expandedOrders[order.id.toString()];
+
+              if (!isOpen) {
+                getProductDetailArray(order.id);
+              }
+              toggleOrderExpansion(order.id.toString());
+            }}
             className="w-full"
           >
             <Card className="overflow-hidden border border-slate-200 shadow-sm">
@@ -231,30 +264,88 @@ const OrderHistory = () => {
               </CardFooter>
 
               <CollapsibleContent>
-                <div className="px-4 sm:px-6 pb-4">
-                  <div className="rounded-md border border-slate-200 bg-white">
-                    <div className="border-b border-slate-200 bg-slate-50/80 px-3 py-2 text-xs font-medium text-muted-foreground hidden md:block">
+                <div className="px-4 sm:px-6 pb-4 pt-2">
+                  <div className="rounded-md border border-slate-200 bg-white overflow-hidden">
+                    <div className="border-b border-slate-200 bg-slate-50/80 px-4 py-2 text-xs font-medium text-muted-foreground hidden md:block">
                       <div className="grid grid-cols-12 gap-4 items-center">
                         <div className="col-span-6">Product</div>
-                        <div className="col-span-3 md:col-span-2 text-center">
-                          Quantity
-                        </div>
+                        <div className="col-span-3 text-center">Quantity</div>
+                        <div className="col-span-3 text-right">Price</div>
                       </div>
                     </div>
 
-                    {order.OrderItems.map((item) => (
-                      <div
-                        key={item.id.toString()}
-                        className="border-b border-slate-200 px-3 py-3 text-sm last:border-0"
-                      >
-                        <div className="grid grid-cols-12 gap-4 items-center">
-                          <div className="col-span-6">{item.id}</div>
-                          <div className="col-span-3 md:col-span-2 text-center">
-                            {item.quantity.toString()}
+                    {productDetails.length > 0 ? (
+                      productDetails.map((item, index) => {
+                        const quantity = quantityArr[index] ?? 0;
+                        const itemTotalPrice = item.price * Number(quantity);
+
+                        return (
+                          <div
+                            key={item.id.toString()}
+                            className={`border-b border-slate-200 px-4 py-3 text-sm last:border-0 ${index % 2 === 1 ? "bg-slate-50/50" : ""}`}
+                          >
+                            <div className="grid grid-cols-12 items-center gap-4">
+                              <div className="col-span-12 md:col-span-6">
+                                <div className="flex items-center gap-3">
+                                  <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded border border-slate-200">
+                                    <img
+                                      src={item.displayImage}
+                                      alt={item.name}
+                                      className="h-full w-full object-cover"
+                                      onError={(e) =>
+                                        (e.currentTarget.src =
+                                          "/placeholder-image.png")
+                                      }
+                                    />
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <span className="font-medium text-slate-800 leading-tight truncate">
+                                      {item.name}
+                                    </span>
+                                    <span className="text-xs text-muted-foreground md:hidden">
+                                      {formatCurrency(item.price)} / item
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="col-span-6 md:col-span-3 text-center">
+                                <span className="md:hidden text-xs text-muted-foreground mr-1">
+                                  Qty:
+                                </span>
+                                <span className="font-medium text-slate-700">
+                                  {quantity.toString()}
+                                </span>
+                              </div>
+
+                              <div className="col-span-6 md:col-span-3 text-right">
+                                <span className="md:hidden text-xs text-muted-foreground mr-1">
+                                  Total:
+                                </span>
+                                <span className="font-medium text-slate-800">
+                                  {formatCurrency(itemTotalPrice)}
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        );
+                      })
+                    ) : (
+                      <div className="p-4 text-center text-sm text-muted-foreground">
+                        Loading item details...
+                        {/* Or show an error if fetch failed */}
                       </div>
-                    ))}
+                    )}
+                    <div className="flex justify-end border-t border-slate-200 bg-slate-50/80 px-4 py-3">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-sm font-medium text-muted-foreground">
+                          Order Total:
+                        </span>
+                        <span className="text-lg font-semibold text-slate-900">
+                          {formatCurrency(order.total.toString())}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CollapsibleContent>
