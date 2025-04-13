@@ -21,7 +21,7 @@ export default function Navbar() {
   const currentPath = window.location.pathname;
 
   const isActive = (path: any) => {
-    if (path === "/home" && currentPath === "/") return true;
+    if (path === "/" && currentPath === "/") return true;
     return currentPath === path || currentPath.startsWith(path);
   };
 
