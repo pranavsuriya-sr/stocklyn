@@ -37,35 +37,58 @@ const webhookHandler = async (req: Request, res: Response) => {
 
     if (userId) {
       //should create a order detail in the table , this should be done after payment is successful --- pending status
+      // flow : find cart by userId --> find the cartItems by cartId --> create order with the cartItems and metadata from the payment
 
-      // try {
-      //   const orderDetails = await prisma.cart.findUnique({
-      //     where: {
-      //       userId: userId,
-      //     },
-      //   });
+      try {
+        const cartDetails = await prisma.cart.findUnique({
+          where: {
+            userId: userId,
+          },
+        });
 
-      //   if (!orderDetails) {
-      //     console.error(
-      //       "Cart is Empty and details not found for user:",
-      //       userId
-      //     );
-      //     res.status(404).json({ error: "Order/Cart details not found" });
-      //     return;
-      //   }
+        if (!cartDetails) {
+          console.error(
+            "Cart is Empty and details not found for user:",
+            userId
+          );
+          res.status(404).json({ error: "Order/Cart details not found" });
+          return;
+        }
 
-      //   await prisma.order.create({
-      //     data: {
-      //       userId: userId,
-      //     },
-      //   });
-      // } catch (error) {
-      //   console.error("Failed to update user:", error);
-      //   res.status(500).json({
-      //     error: "Failed to update user but your payment was successful",
-      //   });
-      //   return;
-      // }
+        const cartItems = await prisma.cartItems.findMany({
+          where: {
+            cartId: cartDetails.id,
+          },
+        });
+        if (!cartItems || cartItems.length === 0) {
+          console.error("No cart items found for user:", userId);
+          res.status(404).json({ error: "Cart items not found" });
+          return;
+        }
+
+        const orderInformation = await prisma.order.create({
+          data: {
+            userId: userId,
+            total: totalAmount,
+          },
+        });
+
+        const orderItemsData = cartItems.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          orderId: orderInformation.id,
+        }));
+
+        await prisma.orderItems.createMany({
+          data: orderItemsData,
+        });
+      } catch (error) {
+        console.error("Failed to update user:", error);
+        res.status(500).json({
+          error: "Failed to update user but your payment was successful",
+        });
+        return;
+      }
 
       try {
         const cartId = await prisma.cart.findFirst({

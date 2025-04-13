@@ -100,9 +100,12 @@ model Order{
   id          String   @id @default(cuid())
   userId      String
   user        Users    @relation(fields: [userId], references: [id])
+  total       Decimal
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  orderItems  OrderItems[]
+  OrderItems  OrderItems[]
+  
+  
 }
 
 model OrderItems{
@@ -111,4 +114,5 @@ model OrderItems{
   order       Order    @relation(fields: [orderId], references: [id])
   productId   String
   product     Products @relation(fields: [productId], references: [id])
+  quantity    Int      @default(1)
 }
