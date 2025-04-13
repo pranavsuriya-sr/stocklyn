@@ -8,11 +8,11 @@ A full-stack e-commerce application (in development)
 
 ## Progress
 
-- Left only with payment gateway.
+- Completed
 
 ## todo
 
-- Add payment Gateway
+- Quality Life Features
 
 ## Features
 
