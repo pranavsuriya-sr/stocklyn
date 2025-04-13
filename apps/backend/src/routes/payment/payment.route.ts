@@ -27,21 +27,23 @@ paymentRoute.post("/create-checkout-session", async (req, res) => {
     };
   });
 
-  if (user.isPremuim !== true) {
-    lineItems.push({
-      price_data: {
-        currency: "inr",
-        product_data: {
-          name: "Delivery Charges",
-          images: [
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAktxu7k-JJYHjuNGFDlLqg-jim8m-jFa6rQ&s",
-          ],
-        },
-        unit_amount: 49 * 100,
-      },
-      quantity: 1,
-    });
-  }
+  //if premium user, no delivery charges -- Implement next
+
+  // if (user.isPremuim !== true) {
+  //   lineItems.push({
+  //     price_data: {
+  //       currency: "inr",
+  //       product_data: {
+  //         name: "Delivery Charges",
+  //         images: [
+  //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAktxu7k-JJYHjuNGFDlLqg-jim8m-jFa6rQ&s",
+  //         ],
+  //       },
+  //       unit_amount: 49 * 100,
+  //     },
+  //     quantity: 1,
+  //   });
+  // }
   let totalAmount = 0;
 
   cartItems.forEach((product: any) => {
