@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useSession } from "@/context/session-context";
-import { User } from "lucide-react";
+import { LogOut, User, UserCog2, Wallet2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const ViewProfile = () => {
@@ -50,14 +50,21 @@ const ViewProfile = () => {
           align="end"
         >
           <DropdownMenuLabel className="text-lg">
-            Hello! {displayName}😄
+            <span className="text-sm font-extralight">
+              Signed in as <br></br>
+            </span>
+            <span className="text-lg font-normal ">{displayName}</span>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => HandleProfileClick()}>
-            Profile
+            <UserCog2></UserCog2>Profile
           </DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem onClick={HandleSignOut}>SignOut</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate("/cartItems")}>
+            <Wallet2></Wallet2>Billing
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={HandleSignOut}>
+            <LogOut></LogOut>SignOut
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

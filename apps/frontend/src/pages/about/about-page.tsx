@@ -40,7 +40,7 @@ const About = () => {
           <Button
             className="px-8 sm:px-12 py-4 sm:py-6 mt-4 text-base sm:text-lg text-white rounded-md shadow-lg hover:shadow-xl transition-all duration-300"
             variant={"indigo"}
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/home")}
           >
             Start Shopping
           </Button>
