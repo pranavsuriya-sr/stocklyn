@@ -12,6 +12,7 @@ import Home from "./pages/home/home-page";
 import LandingPage from "./pages/landing/landing-page";
 import LocationAdd from "./pages/location/location-add-page";
 import LocationsDisplayPage from "./pages/location/locations-display-page";
+import OrderHistory from "./pages/order/order-history-page";
 import ProductPage from "./pages/product/product-page";
 import UserProfile from "./pages/profile/user-profile";
 import ProtectedPage from "./pages/protected/procted-page";
@@ -19,7 +20,6 @@ import SearchPage from "./pages/search/search-page";
 import ShopPage from "./pages/shop/shop-page";
 import PaymentFailurePage from "./pages/stripe-redirect/failure-page";
 import PaymentSuccessPage from "./pages/stripe-redirect/success-page";
-import TrackOrderPage from "./pages/track/track-page";
 
 const pageVariants = {
   initial: {
@@ -185,7 +185,7 @@ const App = () => {
           ></Route>
 
           <Route
-            path="/trackOrders"
+            path="/orderHistory"
             element={
               <ProtectedPage>
                 <motion.div
@@ -195,7 +195,7 @@ const App = () => {
                   variants={pageVariants}
                   transition={pageTransition}
                 >
-                  <TrackOrderPage />
+                  <OrderHistory />
                 </motion.div>{" "}
               </ProtectedPage>
             }
