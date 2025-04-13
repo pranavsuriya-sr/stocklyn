@@ -131,7 +131,7 @@ const OrderHistory = () => {
 
   if (!orders || orders.length === 0) {
     return (
-      <div className="w-full min-h-[400px] flex flex-col items-center justify-center text-center py-16 px-4 bg-slate-50">
+      <div className="w-full min-h-[400px] flex flex-col items-center justify-center text-center py-16 px-4 bg-slate-50 mt-28">
         <ShoppingBag className="h-16 w-16 mx-auto text-gray-300 mb-4" />
         <h2 className="text-2xl font-semibold mb-2 text-slate-800">
           No orders yet
