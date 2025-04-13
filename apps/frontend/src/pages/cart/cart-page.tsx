@@ -1,4 +1,4 @@
-import { paymentRoute, productRoute } from "@/api/api";
+import { productRoute } from "@/api/api";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,7 +15,6 @@ import { useSession } from "@/context/session-context";
 import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
-import { loadStripe } from "@stripe/stripe-js";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -161,23 +160,23 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
-  const makePayement = async () => {
-    const stripe = await loadStripe(
-      import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
-    );
+  // const makePayement = async () => {
+  //   const stripe = await loadStripe(
+  //     import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+  //   );
 
-    const response = await paymentRoute.post("/create-checkout-session", {
-      cartItems,
-      user,
-    });
-    console.log(response);
-    const session = await response.data;
-    const result = stripe?.redirectToCheckout({
-      sessionId: session.id,
-    });
+  //   const response = await paymentRoute.post("/create-checkout-session", {
+  //     cartItems,
+  //     user,
+  //   });
+  //   console.log(response);
+  //   const session = await response.data;
+  //   const result = stripe?.redirectToCheckout({
+  //     sessionId: session.id,
+  //   });
 
-    console.log(result);
-  };
+  //   console.log(result);
+  // };
 
   return (
     <div className="pt-28 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto">
@@ -277,15 +276,11 @@ const Cart = () => {
             <span className="text-gray-600">Subtotal</span>
             <span>₹{totalCost}</span>
           </div>
-          <div className="flex justify-between text-sm sm:text-base">
-            <span className="text-gray-600">Shipping</span>
-            <span>₹{totalCost > 0 ? (user?.isPremium ? 0 : 49) : 0}</span>
-          </div>
+
           <hr className="my-3 sm:my-4" />
           <div className="flex justify-between font-semibold text-base sm:text-lg">
             <span>Order total</span>
-            <span>₹{totalCost + 49}</span>
-            {/* should change after adding the payment gateway*/}
+            <span>₹{totalCost}</span>
           </div>
         </div>
       </div>
@@ -293,7 +288,9 @@ const Cart = () => {
       <div className="flex flex-col items-center mt-6 sm:mt-8 gap-4 sm:gap-6 pb-8 sm:pb-12">
         <Button
           className="w-full sm:w-1/2 max-w-md bg-indigo-600 hover:bg-indigo-500 h-10 sm:h-12 text-sm sm:text-base"
-          onClick={() => makePayement()}
+          onClick={() =>
+            navigate("/checkout", { state: { cartItems, totalCost } })
+          }
         >
           Proceed to Checkout
         </Button>
