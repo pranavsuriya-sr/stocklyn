@@ -97,7 +97,6 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
           </button>
         )}
       </div>
-
       <AnimatePresence>
         {showSuggestions && (
           <motion.div
