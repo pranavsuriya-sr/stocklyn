@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { useCartStore } from "@/utils/store/cart-store";
 import { motion } from "framer-motion";
 import { Menu, ShoppingCart, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../../pages/search/searchBar-page";
 import { Badge } from "../ui/badge";
@@ -17,6 +17,7 @@ export default function Navbar() {
   const [selected, setSelected] = useState<string>("login");
   const [searchValue, setSearchValue] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const currentPath = window.location.pathname;
 
@@ -33,6 +34,25 @@ export default function Navbar() {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+    if (mobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
@@ -40,7 +60,7 @@ export default function Navbar() {
       transition={{ duration: 0.5 }}
       className="fixed top-0 left-0 w-full z-40 bg-gradient-to-r from-white to-gray-50 shadow-md backdrop-blur-sm"
     >
-      <div className="max-w-[100%] mx-auto flex items-center justify-between px-4 sm:px-6 md:px-5 py-3">
+      <div className="max-w-full mx-auto flex items-center justify-between px-4 sm:px-6 md:px-5 py-3">
         <div className="flex items-center">
           <Link to={"/"}>
             <motion.h3
@@ -89,18 +109,6 @@ export default function Navbar() {
               </Link>
             </li>
           )}
-          {/* <li>
-            <Link
-              to="/searchResults/you-won-the-search-lottery-congratulations-DM-me!-something-is-waiting-for-you"
-              className={`transition-colors duration-200 px-3 py-2 rounded-md ${
-                currentPath.includes('/searchResults') 
-                  ? "text-indigo-700 bg-indigo-50 font-medium" 
-                  : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
-              }`}
-            >
-              Search
-            </Link>
-          </li> */}
           <li>
             <Link
               to="/about"
@@ -203,6 +211,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <motion.div
+          ref={mobileMenuRef}
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}

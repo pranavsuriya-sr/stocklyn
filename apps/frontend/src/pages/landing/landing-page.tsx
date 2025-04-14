@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { Check, X } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import picture from "../../assets/bookandpen.jpg";
 import exchange from "../../assets/exchange_icon.png";
-import collage from "../../assets/landingPageCollage.webp";
 import quality from "../../assets/quality_icon.png";
 import support from "../../assets/support_img.png";
 import image from "../../assets/woman-2564660_1280.jpg";
@@ -39,11 +39,50 @@ const fadeIn = {
   },
 };
 
+const platforms = ["maalelo", "WooCommerce", "BigCommerce", "Magento"];
+const features = [
+  "Easy store setup",
+  "Built-in payment processing",
+  "Mobile-friendly themes",
+  "App marketplace integration",
+  "Unlimited product listings",
+];
+const featureAvailability: any = {
+  maalelo: {
+    "Easy store setup": true,
+    "Built-in payment processing": true,
+    "Mobile-friendly themes": true,
+    "App marketplace integration": true,
+    "Unlimited product listings": true,
+  },
+  WooCommerce: {
+    "Easy store setup": false,
+    "Built-in payment processing": false,
+    "Mobile-friendly themes": true,
+    "App marketplace integration": false,
+    "Unlimited product listings": true,
+  },
+  BigCommerce: {
+    "Easy store setup": false,
+    "Built-in payment processing": false,
+    "Mobile-friendly themes": false,
+    "App marketplace integration": true,
+    "Unlimited product listings": false,
+  },
+  Magento: {
+    "Easy store setup": false,
+    "Built-in payment processing": false,
+    "Mobile-friendly themes": false,
+    "App marketplace integration": false,
+    "Unlimited product listings": false,
+  },
+};
+
 const LandingPage = () => {
   const navigate = useNavigate();
-
+  const [featuredPlatform, setFeaturedPlatform] = useState("maalelo");
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden font-montserrat">
       {/* hero section part : - >  */}
       <motion.div
         className="relative w-full h-screen pt-16"
@@ -88,55 +127,122 @@ const LandingPage = () => {
       </motion.div>
 
       {/* Collection part of the page */}
-      <motion.section
-        className="flex flex-col lg:flex-row min-h-screen"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={containerVariants}
-      >
-        <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 md:px-12 lg:px-16 py-16 lg:py-0">
-          <motion.span
-            className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight"
-            variants={itemVariants}
-          >
-            Summer Styles Are Finally Here
-          </motion.span>
+      <motion.div className="max-w-5xl mx-auto p-6 mt-20 font-montserrat">
+        <h1 className="text-4xl font-bold text-center mb-2 text-indigo-600">
+          US VS. THEM
+        </h1>
+        <p className="text-center text-lg text-gray-700 mb-10">
+          Compare top e-commerce platforms to find your perfect match.
+        </p>
 
-          <motion.span
-            className="text-gray-600 py-6 text-lg md:text-xl lg:text-2xl leading-relaxed"
-            variants={itemVariants}
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Featured Platform:
+          </label>
+          <select
+            value={featuredPlatform}
+            onChange={(e) => setFeaturedPlatform(e.target.value)}
+            className="border border-indigo-500 rounded-lg p-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            Our new collection blends comfort with style to keep you looking
-            fresh all season long. Designed for those who want to stand out.
-          </motion.span>
-
-          <motion.div variants={itemVariants}>
-            <Button
-              className="px-10 py-6 text-lg hover:scale-105 transition-transform"
-              variant={"indigo"}
-              onClick={() => navigate("/shop")}
-            >
-              Explore Collection
-            </Button>
-          </motion.div>
+            {platforms.map((platform) => (
+              <option key={platform} value={platform}>
+                {platform}
+              </option>
+            ))}
+          </select>
         </div>
 
-        <motion.div
-          className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16"
-          variants={fadeIn}
-        >
+        <div className="overflow-x-auto rounded-lg shadow-sm">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <th className="p-4 border bg-indigo-500 text-white text-left">
+                  FEATURE
+                </th>
+                <th className="p-4 border bg-indigo-500 text-white text-center">
+                  {featuredPlatform}
+                </th>
+                {platforms
+                  .filter((p) => p !== featuredPlatform)
+                  .map((platform) => (
+                    <th
+                      key={platform}
+                      className="p-4 border bg-indigo-500 text-white text-center"
+                    >
+                      {platform}
+                    </th>
+                  ))}
+              </tr>
+            </thead>
+            <tbody>
+              {features.map((feature) => (
+                <tr key={feature} className="odd:bg-gray-50">
+                  <td className="p-4 border text-gray-800">{feature}</td>
+                  <td className="p-4 border text-center">
+                    {featureAvailability[featuredPlatform][feature] ? (
+                      <Check className="mx-auto text-indigo-500" size={24} />
+                    ) : (
+                      <X className="mx-auto text-red-500" size={24} />
+                    )}
+                  </td>
+                  {platforms
+                    .filter((p) => p !== featuredPlatform)
+                    .map((platform) => (
+                      <td key={platform} className="p-4 border text-center">
+                        {featureAvailability[platform][feature] ? (
+                          <Check
+                            className="mx-auto text-indigo-500"
+                            size={24}
+                          />
+                        ) : (
+                          <X className="mx-auto text-red-500" size={24} />
+                        )}
+                      </td>
+                    ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mt-8 text-center text-sm text-gray-500">
+          Data based on standard features available on each platform as of April
+          2025.
+        </div>
+      </motion.div>
+      <section className="rounded bg-neutral-100 py-8 sm:py-12">
+        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-8 px-8 sm:px-16">
+          <div className="max-w-md space-y-4">
+            <h2 className="text-balance text-3xl md:text-4xl font-bold tracking-tight">
+              Discover our Curated Collection
+            </h2>
+            <p className="text-pretty text-neutral-600">
+              Explore our carefully selected products for your home and
+              lifestyle.
+            </p>
+            <a
+              href="/shop"
+              className="inline-flex h-10 items-center justify-center rounded-full bg-indigo-500 px-6 font-medium text-neutral-50 transition-colors hover:bg-neutral-900/90 focus:outline-none focus:ring-2 focus:ring-neutral-950"
+            >
+              Explore
+            </a>
+          </div>
+
           <img
-            src={collage}
-            alt="Summer collection collage"
-            className="rounded-xl shadow-lg w-full max-w-2xl hover:shadow-xl transition-shadow duration-300"
+            src="https://files.stripe.com/links/MDB8YWNjdF8xT3BaeG5GSmNWbVh6bURsfGZsX3Rlc3RfaDVvWXowdU9ZbWlobUIyaHpNc1hCeDM200NBzvUjqP"
+            alt="Cup of Coffee"
+            width={450}
+            height={450}
+            loading="eager"
+            decoding="async"
+            className="rounded object-cover w-full h-auto max-w-[450px]"
           />
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
 
       {/* Categories part of the page */}
       <motion.section
-        className="px-6 md:px-12 lg:px-24 py-16 md:py-24"
+        className="px-6 md:px-12 lg:px-24 py-16 md:py-24 mt-10"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -208,58 +314,6 @@ const LandingPage = () => {
             </motion.div>
           ))}
         </motion.div>
-      </motion.section>
-
-      {/* Blog part of the page , */}
-      <motion.section
-        className="px-6 md:px-12 lg:px-24 py-16 md:py-24 bg-gray-50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-      >
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
-          <motion.div className="w-full lg:w-1/2" variants={itemVariants}>
-            <img
-              src={picture}
-              alt="Marketing strategies"
-              className="rounded-xl shadow-lg w-full hover:shadow-xl transition-shadow duration-300"
-            />
-          </motion.div>
-
-          <motion.div className="w-full lg:w-1/2" variants={containerVariants}>
-            <motion.span
-              className="inline-block border-2 border-indigo-600 rounded-full px-5 py-2 text-indigo-600 mb-6 hover:bg-indigo-600 hover:text-white transition-colors"
-              variants={itemVariants}
-            >
-              Latest Post
-            </motion.span>
-
-            <motion.h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-6"
-              variants={itemVariants}
-            >
-              Leverage AI for Innovative Marketing Strategies
-            </motion.h2>
-
-            <motion.p
-              className="text-gray-600 text-lg mb-8"
-              variants={itemVariants}
-            >
-              Discover how artificial intelligence can transform your e-commerce
-              business and boost ad visibility.
-            </motion.p>
-
-            <motion.div variants={itemVariants}>
-              <Button
-                variant="outline"
-                className="border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white px-8 py-4"
-              >
-                Read More
-              </Button>
-            </motion.div>
-          </motion.div>
-        </div>
       </motion.section>
 
       {/* Features is below , {*/}
