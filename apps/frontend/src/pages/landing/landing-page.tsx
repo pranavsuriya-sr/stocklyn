@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Check, X } from "lucide-react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import exchange from "../../assets/exchange_icon.png";
 import quality from "../../assets/quality_icon.png";
@@ -39,48 +37,9 @@ const fadeIn = {
   },
 };
 
-const platforms = ["maalelo", "WooCommerce", "BigCommerce", "Magento"];
-const features = [
-  "Easy store setup",
-  "Built-in payment processing",
-  "Mobile-friendly themes",
-  "App marketplace integration",
-  "Unlimited product listings",
-];
-const featureAvailability: any = {
-  maalelo: {
-    "Easy store setup": true,
-    "Built-in payment processing": true,
-    "Mobile-friendly themes": true,
-    "App marketplace integration": true,
-    "Unlimited product listings": true,
-  },
-  WooCommerce: {
-    "Easy store setup": false,
-    "Built-in payment processing": false,
-    "Mobile-friendly themes": true,
-    "App marketplace integration": false,
-    "Unlimited product listings": true,
-  },
-  BigCommerce: {
-    "Easy store setup": false,
-    "Built-in payment processing": false,
-    "Mobile-friendly themes": false,
-    "App marketplace integration": true,
-    "Unlimited product listings": false,
-  },
-  Magento: {
-    "Easy store setup": false,
-    "Built-in payment processing": false,
-    "Mobile-friendly themes": false,
-    "App marketplace integration": false,
-    "Unlimited product listings": false,
-  },
-};
-
 const LandingPage = () => {
   const navigate = useNavigate();
-  const [featuredPlatform, setFeaturedPlatform] = useState("maalelo");
+
   return (
     <div className="overflow-x-hidden font-montserrat">
       {/* hero section part : - >  */}
@@ -127,89 +86,7 @@ const LandingPage = () => {
       </motion.div>
 
       {/* Collection part of the page */}
-      <motion.div className="max-w-5xl mx-auto p-6 mt-20 font-montserrat">
-        <h1 className="text-4xl font-bold text-center mb-2 text-indigo-600">
-          US VS. THEM
-        </h1>
-        <p className="text-center text-lg text-gray-700 mb-10">
-          Compare top e-commerce platforms to find your perfect match.
-        </p>
 
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Featured Platform:
-          </label>
-          <select
-            value={featuredPlatform}
-            onChange={(e) => setFeaturedPlatform(e.target.value)}
-            className="border border-indigo-500 rounded-lg p-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            {platforms.map((platform) => (
-              <option key={platform} value={platform}>
-                {platform}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="overflow-x-auto rounded-lg shadow-sm">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr>
-                <th className="p-4 border bg-indigo-500 text-white text-left">
-                  FEATURE
-                </th>
-                <th className="p-4 border bg-indigo-500 text-white text-center">
-                  {featuredPlatform}
-                </th>
-                {platforms
-                  .filter((p) => p !== featuredPlatform)
-                  .map((platform) => (
-                    <th
-                      key={platform}
-                      className="p-4 border bg-indigo-500 text-white text-center"
-                    >
-                      {platform}
-                    </th>
-                  ))}
-              </tr>
-            </thead>
-            <tbody>
-              {features.map((feature) => (
-                <tr key={feature} className="odd:bg-gray-50">
-                  <td className="p-4 border text-gray-800">{feature}</td>
-                  <td className="p-4 border text-center">
-                    {featureAvailability[featuredPlatform][feature] ? (
-                      <Check className="mx-auto text-indigo-500" size={24} />
-                    ) : (
-                      <X className="mx-auto text-red-500" size={24} />
-                    )}
-                  </td>
-                  {platforms
-                    .filter((p) => p !== featuredPlatform)
-                    .map((platform) => (
-                      <td key={platform} className="p-4 border text-center">
-                        {featureAvailability[platform][feature] ? (
-                          <Check
-                            className="mx-auto text-indigo-500"
-                            size={24}
-                          />
-                        ) : (
-                          <X className="mx-auto text-red-500" size={24} />
-                        )}
-                      </td>
-                    ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="mt-8 text-center text-sm text-gray-500">
-          Data based on standard features available on each platform as of April
-          2025.
-        </div>
-      </motion.div>
       <section className="rounded bg-neutral-100 py-8 sm:py-12">
         <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-8 px-8 sm:px-16">
           <div className="max-w-md space-y-4">
@@ -362,32 +239,6 @@ const LandingPage = () => {
               <p className="text-gray-600">{feature.description}</p>
             </motion.div>
           ))}
-        </motion.div>
-
-        <motion.div
-          className="max-w-3xl mx-auto text-center bg-indigo-50 rounded-xl p-8 md:p-12"
-          variants={itemVariants}
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Subscribe & Get 20% Off
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Join our newsletter for exclusive deals and updates
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 px-5 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <Button
-              className="px-8 py-3 text-lg hover:scale-105 transition-transform"
-              variant={"indigo"}
-            >
-              Subscribe
-            </Button>
-          </div>
         </motion.div>
       </motion.section>
     </div>

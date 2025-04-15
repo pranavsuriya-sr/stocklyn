@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { Check, X } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import actions from "../../assets/icons/actions.svg";
 import axios from "../../assets/icons/axios.svg";
@@ -18,9 +20,48 @@ import ssh from "../../assets/icons/ssh.svg";
 import supabase from "../../assets/icons/supabase-icon.svg";
 import tailwind from "../../assets/icons/tailwind.svg";
 import zustand from "../../assets/icons/zustand.svg";
-
 const About = () => {
+  const platforms = ["maalelo", "WooCommerce", "BigCommerce", "Magento"];
+  const features = [
+    "Easy store setup",
+    "Built-in payment processing",
+    "Mobile-friendly themes",
+    "App marketplace integration",
+    "Unlimited product listings",
+  ];
+  const featureAvailability: any = {
+    maalelo: {
+      "Easy store setup": true,
+      "Built-in payment processing": true,
+      "Mobile-friendly themes": true,
+      "App marketplace integration": true,
+      "Unlimited product listings": true,
+    },
+    WooCommerce: {
+      "Easy store setup": false,
+      "Built-in payment processing": false,
+      "Mobile-friendly themes": true,
+      "App marketplace integration": false,
+      "Unlimited product listings": true,
+    },
+    BigCommerce: {
+      "Easy store setup": false,
+      "Built-in payment processing": false,
+      "Mobile-friendly themes": false,
+      "App marketplace integration": true,
+      "Unlimited product listings": false,
+    },
+    Magento: {
+      "Easy store setup": false,
+      "Built-in payment processing": false,
+      "Mobile-friendly themes": false,
+      "App marketplace integration": false,
+      "Unlimited product listings": false,
+    },
+  };
+
   const navigate = useNavigate();
+  const [featuredPlatform, setFeaturedPlatform] = useState("maalelo");
   return (
     <section className="container mx-auto px-4 sm:px-6 lg:w-5/6 pt-10 md:pt-20 font-montserrat">
       <div
@@ -52,6 +93,89 @@ const About = () => {
             alt="Image showcasing people browsing products on a website"
           />
         </div> */}
+      </div>
+      <div className="max-w-5xl mx-auto px-6 mb-10 font-montserrat">
+        <h1 className="text-4xl font-bold text-center mb-2 text-indigo-600">
+          US VS. THEM
+        </h1>
+        <p className="text-center text-lg text-gray-700 mb-10">
+          Compare top e-commerce platforms to find your perfect match.
+        </p>
+
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Featured Platform:
+          </label>
+          <select
+            value={featuredPlatform}
+            onChange={(e) => setFeaturedPlatform(e.target.value)}
+            className="border border-indigo-500 rounded-lg p-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            {platforms.map((platform) => (
+              <option key={platform} value={platform}>
+                {platform}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="overflow-x-auto rounded-lg shadow-sm">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <th className="p-4 border bg-indigo-500 text-white text-left">
+                  FEATURE
+                </th>
+                <th className="p-4 border bg-indigo-500 text-white text-center">
+                  {featuredPlatform}
+                </th>
+                {platforms
+                  .filter((p) => p !== featuredPlatform)
+                  .map((platform) => (
+                    <th
+                      key={platform}
+                      className="p-4 border bg-indigo-500 text-white text-center"
+                    >
+                      {platform}
+                    </th>
+                  ))}
+              </tr>
+            </thead>
+            <tbody>
+              {features.map((feature) => (
+                <tr key={feature} className="odd:bg-gray-50">
+                  <td className="p-4 border text-gray-800">{feature}</td>
+                  <td className="p-4 border text-center">
+                    {featureAvailability[featuredPlatform][feature] ? (
+                      <Check className="mx-auto text-indigo-500" size={24} />
+                    ) : (
+                      <X className="mx-auto text-red-500" size={24} />
+                    )}
+                  </td>
+                  {platforms
+                    .filter((p) => p !== featuredPlatform)
+                    .map((platform) => (
+                      <td key={platform} className="p-4 border text-center">
+                        {featureAvailability[platform][feature] ? (
+                          <Check
+                            className="mx-auto text-indigo-500"
+                            size={24}
+                          />
+                        ) : (
+                          <X className="mx-auto text-red-500" size={24} />
+                        )}
+                      </td>
+                    ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mt-8 text-center text-sm text-gray-500">
+          Data based on standard features available on each platform as of April
+          2025.
+        </div>
       </div>
 
       <section className="py-16">
