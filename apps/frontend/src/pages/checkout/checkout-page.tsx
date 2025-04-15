@@ -31,7 +31,7 @@ const CheckOut = () => {
   };
 
   return (
-    <div className="min-h-screen mt-28 px-4 flex justify-center">
+    <div className="min-h-screen mt-28 px-4 flex justify-center font-montserrat mb-10">
       <div className="w-full max-w-xl">
         <h2 className="text-4xl font-extrabold mb-6">Checkout</h2>
 

@@ -124,16 +124,6 @@ const Cart = () => {
           description:
             "The required quantity is greater than the available stock",
         });
-      } else {
-        toast({
-          title: "Cart Updated",
-          description: "Item quantity modified successfully",
-          style: {
-            backgroundColor: "#f0fdf4",
-            borderColor: "#4ade80",
-            color: "#166534",
-          },
-        });
       }
     } catch (error) {
       toast({
@@ -208,8 +198,11 @@ const Cart = () => {
 
                     <div>
                       {product.stockQuantity > 0 ? (
-                        <span className="text-green-600 text-xs sm:text-sm">
-                          In stock
+                        <span className="text-green-600 text-xs sm:text-sm flex flex-col">
+                          <span className="">In stock</span>
+                          {/* <span>
+                            Available Quanity : {product.stockQuantity}
+                          </span> */}
                         </span>
                       ) : (
                         <span className="text-red-600 text-xs sm:text-sm">
