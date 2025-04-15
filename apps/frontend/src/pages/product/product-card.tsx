@@ -14,13 +14,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ imgSrc, name, price }) => {
   const discountPercentage = 20;
 
   return (
-    <div className="w-64 h-96 border border-gray-200 rounded-xl shadow hover:shadow-md transition transform hover:-translate-y-1 duration-300 flex flex-col bg-white hover:cursor-pointer">
+    <div className="w-60 h-[400px] border border-gray-200 rounded-xl shadow hover:shadow-md transition transform hover:-translate-y-1 duration-300 flex flex-col bg-white hover:cursor-pointer">
       <div className="h-1/2 flex items-center justify-center overflow-hidden p-2">
         <img
           loading="lazy"
           src={imgSrc}
           alt={`${name} image`}
-          className="max-h-full max-w-full object-contain"
+          className="h-full w-full object-cover"
         />
       </div>
       <div className="flex flex-col flex-grow p-4">

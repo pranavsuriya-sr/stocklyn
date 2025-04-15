@@ -42,7 +42,7 @@ export default function Home() {
           <hr className="w-[75%] mx-auto border-t border-gray-300 my-4" />
 
           <div className="flex justify-center pt-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-5">
               {categoryProducts
                 .filter(
                   (product: ProductsType) =>
