@@ -213,7 +213,7 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
           where: {
             categoryName: currentCategory.name,
           },
-          take: 5,
+          take: 8,
         });
       })
     ).then((result) => {

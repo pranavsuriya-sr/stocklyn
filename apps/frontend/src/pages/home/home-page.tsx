@@ -39,10 +39,10 @@ export default function Home() {
             {`Our best ${someCategory}'s Collection`}
           </h2>
 
-          <hr className="w-[75%] mx-auto border-t border-gray-300 my-4" />
+          <hr className="w-[80%] mx-auto border-t border-gray-300 my-4" />
 
           <div className="flex justify-center pt-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {categoryProducts
                 .filter(
                   (product: ProductsType) =>
@@ -50,11 +50,15 @@ export default function Home() {
                 )
                 .map((product: ProductsType) => (
                   <div key={product.id} className="flex justify-center">
-                    <div onClick={() => HandleProductClick({ product })}>
+                    <div
+                      onClick={() => HandleProductClick({ product })}
+                      className="mt-3"
+                    >
                       <ProductCard
                         name={product.name}
                         imgSrc={product.displayImage}
                         price={product.price}
+                        item={product.categoryName}
                       />
                     </div>
                   </div>
