@@ -52,6 +52,7 @@ const ProductPage = () => {
     string | null
   >(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [displayText, setDisplayText] = useState(false);
 
   const HandleAddToCart = async () => {
     if (!user) {
@@ -392,10 +393,12 @@ const ProductPage = () => {
           <p className="text-gray-500">No reviews yet</p>
           <Button
             variant="outline"
+            onClick={() => setDisplayText(true)}
             className="mt-4 border-indigo-600 text-indigo-600 hover:bg-indigo-50"
           >
             Be the first to review
           </Button>
+          {displayText && <p>Coming soon</p>}
         </div>
       </motion.section>
     </motion.div>

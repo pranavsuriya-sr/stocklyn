@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useSession } from "@/context/session-context";
-import { LogOut, User, UserCog2, Wallet2 } from "lucide-react";
+import { LogOut, Truck, User, UserCog2, Wallet2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const ViewProfile = () => {
@@ -61,6 +61,9 @@ const ViewProfile = () => {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate("/cartItems")}>
             <Wallet2></Wallet2>Billing
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate("/orderHistory")}>
+            <Truck></Truck>Orders
           </DropdownMenuItem>
           <DropdownMenuItem onClick={HandleSignOut}>
             <LogOut></LogOut>SignOut

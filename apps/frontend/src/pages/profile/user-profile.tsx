@@ -30,7 +30,7 @@ const UserProfile = () => {
             name="Authentication"
             description="Edit login, name, email, password"
             imgUrl={authentication}
-            onClick={() => navigate("/secureUserAuth")}
+            // onClick={() => navigate("/secureUserAuth")}
           />
           <UserInfoCard
             name="Contact Us"
