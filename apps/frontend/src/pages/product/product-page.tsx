@@ -30,9 +30,9 @@ const { AddCartItems, RemoveCartItem } = useCartStore.getState();
 const fadeIn = {
   // hidden: { opacity: 0, y: 20 },
   // visible: {
-  //   opacity: 1,
-  //   y: 0,
-  //   transition: { duration: 0.1, ease: "easeOut" },
+  //   opacity: 1,
+  //   y: 0,
+  //   transition: { duration: 0.1, ease: "easeOut" },
   // },
 };
 
@@ -46,6 +46,9 @@ const ProductPage = () => {
   const { user } = useSession();
   const { products } = useCartStore();
   const navigate = useNavigate();
+  const [hoveredAccordionItem, setHoveredAccordionItem] = useState<
+    string | null
+  >(null);
 
   const HandleAddToCart = async () => {
     if (!user) {
@@ -94,13 +97,12 @@ const ProductPage = () => {
 
   return (
     <motion.div
-      className="bg-white px-4 sm:px-6 md:px-12 lg:px-20 py-12 md:py-20 mt-28 w-[90%] mx-auto"
+      className="bg-white px-4 sm:px-6 md:px-12 lg:px-20 py-12 md:py-20 mt-28 w-[90%] mx-auto font-montserrat"
       initial="hidden"
       animate="visible"
       variants={fadeIn}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-        {/*Product Images */}
         <motion.div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-xl shadow-md">
             <img
@@ -130,11 +132,10 @@ const ProductPage = () => {
           </div>
         </motion.div>
 
-        {/* Product Details */}
         <motion.div className="space-y-6" variants={containerVariants}>
           <motion.div variants={itemVariants}>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-              {product.name || "Product Name"}
+              {product.name || "Product"}
             </h1>
             <p className="text-xl md:text-2xl font-semibold text-indigo-600 mt-2">
               ₹{product.price?.toLocaleString() || "0"}
@@ -194,18 +195,32 @@ const ProductPage = () => {
             {product.highlights
               ?.slice(0, 5)
               .map((highlight: string, index: number) => (
-                <Accordion key={index} type="single" collapsible>
-                  <AccordionItem value={`item-${index}`}>
-                    <AccordionTrigger className="hover:no-underline">
-                      <span className="font-medium text-gray-800">
-                        Feature {index + 1}
-                      </span>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-600">
-                      {highlight}
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                <div
+                  key={index}
+                  onMouseEnter={() => setHoveredAccordionItem(`item-${index}`)}
+                  onMouseLeave={() => setHoveredAccordionItem(null)}
+                >
+                  <Accordion
+                    type="single"
+                    collapsible
+                    value={
+                      hoveredAccordionItem === `item-${index}`
+                        ? `item-${index}`
+                        : undefined
+                    }
+                  >
+                    <AccordionItem value={`item-${index}`}>
+                      <AccordionTrigger className="hover:no-underline">
+                        <span className="font-medium text-gray-800">
+                          Feature {index + 1}
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="text-gray-600">
+                        {highlight}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
               ))}
           </motion.div>
 
@@ -366,27 +381,8 @@ const ProductPage = () => {
   );
 };
 
-const containerVariants = {
-  // hidden: { opacity: 0 },
-  // visible: {
-  //   opacity: 1,
-  //   transition: {
-  //     staggerChildren: 0.1,
-  //     delayChildren: 0.2,
-  //   },
-  // },
-};
+const containerVariants = {};
 
-const itemVariants = {
-  // hidden: { opacity: 0, y: 20 },
-  // visible: {
-  //   opacity: 1,
-  //   y: 0,
-  //   transition: {
-  //     duration: 0.5,
-  //     ease: "easeOut",
-  //   },
-  // },
-};
+const itemVariants = {};
 
 export default ProductPage;
