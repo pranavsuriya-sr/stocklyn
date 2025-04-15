@@ -1,16 +1,20 @@
 import { sendEmailRoute } from "@/api/api";
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/context/session-context";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 
 //use RESEND for it
 
 const ContactPage = () => {
+  const { user } = useSession();
   const inputRef = useRef<any>();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
+    userId: "",
   });
 
   useEffect(() => {
@@ -25,19 +29,25 @@ const ContactPage = () => {
 
   const HandleEmailFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    let sendData = { ...formData, userId: user?.id };
     try {
-      await sendEmailRoute.post("/contactEmail", formData);
+      // console.log("Form data", sendData);
+      await sendEmailRoute.post("/add", sendData);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const mutation = useMutation({
+    mutationFn: HandleEmailFormSubmit,
+    mutationKey: ["sendEmail"],
+  });
+
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-100 mt-16 pb-10">
       <form
         className="w-[50%] mx-auto flex flex-col"
-        onSubmit={HandleEmailFormSubmit}
+        onSubmit={(e) => mutation.mutateAsync(e)}
       >
         <div className="pt-28 text-5xl font-extralight font-montserrat">
           Contact
