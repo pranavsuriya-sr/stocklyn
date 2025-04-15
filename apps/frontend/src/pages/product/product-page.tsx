@@ -35,8 +35,10 @@ const fadeIn = {
   //   transition: { duration: 0.1, ease: "easeOut" },
   // },
 };
+// console.log(cartItems);
 
 const ProductPage = () => {
+  const { cartItems } = useCartStore();
   const { toast } = useToast();
   const location = useLocation();
   const product: ProductsType = location.state || {};
@@ -49,6 +51,7 @@ const ProductPage = () => {
   const [hoveredAccordionItem, setHoveredAccordionItem] = useState<
     string | null
   >(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   const HandleAddToCart = async () => {
     if (!user) {
@@ -67,12 +70,12 @@ const ProductPage = () => {
     );
 
     if (isAddedToCart == false) {
-      toast({
-        variant: "destructive",
-        title: "Product already exists!",
-        description: "This product is already present in your cart items!",
-        duration: 3000,
-      });
+      // toast({
+      //   variant: "destructive",
+      //   title: "Product already exists!",
+      //   description: "Add more quantity during checkout!",
+      //   duration: 3000,
+      // });
     }
 
     if (isAddedToCart == true) {
@@ -80,7 +83,7 @@ const ProductPage = () => {
         variant: "success",
         title: "Added product!",
         description: "Product successfully added to the cart!",
-        duration: 3000,
+        duration: 1500,
       });
     }
   };
@@ -182,7 +185,13 @@ const ProductPage = () => {
                 {product.sizes?.map((size: string) => (
                   <button
                     key={size}
-                    className="px-3 py-1 border rounded-md text-sm font-medium hover:bg-gray-100 hover:border-indigo-400 transition-colors"
+                    onClick={() => setSelectedSize(size)}
+                    className={`px-3 py-1 border rounded-md text-sm font-medium transition-colors 
+            ${
+              selectedSize === size
+                ? "bg-indigo-500 text-white border-indigo-500"
+                : "hover:bg-gray-100 hover:border-indigo-400"
+            }`}
                   >
                     {size}
                   </button>
@@ -191,46 +200,51 @@ const ProductPage = () => {
             </motion.div>
           )}
 
-          <motion.div variants={itemVariants} className="space-y-3">
-            {product.highlights
-              ?.slice(0, 5)
-              .map((highlight: string, index: number) => (
-                <div
-                  key={index}
-                  onMouseEnter={() => setHoveredAccordionItem(`item-${index}`)}
-                  onMouseLeave={() => setHoveredAccordionItem(null)}
-                >
-                  <Accordion
-                    type="single"
-                    collapsible
-                    value={
-                      hoveredAccordionItem === `item-${index}`
-                        ? `item-${index}`
-                        : undefined
+          <div className="space-y-3 relative">
+            <div className="min-h-[200px]">
+              {" "}
+              {product.highlights
+                ?.slice(0, 5)
+                .map((highlight: string, index: number) => (
+                  <div
+                    key={index}
+                    onMouseEnter={() =>
+                      setHoveredAccordionItem(`item-${index}`)
                     }
+                    onMouseLeave={() => setHoveredAccordionItem(null)}
                   >
-                    <AccordionItem value={`item-${index}`}>
-                      <AccordionTrigger className="hover:no-underline">
-                        <span className="font-medium text-gray-800">
-                          Feature {index + 1}
-                        </span>
-                      </AccordionTrigger>
-                      <AccordionContent className="text-gray-600">
-                        {highlight}
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </div>
-              ))}
-          </motion.div>
+                    <Accordion
+                      type="single"
+                      collapsible
+                      value={
+                        hoveredAccordionItem === `item-${index}`
+                          ? `item-${index}`
+                          : undefined
+                      }
+                    >
+                      <AccordionItem value={`item-${index}`}>
+                        <AccordionTrigger className="hover:no-underline">
+                          <span className="font-medium text-gray-800">
+                            Feature {index + 1}
+                          </span>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-gray-600">
+                          {highlight}
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  </div>
+                ))}
+            </div>
+          </div>
 
           <motion.div variants={itemVariants}>
-            <Sheet>
+            <Sheet modal={false}>
               <SheetTrigger asChild>
                 {product.stockQuantity > 0 ? (
                   <Button
-                    className="w-full py-6 bg-white hover:bg-gray-100 text-slate-700 border border-slate-300 text-lg hover:scale-105 transition-transform"
-                    onClick={HandleAddToCart}
+                    className="w-full py-6 bg-white hover:bg-gray-100 text-slate-700 border border-slate-300 text-lg  transition-transform"
+                    onClick={() => HandleAddToCart()}
                   >
                     Add to Cart
                   </Button>
@@ -244,7 +258,7 @@ const ProductPage = () => {
                 )}
               </SheetTrigger>
 
-              <SheetContent className="w-full sm:max-w-md bg-white">
+              <SheetContent className="w-full sm:max-w-md bg-white shadow-lg ">
                 <SheetHeader className="mb-6">
                   <SheetTitle className="text-xl">
                     Your Shopping Cart
@@ -255,7 +269,7 @@ const ProductPage = () => {
                   </SheetDescription>
                 </SheetHeader>
 
-                <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
                   {products.length === 0 ? (
                     <div className="text-center py-8 text-gray-500">
                       Your cart is empty
@@ -277,6 +291,13 @@ const ProductPage = () => {
                           <h3 className="font-medium text-gray-800 truncate">
                             {product.name}
                           </h3>
+                          <p className="flex gap-2 text-gray-500">
+                            <p>Qty </p>
+                            {cartItems.find(
+                              (item) => item.productId === product.id
+                            )?.quantity || 1}{" "}
+                          </p>
+
                           <p className="text-indigo-600 font-medium">
                             ₹{product.price.toLocaleString()}
                           </p>
@@ -309,7 +330,7 @@ const ProductPage = () => {
                 <SheetFooter className="mt-6">
                   <SheetClose asChild>
                     <Button
-                      className="w-full py-6 text-lg"
+                      className="w-full py-6 text-lg font-montserrat"
                       variant={"indigo"}
                       disabled={products.length === 0}
                       onClick={() => navigate("/cartitems")}

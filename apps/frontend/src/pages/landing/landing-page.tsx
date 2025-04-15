@@ -87,7 +87,7 @@ const LandingPage = () => {
 
       {/* Collection part of the page */}
 
-      <section className="rounded bg-neutral-100 py-8 sm:py-12">
+      <section className="rounded bg-neutral-100 py-8 sm:py-12 ">
         <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-8 px-8 sm:px-16">
           <div className="max-w-md space-y-4">
             <h2 className="text-balance text-3xl md:text-4xl font-bold tracking-tight">
