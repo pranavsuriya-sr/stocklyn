@@ -37,7 +37,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="flex w-full mx-auto">
+    <div className="flex w-[90%] mx-auto">
       {/* <div className="w-1/3 text-3xl mt-24 mx-10"></div> */}
       <div className="w-[85%] mx-auto min-h-screen pt-28 mb-20">
         <h2 className="text-2xl font-semibold mb-4">Your Product</h2>
