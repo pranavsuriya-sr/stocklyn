@@ -1,6 +1,7 @@
 import { sendEmailRoute } from "@/api/api";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/context/session-context";
+import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 
@@ -32,15 +33,48 @@ const ContactPage = () => {
     let sendData = { ...formData, userId: user?.id };
     try {
       // console.log("Form data", sendData);
+
+      if (
+        sendData.email == "" ||
+        sendData.message == "" ||
+        sendData.name == ""
+      ) {
+        toast({
+          title: "Fill neccessary details",
+          variant: "destructive",
+          duration: 1500,
+        });
+        console.log("hi");
+        return false;
+      }
       await sendEmailRoute.post("/add", sendData);
+      ClearFormData();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const ClearFormData = () => {
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      userId: "",
+    });
+
+    toast({
+      title: "Details Sent",
+      description: "We will get back to you soon! ",
+      variant: "success",
+      duration: 1500,
+    });
+  };
+
   const mutation = useMutation({
     mutationFn: HandleEmailFormSubmit,
     mutationKey: ["sendEmail"],
+    // onSuccess: () => ClearFormData(),
   });
 
   return (
@@ -63,7 +97,7 @@ const ContactPage = () => {
           />
           <input
             className="border border-black mt-10 w-full p-2 rounded-lg bg-gray-100"
-            placeholder="Email *"
+            placeholder="Your Email *"
             name="email"
             value={formData.email}
             onChange={HandleChange}
