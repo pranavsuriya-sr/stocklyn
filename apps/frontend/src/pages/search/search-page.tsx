@@ -39,12 +39,12 @@ const SearchPage = () => {
   return (
     <div className=" flex flex-col w-[90%] mx-auto">
       <div className="flex justify-between min-h-screen ">
-        <div className="mt-28 ">
+        {/* <div className="mt-28 ">
           <h1 className="text-2xl">Filters</h1>
           <div className="flex flex-col gap-2 pt-4">
             <p className="font-bold">Sort By: </p>
           </div>
-        </div>
+        </div> */}
         <div className="mx-auto min-h-screen pt-28 mb-20">
           <h2 className="text-2xl font-semibold mb-4">Your Product</h2>
           <div>
