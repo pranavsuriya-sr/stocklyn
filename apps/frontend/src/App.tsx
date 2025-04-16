@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import About from "./pages/about/about-page";
+import PolicyPage from "./pages/about/shipping-policy-page";
 import Login from "./pages/auth/login-page";
 import SignUp from "./pages/auth/signup-page";
 import Cart from "./pages/cart/cart-page";
@@ -314,6 +315,20 @@ const App = () => {
                 transition={pageTransition}
               >
                 <ProductPage />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/policy"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <PolicyPage />
               </motion.div>
             }
           />
