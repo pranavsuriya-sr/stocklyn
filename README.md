@@ -1,6 +1,6 @@
 # Stocklyn
 
-![Maalelo Logo](./assets/maalelo.png)
+![Landing Page](./assets/landingPage.png)
 
 ## Overview
 

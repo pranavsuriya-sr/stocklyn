@@ -36,7 +36,7 @@ export default function Home() {
       {category.map((someCategory: string) => (
         <div key={someCategory} className="mb-12 pt-10">
           <h2 className="text-2xl font-montserrat md:text-3xl font-bold mb-4 capitalize text-left w-[75%] mx-auto animate-fade-in-up fancy-text ">
-            {`Our best ${someCategory}'s Collection`}
+            {`Best ${someCategory} Collection`}
           </h2>
 
           <hr className="w-[80%] mx-auto border-t border-gray-300 my-4" />

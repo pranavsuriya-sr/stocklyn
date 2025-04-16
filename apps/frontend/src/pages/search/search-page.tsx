@@ -37,40 +37,50 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="flex w-[90%] mx-auto">
-      {/* <div className="w-1/3 text-3xl mt-24 mx-10"></div> */}
-      <div className="w-[85%] mx-auto min-h-screen pt-28 mb-20">
-        <h2 className="text-2xl font-semibold mb-4">Your Product</h2>
-        <div>
-          {productsArray.length > 0 &&
-            productsArray.map((product: ProductsType) => {
-              if (product.id == id) {
-                return (
-                  <ProductSuggestionCard
-                    product={product}
-                    key={product.id}
-                    onClick={() => RouteToProductPage(product)}
-                  />
-                );
-              }
-            })}
+    <div className=" flex flex-col w-[90%] mx-auto">
+      <div className="flex justify-between min-h-screen ">
+        <div className="mt-28 ">
+          <h1 className="text-2xl">Filters</h1>
+          <div className="flex flex-col gap-2 pt-4">
+            <p className="font-bold">Sort By: </p>
+          </div>
         </div>
-        <h2 className="text-2xl font-semibold mb-2 pt-10">Search Results</h2>
-        <div className="grid grid-cols-2 gap-2 ">
-          {productsArray.length > 0 &&
-            productsArray.map((product: ProductsType) => {
-              if (product.id != id) {
-                return (
-                  <div key={product.id} className="w-full mt-5 mb-4">
+        <div className="mx-auto min-h-screen pt-28 mb-20">
+          <h2 className="text-2xl font-semibold mb-4">Your Product</h2>
+          <div>
+            {productsArray.length > 0 &&
+              productsArray.map((product: ProductsType) => {
+                if (product.id == id) {
+                  return (
                     <ProductSuggestionCard
                       product={product}
+                      key={product.id}
                       onClick={() => RouteToProductPage(product)}
                     />
-                  </div>
-                );
-              }
-            })}
+                  );
+                }
+              })}
+          </div>
+          <h2 className="text-2xl font-semibold mb-2 pt-10">Search Results</h2>
+          <div className="grid grid-cols-2 gap-2 ">
+            {productsArray.length > 0 &&
+              productsArray.map((product: ProductsType) => {
+                if (product.id != id) {
+                  return (
+                    <div key={product.id} className="w-full mt-5 mb-4">
+                      <ProductSuggestionCard
+                        product={product}
+                        onClick={() => RouteToProductPage(product)}
+                      />
+                    </div>
+                  );
+                }
+              })}
+          </div>
         </div>
+      </div>
+
+      <div className="mb-10">
         <h2 className="text-2xl font-semibold mt-10 mb-4">
           {data?.length > 0 ? (
             <span>Similar Products You May Like</span>

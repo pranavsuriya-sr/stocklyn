@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/form";
 
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ArrowRightIcon,
@@ -40,7 +39,6 @@ const Login = () => {
   const navigate = useNavigate();
   const { login, session } = useSession();
   const [showPassword, setShowPassword] = useState(false);
-  const { toast } = useToast();
   const inputRef = useRef<any>();
 
   useEffect(() => {
