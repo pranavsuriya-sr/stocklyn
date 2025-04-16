@@ -62,7 +62,7 @@ const SearchPage = () => {
               })}
           </div>
           <h2 className="text-2xl font-semibold mb-2 pt-10">Search Results</h2>
-          <div className="grid grid-cols-2 gap-2 ">
+          <div className="grid grid-cols-2 gap-32 ">
             {productsArray.length > 0 &&
               productsArray.map((product: ProductsType) => {
                 if (product.id != id) {
@@ -79,6 +79,8 @@ const SearchPage = () => {
           </div>
         </div>
       </div>
+
+      {/*similar productss */}
 
       <div className="mb-10">
         <h2 className="text-2xl font-semibold mt-10 mb-4">
