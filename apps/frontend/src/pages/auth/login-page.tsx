@@ -14,10 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ArrowRightIcon,
   ArrowUpRightIcon,
-  ChromeIcon,
   Eye,
   EyeOff,
-  GitCompare,
   Loader2Icon,
   LockIcon,
   MailIcon,
@@ -99,7 +97,12 @@ const Login = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel  htmlFor="email-input" className="text-gray-700">Email</FormLabel>
+                      <FormLabel
+                        htmlFor="email-input"
+                        className="text-gray-700"
+                      >
+                        Email
+                      </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -124,7 +127,12 @@ const Login = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="password-input" className="text-gray-700">Password</FormLabel>
+                      <FormLabel
+                        htmlFor="password-input"
+                        className="text-gray-700"
+                      >
+                        Password
+                      </FormLabel>
 
                       <FormControl>
                         <div className="relative flex items-center justify-between">
@@ -168,7 +176,7 @@ const Login = () => {
               </form>
             </Form>
 
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300"></div>
@@ -206,7 +214,7 @@ const Login = () => {
                   Google
                 </Button>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="text-center text-gray-600">

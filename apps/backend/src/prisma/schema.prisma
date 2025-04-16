@@ -79,6 +79,7 @@ model Category {
   parent        Category?  @relation("Subcategories", fields: [parentId], references: [id])
   subcategories Category[] @relation("Subcategories")
   products      Products[]
+  
 }
 
 model Address {

@@ -76,7 +76,6 @@ const SignUp = () => {
     <div className="min-h-screen py-28">
       <div className="flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-sm space-y-8">
- 
           <div className="text-center animate-fade-in-up">
             <p className="text-gray-600 text-lg">Join Maalelo today!</p>
           </div>
@@ -100,7 +99,12 @@ const SignUp = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel  htmlFor="signup-name" className="text-gray-700">Name</FormLabel>
+                      <FormLabel
+                        htmlFor="signup-name"
+                        className="text-gray-700"
+                      >
+                        Name
+                      </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -123,7 +127,12 @@ const SignUp = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="signup-email" className="text-gray-700">Email</FormLabel>
+                      <FormLabel
+                        htmlFor="signup-email"
+                        className="text-gray-700"
+                      >
+                        Email
+                      </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -146,7 +155,12 @@ const SignUp = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="signup-password" className="text-gray-700">Password</FormLabel>
+                      <FormLabel
+                        htmlFor="signup-password"
+                        className="text-gray-700"
+                      >
+                        Password
+                      </FormLabel>
                       <FormControl>
                         <div className="relative flex items-center justify-between">
                           <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -171,6 +185,7 @@ const SignUp = () => {
                     </FormItem>
                   )}
                 />
+                {/* <Button variant={"indigo"}>Fill Random Info for testing</Button> */}
                 <Button
                   type="submit"
                   className="w-full py-6 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all transform hover:scale-[1.01] shadow-md hover:shadow-lg"
