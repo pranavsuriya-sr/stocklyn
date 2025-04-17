@@ -61,6 +61,7 @@ const About = () => {
   };
 
   const navigate = useNavigate();
+
   const [featuredPlatform, setFeaturedPlatform] = useState("maalelo");
   return (
     <section className="container mx-auto px-4 sm:px-6 lg:w-5/6 pt-10 md:pt-20 font-montserrat">

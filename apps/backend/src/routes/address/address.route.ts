@@ -4,6 +4,7 @@ import { prisma } from "../../server";
 const addressRoute = express.Router();
 
 addressRoute.post("/addAddress", async (req: Request, res: Response) => {
+  //satish anna cool
   const {
     name,
     mobileNumber,

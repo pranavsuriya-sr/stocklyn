@@ -5,11 +5,11 @@ const FooterPage = () => {
   const navigate = useNavigate();
 
   const openGithub = () => {
-    window.open("https://github.com/UdayRajVadeghar/stocklyn", "_blank"); // Replace with your actual GitHub link
+    window.open("https://github.com/UdayRajVadeghar/stocklyn", "_blank");
   };
 
   const openLinkedIn = () => {
-    window.open("https://www.linkedin.com/in/uday-raj-vadeghar/", "_blank"); // Replace with your actual LinkedIn link
+    window.open("https://www.linkedin.com/in/uday-raj-vadeghar/", "_blank");
   };
 
   return (
