@@ -1,3 +1,4 @@
+import { Lens } from "@/components/magicui/lens";
 import {
   Accordion,
   AccordionContent,
@@ -107,13 +108,15 @@ const ProductPage = () => {
       variants={fadeIn}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-        <motion.div className="space-y-4">
+        <div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-xl shadow-md">
+            <Lens zoomFactor={1.5} lensSize={170} isStatic={false}>
             <img
               src={selectedImage}
               alt={product.name || "Product"}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
+            </Lens>
           </div>
           <div className="flex gap-2 md:gap-4 overflow-x-auto py-2 scrollbar-hide">
             {product.imageUrl?.map((image: string, index: number) => (
@@ -134,7 +137,7 @@ const ProductPage = () => {
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         <motion.div className="space-y-6" variants={containerVariants}>
           <motion.div variants={itemVariants}>
