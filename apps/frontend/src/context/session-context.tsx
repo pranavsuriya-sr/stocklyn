@@ -27,6 +27,12 @@ interface SessionContextType {
   SignUp: (name: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  sellerLogin: (email: string, password: string) => Promise<void>;
+  sellerSignUp: (
+    name: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
@@ -99,9 +105,53 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  //seller functions
+  const sellerLogin = async (email: string, password: string) => {
+    try {
+      const response = await api.post("/auth/seller/login", {
+        email,
+        password,
+      });
+      setUser(response.data.user);
+      setSession(true);
+    } catch (error: any) {
+      throw new Error(error.response?.data?.error || "Login failed for seller");
+    }
+  };
+
+  const sellerSignUp = async (
+    name: string,
+    email: string,
+    password: string
+  ) => {
+    try {
+      const response = await api.post("/auth/seller/signup", {
+        name,
+        email,
+        password,
+      });
+      setUser(response.data.user);
+      setSession(true);
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.error || "Sign Up failed for seller"
+      );
+    }
+  };
+
   return (
     <SessionContext.Provider
-      value={{ session, user, isLoading, login, logout, SignUp, checkAuth }}
+      value={{
+        session,
+        user,
+        isLoading,
+        login,
+        logout,
+        SignUp,
+        checkAuth,
+        sellerLogin,
+        sellerSignUp,
+      }}
     >
       {children}
     </SessionContext.Provider>
