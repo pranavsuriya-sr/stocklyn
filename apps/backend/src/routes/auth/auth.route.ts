@@ -9,6 +9,7 @@ const authRoute = express.Router();
 
 authRoute.post("/signup", async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
+  console.log("lololol");
 
   if (!name || !email || !password) {
     res.status(400).json({ error: "Missing required fields" });
@@ -63,6 +64,138 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
 
     res.status(201).json({
       message: "Login successful!",
+      user,
+    });
+  } catch (error) {
+    console.error("Signup error:", error);
+    res.status(500).json({ error: "Failed to create user" });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+authRoute.post("/seller/login", async (req: Request, res: Response) => {
+  console.log("Seller Login");
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res
+      .status(400)
+      .json({ error: "Missing required fields , ie : Email and Password" });
+    return;
+  }
+
+  try {
+    const user = await prisma.users.findUnique({
+      where: { email },
+      include: { cart: true },
+    });
+
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
+
+    if (!passwordMatch) {
+      res.status(401).json({ error: "Invalid credentials" });
+      return;
+    }
+
+    if (user.role !== "seller") {
+      res.status(401).json({ error: "Unauthorized" });
+      return;
+    }
+
+    const userData: userType = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+
+    const token = GenerateJwtToken(userData);
+
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+    });
+
+    user.hashedPassword = "";
+
+    res.status(200).json({
+      message: "Login successful!",
+      user,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ error: "Login failed" });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+authRoute.post("/seller/signup", async (req: Request, res: Response) => {
+  // console.log("Seller Signup");
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    res.status(400).json({ error: "Missing required fields" });
+    return;
+  }
+
+  if (password.length < 6) {
+    res.status(400).json({
+      error: "Password must be at least 6 characters long",
+    });
+    return;
+  }
+
+  try {
+    const existingUser = await prisma.users.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      res.status(409).json({
+        error: "Email already registered",
+      });
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await prisma.users.create({
+      data: {
+        name,
+        email,
+        hashedPassword,
+        profileUrl: "",
+        role: "seller",
+        cart: {
+          create: {},
+        },
+      },
+      include: { cart: true },
+    });
+
+    user.hashedPassword = "";
+
+    const token = GenerateJwtToken(user);
+
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production" ? true : false,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // ---->  7 days session
+    });
+
+    res.status(201).json({
+      message: "Signup successful!",
       user,
     });
   } catch (error) {
