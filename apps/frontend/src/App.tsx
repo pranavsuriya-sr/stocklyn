@@ -5,6 +5,8 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import About from "./pages/about/about-page";
 import PolicyPage from "./pages/about/shipping-policy-page";
 import Login from "./pages/auth/login-page";
+import SellerLogin from "./pages/auth/sellerAuth/seller-login-page";
+import SellerSignUp from "./pages/auth/sellerAuth/seller-signup-page";
 import SignUp from "./pages/auth/signup-page";
 import Cart from "./pages/cart/cart-page";
 import CheckOut from "./pages/checkout/checkout-page";
@@ -185,7 +187,6 @@ const App = () => {
               </ProtectedPage>
             }
           ></Route>
-
           <Route
             path="/orderHistory"
             element={
@@ -218,7 +219,6 @@ const App = () => {
               </ProtectedPage>
             }
           ></Route>
-
           <Route
             path="/contact"
             element={
@@ -233,7 +233,6 @@ const App = () => {
               </motion.div>
             }
           />
-
           <Route
             path="/home"
             element={
@@ -332,7 +331,35 @@ const App = () => {
               </motion.div>
             }
           />
-
+          //Seller Routes
+          <Route
+            path="/seller/signup"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <SellerSignUp />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/seller/login"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <SellerLogin />
+              </motion.div>
+            }
+          />
           <Route
             path="*"
             element={
