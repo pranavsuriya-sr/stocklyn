@@ -1,24 +1,25 @@
 import { Button } from "@/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 
 import { Input } from "@/components/ui/input";
 import { useSession } from "@/context/session-context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    ArrowRightIcon,
-    ArrowUpRightIcon,
-    Eye,
-    EyeOff,
-    Loader2Icon,
-    LockIcon,
-    MailIcon,
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  Eye,
+  EyeOff,
+  Loader2Icon,
+  LockIcon,
+  MailIcon,
+  StoreIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -35,7 +36,7 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-const Login = () => {
+const SellerLogin = () => {
   const navigate = useNavigate();
   const { login, session } = useSession();
   const [showPassword, setShowPassword] = useState(false);
@@ -69,17 +70,27 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen py-28">
+    <div className="min-h-screen py-28 bg-white">
       <div className="flex flex-col items-center justify-center px-4">
-        <div className="w-full max-w-sm space-y-8">
+        <div className="w-full max-w-lg space-y-8">
           <div className="text-center animate-fade-in-up">
-            <p className="text-gray-600 text-lg">Welcome back to Maalelo!</p>
+            <h1 className="text-4xl font-montserrat text-gray-700 flex items-center justify-center">
+              <span className="mr-3">Welcome Back to</span>
+              <span className="flex items-center">
+                <StoreIcon className="h-9 w-9 text-indigo-500 mr-2" />
+                <span className="text-indigo-500 text-3xl font-semibold">
+                  Seller Portal
+                </span>
+              </span>
+            </h1>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 transition-all hover:shadow-2xl">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-200 transition-all hover:shadow-lg">
             <Form {...loginForm}>
-              <div className="pb-3 text-2xl font-light">Sign In</div>
-              <hr />
+              <div className="pb-3 text-2xl font-semibold text-gray-800">
+                Sign In to Seller Portal
+              </div>
+              <hr className="border-gray-300" />
               <form
                 onSubmit={loginForm.handleSubmit(onSubmit)}
                 className="space-y-6 pt-3"
@@ -216,22 +227,21 @@ const Login = () => {
           </div>
 
           <div className="text-center text-gray-600">
-            Don't have an account?{" "}
+            New to selling on Maalelo?{" "}
             <button
-              onClick={() => navigate("/signup")}
-              className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors underline underline-offset-4 hover:decoration-2"
+              onClick={() => navigate("/seller/signup")}
+              className="font-semibold text-emerald-500 hover:text-emerald-600 transition-colors underline underline-offset-4 hover:decoration-2"
             >
-              Create one now
+              Create a Seller Account
               <ArrowUpRightIcon className="h-4 w-4 inline-block ml-1" />
             </button>
             <br />
             <br />
             <button
-              onClick={() => navigate("/seller/signup")}
-              className="inline-flex items-center gap-2 rounded-2xl border border-gold-200 bg-gold-100 px-4 py-2 text-sm font-semibold text-gold-900 hover:bg-gold-200 hover:text-indigo-700 transition-colors shadow-sm hover:shadow-md"
+              onClick={() => navigate("/")}
+              className="inline-flex items-center gap-2 rounded-2xl border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-200 transition-colors shadow-sm hover:shadow-md"
             >
-              Become a Seller Today!
-              <ArrowUpRightIcon className="h-4 w-4" />
+              Back to Main Site
             </button>
           </div>
         </div>
@@ -240,4 +250,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SellerLogin;

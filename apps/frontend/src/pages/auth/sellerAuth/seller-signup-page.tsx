@@ -1,24 +1,24 @@
 import { Button } from "@/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSession } from "@/context/session-context";
-import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    CornerDownRight,
-    Eye,
-    EyeOff,
-    Loader2Icon,
-    LockIcon,
-    MailIcon,
-    UserIcon,
+  CornerDownRight,
+  Eye,
+  EyeOff,
+  Loader2Icon,
+  LockIcon,
+  MailIcon,
+  StoreIcon,
+  UserIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -38,7 +38,7 @@ const loginSchema = z.object({
     .min(6, { message: "Password must have at least 6 characters" }),
 });
 
-const SignUp = () => {
+const SellerSignUp = () => {
   const { session, SignUp } = useSession();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -76,9 +76,17 @@ const SignUp = () => {
   return (
     <div className="min-h-screen py-28">
       <div className="flex flex-col items-center justify-center px-4">
-        <div className="w-full max-w-sm space-y-8">
+        <div className="w-full max-w-lg space-y-8">
           <div className="text-center animate-fade-in-up">
-            <p className="text-gray-600 text-lg">Join Maalelo today!</p>
+            <h1 className="text-4xl font-montserrat text-gray-700 flex flex-col gap-5 items-center justify-center">
+              <span className="mr-3">Create a Account on</span>
+              <span className="flex items-center">
+                <StoreIcon className="h-9 w-9 text-indigo-500 mr-2" />
+                <span className="text-indigo-500 text-3xl font-semibold">
+                  Seller Portal
+                </span>
+              </span>
+            </h1>
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 transition-all hover:shadow-2xl">
@@ -206,9 +214,9 @@ const SignUp = () => {
           </div>
 
           <div className="text-center text-gray-600">
-            Already have an account?{" "}
+            Already a seller on Maalelo?{" "}
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/seller/login")}
               className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors underline underline-offset-4 hover:decoration-2"
             >
               Login
@@ -216,11 +224,10 @@ const SignUp = () => {
             <br />
             <br />
             <button
-              onClick={() => navigate("/seller/signup")}
-              className="inline-flex items-center gap-2 rounded-2xl border border-gold-200 bg-gold-100 px-4 py-2 text-sm font-semibold text-gold-900 hover:bg-gold-200 hover:text-indigo-700 transition-colors shadow-sm hover:shadow-md"
+              onClick={() => navigate("/")}
+              className="inline-flex items-center gap-2 rounded-2xl border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-200 transition-colors shadow-sm hover:shadow-md"
             >
-              Become a Seller Today!
-              <ArrowUpRightIcon className="h-4 w-4" />
+              Back to Main Site
             </button>
           </div>
         </div>
@@ -229,4 +236,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SellerSignUp;
