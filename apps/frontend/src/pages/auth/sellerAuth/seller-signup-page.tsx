@@ -39,7 +39,7 @@ const loginSchema = z.object({
 });
 
 const SellerSignUp = () => {
-  const { session, SignUp } = useSession();
+  const { session, sellerSignUp } = useSession();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const inputRef = useRef<any>();
@@ -64,8 +64,8 @@ const SellerSignUp = () => {
     const { name, email, password } = userInfo;
 
     try {
-      await SignUp(name, email, password);
-      navigate("/");
+      await sellerSignUp(name, email, password);
+      navigate("/seller/onBoarding");
     } catch (error: any) {
       loginForm.setError("root", {
         message: error.message || "Sign up failed",

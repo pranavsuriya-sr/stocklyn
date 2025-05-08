@@ -38,7 +38,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const SellerLogin = () => {
   const navigate = useNavigate();
-  const { login, session } = useSession();
+  const { sellerLogin, session } = useSession();
   const [showPassword, setShowPassword] = useState(false);
   const inputRef = useRef<any>();
 
@@ -60,7 +60,7 @@ const SellerLogin = () => {
 
   async function onSubmit(values: LoginFormValues) {
     try {
-      await login(values.email, values.password);
+      await sellerLogin(values.email, values.password);
       navigate("/");
     } catch (error: any) {
       loginForm.setError("root", {
