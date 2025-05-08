@@ -5,7 +5,6 @@ import exchange from "../../assets/exchange_icon.png";
 import quality from "../../assets/quality_icon.png";
 import support from "../../assets/support_img.png";
 import image from "../../assets/woman-2564660_1280.jpg";
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {

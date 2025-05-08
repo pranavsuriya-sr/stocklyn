@@ -105,7 +105,8 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  //seller functions
+  //seller functions---------------------------------------------------------------------------------------------------------------------
+
   const sellerLogin = async (email: string, password: string) => {
     try {
       const response = await api.post("/auth/seller/login", {
