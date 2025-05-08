@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/form";
 
 import { Input } from "@/components/ui/input";
+import { useSession } from "@/context/session-context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ArrowRightIcon,
@@ -23,7 +24,6 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { useSession } from "../../context/session-context";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Enter a valid email" }).nonempty(),
@@ -223,6 +223,15 @@ const Login = () => {
             >
               Create one now
               <ArrowUpRightIcon className="h-4 w-4 inline-block ml-1" />
+            </button>
+            <br />
+            <br />
+            <button
+              onClick={() => navigate("/seller/signup")}
+              className="inline-flex items-center gap-2 rounded-2xl border border-gold-200 bg-gold-100 px-4 py-2 text-sm font-semibold text-gold-900 hover:bg-gold-200 hover:text-indigo-700 transition-colors shadow-sm hover:shadow-md"
+            >
+              Become a Seller Today!
+              <ArrowUpRightIcon className="h-4 w-4" />
             </button>
           </div>
         </div>

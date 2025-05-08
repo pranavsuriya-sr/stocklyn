@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSession } from "@/context/session-context";
+import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CornerDownRight,
@@ -211,6 +212,15 @@ const SignUp = () => {
               className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors underline underline-offset-4 hover:decoration-2"
             >
               Login
+            </button>
+            <br />
+            <br />
+            <button
+              onClick={() => navigate("/seller/signup")}
+              className="inline-flex items-center gap-2 rounded-2xl border border-gold-200 bg-gold-100 px-4 py-2 text-sm font-semibold text-gold-900 hover:bg-gold-200 hover:text-indigo-700 transition-colors shadow-sm hover:shadow-md"
+            >
+              Become a Seller Today!
+              <ArrowUpRightIcon className="h-4 w-4" />
             </button>
           </div>
         </div>
