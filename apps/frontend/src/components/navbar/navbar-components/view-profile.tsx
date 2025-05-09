@@ -59,11 +59,10 @@ const ViewProfile = () => {
           <DropdownMenuItem onClick={() => HandleProfileClick()}>
             <UserCog2></UserCog2>Profile
           </DropdownMenuItem>
-          {user !== undefined && user?.role != "seller" && (
-            <DropdownMenuItem onClick={() => navigate("/cartItems")}>
-              <Wallet2></Wallet2>Billing
-            </DropdownMenuItem>
-          )}
+
+          <DropdownMenuItem onClick={() => navigate("/cartItems")}>
+            <Wallet2></Wallet2>Billing
+          </DropdownMenuItem>
 
           <DropdownMenuItem onClick={() => navigate("/orderHistory")}>
             <Truck></Truck>Orders
