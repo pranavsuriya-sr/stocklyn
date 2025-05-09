@@ -46,6 +46,18 @@ const SellerNavbar = () => {
           </li>
           <li>
             <Link
+              to="/seller/about"
+              className={`transition-colors duration-200 px-3 py-2 rounded-md ${
+                isActive("/seller/about")
+                  ? "text-indigo-700 bg-indigo-50 font-medium"
+                  : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
+              }`}
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
               to="/seller/sell"
               className={`transition-colors duration-200 px-3 py-2 rounded-md ${
                 isActive("/seller/sell")
@@ -54,6 +66,18 @@ const SellerNavbar = () => {
               }`}
             >
               Sell
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/seller/policy"
+              className={`transition-colors duration-200 px-3 py-2 rounded-md ${
+                isActive("/seller/policy")
+                  ? "text-indigo-700 bg-indigo-50 font-medium"
+                  : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
+              }`}
+            >
+              Policies
             </Link>
           </li>
           <li>
@@ -72,8 +96,7 @@ const SellerNavbar = () => {
 
         {user && (
           <div className="flex items-center space-x-4">
-            {/* Example: <ViewProfile /> or a logout button */}
-            <span className="text-gray-600">Welcome, {user.email}</span>
+            <span className="text-gray-600">Welcome, {user.name}</span>
           </div>
         )}
       </div>
