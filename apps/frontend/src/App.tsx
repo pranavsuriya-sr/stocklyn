@@ -4,6 +4,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import SellerProtectedPage from "./pages/protected/seller-protected-page";
+import SellerDashboardPage from "./pages/seller/dashboard/dashboard-page";
 const About = lazy(() => import("./pages/about/about-page"));
 const PolicyPage = lazy(() => import("./pages/about/shipping-policy-page"));
 const Login = lazy(() => import("./pages/auth/login-page"));
@@ -68,7 +70,7 @@ const App = () => {
   return (
     <>
       {/* {loading && <LoadingPage />} */}
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route
@@ -373,6 +375,22 @@ const App = () => {
                 </motion.div>
               }
             />
+            <Route
+              path="/seller/dashboard"
+              element={
+                <SellerProtectedPage>
+                  <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <SellerDashboardPage />
+                  </motion.div>{" "}
+                </SellerProtectedPage>
+              }
+            ></Route>
             <Route
               path="*"
               element={
