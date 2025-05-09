@@ -55,7 +55,7 @@ const SellerSignUp = () => {
 
   useEffect(() => {
     if (session) {
-      navigate("/");
+      navigate("/seller/dashboard");
     }
     inputRef.current.focus();
   }, [session, navigate]);

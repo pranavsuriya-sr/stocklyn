@@ -45,7 +45,7 @@ const SellerLogin = () => {
   useEffect(() => {
     // If already logged in, redirect to home
     if (session) {
-      navigate("/");
+      navigate("/seller/dashboard");
     }
     inputRef.current.focus();
   }, [session, navigate]);
