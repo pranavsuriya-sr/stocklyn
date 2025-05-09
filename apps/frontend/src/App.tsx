@@ -1,43 +1,34 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 
 import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import About from "./pages/about/about-page";
+import PolicyPage from "./pages/about/shipping-policy-page";
+import Login from "./pages/auth/login-page";
+import SellerLogin from "./pages/auth/sellerAuth/seller-login-page";
+import SellerSignUp from "./pages/auth/sellerAuth/seller-signup-page";
+import SignUp from "./pages/auth/signup-page";
+import Cart from "./pages/cart/cart-page";
+import CheckOut from "./pages/checkout/checkout-page";
+import ContactPage from "./pages/contact/contact-page";
+import NotFoundPage from "./pages/error/error-page";
+import FallbackPage from "./pages/fallback/fallback-page";
+import Home from "./pages/home/home-page";
+import LandingPage from "./pages/landing/landing-page";
+import LocationAdd from "./pages/location/location-add-page";
+import LocationsDisplayPage from "./pages/location/locations-display-page";
+import OrderHistory from "./pages/order/order-history-page";
+import ProductPage from "./pages/product/product-page";
+import UserProfile from "./pages/profile/user-profile";
+import ProtectedPage from "./pages/protected/procted-page";
 import SellerProtectedPage from "./pages/protected/seller-protected-page";
+import SearchPage from "./pages/search/search-page";
 import SellerDashboardPage from "./pages/seller/dashboard/dashboard-page";
-const About = lazy(() => import("./pages/about/about-page"));
-const PolicyPage = lazy(() => import("./pages/about/shipping-policy-page"));
-const Login = lazy(() => import("./pages/auth/login-page"));
-const SellerLogin = lazy(
-  () => import("./pages/auth/sellerAuth/seller-login-page")
-);
-const SellerSignUp = lazy(
-  () => import("./pages/auth/sellerAuth/seller-signup-page")
-);
-const SignUp = lazy(() => import("./pages/auth/signup-page"));
-const Cart = lazy(() => import("./pages/cart/cart-page"));
-const CheckOut = lazy(() => import("./pages/checkout/checkout-page"));
-const ContactPage = lazy(() => import("./pages/contact/contact-page"));
-const NotFoundPage = lazy(() => import("./pages/error/error-page"));
-const Home = lazy(() => import("./pages/home/home-page"));
-const LandingPage = lazy(() => import("./pages/landing/landing-page"));
-const LocationAdd = lazy(() => import("./pages/location/location-add-page"));
-const LocationsDisplayPage = lazy(
-  () => import("./pages/location/locations-display-page")
-);
-const OrderHistory = lazy(() => import("./pages/order/order-history-page"));
-const ProductPage = lazy(() => import("./pages/product/product-page"));
-const UserProfile = lazy(() => import("./pages/profile/user-profile"));
-const ProtectedPage = lazy(() => import("./pages/protected/procted-page"));
-const SearchPage = lazy(() => import("./pages/search/search-page"));
-const ShopPage = lazy(() => import("./pages/shop/shop-page"));
-const PaymentFailurePage = lazy(
-  () => import("./pages/stripe-redirect/failure-page")
-);
-const PaymentSuccessPage = lazy(
-  () => import("./pages/stripe-redirect/success-page")
-);
+import ShopPage from "./pages/shop/shop-page";
+import PaymentFailurePage from "./pages/stripe-redirect/failure-page";
+import PaymentSuccessPage from "./pages/stripe-redirect/success-page";
 
 const pageVariants = {
   initial: {
@@ -70,7 +61,7 @@ const App = () => {
   return (
     <>
       {/* {loading && <LoadingPage />} */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<FallbackPage />}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route
