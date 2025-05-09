@@ -8,10 +8,13 @@ A full-stack e-commerce application (in development)
 
 ## Progress
 
-- Completed
+- Completed buyer interface
+- Cooking Seller interface
 
 ## todo
 
+- Add sell page at seller interface
+- Build a builder OnBoarding form
 - Quality Life Features
 
 ## Features
@@ -22,6 +25,7 @@ A full-stack e-commerce application (in development)
 - Shopping cart functionality
 - Secure checkout process
 - Order management
+- RBAC for sellers and buyers
 - more coming soon..
 
 ## Tech Stack
