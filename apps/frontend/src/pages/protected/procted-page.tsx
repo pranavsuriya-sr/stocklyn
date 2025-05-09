@@ -1,9 +1,10 @@
 import { useSession } from "@/context/session-context";
 import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import UnauthorizedForSellerPage from "../unauthorized/unauthorized-forseller-page";
 
 const ProtectedPage = ({ children }: { children: ReactNode }) => {
-  const { session, isLoading } = useSession();
+  const { session, isLoading, user } = useSession();
   const navigate = useNavigate();
   useEffect(() => {
     if (!isLoading && !session) {
@@ -13,6 +14,10 @@ const ProtectedPage = ({ children }: { children: ReactNode }) => {
 
   if (isLoading) {
     return <div className="mt-72">Loading...</div>;
+  }
+
+  if (!isLoading && user?.role == "seller") {
+    return <UnauthorizedForSellerPage />;
   }
 
   if (!isLoading && session !== null) {
