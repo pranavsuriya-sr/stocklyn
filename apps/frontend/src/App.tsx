@@ -23,7 +23,9 @@ import UserProfile from "./pages/profile/user-profile";
 import ProtectedPage from "./pages/protected/procted-page";
 import SellerProtectedPage from "./pages/protected/seller-protected-page";
 import SearchPage from "./pages/search/search-page";
+import SellerAboutPage from "./pages/seller/about/seller-about-page";
 import SellerDashboardPage from "./pages/seller/dashboard/dashboard-page";
+import SellerPolicyPage from "./pages/seller/policy/policy-page";
 import ShopPage from "./pages/shop/shop-page";
 import PaymentFailurePage from "./pages/stripe-redirect/failure-page";
 import PaymentSuccessPage from "./pages/stripe-redirect/success-page";
@@ -379,6 +381,38 @@ const App = () => {
                     transition={pageTransition}
                   >
                     <SellerDashboardPage />
+                  </motion.div>{" "}
+                </SellerProtectedPage>
+              }
+            ></Route>
+            <Route
+              path="/seller/about"
+              element={
+                <SellerProtectedPage>
+                  <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <SellerAboutPage />
+                  </motion.div>{" "}
+                </SellerProtectedPage>
+              }
+            ></Route>
+            <Route
+              path="/seller/policy"
+              element={
+                <SellerProtectedPage>
+                  <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <SellerPolicyPage />
                   </motion.div>{" "}
                 </SellerProtectedPage>
               }
