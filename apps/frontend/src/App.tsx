@@ -1,8 +1,6 @@
-import { Suspense } from "react";
-
 import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import About from "./pages/about/about-page";
 import PolicyPage from "./pages/about/shipping-policy-page";
@@ -29,6 +27,7 @@ import SellerDashboardPage from "./pages/seller/dashboard/dashboard-page";
 import ShopPage from "./pages/shop/shop-page";
 import PaymentFailurePage from "./pages/stripe-redirect/failure-page";
 import PaymentSuccessPage from "./pages/stripe-redirect/success-page";
+import UnauthorizedPage from "./pages/unauthorized/unauthorized-page";
 
 const pageVariants = {
   initial: {
@@ -337,7 +336,9 @@ const App = () => {
                 </motion.div>
               }
             />
-            //Seller Routes
+            -----------------------------------Seller
+            Routes---------------------------------------------------
+            <Route path="/seller/unauthorized" element={<UnauthorizedPage />} />
             <Route
               path="/seller/signup"
               element={
