@@ -31,8 +31,8 @@ const SellerProtectedPage = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/seller/dashboard" replace />;
   }
 
-  if (!user || user.role !== "seller") {
-    return <Navigate to="/seller/login" replace />;
+  if (user && user.role !== "seller") {
+    return <Navigate to="/seller/unauthorized" replace />;
   }
 
   return <>{children}</>;
