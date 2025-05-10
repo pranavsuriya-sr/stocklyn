@@ -1,7 +1,8 @@
 import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Suspense, useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { useSession } from "./context/session-context";
 import About from "./pages/about/about-page";
 import PolicyPage from "./pages/about/shipping-policy-page";
 import Login from "./pages/auth/login-page";
@@ -29,6 +30,7 @@ import SellerPolicyPage from "./pages/seller/policy/policy-page";
 import ShopPage from "./pages/shop/shop-page";
 import PaymentFailurePage from "./pages/stripe-redirect/failure-page";
 import PaymentSuccessPage from "./pages/stripe-redirect/success-page";
+import UnauthorizedForSellerPage from "./pages/unauthorized/unauthorized-forseller-page";
 import UnauthorizedPage from "./pages/unauthorized/unauthorized-page";
 
 const pageVariants = {
@@ -51,6 +53,7 @@ const pageTransition = {
 
 const App = () => {
   const location = useLocation();
+  const { user, isLoading } = useSession();
 
   useEffect(() => {
     window.scrollTo({
@@ -58,6 +61,23 @@ const App = () => {
       behavior: "smooth",
     });
   }, [location]);
+
+  if (
+    !isLoading &&
+    user?.role === "seller" &&
+    !location.pathname.startsWith("/seller")
+  ) {
+    return <Navigate to="/seller/unauthorized" replace />;
+  }
+
+  if (
+    (!isLoading &&
+      user?.role === "buyer" &&
+      location.pathname.startsWith("/seller")) ||
+    location.pathname.startsWith("/admin")
+  ) {
+    return <Navigate to="/unauthorized" replace />;
+  }
 
   return (
     <>
@@ -338,9 +358,26 @@ const App = () => {
                 </motion.div>
               }
             />
+            <Route
+              path="/unauthorized"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <UnauthorizedPage />
+                </motion.div>
+              }
+            />
             -----------------------------------Seller
             Routes---------------------------------------------------
-            <Route path="/seller/unauthorized" element={<UnauthorizedPage />} />
+            <Route
+              path="/seller/unauthorized"
+              element={<UnauthorizedForSellerPage />}
+            />
             <Route
               path="/seller/signup"
               element={
@@ -413,6 +450,22 @@ const App = () => {
                     transition={pageTransition}
                   >
                     <SellerPolicyPage />
+                  </motion.div>{" "}
+                </SellerProtectedPage>
+              }
+            ></Route>
+            <Route
+              path="/seller/contact"
+              element={
+                <SellerProtectedPage>
+                  <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <ContactPage />
                   </motion.div>{" "}
                 </SellerProtectedPage>
               }

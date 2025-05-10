@@ -5,10 +5,6 @@ import { useNavigate } from "react-router-dom";
 const UnauthorizedPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleSignUp = () => {
-    navigate("/seller/signup");
-  };
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 pt-28">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
@@ -22,12 +18,6 @@ const UnauthorizedPage: React.FC = () => {
           this is an error, please contact support.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <button
-            onClick={handleSignUp}
-            className="w-full sm:w-auto bg-indigo-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-150 ease-in-out"
-          >
-            Sign Up as Seller
-          </button>
           <button
             onClick={() => navigate("/")}
             className="w-full sm:w-auto bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-lg transition duration-150 ease-in-out"
