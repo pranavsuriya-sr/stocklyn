@@ -1,10 +1,11 @@
 import { useSession } from "@/context/session-context"; // Assuming you might want to use session info
 import { motion } from "framer-motion";
+import { LogOut } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const SellerNavbar = () => {
   const location = useLocation();
-  const { user } = useSession();
+  const { user, logout } = useSession();
 
   const isActive = (path: string) => {
     return location.pathname === path || location.pathname.startsWith(path);
@@ -82,9 +83,9 @@ const SellerNavbar = () => {
           </li>
           <li>
             <Link
-              to="/contact"
+              to="/seller/contact"
               className={`transition-colors duration-200 px-3 py-2 rounded-md ${
-                isActive("/contact")
+                isActive("/seller/contact")
                   ? "text-indigo-700 bg-indigo-50 font-medium"
                   : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
               }`}
@@ -97,6 +98,11 @@ const SellerNavbar = () => {
         {user && (
           <div className="flex items-center space-x-4">
             <span className="text-gray-600">Welcome, {user.name}</span>
+            <LogOut
+              size={24}
+              onClick={() => logout()}
+              className="hover:cursor-pointer"
+            />
           </div>
         )}
       </div>

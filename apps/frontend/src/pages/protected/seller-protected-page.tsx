@@ -8,7 +8,6 @@ const SellerProtectedPage = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
   useEffect(() => {
-    // If not loading and no user, redirect to login.
     if (!isLoading && !user) {
       navigate("/seller/login");
     }
