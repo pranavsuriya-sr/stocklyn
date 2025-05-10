@@ -28,9 +28,12 @@ model Products {
   cartItems          CartItems[]
   category           Category    @relation(fields: [categoryName], references: [name])
   orderItems         OrderItems[]
+  sellerId           String?
+  seller             Users?      @relation("SellerProducts",fields: [sellerId], references: [id])
   @@index([categoryName])
+  @@index([sellerId])
 }
-
+  
 model Users {
   id             String    @id @default(cuid())
   name           String
@@ -45,6 +48,7 @@ model Users {
   cart           Cart?
   orders         Order[]
   contact        Contact[]
+  products       Products[] @relation("SellerProducts")
 }
 
 model Cart {

@@ -1,4 +1,5 @@
 import { useSession } from "@/context/session-context";
+import FooterPage from "./footer-page";
 import SellerFooterPage from "./seller-footer-page";
 
 const DynamicFooterPage = () => {
@@ -12,7 +13,7 @@ const DynamicFooterPage = () => {
     return <SellerFooterPage />;
   }
 
-  return <div>DynamicFooterPage</div>;
+  return <FooterPage />;
 };
 
 export default DynamicFooterPage;

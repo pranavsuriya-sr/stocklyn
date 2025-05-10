@@ -298,6 +298,18 @@ productRoute.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+productRoute.post("/sellerProducts", async (req: Request, res: Response) => {
+  console.log("hi");
+  return;
+  // if (!sellerId) {
+  //   res.status(400).json({
+  //     message:
+  //       "Required feilds are missing , ie. sellerId at /product/sellerProducts",
+  //   });
+  //   return;
+  // }
+});
+
 productRoute.get(
   `/similarProducts/:category`,
   async (req: Request, res: Response) => {

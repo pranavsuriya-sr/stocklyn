@@ -165,9 +165,53 @@ const SellerAboutPage = () => {
           </h2>
           <div className="w-20 h-1 bg-indigo-600 mx-auto mb-6"></div>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            We’re dedicated to your success—offering transparency, tools,
+            We're dedicated to your success—offering transparency, tools,
             community, and support to help you thrive as a seller on Maalelo.
           </p>
+        </section>
+
+        <section className="py-20 md:py-28 bg-gray-50 mt-10">
+          <div className="container mx-auto px-6 text-center">
+            <h2 className="text-4xl font-bold text-indigo-700 mb-4">
+              What Our Sellers Say
+            </h2>
+            <div className="w-20 h-1 bg-indigo-600 mx-auto mb-12"></div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {[
+                {
+                  quote:
+                    "Maalelo has been a game-changer for our small business. The platform is easy to use and we've seen a significant increase in sales!",
+                  author: "Jane Doe",
+                  store: "Crafty Creations",
+                },
+                {
+                  quote:
+                    "The support team is fantastic! They are always responsive and helpful, which makes selling on Maalelo a breeze.",
+                  author: "John Smith",
+                  store: "Tech Gadgets Co.",
+                },
+                {
+                  quote:
+                    "We love the community aspect and the various tools available. Maalelo truly helps us grow and reach new customers.",
+                  author: "Alice Brown",
+                  store: "Gourmet Goods",
+                },
+              ].map((testimonial, i) => (
+                <div
+                  key={i}
+                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl border border-gray-200 transition-all duration-300 flex flex-col items-center"
+                >
+                  <p className="text-gray-600 italic mb-6 text-lg">
+                    "{testimonial.quote}"
+                  </p>
+                  <h3 className="text-xl font-semibold text-indigo-700">
+                    {testimonial.author}
+                  </h3>
+                  <p className="text-sm text-gray-500">{testimonial.store}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
       </main>
     </div>
