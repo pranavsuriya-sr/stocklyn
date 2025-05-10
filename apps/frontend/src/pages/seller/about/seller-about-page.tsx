@@ -12,7 +12,7 @@ const SellerAboutPage = () => {
   const navigate = useNavigate();
   return (
     <div className="bg-white text-gray-800 leading-relaxed font-montserrat">
-      <header className="bg-gradient-to-r from-indigo-700 via-indigo-600 to-blue-600 text-white py-24 md:py-32 shadow-xl relative overflow-hidden">
+      <header className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 text-white py-24 md:py-32 shadow-xl relative overflow-hidden">
         <div className="container mx-auto px-6 text-center z-10 relative">
           <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
             Partner with <span className="text-yellow-300">Maalelo</span> &

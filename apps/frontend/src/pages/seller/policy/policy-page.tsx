@@ -17,8 +17,8 @@ const SellerPolicyPage = () => {
   const sectionIdPrefix = "seller-policy-section-";
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 mt-28">
-      <div className="relative bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-20 px-6 md:px-24">
+    <div className="min-h-screen bg-white text-gray-800 pt-10">
+      <div className="relative bg-gradient-to-r from-indigo-600 to-indigo-500 text-white py-20 px-6 md:px-24">
         <div className="max-w-4xl mx-auto text-center mb-8 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Maalelo Seller Policies
