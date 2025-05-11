@@ -308,6 +308,8 @@ productRoute.post("/sellerProducts", async (req: Request, res: Response) => {
   //   });
   //   return;
   // }
+
+  //should be done later tomorrow , Testing is pending
 });
 
 productRoute.get(
