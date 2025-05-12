@@ -1,8 +1,32 @@
+import { sellerStatsRoute } from "@/api/api";
+import { useSession } from "@/context/session-context";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const SellerDashboardPage: React.FC = () => {
+  const { user } = useSession();
+  const sellerId = user?.id;
+
+  const GetSellerDetails = async ({
+    sellerId,
+  }: {
+    sellerId: string | undefined;
+  }) => {
+    if (sellerId === undefined) {
+      return;
+    }
+    const response = await sellerStatsRoute.get(`/${sellerId}`);
+
+    return response.data;
+  };
+
+  const { data } = useQuery({
+    queryKey: ["sellerStats"],
+    queryFn: () => GetSellerDetails({ sellerId: sellerId }),
+  });
+
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8 mt-20">
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Seller Dashboard</h1>
       </header>
@@ -19,14 +43,18 @@ const SellerDashboardPage: React.FC = () => {
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
             Total Orders
           </h2>
-          <p className="text-3xl font-bold text-green-600">0</p>
+          <p className="text-3xl font-bold text-green-600">
+            {data?.totalOrders}
+          </p>
           <p className="text-sm text-gray-500 mt-1">+0% from last month</p>
         </div>
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
             Active Listings
           </h2>
-          <p className="text-3xl font-bold text-blue-600">0</p>
+          <p className="text-3xl font-bold text-blue-600">
+            {data?.totalProducts}
+          </p>
           <p className="text-sm text-gray-500 mt-1">Manage your products</p>
         </div>
         <div className="bg-white shadow-lg rounded-lg p-6">
@@ -50,7 +78,6 @@ const SellerDashboardPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Recent Activity Placeholder */}
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
             Recent Activity
