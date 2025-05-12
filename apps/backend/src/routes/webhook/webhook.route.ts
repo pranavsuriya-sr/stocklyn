@@ -72,11 +72,20 @@ const webhookHandler = async (req: Request, res: Response) => {
             total: totalAmount,
           },
         });
+        const sellerIds = await prisma.products.findMany({
+          where: {
+            id: {
+              in: cartItems.map((item) => item.productId),
+            },
+          },
+        });
 
         const orderItemsData = cartItems.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
           orderId: orderInformation.id,
+          sellerId: sellerIds.find((seller) => seller.id === item.productId)
+            ?.sellerId,
         }));
 
         await prisma.orderItems.createMany({
