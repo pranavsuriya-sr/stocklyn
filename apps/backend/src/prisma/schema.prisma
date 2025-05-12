@@ -49,6 +49,7 @@ model Users {
   orders         Order[]
   contact        Contact[]
   products       Products[] @relation("SellerProducts")
+  sellerOrderItems OrderItems[] @relation("SellerOrderItems")
 }
 
 model Cart {
@@ -110,8 +111,6 @@ model Order{
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   OrderItems  OrderItems[]
-  
-  
 }
 
 model OrderItems{
@@ -121,6 +120,9 @@ model OrderItems{
   productId   String
   product     Products @relation(fields: [productId], references: [id])
   quantity    Int      @default(1)
+  sellerId    String?
+  seller      Users?   @relation("SellerOrderItems",fields: [sellerId], references: [id])
+  @@index([sellerId])
 }
 
 model Contact{
