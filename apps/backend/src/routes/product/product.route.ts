@@ -298,19 +298,35 @@ productRoute.get("/search", async (req: Request, res: Response) => {
   }
 });
 
-productRoute.post("/sellerProducts", async (req: Request, res: Response) => {
-  console.log("hi");
-  return;
-  // if (!sellerId) {
-  //   res.status(400).json({
-  //     message:
-  //       "Required feilds are missing , ie. sellerId at /product/sellerProducts",
-  //   });
-  //   return;
-  // }
+// productRoute.post("/sellersProduct", async (req: Request, res: Response) => {
+//   const sellerId = "";
 
-  //should be done later tomorrow , Testing is pending
-});
+//   const seller = await prisma.users.findUnique({
+//     where: { id: sellerId },
+//   });
+
+//   if (!seller) {
+//     console.error("Seller with id '' not found.");
+//     return;
+//   }
+
+//   const updated = await prisma.products.updateMany({
+//     where: { sellerId: null },
+//     data: { sellerId },
+//   });
+
+//   res.status(200).send(updated);
+//   return;
+//   // if (!sellerId) {
+//   //   res.status(400).json({
+//   //     message:
+//   //       "Required feilds are missing , ie. sellerId at /product/sellerProducts",
+//   //   });
+//   //   return;
+//   // }
+
+//   //should be done later tomorrow , Testing is pending
+// });
 
 productRoute.get(
   `/similarProducts/:category`,
