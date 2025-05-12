@@ -24,7 +24,7 @@ const SellerDashboardPage: React.FC = () => {
     queryKey: ["sellerStats"],
     queryFn: () => GetSellerDetails({ sellerId: sellerId }),
   });
-
+  console.log(data);
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8 mt-20">
       <header className="mb-8">
@@ -59,9 +59,11 @@ const SellerDashboardPage: React.FC = () => {
         </div>
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
-            Store Rating
+            Total Items sold
           </h2>
-          <p className="text-3xl font-bold text-yellow-500">N/A</p>
+          <p className="text-3xl font-bold text-yellow-500">
+            {data?.totalCountOfItemsSold}
+          </p>
           <p className="text-sm text-gray-500 mt-1">Based on 0 reviews</p>
         </div>
       </div>
