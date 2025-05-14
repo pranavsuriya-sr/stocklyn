@@ -28,9 +28,9 @@ const SellerDashboardPage: React.FC = () => {
   });
   console.log(data);
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8 mt-20">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8 mt-20 font-montserrat">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Seller Dashboard</h1>
+        <h1 className="text-3xl text-gray-800">Seller Dashboard</h1>
       </header>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
@@ -55,7 +55,7 @@ const SellerDashboardPage: React.FC = () => {
           <p className="text-3xl font-bold text-green-600">
             {data?.totalOrders}
           </p>
-          <p className="text-sm text-gray-500 mt-1">+0% from last month</p>
+          <p className="text-sm text-gray-500 mt-1">+700% from last month</p>
         </div>
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold text-gray-700 mb-2">

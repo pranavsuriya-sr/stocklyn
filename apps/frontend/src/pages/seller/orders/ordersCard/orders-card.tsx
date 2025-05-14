@@ -43,7 +43,6 @@ const OrdersCard: React.FC<OrderCardProps> = ({
         />
       </div>
 
-      {/* Details Section */}
       <div className="w-full md:w-2/3 p-4 md:p-6 flex flex-col font-montserrat">
         <div className="flex-grow">
           <div className="mb-3 md:mb-4">
