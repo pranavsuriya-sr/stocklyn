@@ -2,9 +2,11 @@ import { sellerStatsRoute } from "@/api/api";
 import { useSession } from "@/context/session-context";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SellerDashboardPage: React.FC = () => {
   const { user } = useSession();
+  const navigate = useNavigate();
   const sellerId = user?.id;
 
   const GetSellerDetails = async ({
@@ -36,10 +38,17 @@ const SellerDashboardPage: React.FC = () => {
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
             Total Sales
           </h2>
-          <p className="text-3xl font-bold text-indigo-600">$0.00</p>
-          <p className="text-sm text-gray-500 mt-1">+0% from last month</p>
+          <p className="text-3xl font-bold text-indigo-600">
+            ₹ {data?.totalCost || 0}
+          </p>
+          <p className="text-sm text-gray-500 mt-1">
+            From the last 100 products
+          </p>
         </div>
-        <div className="bg-white shadow-lg rounded-lg p-6">
+        <div
+          className="bg-white shadow-lg rounded-lg p-6 hover:bg-gray-50 cursor-pointer"
+          onClick={() => navigate("/seller/orders")}
+        >
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
             Total Orders
           </h2>
@@ -64,7 +73,7 @@ const SellerDashboardPage: React.FC = () => {
           <p className="text-3xl font-bold text-yellow-500">
             {data?.totalCountOfItemsSold}
           </p>
-          <p className="text-sm text-gray-500 mt-1">Based on 0 reviews</p>
+          <p className="text-sm text-gray-500 mt-1">View Items Sold</p>
         </div>
       </div>
 
