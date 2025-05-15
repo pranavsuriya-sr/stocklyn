@@ -13,7 +13,6 @@ const PaymentSuccessPage = () => {
             Thank you for your purchase! Your transaction is complete.
           </p>
         </div>
-        //this is success page
 
         <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-12">
           <div className="space-y-8">
