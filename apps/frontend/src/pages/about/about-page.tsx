@@ -70,7 +70,7 @@ const About = () => {
         style={{ minHeight: "calc(-58px + 83vh)" }}
       >
         <div className="flex-1 pt-8 lg:pt-16 lg:pr-16 order-2 lg:order-1">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight sm:leading-snug bg-gradient-to-r from-indigo-600 to-blue-500 text-transparent bg-clip-text">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight sm:leading-snug bg-gradient-to-r from-red-600 to-blue-300 text-transparent bg-clip-text">
             Seamless <br className="hidden sm:block" />
             E-Commerce Experience
           </h1>

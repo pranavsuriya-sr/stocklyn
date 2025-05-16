@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v0.1.8
-        with: 
+        with:
           host: ${{ secrets.VM_HOST }}
           username: maalelo
           key: ${{ secrets.SSH_PRIVATE_KEY }}
