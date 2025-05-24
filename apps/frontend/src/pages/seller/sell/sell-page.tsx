@@ -1,5 +1,6 @@
 import { categoryRoute } from "@/api/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createClient } from "@supabase/supabase-js";
 import { useQuery } from "@tanstack/react-query";
 import {
   FileIcon,
@@ -87,6 +88,18 @@ type ProductFormValues = z.infer<typeof productSchema>;
 const defaultFileArrayItem = undefined;
 
 const SellPage = () => {
+  const supabase = createClient("your_project_url", "your_supabase_api_key");
+  async function uploadFile(file: any) {
+    const { data, error } = await supabase.storage
+      .from("bucket_name")
+      .upload("file_path", file);
+    if (error) {
+      // Handle error
+    } else {
+      // Handle success
+    }
+  }
+
   const {
     register,
     handleSubmit,
