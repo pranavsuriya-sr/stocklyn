@@ -111,7 +111,7 @@ const SellPage = () => {
       highlights: ["", "", ""],
     },
   });
-  const [file, setFile] = useState<File | null>(null);
+
   const [displayImageUrl, setDisplayImageUrl] = useState<string | null>(null);
 
   const { fields, append, remove } = useFieldArray<
@@ -166,18 +166,16 @@ const SellPage = () => {
     if (file.size > MAX_FILE_SIZE) {
       alert("File size is too large");
     }
-    if (file) {
-      setFile(file);
-    }
     // console.log(file);
 
     const formData = new FormData();
     formData.append("file", file);
 
     const response = await axios.post(
-      "https://localhost:5000/sellerActions/uploadImage",
+      "http://localhost:5000/addProduct/uploadImage",
       formData
     );
+
     console.log(response.data);
     setDisplayImageUrl(response.data.imageUrl);
   };
