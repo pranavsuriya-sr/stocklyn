@@ -26,7 +26,7 @@ const SellerDashboardPage: React.FC = () => {
     queryKey: ["sellerStats"],
     queryFn: () => GetSellerDetails({ sellerId: sellerId }),
   });
-  console.log(data);
+  // console.log(data);
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8 mt-20 font-montserrat">
       <header className="mb-8">
