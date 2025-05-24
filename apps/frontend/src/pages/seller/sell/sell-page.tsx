@@ -1,6 +1,5 @@
 import { categoryRoute } from "@/api/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClient } from "@supabase/supabase-js";
 import { useQuery } from "@tanstack/react-query";
 import {
   FileIcon,
@@ -88,17 +87,9 @@ type ProductFormValues = z.infer<typeof productSchema>;
 const defaultFileArrayItem = undefined;
 
 const SellPage = () => {
-  const supabase = createClient("your_project_url", "your_supabase_api_key");
-  async function uploadFile(file: any) {
-    const { data, error } = await supabase.storage
-      .from("bucket_name")
-      .upload("file_path", file);
-    if (error) {
-      // Handle error
-    } else {
-      // Handle success
-    }
-  }
+  // const supabase = createClient( ,
+
+  // );
 
   const {
     register,
@@ -157,7 +148,7 @@ const SellPage = () => {
 
   const fetchCategories = async () => {
     const response = await categoryRoute.get("/allcategory");
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   };
 
@@ -165,6 +156,21 @@ const SellPage = () => {
     queryKey: ["categories"],
     queryFn: () => fetchCategories(),
   });
+
+  const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const file = e.target?.files?.[0] as File;
+    // console.log(console.log(await supabase.auth.getUser()));
+    // const { data, error } = await supabase.storage
+    //   .from("product.images")
+    //   .upload("/", file as File);
+    // if (error) {
+    //   // Handle error
+    //   console.log(error);
+    // } else {
+    //   // Handle success
+    // }
+    // console.log(data);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8 pt-28 font-montserrat mt-16">
@@ -312,6 +318,7 @@ const SellPage = () => {
                     className="sr-only"
                     onChange={(e) =>
                       onChange(
+                        uploadFile(e),
                         e.target.files && e.target.files.length > 0
                           ? e.target.files
                           : null
