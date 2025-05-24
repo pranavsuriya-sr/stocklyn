@@ -35,7 +35,7 @@ addProductRoute.post(
         .getPublicUrl(file.originalname);
 
       //   console.log(publicUrl);
-      console.log(publicUrl.publicUrl);
+      //   console.log(publicUrl.publicUrl);
       res.status(200).send({ publicUrl: publicUrl.publicUrl });
     } catch (error) {
       res.send(error);

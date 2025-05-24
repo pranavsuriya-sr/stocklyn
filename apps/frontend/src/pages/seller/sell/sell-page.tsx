@@ -149,7 +149,7 @@ const SellPage = () => {
   const fetchCategories = async () => {
     const response = await categoryRoute.get("/allcategory");
     // console.log(response.data);
-    return response.data;
+    return response?.data;
   };
 
   const { data: categories } = useQuery({
@@ -175,9 +175,7 @@ const SellPage = () => {
       "http://localhost:5000/addProduct/uploadImage",
       formData
     );
-
-    console.log(response.data);
-    setDisplayImageUrl(response.data.imageUrl);
+    setDisplayImageUrl(response.data.publicUrl);
   };
 
   return (
