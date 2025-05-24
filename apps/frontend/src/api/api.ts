@@ -58,3 +58,9 @@ export const sellerStatsRoute = axios.create({
     ? import.meta.env.VITE_SELLER_STATS_ROUTE_PROD
     : import.meta.env.VITE_SELLER_STATS_ROUTE,
 });
+
+export const addProductRoute = axios.create({
+  baseURL: isProd
+    ? import.meta.env.VITE_ADD_PRODUCT_ROUTE_PROD
+    : import.meta.env.VITE_ADD_PRODUCT_ROUTE,
+});
