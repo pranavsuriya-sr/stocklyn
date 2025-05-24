@@ -66,7 +66,7 @@ app.use("/payment", paymentRoute);
 app.use("/order", orderRoute);
 app.use("/contact", contactRoute);
 app.use("/seller", sellerStatsRoute);
-app.use("/sellerActions", addProductRoute);
+app.use("/addProduct", addProductRoute);
 
 const PORT = 5000;
 
