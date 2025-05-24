@@ -16,7 +16,7 @@ addProductRoute.post(
     //@ts-ignore
     const file = req.file;
     // const filePath = `product.images/${file.originalname}`;
-    console.log(file);
+    // console.log(file);
 
     try {
       const { data, error } = await supabase.storage
@@ -34,7 +34,6 @@ addProductRoute.post(
         .from("product.images")
         .getPublicUrl(file.originalname);
 
-      //   console.log(publicUrl);
       //   console.log(publicUrl.publicUrl);
       res.status(200).send({ publicUrl: publicUrl.publicUrl });
     } catch (error) {
