@@ -28,6 +28,7 @@ import SellerAboutPage from "./pages/seller/about/seller-about-page";
 import SellerDashboardPage from "./pages/seller/dashboard/dashboard-page";
 import SellerOrdersPage from "./pages/seller/orders/orders-page";
 import SellerPolicyPage from "./pages/seller/policy/policy-page";
+import SellPage from "./pages/seller/sell/sell-page";
 import ShopPage from "./pages/shop/shop-page";
 import PaymentFailurePage from "./pages/stripe-redirect/failure-page";
 import PaymentSuccessPage from "./pages/stripe-redirect/success-page";
@@ -483,6 +484,22 @@ const App = () => {
                     transition={pageTransition}
                   >
                     <SellerOrdersPage />
+                  </motion.div>{" "}
+                </SellerProtectedPage>
+              }
+            ></Route>
+            <Route
+              path="/seller/sell"
+              element={
+                <SellerProtectedPage>
+                  <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <SellPage />
                   </motion.div>{" "}
                 </SellerProtectedPage>
               }
