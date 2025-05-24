@@ -103,7 +103,7 @@ const SellPage = () => {
       category: "",
       otherCategoryName: "",
       displayImage: undefined,
-      ImageUrl: [], // Initializes as an empty array, items will be FileList | undefined
+      ImageUrl: [],
       stockQuantity: undefined,
       details: "",
       highlights: ["", "", ""],
