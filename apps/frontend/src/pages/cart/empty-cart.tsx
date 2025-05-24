@@ -4,11 +4,11 @@ const EmptyCart = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white text-gray-800 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-20 md:pt-28 font-montserrat">
       <div className="max-w-md w-full space-y-8 text-center">
         <div className="mx-auto animate-bounce">
           <svg
-            className="h-24 w-24 text-gray-300"
+            className="h-24 w-24 text-indigo-300 mx-auto"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -27,7 +27,7 @@ const EmptyCart = () => {
           <h2 className="text-3xl font-montserrat font-bold text-gray-900">
             Your Cart Feels Lonely
           </h2>
-          <p className="text-lg font-montserrat text-gray-500">
+          <p className="text-lg font-montserrat text-gray-600">
             Your shopping cart is empty. Let's fill it with your favorite items!
           </p>
         </div>
@@ -35,11 +35,11 @@ const EmptyCart = () => {
         {/* CTA Button */}
         <div className="mt-8">
           <button
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200 transform hover:scale-105"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-semibold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
             onClick={() => navigate("/home")}
           >
             <svg
-              className="w-5 h-5 mr-2"
+              className="w-5 h-5 mr-2 -ml-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

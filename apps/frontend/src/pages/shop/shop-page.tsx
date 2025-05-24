@@ -102,7 +102,7 @@ const ShopPage = () => {
       <div className="w-full max-w-7xl">
         <div>
           <div className="font-montserrat text-2xl sm:text-3xl md:text-4xl font-bold py-6 md:py-10 text-center sm:text-left">
-            All available Items<br></br>
+            All available Items in Our Store<br></br>
             <span className="text-primary text-xl text-indigo-600">
               Page {Number(searchParams.get("skip")) / 12 + 1}
             </span>
@@ -120,6 +120,7 @@ const ShopPage = () => {
                     name={product.name}
                     imgSrc={product.displayImage}
                     price={product.price}
+                    item={product.categoryName}
                   />
                 </div>
               ))
