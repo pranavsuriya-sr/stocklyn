@@ -269,7 +269,6 @@ const Cart = () => {
               );
             })}
         </div>
-        Add before you leave
       </div>
 
       <div className="mt-8 sm:mt-12 border rounded-lg p-4 sm:p-6 max-w-3xl mx-auto w-full">
