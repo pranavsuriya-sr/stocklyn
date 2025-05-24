@@ -87,10 +87,6 @@ type ProductFormValues = z.infer<typeof productSchema>;
 const defaultFileArrayItem = undefined;
 
 const SellPage = () => {
-  // const supabase = createClient( ,
-
-  // );
-
   const {
     register,
     handleSubmit,
@@ -157,20 +153,7 @@ const SellPage = () => {
     queryFn: () => fetchCategories(),
   });
 
-  const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const file = e.target?.files?.[0] as File;
-    // console.log(console.log(await supabase.auth.getUser()));
-    // const { data, error } = await supabase.storage
-    //   .from("product.images")
-    //   .upload("/", file as File);
-    // if (error) {
-    //   // Handle error
-    //   console.log(error);
-    // } else {
-    //   // Handle success
-    // }
-    // console.log(data);
-  };
+  const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {};
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8 pt-28 font-montserrat mt-16">
