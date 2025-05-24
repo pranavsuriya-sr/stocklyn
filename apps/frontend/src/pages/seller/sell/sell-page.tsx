@@ -1,6 +1,7 @@
 import { categoryRoute } from "@/api/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import {
   FileIcon,
   PlusCircleIcon,
@@ -8,6 +9,7 @@ import {
   UploadCloudIcon,
   XIcon,
 } from "lucide-react";
+import { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -109,6 +111,8 @@ const SellPage = () => {
       highlights: ["", "", ""],
     },
   });
+  const [file, setFile] = useState<File | null>(null);
+  const [displayImageUrl, setDisplayImageUrl] = useState<string | null>(null);
 
   const { fields, append, remove } = useFieldArray<
     ProductFormValues,
@@ -153,7 +157,30 @@ const SellPage = () => {
     queryFn: () => fetchCategories(),
   });
 
-  const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      alert("Please select a file");
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      alert("File size is too large");
+    }
+    if (file) {
+      setFile(file);
+    }
+    // console.log(file);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await axios.post(
+      "https://localhost:5000/sellerActions/uploadImage",
+      formData
+    );
+    console.log(response.data);
+    setDisplayImageUrl(response.data.imageUrl);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8 pt-28 font-montserrat mt-16">
@@ -293,20 +320,22 @@ const SellPage = () => {
               name="displayImage"
               control={control}
               defaultValue={undefined}
-              render={({ field: { onChange, onBlur, name, value, ref } }) => (
+              render={({
+                field: { onChange: rhfOnChange, onBlur, name, value, ref },
+              }) => (
                 <>
                   <input
                     type="file"
                     id="displayImage-input"
                     className="sr-only"
-                    onChange={(e) =>
-                      onChange(
-                        uploadFile(e),
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      uploadFile(e);
+                      rhfOnChange(
                         e.target.files && e.target.files.length > 0
                           ? e.target.files
                           : null
-                      )
-                    }
+                      );
+                    }}
                     onBlur={onBlur}
                     name={name}
                     accept={ACCEPTED_IMAGE_TYPES.join(",")}
