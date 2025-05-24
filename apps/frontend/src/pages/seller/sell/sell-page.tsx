@@ -1,7 +1,6 @@
-import { categoryRoute } from "@/api/api";
+import { addProductRoute, categoryRoute } from "@/api/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import {
   FileIcon,
   PlusCircleIcon,
@@ -171,10 +170,7 @@ const SellPage = () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await axios.post(
-      "http://localhost:5000/addProduct/uploadImage",
-      formData
-    );
+    const response = await addProductRoute.post("/uploadImage", formData);
     setDisplayImageUrl(response.data.publicUrl);
   };
 
