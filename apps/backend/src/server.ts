@@ -12,6 +12,7 @@ import contactRoute from "./routes/contact/contact.route";
 import orderRoute from "./routes/order/order.route";
 import paymentRoute from "./routes/payment/payment.route";
 import productRoute from "./routes/product/product.route";
+import addProductRoute from "./routes/sellerRoutes/add-product.route";
 import sellerStatsRoute from "./routes/sellerRoutes/seller-stats.route";
 import webhookHandler from "./routes/webhook/webhook.route";
 import { AuthenticatedRequest } from "./types/jwt";
@@ -65,6 +66,7 @@ app.use("/payment", paymentRoute);
 app.use("/order", orderRoute);
 app.use("/contact", contactRoute);
 app.use("/seller", sellerStatsRoute);
+app.use("/sellerActions", addProductRoute);
 
 const PORT = 5000;
 
