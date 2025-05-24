@@ -9,6 +9,8 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+//ecosystem.config.js fix
+
 addProductRoute.post(
   "/uploadImage",
   upload.single("file"),
