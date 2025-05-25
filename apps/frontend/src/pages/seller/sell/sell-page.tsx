@@ -146,6 +146,7 @@ const SellPage = () => {
     const sellerId = user?.id;
     const displayImage = displayImageUrl;
     const imageUrl = [...additionalImageUrls, displayImageUrl];
+    // const colors: String[] = []; add colours later
 
     const payload = {
       name,
@@ -217,7 +218,8 @@ const SellPage = () => {
   };
 
   const uploadAdditionalImages = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
   ) => {
     const file = e.target.files?.[0];
     if (!file) {
@@ -230,7 +232,11 @@ const SellPage = () => {
     const formData = new FormData();
     formData.append("file", file);
     const response = await addProductRoute.post("/uploadImage", formData);
-    setAdditionalImageUrls((prev) => [...prev, response.data.publicUrl]);
+    setAdditionalImageUrls((prev) => {
+      const newUrls = [...prev];
+      newUrls[index] = response.data.publicUrl;
+      return newUrls;
+    });
   };
 
   return (
@@ -392,52 +398,99 @@ const SellPage = () => {
                     accept={ACCEPTED_IMAGE_TYPES.join(",")}
                     ref={ref}
                   />
-                  <label
-                    htmlFor="displayImage-input"
-                    className={`${fileInputBaseClass} ${errors.displayImage ? "border-red-500" : ""}`}
-                  >
-                    <div className="text-center">
-                      <UploadCloudIcon className={fileInputIconClass} />
-                      <p className="font-medium text-indigo-600">
-                        {value && value.length > 0
-                          ? "Change display image"
-                          : "Click to upload display image"}
-                      </p>
-                      <p className={fileInputTextClass}>or drag and drop</p>
-                      <p className={fileInputTextClass}>
-                        PNG, JPG, WEBP up to 3MB
-                      </p>
-                    </div>
-                  </label>
-                  {value && value.length > 0 && (
-                    <div className="mt-2 p-2 border border-gray-300 rounded-md bg-gray-50 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <FileIcon className="h-5 w-5 text-gray-500" />
-                        <span className="text-sm text-gray-700 truncate max-w-xs">
-                          {value[0].name}
-                        </span>
+
+                  {displayImageUrl ? (
+                    <div className="mt-2">
+                      <img
+                        src={displayImageUrl}
+                        alt="Display Preview"
+                        className="block max-h-60 w-auto rounded-md border border-gray-300 object-contain"
+                      />
+                      <div className="mt-2 flex items-center justify-between">
+                        <label
+                          htmlFor="displayImage-input"
+                          className="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                          Change Image
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setDisplayImageUrl(null);
+                            setValue("displayImage", null, {
+                              shouldValidate: true,
+                            });
+                            const fileInput = document.getElementById(
+                              "displayImage-input"
+                            ) as HTMLInputElement;
+                            if (fileInput) {
+                              fileInput.value = "";
+                            }
+                          }}
+                          className="rounded-md p-1.5 text-red-600 hover:bg-red-100 hover:text-red-700"
+                          aria-label="Remove display image"
+                        >
+                          <XIcon size={20} />
+                        </button>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setValue("displayImage", null, {
-                            shouldValidate: true,
-                          })
-                        }
-                        className="p-1 text-red-500 hover:text-red-700"
-                      >
-                        <XIcon size={18} />
-                      </button>
                     </div>
+                  ) : (
+                    <div>
+                      <label
+                        htmlFor="displayImage-input"
+                        className={`${fileInputBaseClass} ${errors.displayImage ? "border-red-500" : ""}`}
+                      >
+                        <div className="text-center">
+                          <UploadCloudIcon className={fileInputIconClass} />
+                          <p className="font-medium text-indigo-600">
+                            Click to upload display image
+                          </p>
+                          <p className={fileInputTextClass}>or drag and drop</p>
+                          <p className={fileInputTextClass}>
+                            PNG, JPG, WEBP up to 3MB
+                          </p>
+                        </div>
+                      </label>
+
+                      {value && value.length > 0 && (
+                        <div className="mt-2 p-2 border border-gray-300 rounded-md bg-gray-50 flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <FileIcon className="h-5 w-5 text-gray-500" />
+                            <span className="text-sm text-gray-700 truncate max-w-xs">
+                              {value[0].name}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setValue("displayImage", null, {
+                                shouldValidate: true,
+                              });
+                              const fileInput = document.getElementById(
+                                "displayImage-input"
+                              ) as HTMLInputElement;
+                              if (fileInput) {
+                                fileInput.value = "";
+                              }
+                            }}
+                            className="p-1 text-red-500 hover:text-red-700"
+                            aria-label="Clear selected file"
+                          >
+                            <XIcon size={18} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {errors.displayImage && (
+                    <p className={errorClass}>
+                      {errors.displayImage.message?.toString()}
+                    </p>
                   )}
                 </>
               )}
             />
-            {errors.displayImage && (
-              <p className={errorClass}>
-                {errors.displayImage.message?.toString()}
-              </p>
-            )}
           </div>
 
           <div>
@@ -452,78 +505,141 @@ const SellPage = () => {
                     field: { onChange, onBlur, name, value, ref },
                   }) => (
                     <>
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="file"
-                          id={`imageUrl-input.${index}`}
-                          className="sr-only"
-                          onChange={(e) => {
-                            uploadAdditionalImages(e);
-                            onChange(
-                              e.target.files && e.target.files.length > 0
-                                ? e.target.files
-                                : null
-                            );
-                          }}
-                          onBlur={onBlur}
-                          name={name}
-                          accept={ACCEPTED_IMAGE_TYPES.join(",")}
-                          ref={ref}
-                        />
-                        <label
-                          htmlFor={`imageUrl-input.${index}`}
-                          className={`${fileInputBaseClass} flex-1 ${errors.imageUrl?.[index] ? "border-red-500" : ""}`}
-                        >
-                          <div className="text-center">
-                            <UploadCloudIcon className={fileInputIconClass} />
-                            <p className="font-medium text-indigo-600">
-                              {value && value.length > 0
-                                ? "Change image"
-                                : `Upload additional image ${index + 1}`}
-                            </p>
-                            <p className={fileInputTextClass}>
-                              PNG, JPG, WEBP up to 3MB
-                            </p>
-                          </div>
-                        </label>
+                      <div className="flex items-start gap-2">
+                        <div className="flex-1">
+                          <input
+                            type="file"
+                            id={`imageUrl-input.${index}`}
+                            className="sr-only"
+                            onChange={(e) => {
+                              uploadAdditionalImages(e, index);
+                              onChange(
+                                e.target.files && e.target.files.length > 0
+                                  ? e.target.files
+                                  : null
+                              );
+                            }}
+                            onBlur={onBlur}
+                            name={name}
+                            accept={ACCEPTED_IMAGE_TYPES.join(",")}
+                            ref={ref}
+                          />
+
+                          {additionalImageUrls[index] ? (
+                            <div className="mt-0">
+                              <img
+                                src={additionalImageUrls[index]}
+                                alt={`Additional Preview ${index + 1}`}
+                                className="block max-h-48 w-auto rounded-md border border-gray-300 object-contain"
+                              />
+                              <div className="mt-2 flex items-center justify-between">
+                                <label
+                                  htmlFor={`imageUrl-input.${index}`}
+                                  className="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
+                                >
+                                  Change
+                                </label>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setAdditionalImageUrls((prev) => {
+                                      const newUrls = [...prev];
+                                      newUrls[index] = "";
+                                      return newUrls;
+                                    });
+                                    setValue(`imageUrl.${index}` as any, null, {
+                                      shouldValidate: true,
+                                    });
+                                    const fileInput = document.getElementById(
+                                      `imageUrl-input.${index}`
+                                    ) as HTMLInputElement;
+                                    if (fileInput) fileInput.value = "";
+                                  }}
+                                  className="rounded-md p-1 text-red-600 hover:bg-red-100 hover:text-red-700"
+                                  aria-label={`Remove additional image ${index + 1} preview`}
+                                >
+                                  <XIcon size={16} />
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div>
+                              <label
+                                htmlFor={`imageUrl-input.${index}`}
+                                className={`${fileInputBaseClass} flex-1 ${errors.imageUrl?.[index] ? "border-red-500" : ""}`}
+                              >
+                                <div className="text-center">
+                                  <UploadCloudIcon
+                                    className={fileInputIconClass}
+                                  />
+                                  <p className="font-medium text-indigo-600">
+                                    {value && value.length > 0
+                                      ? "Change image"
+                                      : `Upload additional image ${index + 1}`}
+                                  </p>
+                                  <p className={fileInputTextClass}>
+                                    PNG, JPG, WEBP up to 3MB
+                                  </p>
+                                </div>
+                              </label>
+                              {value && value.length > 0 && (
+                                <div className="mt-2 p-2 border border-gray-300 rounded-md bg-gray-50 flex items-center justify-between">
+                                  <div className="flex items-center gap-2">
+                                    <FileIcon className="h-5 w-5 text-gray-500" />
+                                    <span className="text-sm text-gray-700 truncate max-w-[calc(100%-3rem)]">
+                                      {value[0].name}
+                                    </span>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setValue(
+                                        `imageUrl.${index}` as any,
+                                        null,
+                                        { shouldValidate: true }
+                                      );
+                                      const fileInput = document.getElementById(
+                                        `imageUrl-input.${index}`
+                                      ) as HTMLInputElement;
+                                      if (fileInput) fileInput.value = "";
+                                      setAdditionalImageUrls((prev) => {
+                                        const newUrls = [...prev];
+                                        if (newUrls[index]) newUrls[index] = "";
+                                        return newUrls;
+                                      });
+                                    }}
+                                    className="p-1 text-red-500 hover:text-red-700"
+                                    aria-label={`Clear selected additional image ${index + 1}`}
+                                  >
+                                    <XIcon size={18} />
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
                         <button
                           type="button"
-                          onClick={() => remove(index)}
-                          className="p-2 text-red-500 hover:text-red-700 transition-colors self-start mt-8"
-                          aria-label={`Remove additional image ${index + 1}`}
+                          onClick={() => {
+                            remove(index);
+                            setAdditionalImageUrls((prev) =>
+                              prev.filter((_, i) => i !== index)
+                            );
+                          }}
+                          className="p-2 text-red-500 hover:text-red-700 transition-colors self-center mt-0"
+                          aria-label={`Remove additional image slot ${index + 1}`}
                         >
                           <Trash2Icon size={20} />
                         </button>
                       </div>
-                      {value && value.length > 0 && (
-                        <div className="mt-2 p-2 border border-gray-300 rounded-md bg-gray-50 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <FileIcon className="h-5 w-5 text-gray-500" />
-                            <span className="text-sm text-gray-700 truncate max-w-xs">
-                              {value[0].name}
-                            </span>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setValue(`imageUrl.${index}` as any, null, {
-                                shouldValidate: true,
-                              })
-                            }
-                            className="p-1 text-red-500 hover:text-red-700"
-                          >
-                            <XIcon size={18} />
-                          </button>
-                        </div>
+                      {errors.imageUrl?.[index] && (
+                        <p className={errorClass}>
+                          {errors.imageUrl[index]?.message?.toString()}
+                        </p>
                       )}
                     </>
                   )}
                 />
-                {errors.imageUrl?.[index] && (
-                  <p className={errorClass}>
-                    {errors.imageUrl[index]?.message?.toString()}
-                  </p>
-                )}
               </div>
             ))}
 
