@@ -181,7 +181,7 @@ const Cart = () => {
               return (
                 <div key={product.id}>
                   <div className="py-6 sm:py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
-                    <div className="flex flex-1 gap-4 w-full">
+                    <div className="flex flex-1 gap-4 w-full rounded">
                       <img
                         src={product.displayImage}
                         className="w-20 h-20 sm:w-32 sm:h-32 md:w-44 md:h-44 object-contain p-2 hover:cursor-pointer"

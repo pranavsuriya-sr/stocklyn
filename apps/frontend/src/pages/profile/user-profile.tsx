@@ -8,12 +8,12 @@ import UserInfoCard from "./user-info-card";
 const UserProfile = () => {
   const navigate = useNavigate();
   return (
-    <div className="pt-20 h-screen font-montserrat">
+    <div className="pt-20 h-screen font-montserrat bg-gray-100 text-gray-800">
       <div className="p-4 mt-5 text-3xl flex justify-center items-center ">
-        <div className="text-4xl">Your Account</div>
+        <div className="text-5xl font-semibold text-gray-700">Your Account</div>
       </div>
-      <div className="w-[90%] mx-auto pt-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="w-[90%] mx-auto pt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           <UserInfoCard
             name="Location"
             description="Edit Addresses for orders and gifts"
