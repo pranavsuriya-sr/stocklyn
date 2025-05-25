@@ -1,4 +1,5 @@
 import { addProductRoute, categoryRoute } from "@/api/api";
+import { useSession } from "@/context/session-context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -45,13 +46,13 @@ const productSchema = z
       (val) => parseFloat(String(val)),
       z.number().positive({ message: "Price must be a positive number" })
     ),
-    category: z.string().min(1, { message: "Category is required" }),
+    categoryName: z.string().min(1, { message: "Category is required" }),
     otherCategoryName: z.string().optional(),
     displayImage: fileListSchema("Display image").refine(
       (val) => val !== null && val !== undefined && val.length > 0,
       { message: "Display image is required." }
     ),
-    ImageUrl: z
+    imageUrl: z
       .array(fileListSchema("Additional image"))
       .max(3, { message: "You can add a maximum of 3 additional images" })
       .default([]),
@@ -72,7 +73,7 @@ const productSchema = z
   })
   .superRefine((data, ctx) => {
     if (
-      data.category === "other" &&
+      data.categoryName === "other" &&
       (!data.otherCategoryName || data.otherCategoryName.trim() === "")
     ) {
       ctx.addIssue({
@@ -88,6 +89,8 @@ type ProductFormValues = z.infer<typeof productSchema>;
 const defaultFileArrayItem = undefined;
 
 const SellPage = () => {
+  const { user } = useSession();
+
   const {
     register,
     handleSubmit,
@@ -101,10 +104,10 @@ const SellPage = () => {
       name: "",
       productDescription: "",
       price: undefined,
-      category: "",
+      categoryName: "",
       otherCategoryName: "",
       displayImage: undefined,
-      ImageUrl: [],
+      imageUrl: [],
       stockQuantity: undefined,
       details: "",
       highlights: ["", "", ""],
@@ -117,19 +120,59 @@ const SellPage = () => {
   const { fields, append, remove } = useFieldArray<
     ProductFormValues,
     // @ts-ignore
-    "ImageUrl",
+    "imageUrl",
     "id"
   >({
     control,
-    name: "ImageUrl",
+    name: "imageUrl",
   });
 
-  const watchedCategory = watch("category");
+  const watchedCategory = watch("categoryName");
   const watchedDisplayImage = watch("displayImage");
-  const watchedImageUrls = watch("ImageUrl");
+  const watchedImageUrls = watch("imageUrl");
+
+  const HandleAddProduct = async (data: ProductFormValues) => {
+    const {
+      name,
+      productDescription,
+      price,
+      categoryName,
+      otherCategoryName,
+      stockQuantity,
+      details,
+      highlights,
+    } = data;
+
+    const sellerId = user?.id;
+    const displayImage = displayImageUrl;
+    const imageUrl = additionalImageUrls;
+
+    const payload = {
+      name,
+      categoryName,
+      sellerId,
+      details,
+      productDescription,
+      stockQuantity,
+      displayImage,
+      highlights,
+      imageUrl,
+      price,
+      otherCategoryName,
+    };
+
+    try {
+      const response = await addProductRoute.post("/InsertProduct", payload);
+      console.log(response.data);
+    } catch (error) {
+      console.log("Error in submitting product form", error);
+    } finally {
+      console.log("Form Data has been submitted successfully.\n", data);
+    }
+  };
 
   const onSubmit = (data: ProductFormValues) => {
-    console.log("Form Data:", data);
+    HandleAddProduct(data);
   };
 
   const inputClass =
@@ -256,13 +299,13 @@ const SellPage = () => {
               )}
             </div>
             <div>
-              <label htmlFor="category" className={labelClass}>
+              <label htmlFor="categoryName" className={labelClass}>
                 Category <span className="text-red-500">*</span>
               </label>
               <div className={selectContainerClass}>
                 <select
-                  id="category"
-                  {...register("category")}
+                  id="categoryName"
+                  {...register("categoryName")}
                   className={selectClass}
                   defaultValue=""
                 >
@@ -298,8 +341,8 @@ const SellPage = () => {
                   </svg>
                 </div>
               </div>
-              {errors.category && (
-                <p className={errorClass}>{errors.category.message}</p>
+              {errors.categoryName && (
+                <p className={errorClass}>{errors.categoryName.message}</p>
               )}
             </div>
           </div>
@@ -404,7 +447,7 @@ const SellPage = () => {
             {fields.map((item, index) => (
               <div key={item.id} className="mb-4">
                 <Controller
-                  name={`ImageUrl.${index}` as const}
+                  name={`imageUrl.${index}` as const}
                   control={control}
                   defaultValue={undefined}
                   render={({
@@ -414,7 +457,7 @@ const SellPage = () => {
                       <div className="flex items-center gap-2">
                         <input
                           type="file"
-                          id={`ImageUrl-input.${index}`}
+                          id={`imageUrl-input.${index}`}
                           className="sr-only"
                           onChange={(e) => {
                             uploadAdditionalImages(e);
@@ -430,8 +473,8 @@ const SellPage = () => {
                           ref={ref}
                         />
                         <label
-                          htmlFor={`ImageUrl-input.${index}`}
-                          className={`${fileInputBaseClass} flex-1 ${errors.ImageUrl?.[index] ? "border-red-500" : ""}`}
+                          htmlFor={`imageUrl-input.${index}`}
+                          className={`${fileInputBaseClass} flex-1 ${errors.imageUrl?.[index] ? "border-red-500" : ""}`}
                         >
                           <div className="text-center">
                             <UploadCloudIcon className={fileInputIconClass} />
@@ -465,7 +508,7 @@ const SellPage = () => {
                           <button
                             type="button"
                             onClick={() =>
-                              setValue(`ImageUrl.${index}` as any, null, {
+                              setValue(`imageUrl.${index}` as any, null, {
                                 shouldValidate: true,
                               })
                             }
@@ -478,9 +521,9 @@ const SellPage = () => {
                     </>
                   )}
                 />
-                {errors.ImageUrl?.[index] && (
+                {errors.imageUrl?.[index] && (
                   <p className={errorClass}>
-                    {errors.ImageUrl[index]?.message?.toString()}
+                    {errors.imageUrl[index]?.message?.toString()}
                   </p>
                 )}
               </div>
@@ -498,10 +541,10 @@ const SellPage = () => {
                 Add Another Image
               </button>
             )}
-            {errors.ImageUrl &&
-              !Array.isArray(errors.ImageUrl) &&
-              typeof errors.ImageUrl.message === "string" && (
-                <p className={errorClass}>{errors.ImageUrl.message}</p>
+            {errors.imageUrl &&
+              !Array.isArray(errors.imageUrl) &&
+              typeof errors.imageUrl.message === "string" && (
+                <p className={errorClass}>{errors.imageUrl.message}</p>
               )}
           </div>
 
