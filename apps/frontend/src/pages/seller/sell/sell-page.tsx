@@ -112,6 +112,7 @@ const SellPage = () => {
   });
 
   const [displayImageUrl, setDisplayImageUrl] = useState<string | null>(null);
+  const [additionalImageUrls, setAdditionalImageUrls] = useState<string[]>([]);
 
   const { fields, append, remove } = useFieldArray<
     ProductFormValues,
@@ -156,7 +157,7 @@ const SellPage = () => {
     queryFn: () => fetchCategories(),
   });
 
-  const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const uploadDisplayImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
       alert("Please select a file");
@@ -172,6 +173,23 @@ const SellPage = () => {
 
     const response = await addProductRoute.post("/uploadImage", formData);
     setDisplayImageUrl(response.data.publicUrl);
+  };
+
+  const uploadAdditionalImages = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      alert("Please select a file");
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      alert("File size is too large");
+    }
+    const formData = new FormData();
+    formData.append("file", file);
+    const response = await addProductRoute.post("/uploadImage", formData);
+    setAdditionalImageUrls((prev) => [...prev, response.data.publicUrl]);
   };
 
   return (
@@ -321,7 +339,7 @@ const SellPage = () => {
                     id="displayImage-input"
                     className="sr-only"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      uploadFile(e);
+                      uploadDisplayImage(e);
                       rhfOnChange(
                         e.target.files && e.target.files.length > 0
                           ? e.target.files
@@ -398,13 +416,14 @@ const SellPage = () => {
                           type="file"
                           id={`ImageUrl-input.${index}`}
                           className="sr-only"
-                          onChange={(e) =>
+                          onChange={(e) => {
+                            uploadAdditionalImages(e);
                             onChange(
                               e.target.files && e.target.files.length > 0
                                 ? e.target.files
                                 : null
-                            )
-                          }
+                            );
+                          }}
                           onBlur={onBlur}
                           name={name}
                           accept={ACCEPTED_IMAGE_TYPES.join(",")}
