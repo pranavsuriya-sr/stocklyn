@@ -97,6 +97,7 @@ const SellPage = () => {
     control,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
@@ -164,7 +165,12 @@ const SellPage = () => {
 
     try {
       const response = await addProductRoute.post("/InsertProduct", payload);
-      console.log(response.data);
+      console.log("Product submission response:", response.data);
+      if (response.data && response.status === 200) {
+        reset();
+        setDisplayImageUrl(null);
+        setAdditionalImageUrls([]);
+      }
     } catch (error) {
       console.log("Error in submitting product form", error);
     }
