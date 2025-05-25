@@ -119,7 +119,7 @@ addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
         price,
       },
     });
-    res.status(200).send(insertProduct);
+    res.status(200).send("Successfully inserted product" + insertProduct);
   } catch (error) {
     res.status(500).send(error);
   }
