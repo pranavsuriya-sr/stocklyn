@@ -26,7 +26,7 @@ model Products {
   rating             Int         @default(0)
   usersPurchased     Int         @default(0)
   cartItems          CartItems[]
-  category           Category    @relation(fields: [categoryName], references: [name])
+  category           Category    @relation(fields: [categoryName], references: [name] , onDelete: Cascade) 
   orderItems         OrderItems[]
   sellerId           String?
   seller             Users?      @relation("SellerProducts",fields: [sellerId], references: [id])
