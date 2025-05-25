@@ -117,6 +117,7 @@ addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
         highlights,
         imageUrl,
         price,
+        colors: [],
       },
     });
     res.status(200).send("Successfully inserted product" + insertProduct);
