@@ -1,6 +1,8 @@
+import { Products } from "@prisma/client";
 import { createClient } from "@supabase/supabase-js";
 import express, { Request, Response } from "express";
 import multer from "multer";
+import { prisma } from "../../server";
 
 const addProductRoute = express.Router();
 const storage = multer.memoryStorage();
@@ -8,8 +10,6 @@ const upload = multer({ storage });
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
-
-//ecosystem.config.js fix
 
 addProductRoute.post(
   "/uploadImage",
@@ -45,7 +45,60 @@ addProductRoute.post(
 );
 
 addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
-  res.send("Hello World");
+  const {
+    name,
+    categoryName,
+    sellerId,
+    details,
+    productDescription,
+    stockQuantity,
+    displayImage,
+    highlights,
+    imageUrl,
+    price,
+  }: Products = req.body;
+
+  const otherCategoryName = req.body.otherCategoryName;
+  let currentCategory = null;
+
+  // category validation
+  if (!categoryName) {
+    let category = await prisma.category.findUnique({
+      where: {
+        name: otherCategoryName,
+      },
+    });
+    if (!category) {
+      const newCategory = await prisma.category.create({
+        data: {
+          name: otherCategoryName,
+          description: "This is a new category",
+        },
+      });
+      category = newCategory;
+    }
+    currentCategory = category;
+  }
+
+  try {
+    const insertProduct = await prisma.products.create({
+      data: {
+        name,
+        categoryName: currentCategory?.name || categoryName,
+        sellerId,
+        details,
+        productDescription,
+        stockQuantity,
+        displayImage,
+        highlights,
+        imageUrl,
+        price,
+      },
+    });
+    res.status(200).send(insertProduct);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 export default addProductRoute;
