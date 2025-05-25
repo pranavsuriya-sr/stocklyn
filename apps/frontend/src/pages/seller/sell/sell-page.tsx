@@ -145,7 +145,7 @@ const SellPage = () => {
 
     const sellerId = user?.id;
     const displayImage = displayImageUrl;
-    const imageUrl = additionalImageUrls;
+    const imageUrl = [...additionalImageUrls, displayImageUrl];
 
     const payload = {
       name,
@@ -166,8 +166,6 @@ const SellPage = () => {
       console.log(response.data);
     } catch (error) {
       console.log("Error in submitting product form", error);
-    } finally {
-      console.log("Form Data has been submitted successfully.\n", data);
     }
   };
 
