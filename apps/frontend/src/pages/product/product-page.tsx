@@ -55,6 +55,8 @@ const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [displayText, setDisplayText] = useState(false);
 
+  console.log(product);
+
   const HandleAddToCart = async () => {
     if (!user) {
       toast({
@@ -111,11 +113,11 @@ const ProductPage = () => {
         <div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-xl shadow-md">
             <Lens zoomFactor={1.5} lensSize={170} isStatic={false}>
-            <img
-              src={selectedImage}
-              alt={product.name || "Product"}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-            />
+              <img
+                src={selectedImage}
+                alt={product.name || "Product"}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
             </Lens>
           </div>
           <div className="flex gap-2 md:gap-4 overflow-x-auto py-2 scrollbar-hide">
