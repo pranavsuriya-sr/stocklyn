@@ -95,6 +95,11 @@ authRoute.post("/login", async (req: Request, res: Response) => {
       return;
     }
 
+    if (user.role === "seller") {
+      res.status(401).json({ error: "Unauthorized" });
+      return;
+    }
+
     const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
 
     if (!passwordMatch) {
