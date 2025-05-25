@@ -61,6 +61,24 @@ addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
   const otherCategoryName = req.body.otherCategoryName;
   let currentCategory = null;
 
+  //sellerId validation
+  if (!sellerId) {
+    res.status(400).send("Seller ID is required");
+    return;
+  }
+
+  try {
+    await prisma.users.findUnique({
+      where: {
+        id: sellerId,
+      },
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send("Error at sellerId validation in submitting product form" + error);
+  }
+
   // category validation
   if (!categoryName) {
     let category = await prisma.category.findUnique({
@@ -78,6 +96,12 @@ addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
       category = newCategory;
     }
     currentCategory = category;
+  }
+
+  //displayImage validation
+  if (!displayImage) {
+    res.status(400).send("Display Image is required");
+    return;
   }
 
   try {
