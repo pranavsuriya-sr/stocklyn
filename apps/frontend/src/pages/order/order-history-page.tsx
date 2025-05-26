@@ -131,15 +131,15 @@ const OrderHistory = () => {
 
   if (!orders || orders.length === 0) {
     return (
-      <div className="w-full min-h-[400px] flex flex-col items-center justify-center text-center py-16 px-4 bg-slate-50 mt-28">
-        <ShoppingBag className="h-16 w-16 mx-auto text-gray-300 mb-4" />
-        <h2 className="text-2xl font-semibold mb-2 text-slate-800">
+      <div className="w-full min-h-[400px] flex flex-col items-center justify-center text-center py-16 px-4 bg-white mt-20 md:mt-28 rounded-lg shadow-sm border border-gray-200">
+        <ShoppingBag className="h-16 w-16 mx-auto text-gray-400 mb-6" />
+        <h2 className="text-2xl font-semibold mb-2 text-gray-800">
           No orders yet
         </h2>
-        <p className="text-slate-600 mb-6 max-w-xs">
+        <p className="text-gray-600 mb-8 max-w-xs">
           Looks like you haven't placed any orders with us.
         </p>
-        <Button asChild>
+        <Button asChild className="bg-slate-800 hover:bg-slate-900 text-white">
           <Link to="/">
             Start Shopping
             <ChevronRight className="ml-2 h-4 w-4" />
@@ -173,25 +173,25 @@ const OrderHistory = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 mt-28">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
+    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 mt-20 md:mt-28">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-10 gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Your Orders
           </h1>
-          <p className="mt-1 text-base text-slate-600">
+          <p className="mt-2 text-base text-gray-600">
             Track and manage your purchase history.
           </p>
         </div>
         <Badge
           variant="outline"
-          className="text-sm px-3 py-1 self-start sm:self-center"
+          className="text-sm px-4 py-2 self-start sm:self-center border-gray-300 text-gray-700 bg-white"
         >
           {orders.length} {orders.length === 1 ? "Order" : "Orders"} Found
         </Badge>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {orders.map((order) => (
           <Collapsible
             key={order.id.toString()}
@@ -206,49 +206,49 @@ const OrderHistory = () => {
             }}
             className="w-full"
           >
-            <Card className="overflow-hidden border border-slate-200 shadow-sm">
-              <CardHeader className="pb-3 pt-4 px-4 sm:px-6 border-b border-slate-200 bg-slate-50/50">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                  <CardTitle className="text-base font-semibold">
+            <Card className="overflow-hidden border border-gray-200 shadow-lg rounded-xl bg-white">
+              <CardHeader className="pb-4 pt-5 px-5 sm:px-6 border-b border-gray-100 bg-gray-50">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <CardTitle className="text-lg font-semibold text-gray-800">
                     Order #{order.id.toString().substring(0, 8).toUpperCase()}
                   </CardTitle>
                   <Badge
                     variant={getBadgeVariant()}
-                    className="self-start sm:self-center"
+                    className="self-start sm:self-auto px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 border-blue-200"
                   >
                     {getOrderStatusText()}
                   </Badge>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-xs text-gray-500 mt-1.5">
                   {formatDistanceToNow(new Date(order.createdAt), {
                     addSuffix: true,
                   })}
                 </p>
               </CardHeader>
 
-              <CardContent className="px-4 sm:px-6 pt-4 pb-2">
+              <CardContent className="px-5 sm:px-6 pt-5 pb-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-sm">
-                    <Package className="h-4 w-4 text-muted-foreground" />
-                    <span className="font-medium text-slate-700">
+                  <div className="flex items-center space-x-3 text-sm">
+                    <Package className="h-5 w-5 text-gray-500" />
+                    <span className="font-medium text-gray-700">
                       {order.OrderItems.length}{" "}
                       {order.OrderItems.length === 1 ? "item" : "items"}
                     </span>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-slate-800">
+                    <p className="font-semibold text-lg text-gray-800">
                       {formatCurrency(Number(order.total))}
                     </p>
                   </div>
                 </div>
               </CardContent>
 
-              <CardFooter className="pt-0 pb-3 px-4 sm:px-6">
+              <CardFooter className="pt-2 pb-4 px-5 sm:px-6 bg-gray-50/70 border-t border-gray-100">
                 <CollapsibleTrigger asChild>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex w-full items-center justify-center text-sm text-blue-600 hover:bg-blue-50 hover:text-blue-700 -ml-2"
+                    className="flex w-full items-center justify-center text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-800 font-medium -ml-2"
                   >
                     {expandedOrders[order.id.toString()] ? (
                       <>
@@ -264,9 +264,9 @@ const OrderHistory = () => {
               </CardFooter>
 
               <CollapsibleContent>
-                <div className="px-4 sm:px-6 pb-4 pt-2">
-                  <div className="rounded-md border border-slate-200 bg-white overflow-hidden">
-                    <div className="border-b border-slate-200 bg-slate-50/80 px-4 py-2 text-xs font-medium text-muted-foreground hidden md:block">
+                <div className="px-5 sm:px-6 pb-5 pt-3 bg-white border-t border-gray-100">
+                  <div className="rounded-lg border border-gray-200 bg-white overflow-hidden">
+                    <div className="border-b border-gray-200 bg-gray-50 px-4 py-2.5 text-xs font-semibold text-gray-600 hidden md:block">
                       <div className="grid grid-cols-12 gap-4 items-center">
                         <div className="col-span-6">Product</div>
                         <div className="col-span-3 text-center">Quantity</div>
@@ -282,12 +282,12 @@ const OrderHistory = () => {
                         return (
                           <div
                             key={item.id.toString()}
-                            className={`border-b border-slate-200 px-4 py-3 text-sm last:border-0 ${index % 2 === 1 ? "bg-slate-50/50" : ""}`}
+                            className={`border-b border-gray-100 px-4 py-4 text-sm last:border-0 ${index % 2 === 1 ? "bg-gray-50/60" : "bg-white"}`}
                           >
                             <div className="grid grid-cols-12 items-center gap-4">
                               <div className="col-span-12 md:col-span-6">
-                                <div className="flex items-center gap-3">
-                                  <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded border border-slate-200">
+                                <div className="flex items-center gap-3.5">
+                                  <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 bg-gray-50">
                                     <img
                                       src={item.displayImage}
                                       alt={item.name}
@@ -299,30 +299,30 @@ const OrderHistory = () => {
                                     />
                                   </div>
                                   <div className="flex flex-col">
-                                    <span className="font-medium text-slate-800 leading-tight truncate">
+                                    <span className="font-medium text-gray-800 leading-tight">
                                       {item.name}
                                     </span>
-                                    <span className="text-xs text-muted-foreground md:hidden">
+                                    <span className="text-xs text-gray-500 md:hidden mt-0.5">
                                       {formatCurrency(item.price)} / item
                                     </span>
                                   </div>
                                 </div>
                               </div>
 
-                              <div className="col-span-6 md:col-span-3 text-center">
-                                <span className="md:hidden text-xs text-muted-foreground mr-1">
+                              <div className="col-span-6 md:col-span-3 text-left md:text-center">
+                                <span className="md:hidden text-xs text-gray-500 mr-1.5">
                                   Qty:
                                 </span>
-                                <span className="font-medium text-slate-700">
+                                <span className="font-medium text-gray-700">
                                   {quantity.toString()}
                                 </span>
                               </div>
 
-                              <div className="col-span-6 md:col-span-3 text-right">
-                                <span className="md:hidden text-xs text-muted-foreground mr-1">
+                              <div className="col-span-6 md:col-span-3 text-left md:text-right">
+                                <span className="md:hidden text-xs text-gray-500 mr-1.5">
                                   Total:
                                 </span>
-                                <span className="font-medium text-slate-800">
+                                <span className="font-medium text-gray-800">
                                   {formatCurrency(itemTotalPrice)}
                                 </span>
                               </div>
@@ -331,17 +331,17 @@ const OrderHistory = () => {
                         );
                       })
                     ) : (
-                      <div className="p-4 text-center text-sm text-muted-foreground">
+                      <div className="p-6 text-center text-sm text-gray-500">
                         Loading item details...
                         {/* Or show an error if fetch failed */}
                       </div>
                     )}
-                    <div className="flex justify-end border-t border-slate-200 bg-slate-50/80 px-4 py-3">
+                    <div className="flex justify-end border-t border-gray-200 bg-gray-50 px-4 py-3.5">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-sm font-medium text-muted-foreground">
+                        <span className="text-sm font-medium text-gray-600">
                           Order Total:
                         </span>
-                        <span className="text-lg font-semibold text-slate-900">
+                        <span className="text-xl font-semibold text-gray-900">
                           {formatCurrency(order.total.toString())}
                         </span>
                       </div>
