@@ -33,26 +33,27 @@ const OrdersCard: React.FC<OrderCardProps> = ({
   });
 
   return (
-    <div className="flex flex-col md:flex-row bg-white shadow-xl rounded-xl overflow-hidden w-full max-w-md md:max-w-4xl mx-auto my-6 transition-all duration-300 hover:shadow-2xl">
+    <div className="flex flex-col bg-white shadow-lg rounded-lg overflow-hidden h-full transition-all duration-300 hover:shadow-xl">
       {/* Image Section */}
-      <div className="w-full md:w-48 flex-shrink-0">
+      <div className="w-full h-48 md:h-56 flex-shrink-0">
         <img
-          className="object-cover w-full h-full aspect-square md:aspect-auto"
+          className="object-cover w-full h-full"
           src={imageUrl}
           alt={productName}
         />
       </div>
 
-      <div className="w-full md:w-2/3 p-4 md:p-6 flex flex-col font-montserrat">
-        <div className="flex-grow">
-          <div className="mb-3 md:mb-4">
-            <h2 className="text-xl md:text-2xl text-gray-900 tracking-tight">
-              Order ID: <span className="font-light">{orderId}</span>
+      <div className="w-full p-6 flex flex-col flex-grow font-montserrat">
+        <div className="flex-grow mb-4">
+          <div className="mb-4">
+            <h2 className="text-lg md:text-xl text-gray-800 font-semibold tracking-tight mb-1">
+              Order ID:{" "}
+              <span className="font-normal text-gray-700">{orderId}</span>
             </h2>
-            <p className="text-sm text-gray-500 mt-1 flex items-center">
+            <p className="text-xs text-gray-500 flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 mr-1.5 text-gray-400"
+                className="h-3.5 w-3.5 mr-1.5 text-gray-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -68,30 +69,32 @@ const OrdersCard: React.FC<OrderCardProps> = ({
             </p>
           </div>
 
-          <div className="space-y-2 md:space-y-3 text-gray-700">
+          <div className="space-y-2 text-sm text-gray-700">
             <p>
-              <span className="font-semibold text-gray-800">User:</span>{" "}
+              <span className="font-medium text-gray-800">User ID:</span>{" "}
               {userId}
             </p>
             {productName && productName !== "Product Image" && (
               <p>
-                <span className="font-semibold text-gray-800">Product:</span>{" "}
+                <span className="font-medium text-gray-800">Product:</span>{" "}
                 {productName}
               </p>
             )}
             <p>
-              <span className="font-semibold text-gray-800">Total Price:</span>{" "}
-              ${totalPrice}
+              <span className="font-medium text-gray-800">Total Price:</span>{" "}
+              <span className="text-green-600 font-semibold">
+                ${totalPrice}
+              </span>
             </p>
             <p>
-              <span className="font-semibold text-gray-800">Quantity:</span>{" "}
+              <span className="font-medium text-gray-800">Quantity:</span>{" "}
               {quantity}
             </p>
           </div>
         </div>
 
-        <div className="mt-auto pt-3 md:pt-4 text-right">
-          <p className="text-xs text-gray-400 flex items-center justify-end">
+        <div className="mt-auto pt-4 text-right">
+          <p className="text-xs text-gray-500 flex items-center justify-end">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-3.5 w-3.5 mr-1 text-gray-400"
