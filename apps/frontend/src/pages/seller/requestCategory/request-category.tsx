@@ -1,3 +1,5 @@
+import { addProductRoute } from "@/api/api";
+import { useSession } from "@/context/session-context";
 import {
   ChevronRight,
   Edit3,
@@ -13,15 +15,22 @@ const RequestCategory = () => {
   const [reason, setReason] = useState("");
   const [estimatedProducts, setEstimatedProducts] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
+  const { user } = useSession();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log({
+  const HandleRequestCategory = async () => {
+    const payLoad = {
+      id: user?.id,
       categoryName,
       reason,
       estimatedProducts,
-      additionalNotes,
-    });
+    };
+    const response = await addProductRoute.post("/requestCategory", payLoad);
+    console.log(response);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    HandleRequestCategory();
   };
 
   return (

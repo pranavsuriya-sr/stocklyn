@@ -1,4 +1,4 @@
-import { Products } from "@prisma/client";
+import { CategoryRequest, Products } from "@prisma/client";
 import { createClient } from "@supabase/supabase-js";
 import express, { Request, Response } from "express";
 import multer from "multer";
@@ -125,5 +125,67 @@ addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 });
+
+addProductRoute.post(
+  "/requestCategory",
+  async (req: Request, res: Response) => {
+    const { id, categoryName, reason, estimatedProducts }: CategoryRequest =
+      req.body;
+
+    if (!id || !categoryName || !reason || !estimatedProducts) {
+      res.status(400).send("All fields are required");
+      return;
+    }
+
+    const getSellerInfo = await prisma.users.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (getSellerInfo.role !== "seller") {
+      res.status(400).send("You are not a seller");
+      return;
+    }
+
+    const categoryExists = await prisma.category.findUnique({
+      where: {
+        name: categoryName,
+      },
+    });
+
+    if (categoryExists) {
+      res.status(400).send("Requested category already exists");
+      return;
+    }
+
+    const existingCategoryRequest = await prisma.categoryRequest.findFirst({
+      where: {
+        categoryName: categoryName,
+        userId: id,
+      },
+    });
+
+    if (existingCategoryRequest) {
+      res.status(400).send("Category request already exists");
+      return;
+    }
+
+    try {
+      const newCategoryRequest = await prisma.categoryRequest.create({
+        data: {
+          categoryName,
+          reason,
+          estimatedProducts: Number(estimatedProducts),
+          status: "pending",
+          userId: id,
+        },
+      });
+      res.status(200).send(newCategoryRequest);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+);
 
 export default addProductRoute;
