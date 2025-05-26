@@ -17,7 +17,7 @@ const SellerPolicyPage = () => {
   const sectionIdPrefix = "seller-policy-section-";
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 pt-20">
+    <div className="min-h-screen bg-white text-gray-800 mt-16">
       <div className="relative bg-gray-50 text-gray-800 py-20 px-6 md:px-24 border-b border-gray-200">
         <div className="max-w-4xl mx-auto text-center mb-8 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
