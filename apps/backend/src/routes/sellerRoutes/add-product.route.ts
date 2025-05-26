@@ -58,9 +58,6 @@ addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
     price,
   }: Products = req.body;
 
-  const otherCategoryName = req.body.otherCategoryName;
-  let currentCategory = null;
-
   //sellerId validation
   if (!sellerId) {
     res.status(400).send("Seller ID is required");
@@ -83,19 +80,13 @@ addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
   if (!categoryName) {
     let category = await prisma.category.findUnique({
       where: {
-        name: otherCategoryName,
+        name: categoryName,
       },
     });
     if (!category) {
-      const newCategory = await prisma.category.create({
-        data: {
-          name: otherCategoryName,
-          description: "This is a new category",
-        },
-      });
-      category = newCategory;
+      res.status(400).send("Category not found");
+      return;
     }
-    currentCategory = category;
   }
 
   //displayImage validation
@@ -108,7 +99,7 @@ addProductRoute.post("/InsertProduct", async (req: Request, res: Response) => {
     const insertProduct = await prisma.products.create({
       data: {
         name,
-        categoryName: currentCategory?.name || categoryName,
+        categoryName,
         sellerId,
         details,
         productDescription,

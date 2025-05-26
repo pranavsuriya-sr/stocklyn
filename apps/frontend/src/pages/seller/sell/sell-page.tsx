@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3 MB
@@ -36,53 +37,39 @@ const fileListSchema = (fieldName: string) =>
     .nullable()
     .optional();
 
-const productSchema = z
-  .object({
-    name: z.string().min(1, { message: "Product name is required" }),
-    productDescription: z.string().min(10, {
-      message: "Product description must be at least 10 characters",
-    }),
-    price: z.preprocess(
-      (val) => parseFloat(String(val)),
-      z.number().positive({ message: "Price must be a positive number" })
-    ),
-    categoryName: z.string().min(1, { message: "Category is required" }),
-    otherCategoryName: z.string().optional(),
-    displayImage: fileListSchema("Display image").refine(
-      (val) => val !== null && val !== undefined && val.length > 0,
-      { message: "Display image is required." }
-    ),
-    imageUrl: z
-      .array(fileListSchema("Additional image"))
-      .max(3, { message: "You can add a maximum of 3 additional images" })
-      .default([]),
-    stockQuantity: z.preprocess(
-      (val) => parseInt(String(val), 10),
-      z.number().int().min(0, { message: "Stock quantity cannot be negative" })
-    ),
-    details: z
-      .string()
-      .min(20, { message: "Details must be at least 20 characters" }),
-    highlights: z
-      .array(
-        z
-          .string()
-          .min(5, { message: "Each highlight must be at least 5 characters" })
-      )
-      .length(3, { message: "Exactly 3 highlights are required" }),
-  })
-  .superRefine((data, ctx) => {
-    if (
-      data.categoryName === "other" &&
-      (!data.otherCategoryName || data.otherCategoryName.trim() === "")
-    ) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["otherCategoryName"],
-        message: "Please specify the category name when 'Other' is selected.",
-      });
-    }
-  });
+const productSchema = z.object({
+  name: z.string().min(1, { message: "Product name is required" }),
+  productDescription: z.string().min(10, {
+    message: "Product description must be at least 10 characters",
+  }),
+  price: z.preprocess(
+    (val) => parseFloat(String(val)),
+    z.number().positive({ message: "Price must be a positive number" })
+  ),
+  categoryName: z.string().min(1, { message: "Category is required" }),
+  displayImage: fileListSchema("Display image").refine(
+    (val) => val !== null && val !== undefined && val.length > 0,
+    { message: "Display image is required." }
+  ),
+  imageUrl: z
+    .array(fileListSchema("Additional image"))
+    .max(3, { message: "You can add a maximum of 3 additional images" })
+    .default([]),
+  stockQuantity: z.preprocess(
+    (val) => parseInt(String(val), 10),
+    z.number().int().min(0, { message: "Stock quantity cannot be negative" })
+  ),
+  details: z
+    .string()
+    .min(20, { message: "Details must be at least 20 characters" }),
+  highlights: z
+    .array(
+      z
+        .string()
+        .min(5, { message: "Each highlight must be at least 5 characters" })
+    )
+    .length(3, { message: "Exactly 3 highlights are required" }),
+});
 
 type ProductFormValues = z.infer<typeof productSchema>;
 
@@ -90,6 +77,7 @@ const defaultFileArrayItem = undefined;
 
 const SellPage = () => {
   const { user } = useSession();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -106,7 +94,6 @@ const SellPage = () => {
       productDescription: "",
       price: undefined,
       categoryName: "",
-      otherCategoryName: "",
       displayImage: undefined,
       imageUrl: [],
       stockQuantity: undefined,
@@ -138,7 +125,6 @@ const SellPage = () => {
       productDescription,
       price,
       categoryName,
-      otherCategoryName,
       stockQuantity,
       details,
       highlights,
@@ -160,7 +146,6 @@ const SellPage = () => {
       highlights,
       imageUrl,
       price,
-      otherCategoryName,
     };
 
     try {
@@ -322,9 +307,6 @@ const SellPage = () => {
                   <option value="" disabled>
                     Select a category
                   </option>
-                  <option value="other" key={"other"} className="font-bold">
-                    other
-                  </option>
                   {categories !== undefined &&
                     categories.map((category: { name: string }) => {
                       return (
@@ -354,26 +336,17 @@ const SellPage = () => {
               {errors.categoryName && (
                 <p className={errorClass}>{errors.categoryName.message}</p>
               )}
+              <div className="mt-2 text-sm">
+                <button
+                  type="button"
+                  onClick={() => navigate("/seller/requestCategory")}
+                  className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
+                >
+                  Don't see your category? Request a new one.
+                </button>
+              </div>
             </div>
           </div>
-
-          {watchedCategory === "other" && (
-            <div>
-              <label htmlFor="otherCategoryName" className={labelClass}>
-                Please Specify Category <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                id="otherCategoryName"
-                {...register("otherCategoryName")}
-                className={inputClass}
-                placeholder="e.g., Custom Pet Portraits"
-              />
-              {errors.otherCategoryName && (
-                <p className={errorClass}>{errors.otherCategoryName.message}</p>
-              )}
-            </div>
-          )}
 
           <div>
             <label htmlFor="displayImage-input" className={labelClass}>
