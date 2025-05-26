@@ -72,10 +72,10 @@ const ContactPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 mt-16 font-montserrat mb-20">
-      <header className="bg-gray-50 text-gray-800 py-16 md:py-20 border-b border-gray-200">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-4 ">
+    <div className="min-h-screen bg-white text-gray-900 font-montserrat py-16 md:py-24 mt-16">
+      <header className="pb-16 md:pb-20">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-gray-900">
             Get in Touch
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mx-auto text-gray-600">
@@ -85,11 +85,11 @@ const ContactPage = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 sm:px-6 py-12 md:py-16">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <main className="container mx-auto px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-subtle border border-gray-200 grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Contact Form Section */}
-          <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 sm:mb-8">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-8">
               Send us a Message
             </h2>
             <form onSubmit={mutation.mutate} className="space-y-6">
@@ -103,7 +103,7 @@ const ContactPage = () => {
                   id="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400 py-3 px-4 text-base"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent placeholder-gray-500 py-3 px-4 text-base transition-all duration-150 ease-in-out"
                   placeholder="Your Name *"
                   required
                 />
@@ -118,7 +118,7 @@ const ContactPage = () => {
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400 py-3 px-4 text-base"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent placeholder-gray-500 py-3 px-4 text-base transition-all duration-150 ease-in-out"
                   placeholder="Your Email *"
                   required
                 />
@@ -133,7 +133,7 @@ const ContactPage = () => {
                   id="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400 py-3 px-4 text-base"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent placeholder-gray-500 py-3 px-4 text-base transition-all duration-150 ease-in-out"
                   placeholder="Your Phone (Optional)"
                 />
               </div>
@@ -147,7 +147,7 @@ const ContactPage = () => {
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400 py-3 px-4 text-base"
+                  className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent placeholder-gray-500 py-3 px-4 text-base transition-all duration-150 ease-in-out"
                   placeholder="Your Message *"
                   required
                 ></textarea>
@@ -155,8 +155,7 @@ const ContactPage = () => {
               <div>
                 <Button
                   type="submit"
-                  variant="indigo"
-                  className="w-full sm:w-auto px-8 py-3 text-base font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                  className="w-full sm:w-auto px-6 py-3 text-base font-medium rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ease-in-out transform hover:-translate-y-px active:translate-y-0 hover:shadow-xl disabled:opacity-75 disabled:transform-none disabled:shadow-md bg-indigo-600 hover:bg-indigo-700 text-white"
                   disabled={mutation.isPending}
                 >
                   {mutation.isPending ? "Sending..." : "Send Message"}
@@ -166,26 +165,26 @@ const ContactPage = () => {
           </div>
 
           {/* Contact Information Section */}
-          <div className="bg-gray-50 p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 sm:mb-8">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-8">
               Our Contact Details
             </h2>
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="flex items-start">
                 <Mail
-                  size={24}
+                  size={20}
                   className="text-indigo-600 mr-4 mt-1 flex-shrink-0"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     Email Us
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 text-sm mb-1">
                     Get in touch via email for any inquiries.
                   </p>
                   <a
                     href="mailto:udayraj.vadeghar@gmail.com"
-                    className="text-indigo-600 hover:text-indigo-700 break-all"
+                    className="text-indigo-600 hover:text-indigo-700 text-sm font-medium break-all"
                   >
                     udayraj.vadeghar@gmail.com
                   </a>
@@ -193,19 +192,19 @@ const ContactPage = () => {
               </div>
               <div className="flex items-start">
                 <Phone
-                  size={24}
+                  size={20}
                   className="text-indigo-600 mr-4 mt-1 flex-shrink-0"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     Call Us
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 text-sm mb-1">
                     Reach out to us during business hours.
                   </p>
                   <a
-                    href="tel:+1234567890"
-                    className="text-indigo-600 hover:text-indigo-700"
+                    href="tel:+914066506650"
+                    className="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
                   >
                     +91 (40) 6650 6650
                   </a>
@@ -213,21 +212,21 @@ const ContactPage = () => {
               </div>
               <div className="flex items-start">
                 <MapPin
-                  size={24}
+                  size={20}
                   className="text-indigo-600 mr-4 mt-1 flex-shrink-0"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     Our Office
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 text-sm leading-relaxed">
                     No. 133, 1st Cross and 2nd Main, Mindspace, Hyderabad,
                     Telangana, India
                   </p>
                 </div>
               </div>
             </div>
-            <p className="mt-8 text-sm text-gray-500">
+            <p className="mt-10 text-sm text-gray-500">
               We typically respond within 24-48 business hours. For urgent
               matters, please call us directly.
             </p>
