@@ -23,11 +23,11 @@ const SellerOrdersPage = () => {
   console.log(data);
 
   return (
-    <div className="min-h-screen mt-28 ">
-      <div className="text-center text-4xl font-montserrat  text-gray-800 py-8 mb-10 font-montserrat underline">
+    <div className="min-h-screen mt-28 px-4 sm:px-6 lg:px-8 py-8">
+      <div className="text-center text-4xl font-montserrat  text-gray-800 py-8 mb-10 font-montserrat">
         All Orders from your store
       </div>
-      <div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
         {data?.map((orderItem: any) => {
           return (
             <OrdersCard
