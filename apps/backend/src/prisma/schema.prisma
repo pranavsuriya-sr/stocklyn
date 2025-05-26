@@ -50,6 +50,7 @@ model Users {
   contact        Contact[]
   products       Products[] @relation("SellerProducts")
   sellerOrderItems OrderItems[] @relation("SellerOrderItems")
+  categoryRequest CategoryRequest[]
 }
 
 model Cart {
@@ -136,4 +137,16 @@ model Contact{
   userId      String?
   user        Users?   @relation(fields: [userId], references: [id])
 
+}
+
+model CategoryRequest{
+  id                String   @id @default(cuid())
+  categoryName      String
+  reason            String
+  estimatedProducts Int
+  status            String   @default("pending")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              Users?   @relation(fields: [userId], references: [id])
+  userId            String?
 }
