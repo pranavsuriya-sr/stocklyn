@@ -64,7 +64,7 @@ const QuickActionButton: React.FC<{
   <button
     onClick={onClick}
     className={`flex items-center justify-center space-x-2.5 font-medium py-2.5 px-5 rounded-lg shadow-xs hover:shadow-sm transition-all duration-300 ease-out transform hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-offset-2
-      ${variant === "primary" ? "bg-indigo-600 hover:bg-indigo-700 text-white focus:ring-indigo-500" : "bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-300 focus:ring-indigo-500"}`}
+      ${variant === "primary" ? "bg-indigo-600 hover:bg-indigo-500 text-white focus:ring-indigo-500" : "bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-300 focus:ring-indigo-500"}`}
   >
     {icon}
     <span>{label}</span>
