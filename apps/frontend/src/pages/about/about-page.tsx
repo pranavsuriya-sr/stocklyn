@@ -90,7 +90,7 @@ const About = () => {
 
       <div className="bg-gray-50 py-16 md:py-20 border-t border-b border-gray-200">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-3 text-gray-800">
+          <h2 className="text-3xl sm:text-4xl font-thin text-center mb-3 text-gray-800">
             US VS. THEM
           </h2>
           <p className="text-center text-lg text-gray-600 mb-10 md:mb-12 max-w-2xl mx-auto">
