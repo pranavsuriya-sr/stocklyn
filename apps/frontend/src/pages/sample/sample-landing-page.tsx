@@ -3,6 +3,7 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 import { FlipText } from "@/components/magicui/flip-text";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { ShinyButton } from "@/components/magicui/shiny-button";
+import { TextAnimate } from "@/components/magicui/text-animate";
 import { useNavigate } from "react-router-dom";
 
 const SampleLandingPage = () => {
@@ -24,11 +25,13 @@ const SampleLandingPage = () => {
               </FlipText>
 
               <p className="text-gray-700 text-2xl sm:text-3xl font-light mb-6">
-                Your Next Favorite Find Awaits.
+                <TextAnimate animation="blurInUp" by="word" duration={2}>
+                  Your Next Favorite Find Awaits.
+                </TextAnimate>
               </p>
 
               <p className="text-gray-600 text-lg font-light mb-10 leading-relaxed">
-                Explore a world of unique products and amazing deals on Maalelo.
+                Explore a world of unique products & amazing deals on Maalelo.
                 Shop with confidence and discover something new today!
               </p>
 
@@ -61,8 +64,10 @@ const SampleLandingPage = () => {
             </h2>
 
             <p className="text-pretty text-neutral-600">
-              Explore our carefully selected products for your home and
-              lifestyle.
+              <TextAnimate animation="scaleUp" by="word" duration={1}>
+                Explore our carefully selected products for your home and
+                lifestyle.
+              </TextAnimate>
             </p>
             <a
               href="/shop"
@@ -85,7 +90,9 @@ const SampleLandingPage = () => {
       </section>
       <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white">
         <h2 className="text-3xl md:text-4xl text-neutral-900 text-center mb-12 md:mb-16 font-thin">
-          Why You'll Love Shopping With Us
+          <TextAnimate animation="blurInUp" by="character" duration={2}>
+            Why You'll Love Shopping With Us
+          </TextAnimate>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-12 lg:gap-y-16">
           {[
