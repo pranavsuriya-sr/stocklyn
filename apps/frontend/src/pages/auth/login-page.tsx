@@ -72,56 +72,58 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-gray-100 p-4 sm:p-6 md:p-8 mt-16">
       <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden  mt-5 mb-16">
-        <div className="w-full md:w-1/2 hidden md:flex flex-col justify-center items-start px-12 py-10 bg-slate-50">
-          <h1 className="text-4xl font-semibold text-gray-800 mb-6">
+        <div className="w-full md:w-1/2 hidden md:flex flex-col justify-center items-start px-10 py-8 bg-slate-50">
+          <h1 className="text-3xl font-medium text-gray-800 mb-6">
             Welcome to Maalelo!
           </h1>
-          <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+          <p className="text-base text-gray-600 mb-6 leading-relaxed">
             Discover a seamless experience. If you're new, join our vibrant
             community today.
           </p>
 
           <div className="space-y-5 w-full">
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
-              <h3 className="text-xl font-semibold text-indigo-700 mb-3">
+            <div className="bg-white p-5 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+              <h3 className="text-lg font-medium text-indigo-700 mb-3">
                 New Here?
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 mb-4">
                 Create an account to get started. It's quick and easy!
               </p>
               <Button
                 onClick={() => navigate("/signup")}
-                className="w-full h-12 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-base shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
+                className="w-full h-11 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
               >
                 Sign Up Now <ArrowUpRightIcon className="h-5 w-5 ml-2" />
               </Button>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
-              <h3 className="text-xl font-semibold text-amber-700 mb-3">
+            <div className="bg-white p-5 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+              <h3 className="text-lg font-medium text-amber-700 mb-3">
                 Want to Sell?
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 mb-4">
                 Join our platform as a seller and reach thousands of customers.
               </p>
               <Button
                 onClick={() => navigate("/seller/signup")}
-                className="w-full h-12 px-6 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-base shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
+                className="w-full h-11 px-6 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-medium text-sm shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
               >
                 Become a Seller <ArrowUpRightIcon className="h-5 w-5 ml-2" />
               </Button>
             </div>
           </div>
-          <p className="mt-8 text-sm text-gray-500">
+          <p className="mt-8 text-xs text-gray-500">
             &copy; {new Date().getFullYear()} Maalelo. All rights reserved.
           </p>
         </div>
 
-        <div className="w-full md:w-1/2 px-12 py-10 flex flex-col justify-center bg-white">
+        <div className="w-full md:w-1/2 px-10 py-8 flex flex-col justify-center bg-white">
           <div className="w-full max-w-md space-y-8 mx-auto">
             <div className="text-left">
-              <h2 className="text-3xl font-semibold text-gray-800">Sign In</h2>
-              <p className="mt-2 text-gray-600">Access your Maalelo account.</p>
+              <h2 className="text-2xl font-medium text-gray-800">Sign In</h2>
+              <p className="mt-2 text-base text-gray-600">
+                Access your Maalelo account.
+              </p>
             </div>
 
             <Form {...loginForm}>
@@ -165,7 +167,7 @@ const Login = () => {
                             id="email-input"
                             placeholder="you@example.com"
                             {...field}
-                            className="w-full pl-10 pr-4 py-3 h-12 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
+                            className="w-full pl-10 pr-4 py-3 h-11 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
                             ref={inputRef}
                             autoComplete="email"
                             name="email"
@@ -196,7 +198,7 @@ const Login = () => {
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
                             {...field}
-                            className="w-full pl-10 pr-12 py-3 h-12 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
+                            className="w-full pl-10 pr-12 py-3 h-11 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
                             autoComplete="current-password"
                             name="password"
                           />
@@ -233,7 +235,7 @@ const Login = () => {
 
                 <Button
                   type="submit"
-                  className="w-full h-12 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-base shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out transform hover:scale-[1.01] flex items-center justify-center"
+                  className="w-full h-11 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out transform hover:scale-[1.01] flex items-center justify-center"
                   disabled={loginForm.formState.isSubmitting}
                 >
                   {loginForm.formState.isSubmitting ? (
@@ -248,7 +250,7 @@ const Login = () => {
               </form>
             </Form>
 
-            <div className="mt-8 text-center text-sm text-gray-600">
+            <div className="mt-8 text-center text-xs text-gray-600">
               Need an account?{" "}
               <button
                 onClick={() => navigate("/signup")}

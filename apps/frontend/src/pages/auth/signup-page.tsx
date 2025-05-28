@@ -83,59 +83,59 @@ const SignUpPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-gray-100 p-4 sm:p-6 md:p-8 mt-16">
       <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden mt-5 mb-16">
-        <div className="w-full md:w-1/2 hidden md:flex flex-col justify-center items-start px-12 py-10 bg-slate-50">
-          <h1 className="text-4xl font-semibold text-gray-800 mb-6">
+        <div className="w-full md:w-1/2 hidden md:flex flex-col justify-center items-start px-10 py-8 bg-slate-50">
+          <h1 className="text-3xl font-medium text-gray-800 mb-6">
             Join Maalelo Today!
           </h1>
-          <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+          <p className="text-base text-gray-600 mb-6 leading-relaxed">
             Create your account to explore a world of opportunities and connect
             with our community.
           </p>
 
           <div className="space-y-5 w-full">
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
-              <h3 className="text-xl font-semibold text-indigo-700 mb-3">
+            <div className="bg-white p-5 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+              <h3 className="text-lg font-medium text-indigo-700 mb-3">
                 Already a Member?
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 mb-4">
                 If you already have an account, sign in to continue.
               </p>
               <Button
                 onClick={() => navigate("/login")}
                 variant="outline"
-                className="w-full h-12 px-6 rounded-lg border-indigo-600 text-indigo-600 hover:bg-indigo-50 font-semibold text-base shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
+                className="w-full h-11 px-6 rounded-lg border-indigo-600 text-indigo-600 hover:bg-indigo-50 font-medium text-sm shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
               >
                 Sign In Here <ArrowRightIcon className="h-5 w-5 ml-2" />
               </Button>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
-              <h3 className="text-xl font-semibold text-amber-700 mb-3">
+            <div className="bg-white p-5 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+              <h3 className="text-lg font-medium text-amber-700 mb-3">
                 Want to Sell?
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-sm text-gray-600 mb-4">
                 Join our platform as a seller and reach thousands of customers.
               </p>
               <Button
                 onClick={() => navigate("/seller/signup")}
-                className="w-full h-12 px-6 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-base shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
+                className="w-full h-11 px-6 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-medium text-sm shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
               >
                 Become a Seller <ArrowUpRightIcon className="h-5 w-5 ml-2" />
               </Button>
             </div>
           </div>
-          <p className="mt-8 text-sm text-gray-500">
+          <p className="mt-8 text-xs text-gray-500">
             &copy; {new Date().getFullYear()} Maalelo. All rights reserved.
           </p>
         </div>
 
-        <div className="w-full md:w-1/2 px-12 py-10 flex flex-col justify-center bg-white">
+        <div className="w-full md:w-1/2 px-10 py-8 flex flex-col justify-center bg-white">
           <div className="w-full max-w-md space-y-8 mx-auto">
             <div className="text-left">
-              <h2 className="text-3xl font-semibold text-gray-800">
+              <h2 className="text-2xl font-medium text-gray-800">
                 Create Your Account
               </h2>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-base text-gray-600">
                 Fill in the details below to get started.
               </p>
             </div>
@@ -181,7 +181,7 @@ const SignUpPage = () => {
                             id="signup-name"
                             placeholder="Your full name"
                             {...field}
-                            className="w-full pl-10 pr-4 py-3 h-12 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
+                            className="w-full pl-10 pr-4 py-3 h-11 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
                             ref={inputRef}
                           />
                         </div>
@@ -209,7 +209,7 @@ const SignUpPage = () => {
                             id="signup-email"
                             placeholder="you@example.com"
                             {...field}
-                            className="w-full pl-10 pr-4 py-3 h-12 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
+                            className="w-full pl-10 pr-4 py-3 h-11 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
                             autoComplete="email"
                           />
                         </div>
@@ -238,7 +238,7 @@ const SignUpPage = () => {
                             type={showPassword ? "text" : "password"}
                             placeholder="Create a strong password"
                             {...field}
-                            className="w-full pl-10 pr-12 py-3 h-12 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
+                            className="w-full pl-10 pr-12 py-3 h-11 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
                             autoComplete="new-password"
                           />
                           <button
@@ -264,7 +264,7 @@ const SignUpPage = () => {
 
                 <Button
                   type="submit"
-                  className="w-full h-12 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-base shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out transform hover:scale-[1.01] flex items-center justify-center"
+                  className="w-full h-11 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out transform hover:scale-[1.01] flex items-center justify-center"
                   disabled={signupForm.formState.isSubmitting}
                 >
                   {signupForm.formState.isSubmitting ? (
@@ -279,7 +279,7 @@ const SignUpPage = () => {
               </form>
             </Form>
 
-            <div className="mt-8 text-center text-sm text-gray-600">
+            <div className="mt-8 text-center text-xs text-gray-600">
               Already have an account?{" "}
               <button
                 onClick={() => navigate("/login")}
