@@ -84,7 +84,7 @@ const ProductPage = () => {
 
     if (isAddedToCart == true) {
       toast({
-        variant: "success",
+        variant: "default",
         title: "Added product!",
         description: "Product successfully added to the cart!",
         duration: 1500,
@@ -336,7 +336,7 @@ const ProductPage = () => {
                 <SheetFooter className="mt-6">
                   <SheetClose asChild>
                     <Button
-                      className="w-full py-6 text-lg font-montserrat bg-slate-800 text-white hover:bg-slate-700"
+                      className="w-full py-6 text-lg font-montserrat bg-indigo-600 text-white hover:bg-indigo-700"
                       disabled={products.length === 0}
                       onClick={() => navigate("/cartitems")}
                     >
