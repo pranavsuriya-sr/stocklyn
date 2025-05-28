@@ -40,7 +40,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-gray-800 pt-20 md:pt-28 font-montserrat">
       <main className="container mx-auto px-4 sm:px-6">
-        {/* Hero Section */}
         <section className="text-center py-16 md:py-24 bg-gradient-to-r from-slate-50 via-gray-50 to-stone-50 rounded-lg shadow-sm mb-16 md:mb-20">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-slate-800 mb-6 tracking-tight">
             Discover Your Next Favorite
@@ -53,9 +52,9 @@ export default function Home() {
             onClick={() =>
               document
                 .getElementById("product-collections")
-                ?.scrollIntoView({ behavior: "smooth" })
+                ?.scrollIntoView({ behavior: "auto" })
             }
-            className="bg-slate-800 text-white font-medium py-3 px-8 rounded-lg hover:bg-slate-700 transition-colors duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            className="bg-indigo-600 text-white font-medium py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
           >
             Shop Collections
           </button>

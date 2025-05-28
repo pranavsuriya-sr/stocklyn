@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     `${name} redefines what a premium ${item} should be—versatile, reliable, and made for you.`,
     `Meet ${name}, the ${item} that balances style, substance, and smart functionality effortlessly.`,
     `Whether at home or on the go, ${name} is your go-to ${item} for convenience and confidence.`,
-    `With ${name}, experience a ${item} that’s crafted to match your pace, needs, and expectations.`,
+    `With ${name}, experience a ${item} that's crafted to match your pace, needs, and expectations.`,
     `Unleash your potential with ${name}, a ${item} designed to keep up with your ambitions.`,
     `${name} combines innovation and elegance, making it the ultimate ${item} for modern living.`,
   ];
@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const discountPercentage = 20;
 
   return (
-    <div className="w-72 h-[440px] border border-gray-200 rounded-xl shadow hover:shadow-md transition transform hover:-translate-y-1 duration-300 flex flex-col bg-white hover:cursor-pointer">
+    <div className="w-full sm:w-72 h-[440px] border border-gray-200 rounded-xl shadow hover:shadow-md transition transform hover:-translate-y-1 duration-300 flex flex-col bg-white hover:cursor-pointer mx-auto">
       <div className="h-1/2 flex items-center justify-center overflow-hidden p-2">
         <img
           loading="lazy"
