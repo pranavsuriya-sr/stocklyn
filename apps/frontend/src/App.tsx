@@ -23,6 +23,7 @@ import ProductPage from "./pages/product/product-page";
 import UserProfile from "./pages/profile/user-profile";
 import ProtectedPage from "./pages/protected/procted-page";
 import SellerProtectedPage from "./pages/protected/seller-protected-page";
+import SampleLandingPage from "./pages/sample/sample-landing-page";
 import SearchPage from "./pages/search/search-page";
 import SellerAboutPage from "./pages/seller/about/seller-about-page";
 import SellerDashboardPage from "./pages/seller/dashboard/dashboard-page";
@@ -103,6 +104,21 @@ const App = () => {
                     <UserProfile />
                   </motion.div>
                 </ProtectedPage>
+              }
+            />
+            <Route
+              path="/samplePage"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  // exit="out"
+
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <SampleLandingPage />
+                </motion.div>
               }
             />
             <Route
