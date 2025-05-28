@@ -1,3 +1,4 @@
+import { BorderBeam } from "@/components/magicui/border-beam";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -129,7 +130,7 @@ const SignUpPage = () => {
           </p>
         </div>
 
-        <div className="w-full md:w-1/2 px-10 py-8 flex flex-col justify-center bg-white">
+        <div className="w-full md:w-1/2 px-10 py-8 flex flex-col justify-center bg-white relative overflow-hidden">
           <div className="w-full max-w-md space-y-8 mx-auto">
             <div className="text-left">
               <h2 className="text-2xl font-medium text-gray-800">
@@ -289,6 +290,11 @@ const SignUpPage = () => {
               </button>
             </div>
           </div>
+          <BorderBeam
+            duration={6}
+            size={300}
+            className="from-transparent via-orange-600 to-transparent"
+          />
         </div>
       </div>
     </div>

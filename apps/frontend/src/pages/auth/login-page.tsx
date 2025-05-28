@@ -1,3 +1,4 @@
+import { BorderBeam } from "@/components/magicui/border-beam";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -116,8 +117,7 @@ const Login = () => {
             &copy; {new Date().getFullYear()} Maalelo. All rights reserved.
           </p>
         </div>
-
-        <div className="w-full md:w-1/2 px-10 py-8 flex flex-col justify-center bg-white">
+        <div className="w-full md:w-1/2 px-10 py-8 flex flex-col justify-center bg-white relative overflow-hidden">
           <div className="w-full max-w-md space-y-8 mx-auto">
             <div className="text-left">
               <h2 className="text-2xl font-medium text-gray-800">Sign In</h2>
@@ -261,6 +261,11 @@ const Login = () => {
               </button>
             </div>
           </div>
+          <BorderBeam
+            duration={6}
+            size={300}
+            className="from-transparent via-red-500 to-amber-500"
+          />
         </div>
       </div>
     </div>
