@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ProductsType } from "@/types/product-type";
 import { useCartStore } from "@/utils/store/cart-store";
 import { useQueryClient } from "@tanstack/react-query";
+import { LucideShoppingBag } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EmptyCart from "./empty-cart";
@@ -171,8 +172,9 @@ const Cart = () => {
   return (
     <div className="bg-white min-h-screen py-12 sm:py-16 px-4 sm:px-6 lg:px-8 ">
       <div className="max-w-4xl mx-auto pt-16">
-        <h1 className="text-3xl sm:text-4xl font-light text-gray-800 pb-8 sm:pb-12">
-          Shopping Cart
+        <h1 className="text-3xl sm:text-4xl font-light text-gray-800 pb-8 sm:pb-12 flex items-center gap-x-3">
+          <LucideShoppingBag className="w-7 h-7 sm:w-9 sm:h-9 text-indigo-600 flex-shrink-0 " />
+          <span>Shopping Cart</span>
         </h1>
         <hr className="w-full border-t border-gray-200 mb-8 sm:mb-10" />
         <div className="space-y-6">
