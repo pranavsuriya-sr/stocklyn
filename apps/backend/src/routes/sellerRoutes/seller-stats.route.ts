@@ -54,6 +54,11 @@ sellerStatsRoute.get(
       include: {
         order: true,
       },
+      orderBy: {
+        order: {
+          createdAt: "desc",
+        },
+      },
     });
 
     const products = await prisma.products.findMany({
