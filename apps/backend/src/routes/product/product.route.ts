@@ -5,7 +5,7 @@ import { VerifyJwtMiddleware } from "../../middleware/verify-jwt";
 const productRoute = express.Router();
 
 const prisma = new PrismaClient({
-  log: ["query", "info", "warn", "error"],
+  log: ["error"],
 });
 
 productRoute.get("/individualProduct/:id", async (req, res) => {
@@ -348,6 +348,19 @@ productRoute.get(
     }
 
     try {
+      const randomCategory = await prisma.category.findMany({
+        take: 15,
+      });
+      const randomProductsFetch = await prisma.products.findMany({
+        where: {
+          category: {
+            name: {
+              contains: randomCategory[Math.floor(Math.random() * 15)].name,
+            },
+          },
+        },
+        take: 13,
+      });
       const similarProducts = await prisma.products.findMany({
         where: {
           category: {
@@ -359,7 +372,12 @@ productRoute.get(
         take: 13,
       });
       // console.log(similarProducts);
-      res.status(200).send(similarProducts);
+      // console.log(randomProducts);
+      const randomProducts = randomProductsFetch.filter(
+        (product) => product.categoryName !== similarProducts[0].categoryName
+      );
+
+      res.status(200).send({ similarProducts, randomProducts });
     } catch (error) {
       res
         .status(500)
