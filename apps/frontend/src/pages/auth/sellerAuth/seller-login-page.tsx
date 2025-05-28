@@ -7,7 +7,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Input } from "@/components/ui/input";
 import { useSession } from "@/context/session-context";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +15,7 @@ import {
   ArrowUpRightIcon,
   Eye,
   EyeOff,
+  HomeIcon,
   Loader2Icon,
   LockIcon,
   MailIcon,
@@ -43,11 +43,12 @@ const SellerLogin = () => {
   const inputRef = useRef<any>();
 
   useEffect(() => {
-    // If already logged in, redirect to home
     if (session) {
       navigate("/seller/dashboard");
     }
-    inputRef.current.focus();
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, [session, navigate]);
 
   const loginForm = useForm<LoginFormValues>({
@@ -70,34 +71,89 @@ const SellerLogin = () => {
   }
 
   return (
-    <div className="min-h-screen py-28 bg-white">
-      <div className="flex flex-col items-center justify-center px-4">
-        <div className="w-full max-w-lg space-y-8">
-          <div className="text-center animate-fade-in-up">
-            <h1 className="text-4xl font-montserrat text-gray-700 flex items-center justify-center">
-              <span className="mr-3">Welcome Back to</span>
-              <span className="flex items-center">
-                <StoreIcon className="h-9 w-9 text-indigo-500 mr-2" />
-                <span className="text-indigo-500 text-3xl font-semibold">
-                  Seller Portal
-                </span>
-              </span>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-gray-100 p-4 sm:p-6 md:p-8 mt-16">
+      <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden mt-5 mb-16">
+        <div className="w-full md:w-1/2 hidden md:flex flex-col justify-center items-start px-12 py-10 bg-slate-50">
+          <div className="flex items-center mb-6">
+            <StoreIcon className="h-10 w-10 text-indigo-600 mr-3" />
+            <h1 className="text-4xl font-semibold text-gray-800">
+              Seller Portal
             </h1>
           </div>
+          <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+            Access your Seller Dashboard to manage your store and products.
+          </p>
 
-          <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-200 transition-all hover:shadow-lg">
+          <div className="space-y-5 w-full">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+              <h3 className="text-xl font-semibold text-indigo-700 mb-3">
+                New to Selling?
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Create an account to start selling on Maalelo.
+              </p>
+              <Button
+                onClick={() => navigate("/seller/signup")}
+                variant="outline"
+                className="w-full h-12 px-6 rounded-lg border-indigo-600 text-indigo-600 hover:bg-indigo-50 font-semibold text-base shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
+              >
+                Create Seller Account{" "}
+                <ArrowUpRightIcon className="h-5 w-5 ml-2" />
+              </Button>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+              <h3 className="text-xl font-semibold text-amber-700 mb-3">
+                Looking for Main Site?
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Browse products and shop on our main Maalelo platform.
+              </p>
+              <Button
+                onClick={() => navigate("/")}
+                className="w-full h-12 px-6 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-base shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
+              >
+                Go to Maalelo.com <HomeIcon className="h-5 w-5 ml-2" />
+              </Button>
+            </div>
+          </div>
+          <p className="mt-8 text-sm text-gray-500">
+            &copy; {new Date().getFullYear()} Maalelo Seller Central. All rights
+            reserved.
+          </p>
+        </div>
+
+        <div className="w-full md:w-1/2 px-12 py-10 flex flex-col justify-center bg-white">
+          <div className="w-full max-w-md space-y-8 mx-auto">
+            <div className="text-left">
+              <h2 className="text-3xl font-semibold text-gray-800">
+                Seller Sign In
+              </h2>
+              <p className="mt-2 text-gray-600">
+                Access your account to continue.
+              </p>
+            </div>
+
             <Form {...loginForm}>
-              <div className="pb-3 text-2xl font-semibold text-gray-800">
-                Sign In to Seller Portal
-              </div>
-              <hr className="border-gray-300" />
               <form
                 onSubmit={loginForm.handleSubmit(onSubmit)}
-                className="space-y-6 pt-3"
+                className="space-y-6"
               >
                 {loginForm.formState.errors.root && (
-                  <div className="px-4 py-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
-                    ⚠️ {loginForm.formState.errors.root.message}
+                  <div className="px-4 py-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="w-5 h-5 mr-2 flex-shrink-0"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>{loginForm.formState.errors.root.message}</span>
                   </div>
                 )}
 
@@ -108,25 +164,25 @@ const SellerLogin = () => {
                     <FormItem>
                       <FormLabel
                         htmlFor="email-input"
-                        className="text-gray-700"
+                        className="text-sm font-medium text-gray-700"
                       >
-                        Email
+                        Email Address
                       </FormLabel>
                       <FormControl>
-                        <div className="relative">
-                          <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <div className="relative mt-1">
+                          <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
                           <Input
                             id="email-input"
-                            placeholder="hello@example.com"
+                            placeholder="seller@example.com"
                             {...field}
-                            className="pl-10 py-5 rounded-lg"
+                            className="w-full pl-10 pr-4 py-3 h-12 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
                             ref={inputRef}
                             autoComplete="username"
                             name="email"
                           />
                         </div>
                       </FormControl>
-                      <FormMessage className="text-red-500" />
+                      <FormMessage className="text-red-600 text-xs mt-1" />
                     </FormItem>
                   )}
                 />
@@ -138,111 +194,74 @@ const SellerLogin = () => {
                     <FormItem>
                       <FormLabel
                         htmlFor="password-input"
-                        className="text-gray-700"
+                        className="text-sm font-medium text-gray-700"
                       >
                         Password
                       </FormLabel>
-
                       <FormControl>
-                        <div className="relative flex items-center justify-between">
-                          <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <div className="relative mt-1 flex items-center">
+                          <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
                           <Input
                             id="password-input"
                             type={showPassword ? "text" : "password"}
-                            placeholder="••••••••"
+                            placeholder="Enter your password"
                             {...field}
-                            className="pl-10 py-5 rounded-lg"
+                            className="w-full pl-10 pr-12 py-3 h-12 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:ring-opacity-75 transition-all duration-150 ease-in-out"
                             autoComplete="current-password"
                             name="password"
                           />
-                          <div
-                            className="p-2 border rounded-lg ml-1 bg-gray-100 hover:cursor-pointer hover:bg-gray-200"
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700 focus:outline-none rounded-md hover:bg-gray-100 transition-colors"
                             onClick={() => setShowPassword(!showPassword)}
+                            aria-label={
+                              showPassword ? "Hide password" : "Show password"
+                            }
                           >
-                            {showPassword ? <EyeOff /> : <Eye />}
-                          </div>
+                            {showPassword ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
                         </div>
                       </FormControl>
-                      <FormMessage className="text-red-500" />
+                      <FormMessage className="text-red-600 text-xs mt-1" />
                     </FormItem>
                   )}
                 />
 
+                <div className="flex items-center justify-end text-sm">
+                  {/* Placeholder for potential future "Forgot Password?" link for sellers */}
+                </div>
+
                 <Button
                   type="submit"
-                  className="w-full py-6 rounded-xl  bg-emerald-500 hover:bg-emerald-600  transition-all transform hover:scale-[1.01] shadow-md hover:shadow-lg"
+                  className="w-full h-12 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-base shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 ease-in-out transform hover:scale-[1.01] flex items-center justify-center"
                   disabled={loginForm.formState.isSubmitting}
                 >
-                  <span className="text-lg font-semibold text-white mr-2">
-                    {loginForm.formState.isSubmitting ? (
-                      <Loader2Icon className="h-5 w-5 animate-spin" />
-                    ) : (
-                      "Sign In"
-                    )}
-                  </span>
-                  <ArrowRightIcon className="h-5 w-5 text-white" />
+                  {loginForm.formState.isSubmitting ? (
+                    <Loader2Icon className="h-5 w-5 animate-spin mr-2" />
+                  ) : (
+                    "Sign In"
+                  )}
+                  {!loginForm.formState.isSubmitting && (
+                    <ArrowRightIcon className="h-5 w-5 ml-2" />
+                  )}
                 </Button>
               </form>
             </Form>
 
-            {/* <div className="mt-8">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">
-                    Or continue with
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                <Button
-                  variant="outline"
-                  className="py-5 rounded-lg border-gray-300 hover:bg-gray-50"
-                  onClick={() => {
-                    toast({
-                      description: "Feature coming soon.",
-                    });
-                  }}
-                >
-                  <GitCompare className="h-5 w-5 mr-2" />
-                  GitHub
-                </Button>
-                <Button
-                  variant="outline"
-                  className="py-5 rounded-lg border-gray-300 hover:bg-gray-50"
-                  onClick={() => {
-                    toast({
-                      description: "Feature coming soon.",
-                    });
-                  }}
-                >
-                  <ChromeIcon className="h-5 w-5 mr-2" />
-                  Google
-                </Button>
-              </div>
-            </div> */}
-          </div>
-
-          <div className="text-center text-gray-600">
-            New to selling on Maalelo?{" "}
-            <button
-              onClick={() => navigate("/seller/signup")}
-              className="font-semibold text-emerald-500 hover:text-emerald-600 transition-colors underline underline-offset-4 hover:decoration-2"
-            >
-              Create a Seller Account
-              <ArrowUpRightIcon className="h-4 w-4 inline-block ml-1" />
-            </button>
-            <br />
-            <br />
-            <button
-              onClick={() => navigate("/")}
-              className="inline-flex items-center gap-2 rounded-2xl border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-200 transition-colors shadow-sm hover:shadow-md"
-            >
-              Back to Main Site
-            </button>
+            <div className="mt-8 text-center text-sm text-gray-600">
+              New to selling on Maalelo?{" "}
+              <button
+                onClick={() => navigate("/seller/signup")}
+                className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline transition-colors duration-150 ease-in-out"
+              >
+                Create a Seller Account
+                <ArrowUpRightIcon className="h-4 w-4 inline-block ml-1 align-text-bottom" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
