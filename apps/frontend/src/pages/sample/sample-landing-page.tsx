@@ -1,8 +1,10 @@
 import landingPage from "@/assets/landingPage1.png";
+import { AuroraText } from "@/components/magicui/aurora-text";
 import { FlipText } from "@/components/magicui/flip-text";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import { useNavigate } from "react-router-dom";
+
 const SampleLandingPage = () => {
   const navigate = useNavigate();
   return (
@@ -53,8 +55,11 @@ const SampleLandingPage = () => {
         <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-8 px-8 sm:px-16">
           <div className="max-w-md space-y-4">
             <h2 className="text-balance text-3xl md:text-4xl font-bold tracking-tight">
-              Discover our Curated Collection
+              <AuroraText className="text-4xl md:text-5xl lg:text-6xl">
+                Discover our Curated Collection
+              </AuroraText>
             </h2>
+
             <p className="text-pretty text-neutral-600">
               Explore our carefully selected products for your home and
               lifestyle.
@@ -76,6 +81,63 @@ const SampleLandingPage = () => {
             decoding="async"
             className="rounded object-cover w-full h-auto max-w-[450px]"
           />
+        </div>
+      </section>
+      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white">
+        <h2 className="text-3xl md:text-4xl text-neutral-900 text-center mb-12 md:mb-16 font-thin">
+          Why You'll Love Shopping With Us
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-12 lg:gap-y-16">
+          {[
+            {
+              iconChar: "⇆",
+              title: "Easy Exchange",
+              description: "Hassle-free exchange policy within 14 days",
+            },
+            {
+              iconChar: "⊕",
+              title: "Quality Guarantee",
+              description: "7-day free return on all products",
+            },
+            {
+              iconChar: "☏",
+              title: "24/7 Support",
+              description: "Dedicated customer service team",
+            },
+            {
+              iconChar: "◎",
+              title: "Secure Payments",
+              description:
+                "Your transactions are protected with top-tier security.",
+            },
+            {
+              iconChar: "➤",
+              title: "Fast Shipping",
+              description: "Get your orders delivered swiftly and reliably.",
+            },
+            {
+              iconChar: "✧",
+              title: "Exclusive Offers",
+              description:
+                "Unlock special deals and early access to new arrivals.",
+            },
+          ].map((feature, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-start text-left p-4"
+            >
+              <span className="text-neutral-900 text-5xl mb-4">
+                {feature.iconChar}
+              </span>
+
+              <h3 className="text-lg font-semibold text-neutral-800 mb-1">
+                {feature.title}
+              </h3>
+              <p className="text-neutral-600 text-sm leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
     </>
