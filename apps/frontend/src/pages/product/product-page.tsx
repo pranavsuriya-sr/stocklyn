@@ -55,7 +55,7 @@ const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [displayText, setDisplayText] = useState(false);
 
-  console.log(product);
+  // console.log(product);
 
   const HandleAddToCart = async () => {
     if (!user) {
@@ -359,7 +359,43 @@ const ProductPage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {data.map((product: any, index: number) => (
+            {data?.similarProducts.map((product: any, index: number) => (
+              <div
+                key={index}
+                className="group cursor-pointer border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300"
+                onClick={() => RouteToProductPage(product)}
+              >
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={product.displayImage}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    alt={product.name}
+                  />
+                </div>
+                <div className="p-2 space-y-0.5">
+                  <h3 className="font-medium text-gray-800 truncate text-xs">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate-700 font-semibold text-xs">
+                    ₹{product.price.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="mt-16 pt-10">
+        <h2 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-8">
+          Products you might also like
+        </h2>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-40">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {data?.randomProducts.map((product: any, index: number) => (
               <div
                 key={index}
                 className="group cursor-pointer border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300"

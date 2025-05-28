@@ -6,5 +6,11 @@ export const FetchSimilarProducts = async (product: ProductsType) => {
     `/similarProducts/${product.categoryName}`
   );
   // console.log(response.data);
-  return response.data.filter((item: ProductsType) => item.id !== product.id);
+  const similarProducts = response.data?.similarProducts.filter(
+    (item: ProductsType) => item.id !== product.id
+  );
+  const randomProducts = response.data?.randomProducts.filter(
+    (item: ProductsType) => item.id !== product.id
+  );
+  return { similarProducts, randomProducts };
 };
