@@ -169,51 +169,71 @@ const Cart = () => {
   // };
 
   return (
-    <div className="pt-28 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto">
-      <div className="text-2xl sm:text-3xl font-semibold pb-6 sm:pb-10">
-        Shopping Cart
-      </div>
-      <hr className="w-[50%] border-t border-gray-300 my-4" />
-      <div className="">
-        <div>
+    <div className="bg-white min-h-screen py-12 sm:py-16 px-4 sm:px-6 lg:px-8 ">
+      <div className="max-w-4xl mx-auto pt-16">
+        <h1 className="text-3xl sm:text-4xl font-light text-gray-800 pb-8 sm:pb-12">
+          Shopping Cart
+        </h1>
+        <hr className="w-full border-t border-gray-200 mb-8 sm:mb-10" />
+        <div className="space-y-6">
           {GetCount() > 0 &&
             products.map((product: ProductsType) => {
               return (
-                <div key={product.id}>
-                  <div className="py-6 sm:py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
-                    <div className="flex flex-1 gap-4 w-full rounded">
+                <div
+                  key={product.id}
+                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
+                >
+                  <div className="p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                    <div className="flex flex-1 gap-4 sm:gap-6 w-full items-start">
                       <img
                         src={product.displayImage}
-                        className="w-20 h-20 sm:w-32 sm:h-32 md:w-44 md:h-44 object-contain p-2 hover:cursor-pointer"
+                        className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain p-1 rounded-lg bg-gray-50 hover:cursor-pointer flex-shrink-0"
                         alt={product.name}
                         onClick={() => RouteToProductPage(product)}
                       />
-                      <div className="flex flex-col justify-between flex-1">
+                      <div className="flex flex-col justify-between flex-1 min-w-0">
                         <h3
-                          className="text-base sm:text-lg font-medium line-clamp-2 hover:cursor-pointer"
+                          className="text-lg sm:text-xl font-normal text-gray-700 line-clamp-2 hover:cursor-pointer hover:text-indigo-600 transition-colors duration-200"
                           title={product.name}
                           onClick={() => RouteToProductPage(product)}
                         >
                           {product.name}
                         </h3>
 
-                        <div>
+                        <div className="mt-2">
                           {product.stockQuantity > 0 ? (
-                            <span className="text-green-600 text-xs sm:text-sm flex flex-col">
-                              <span className="">In stock</span>
-                              {/* <span>
-                            Available Quanity : {product.stockQuantity}
-                          </span> */}
+                            <span className="text-green-600 text-sm font-medium flex items-center gap-1.5">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                fill="currentColor"
+                                className="w-4 h-4"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                              In stock
                             </span>
                           ) : (
-                            <span className="text-red-600 text-xs sm:text-sm">
+                            <span className="text-red-500 text-sm font-medium flex items-center gap-1.5">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                fill="currentColor"
+                                className="w-4 h-4"
+                              >
+                                <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z" />
+                              </svg>
                               Out of stock
                             </span>
                           )}
                         </div>
-                        <div className="flex items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
+                        <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4">
                           <select
-                            className="border p-1 sm:p-2 rounded-md w-16 sm:w-20 text-xs sm:text-sm hover:cursor-pointer"
+                            className="border border-gray-300 p-2 rounded-lg w-20 text-sm hover:cursor-pointer focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 bg-white shadow-sm"
                             value={
                               cartItems.find(
                                 (item) => item.productId === product.id
@@ -230,23 +250,25 @@ const Cart = () => {
                             ))}
                           </select>
                           <AlertDialog>
-                            <AlertDialogTrigger className="text-red-600 hover:text-red-700 text-xs sm:text-sm p-1 sm:p-2">
+                            <AlertDialogTrigger className="text-gray-500 hover:text-red-600 text-sm font-medium p-2 transition-colors duration-200">
                               Remove
                             </AlertDialogTrigger>
-                            <AlertDialogContent className="max-w-[95vw] sm:max-w-md">
+                            <AlertDialogContent className="max-w-[95vw] sm:max-w-md bg-white rounded-xl shadow-xl">
                               <AlertDialogHeader>
-                                <AlertDialogTitle>
+                                <AlertDialogTitle className="text-xl font-medium text-gray-800">
                                   Remove item?
                                 </AlertDialogTitle>
-                                <AlertDialogDescription>
+                                <AlertDialogDescription className="text-gray-600 pt-2">
                                   This action will remove the product from your
-                                  cart
+                                  cart.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogFooter className="pt-6">
+                                <AlertDialogCancel className="px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                                  Cancel
+                                </AlertDialogCancel>
                                 <AlertDialogAction
-                                  className="bg-red-600 hover:bg-red-700"
+                                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg transition-colors duration-200"
                                   onClick={() => HandleRemoveItem(product.id)}
                                 >
                                   Continue
@@ -258,49 +280,50 @@ const Cart = () => {
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full sm:w-auto self-end sm:self-auto">
-                      <div className="text-lg sm:text-xl font-medium sm:min-w-[120px] text-right">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4 sm:gap-6 w-full sm:w-auto">
+                      <div className="text-lg sm:text-xl font-medium text-gray-800 sm:min-w-[100px] text-left sm:text-right w-full sm:w-auto">
                         ₹{product.price}
                       </div>
                     </div>
                   </div>
-                  <hr className="w-full border-t border-gray-300 my-4" />
                 </div>
               );
             })}
         </div>
       </div>
 
-      <div className="mt-8 sm:mt-12 border rounded-lg p-4 sm:p-6 max-w-3xl mx-auto w-full">
-        <div className="space-y-3 sm:space-y-4">
-          <div className="flex justify-between text-sm sm:text-base">
-            <span className="text-gray-600">Subtotal</span>
-            <span>₹{totalCost}</span>
-          </div>
+      <div className="max-w-2xl mx-auto w-full">
+        <div className="mt-10 sm:mt-16 bg-gray-50 rounded-xl shadow-sm p-6 sm:p-8">
+          <div className="space-y-4">
+            <div className="flex justify-between text-base">
+              <span className="text-gray-600 font-normal">Subtotal</span>
+              <span className="font-medium text-gray-800">₹{totalCost}</span>
+            </div>
 
-          <hr className="my-3 sm:my-4" />
-          <div className="flex justify-between font-semibold text-base sm:text-lg">
-            <span>Order total</span>
-            <span>₹{totalCost}</span>
+            <hr className="my-4 border-gray-200" />
+            <div className="flex justify-between font-semibold text-lg">
+              <span className="text-gray-800">Order total</span>
+              <span className="text-gray-800">₹{totalCost}</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex flex-col items-center mt-6 sm:mt-8 gap-4 sm:gap-6 pb-8 sm:pb-12">
-        <Button
-          className="w-full sm:w-1/2 max-w-md bg-indigo-600 hover:bg-indigo-500 h-10 sm:h-12 text-sm sm:text-base"
-          onClick={() =>
-            navigate("/checkout", { state: { cartItems, totalCost } })
-          }
-        >
-          Proceed to Checkout
-        </Button>
-        <button
-          onClick={() => navigate("/shop")}
-          className="text-indigo-600 hover:text-indigo-500 text-xs sm:text-sm font-medium"
-        >
-          Continue Shopping →
-        </button>
+        <div className="flex flex-col items-center mt-8 sm:mt-10 gap-4 pb-12">
+          <Button
+            className="w-full sm:w-auto sm:px-10 bg-indigo-600 hover:bg-indigo-700 h-12 text-base font-medium text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            onClick={() =>
+              navigate("/checkout", { state: { cartItems, totalCost } })
+            }
+          >
+            Proceed to Checkout
+          </Button>
+          <button
+            onClick={() => navigate("/shop")}
+            className="text-indigo-600 hover:text-indigo-500 text-sm font-medium transition-colors duration-200 hover:underline"
+          >
+            Continue Shopping →
+          </button>
+        </div>
       </div>
     </div>
   );
