@@ -35,41 +35,60 @@ const ViewProfile = () => {
   };
 
   return (
-    <div className="p-1 relative border-black ">
+    <div className="p-1 relative">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger className="relative">
           <User
-            className="border-2 rounded-full mt-1 border-black "
+            className="border rounded-full mt-1 border-gray-300 text-gray-700 hover:border-gray-400 transition-colors"
             size={34}
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className="absolute z-50 bg-white border rounded shadow-md p-2"
+          className="absolute z-50 bg-white border border-gray-200 rounded shadow-md p-2"
           sideOffset={100}
           side="left"
           align="end"
         >
-          <DropdownMenuLabel className="text-lg">
-            <span className="text-sm font-extralight">
-              Signed in as <br></br>
+          <DropdownMenuLabel className="px-2 py-1.5">
+            <span className="text-xs font-light text-gray-500 block">
+              Signed in as
             </span>
-            <span className="text-lg font-normal ">{displayName}</span>
+            <span className="text-base font-medium text-gray-800">
+              {displayName}
+            </span>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => HandleProfileClick()}>
-            <UserCog2></UserCog2>Profile
+          <DropdownMenuSeparator className="bg-gray-200 my-1" />
+          <DropdownMenuItem
+            onClick={() => HandleProfileClick()}
+            className="flex items-center text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:text-gray-900 rounded px-2 py-1.5 text-sm cursor-pointer"
+          >
+            <UserCog2 size={16} className="text-gray-500 mr-2" />
+            <span>Profile</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={() => navigate("/cartItems")}>
-            <Wallet2></Wallet2>Billing
+          <DropdownMenuItem
+            onClick={() => navigate("/cartItems")}
+            className="flex items-center text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:text-gray-900 rounded px-2 py-1.5 text-sm cursor-pointer"
+          >
+            <Wallet2 size={16} className="text-gray-500 mr-2" />
+            <span>Billing</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={() => navigate("/orderHistory")}>
-            <Truck></Truck>Orders
+          <DropdownMenuItem
+            onClick={() => navigate("/orderHistory")}
+            className="flex items-center text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:text-gray-900 rounded px-2 py-1.5 text-sm cursor-pointer"
+          >
+            <Truck size={16} className="text-gray-500 mr-2" />
+            <span>Orders</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={HandleSignOut}>
-            <LogOut></LogOut>SignOut
+          <DropdownMenuSeparator className="bg-gray-200 my-1" />
+          <DropdownMenuItem
+            onClick={HandleSignOut}
+            className="flex items-center text-red-600 hover:bg-red-50 focus:bg-red-50 focus:text-red-700 rounded px-2 py-1.5 text-sm cursor-pointer"
+          >
+            <LogOut size={16} className="text-red-500 mr-2" />
+            <span>Sign Out</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
