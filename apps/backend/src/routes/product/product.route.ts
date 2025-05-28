@@ -165,12 +165,18 @@ productRoute.post("/add", async (req, res) => {
 
 productRoute.get("/getbycategory", async (req: Request, res: Response) => {
   try {
-    const allCategoryJSONformat = await prisma.category.findMany({
-      select: { name: true },
+    const categoriesWithCounts = await prisma.category.findMany({
+      select: {
+        name: true,
+        _count: {
+          select: { products: true },
+        },
+      },
     });
 
-    // res.send(allCategory);
-    // return;
+    const allCategoryJSONformat = categoriesWithCounts
+      .filter((category) => category._count.products >= 8)
+      .map((category) => ({ name: category.name }));
 
     const categoryArrayFormat: string[] = allCategoryJSONformat.map(
       (singleCategory) => {
