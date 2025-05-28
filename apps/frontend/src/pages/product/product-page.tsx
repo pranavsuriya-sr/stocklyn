@@ -111,7 +111,7 @@ const ProductPage = () => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
         <div className="space-y-4">
-          <div className="relative aspect-square overflow-hidden rounded-xl shadow-md">
+          <div className="relative aspect-square overflow-hidden rounded-xl shadow-lg">
             <Lens zoomFactor={1.5} lensSize={170} isStatic={false}>
               <img
                 src={selectedImage}
@@ -127,8 +127,8 @@ const ProductPage = () => {
                 onClick={() => setSelectedImage(image)}
                 className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden border-2 transition-all ${
                   selectedImage === image
-                    ? "border-indigo-600 scale-105"
-                    : "border-transparent hover:border-gray-300"
+                    ? "border-slate-500 scale-105"
+                    : "border-transparent hover:border-slate-300"
                 }`}
               >
                 <img
@@ -143,10 +143,10 @@ const ProductPage = () => {
 
         <motion.div className="space-y-6" variants={containerVariants}>
           <motion.div variants={itemVariants}>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-semibold text-slate-800">
               {product.name || "Product"}
             </h1>
-            <p className="text-xl md:text-2xl font-semibold text-indigo-600 mt-2">
+            <p className="text-xl md:text-2xl font-semibold text-slate-800 mt-2">
               ₹{product.price?.toLocaleString() || "0"}
             </p>
           </motion.div>
@@ -175,7 +175,7 @@ const ProductPage = () => {
                 {product.colors?.map((color: string) => (
                   <button
                     key={color}
-                    className="w-8 h-8 rounded-full border-2 border-gray-200 hover:border-indigo-400 transition-colors"
+                    className="w-8 h-8 rounded-full border-2 border-gray-200 hover:border-slate-400 transition-colors"
                     style={{ backgroundColor: color }}
                     title={color}
                   />
@@ -195,8 +195,8 @@ const ProductPage = () => {
                     className={`px-3 py-1 border rounded-md text-sm font-medium transition-colors 
             ${
               selectedSize === size
-                ? "bg-indigo-500 text-white border-indigo-500"
-                : "hover:bg-gray-100 hover:border-indigo-400"
+                ? "bg-slate-700 text-white border-slate-700"
+                : "hover:bg-slate-100 hover:border-slate-400 border-gray-200"
             }`}
                   >
                     {size}
@@ -304,7 +304,7 @@ const ProductPage = () => {
                             )?.quantity || 1}{" "}
                           </p>
 
-                          <p className="text-indigo-600 font-medium">
+                          <p className="text-slate-700 font-medium">
                             ₹{product.price.toLocaleString()}
                           </p>
                         </div>
@@ -336,8 +336,7 @@ const ProductPage = () => {
                 <SheetFooter className="mt-6">
                   <SheetClose asChild>
                     <Button
-                      className="w-full py-6 text-lg font-montserrat"
-                      variant={"indigo"}
+                      className="w-full py-6 text-lg font-montserrat bg-slate-800 text-white hover:bg-slate-700"
                       disabled={products.length === 0}
                       onClick={() => navigate("/cartitems")}
                     >
@@ -351,7 +350,7 @@ const ProductPage = () => {
         </motion.div>
       </div>
       <div className="mt-16 pt-10">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8">
+        <h2 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-8">
           Users Also Purchase
         </h2>
         {isLoading ? (
@@ -363,7 +362,7 @@ const ProductPage = () => {
             {data.map((product: any, index: number) => (
               <div
                 key={index}
-                className="group cursor-pointer border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300"
+                className="group cursor-pointer border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300"
                 onClick={() => RouteToProductPage(product)}
               >
                 <div className="aspect-square overflow-hidden">
@@ -377,7 +376,7 @@ const ProductPage = () => {
                   <h3 className="font-medium text-gray-800 truncate text-xs">
                     {product.name}
                   </h3>
-                  <p className="text-indigo-600 font-semibold text-xs">
+                  <p className="text-slate-700 font-semibold text-xs">
                     ₹{product.price.toLocaleString()}
                   </p>
                 </div>
@@ -391,7 +390,7 @@ const ProductPage = () => {
         className="mt-16 md:mt-24 pt-8 border-t border-gray-200"
         variants={fadeIn}
       >
-        <h2 className="text-2xl md:text-3xl font-bold mb-8">
+        <h2 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-8">
           Customer Reviews
         </h2>
         <div className="bg-gray-50 rounded-xl p-8 text-center">
@@ -399,7 +398,7 @@ const ProductPage = () => {
           <Button
             variant="outline"
             onClick={() => setDisplayText(true)}
-            className="mt-4 border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+            className="mt-4 border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-700"
           >
             Be the first to review
           </Button>
