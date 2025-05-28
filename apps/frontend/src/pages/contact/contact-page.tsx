@@ -72,13 +72,13 @@ const ContactPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-montserrat py-16 md:py-24 mt-16">
+    <div className="min-h-screen bg-white text-gray-900 py-16 md:py-24 mt-16">
       <header className="pb-16 md:pb-20">
         <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-gray-900">
+          <h1 className="text-3xl md:text-4xl font-medium tracking-tight mb-4 text-gray-900">
             Get in Touch
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto text-gray-600">
+          <p className="text-base md:text-lg max-w-2xl mx-auto text-gray-600">
             We're here to help and answer any question you might have. We look
             forward to hearing from you!
           </p>
@@ -89,7 +89,7 @@ const ContactPage = () => {
         <div className="max-w-5xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-subtle border border-gray-200 grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Contact Form Section */}
           <div>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-8">
+            <h2 className="text-xl sm:text-2xl font-medium text-gray-900 mb-8">
               Send us a Message
             </h2>
             <form onSubmit={mutation.mutate} className="space-y-6">
@@ -155,7 +155,7 @@ const ContactPage = () => {
               <div>
                 <Button
                   type="submit"
-                  className="w-full sm:w-auto px-6 py-3 text-base font-medium rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ease-in-out transform hover:-translate-y-px active:translate-y-0 hover:shadow-xl disabled:opacity-75 disabled:transform-none disabled:shadow-md bg-indigo-600 hover:bg-indigo-700 text-white"
+                  className="w-full sm:w-auto h-11 px-6 text-sm font-medium rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ease-in-out transform hover:-translate-y-px active:translate-y-0 hover:shadow-xl disabled:opacity-75 disabled:transform-none disabled:shadow-md bg-indigo-600 hover:bg-indigo-700 text-white"
                   disabled={mutation.isPending}
                 >
                   {mutation.isPending ? "Sending..." : "Send Message"}
@@ -166,7 +166,7 @@ const ContactPage = () => {
 
           {/* Contact Information Section */}
           <div>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-8">
+            <h2 className="text-xl sm:text-2xl font-medium text-gray-900 mb-8">
               Our Contact Details
             </h2>
             <div className="space-y-8">
@@ -176,7 +176,7 @@ const ContactPage = () => {
                   className="text-indigo-600 mr-4 mt-1 flex-shrink-0"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  <h3 className="text-lg font-medium text-gray-900 mb-1">
                     Email Us
                   </h3>
                   <p className="text-gray-600 text-sm mb-1">
@@ -196,7 +196,7 @@ const ContactPage = () => {
                   className="text-indigo-600 mr-4 mt-1 flex-shrink-0"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  <h3 className="text-lg font-medium text-gray-900 mb-1">
                     Call Us
                   </h3>
                   <p className="text-gray-600 text-sm mb-1">
@@ -216,7 +216,7 @@ const ContactPage = () => {
                   className="text-indigo-600 mr-4 mt-1 flex-shrink-0"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  <h3 className="text-lg font-medium text-gray-900 mb-1">
                     Our Office
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed">

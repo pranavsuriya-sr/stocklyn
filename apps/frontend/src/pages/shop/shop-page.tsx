@@ -101,7 +101,7 @@ const ShopPage = () => {
     <div className="pt-20 md:pt-28 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-7xl">
         <div>
-          <div className="font-montserrat text-2xl sm:text-3xl md:text-4xl font-bold py-6 md:py-10 text-center sm:text-left">
+          <div className="font-montserrat text-2xl sm:text-3xl md:text-4xl font-bold py-6 md:py-10 text-center sm:text-left font-thin">
             All available Items in Our Store<br></br>
             <span className="text-primary text-xl text-indigo-600">
               Page {Number(searchParams.get("skip")) / 12 + 1}
@@ -125,7 +125,7 @@ const ShopPage = () => {
                 </div>
               ))
             ) : (
-              <p className="col-span-full text-center text-gray-500 py-10">
+              <p className="col-span-full text-center text-gray-500 py-10 min-h-screen flex items-center justify-center ">
                 No products found.
               </p>
             )}
