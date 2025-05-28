@@ -81,12 +81,12 @@ const Login = () => {
             community today.
           </p>
 
-          <div className="space-y-6 w-full">
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+          <div className="space-y-5 w-full">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
               <h3 className="text-xl font-semibold text-indigo-700 mb-3">
                 New Here?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-4">
                 Create an account to get started. It's quick and easy!
               </p>
               <Button
@@ -97,11 +97,11 @@ const Login = () => {
               </Button>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ease-in-out">
               <h3 className="text-xl font-semibold text-amber-700 mb-3">
                 Want to Sell?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-4">
                 Join our platform as a seller and reach thousands of customers.
               </p>
               <Button
@@ -112,7 +112,7 @@ const Login = () => {
               </Button>
             </div>
           </div>
-          <p className="mt-10 text-sm text-gray-500">
+          <p className="mt-8 text-sm text-gray-500">
             &copy; {new Date().getFullYear()} Maalelo. All rights reserved.
           </p>
         </div>
