@@ -55,7 +55,7 @@ sellerStatsRoute.get(
     //getting its ids
     const productIds = topProductsByQuantity.map((item) => item.productId);
     //getting the products details
-    const topPerformingProducts = await prisma.products.findMany({
+    const productDetailsArray = await prisma.products.findMany({
       where: {
         id: {
           in: productIds,
@@ -63,10 +63,22 @@ sellerStatsRoute.get(
       },
     });
 
-    const topPerformingProductsWithQuantity = {
-      topPerformingProducts,
-      topProductsByQuantity,
-    };
+    const productDetailsMap = new Map(
+      productDetailsArray.map((p) => [p.id, p])
+    );
+
+    const combinedTopProducts = topProductsByQuantity.map((item) => {
+      const product = productDetailsMap.get(item.productId);
+      return {
+        productId: item.productId,
+        name: product?.name || "Unknown Product",
+        stockQuantity:
+          product?.stockQuantity === undefined ? 0 : product.stockQuantity,
+        totalQuantitySold: item._sum.quantity === null ? 0 : item._sum.quantity,
+        image: product?.imageUrl[0],
+        price: product?.price,
+      };
+    });
 
     const totalCost = orders.reduce((acc, order) => {
       return acc + Number(order.order.total);
@@ -80,7 +92,7 @@ sellerStatsRoute.get(
       totalCountOfItemsSold,
       totalCost,
       recentOrder,
-      topPerformingProducts: topPerformingProductsWithQuantity,
+      topPerformingProducts: combinedTopProducts,
     });
   }
 );
