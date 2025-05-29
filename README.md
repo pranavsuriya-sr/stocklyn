@@ -1,6 +1,6 @@
 # Stocklyn
 
-![Landing Page](./assets/landingPage.png)
+![Landing Page](./apps/frontend/src/assets/landingPage1.png)
 
 ## Overview
 
@@ -9,12 +9,13 @@ A full-stack e-commerce application (in development)
 ## Progress
 
 - Completed buyer interface
-- Cooking Seller interface
+- Completed Seller interface
+- Cooking Admin portal
 
 ## todo
 
-- Add sell page at seller interface
-- Build a builder OnBoarding form
+- Add an admin page for authorization of the seller's requests
+- Add filters at the search and category pages.
 - Quality Life Features
 
 ## Features
@@ -26,7 +27,9 @@ A full-stack e-commerce application (in development)
 - Secure checkout process
 - Order management
 - RBAC for sellers and buyers
-- more coming soon..
+- Sell Products
+- Get detailed selling stats
+- Cooking more
 
 ## Tech Stack
 
@@ -36,6 +39,7 @@ A full-stack e-commerce application (in development)
   - React Query
   - ShadCN
   - Tailwind
+  - Multer
 - Backend:
   - Node.js
   - Express
