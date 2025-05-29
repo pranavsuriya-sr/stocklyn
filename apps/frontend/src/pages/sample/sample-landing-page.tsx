@@ -18,14 +18,14 @@ const SampleLandingPage = () => {
           className="absolute inset-0 w-full h-full object-cover object-top"
         />
 
-        <div className="relative z-10 flex flex-col items-start p-8 md:p-16 lg:p-24 max-w-7xl w-full">
-          <div className="md:w-1/2 lg:w-2/5 xl:w-1/3">
+        <div className="relative z-10 flex flex-col items-start p-8 md:p-12 lg:p-16 max-w-7xl w-full">
+          <div className="md:w-2/3 lg:w-1/2">
             <div>
-              <FlipText className="text-gray-800 text-5xl sm:text-6xl md:text-7xl font-thin tracking-tight mb-4">
+              <FlipText className="text-gray-900 text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6">
                 Maalelo
               </FlipText>
 
-              <p className="text-gray-700 text-2xl sm:text-3xl font-light mb-6">
+              <p className="text-gray-700 text-2xl sm:text-3xl font-light mb-8">
                 <TextAnimate animation="blurInUp" by="word" duration={2}>
                   Your Next Favorite Find Awaits.
                 </TextAnimate>
@@ -36,17 +36,17 @@ const SampleLandingPage = () => {
                 Shop with confidence and discover something new today!
               </p>
 
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <InteractiveHoverButton
                   onClick={() => navigate("/shop")}
-                  className="border-black"
+                  className="border-black hover:text-white px-8 py-3 text-lg rounded-lg"
                 >
                   Shop now
                 </InteractiveHoverButton>
                 <ShinyButton
                   onClick={() => navigate("/shop")}
-                  color="gray"
-                  className="border-black "
+                  color="indigo"
+                  className="px-8 py-3 text-lg rounded-lg border-black"
                 >
                   Explore Features
                 </ShinyButton>
@@ -55,27 +55,15 @@ const SampleLandingPage = () => {
           </div>
         </div>
       </section>
-      <section></section>
 
-      <section className="rounded bg-neutral-100 py-8 sm:py-12 ">
-        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-8 px-8 sm:px-16">
-          <img
-            src="https://files.stripe.com/links/MDB8YWNjdF8xT3BaeG5GSmNWbVh6bURsfGZsX3Rlc3RfaDVvWXowdU9ZbWlobUIyaHpNc1hCeDM200NBzvUjqP"
-            alt="Cup of Coffee"
-            width={450}
-            height={450}
-            loading="eager"
-            decoding="async"
-            className="rounded object-cover w-full h-auto max-w-[450px]"
-          />
-          <div className="max-w-md space-y-4">
-            <h2 className="text-balance text-3xl md:text-4xl font-bold tracking-tight">
-              <AuroraText className="text-4xl md:text-5xl lg:text-6xl">
-                Discover our Curated Collection
-              </AuroraText>
+      <section className="bg-white py-16 md:py-24 px-6 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-x-12 gap-y-10">
+          <div className="order-last md:order-first max-w-md text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-gray-900 mb-6">
+              <AuroraText>Discover our Curated Collection</AuroraText>
             </h2>
 
-            <p className="text-pretty text-neutral-600">
+            <p className="text-lg text-gray-700 font-light mb-8">
               <TextAnimate animation="scaleUp" by="word" duration={1}>
                 Explore our carefully selected products for your home and
                 lifestyle.
@@ -83,99 +71,140 @@ const SampleLandingPage = () => {
             </p>
             <a
               href="/shop"
-              className="inline-flex h-10 items-center justify-center rounded-full bg-indigo-500 px-6 font-medium text-neutral-50 transition-colors hover:bg-neutral-900/90 focus:outline-none focus:ring-2 focus:ring-neutral-950"
+              className="inline-flex h-12 items-center justify-center rounded-lg bg-indigo-600 px-8 text-lg font-medium text-white shadow-md transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Explore
+              Explore Collection
             </a>
           </div>
+          <img
+            src="https://files.stripe.com/links/MDB8YWNjdF8xT3BaeG5GSmNWbVh6bURsfGZsX3Rlc3RfaDVvWXowdU9ZbWlobUIyaHpNc1hCeDM200NBzvUjqP"
+            alt="Curated collection item"
+            width={500}
+            height={500}
+            loading="eager"
+            decoding="async"
+            className="rounded-lg shadow-xl object-cover w-full h-auto max-w-lg"
+          />
         </div>
       </section>
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white">
-        <h2 className="text-3xl md:text-4xl text-neutral-900 text-center mb-12 md:mb-16 font-thin">
+
+      <section className="bg-gray-50 py-16 md:py-24 px-6 md:px-12 lg:px-24">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-900 text-center mb-12 md:mb-16 font-semibold tracking-tight">
           <TextAnimate animation="blurInUp" by="character" duration={2}>
             Why You'll Love Shopping With Us
           </TextAnimate>
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-12 lg:gap-y-16">
+        <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-10 lg:gap-y-14">
           {[
             {
               iconChar: "⇆",
               title: "Easy Exchange",
-              description: "Hassle-free exchange policy within 14 days",
+              description: "Hassle-free exchange policy within 14 days.",
             },
             {
               iconChar: "⊕",
               title: "Quality Guarantee",
-              description: "7-day free return on all products",
+              description: "7-day free return on all products.",
             },
             {
               iconChar: "☏",
               title: "24/7 Support",
-              description: "Dedicated customer service team",
+              description:
+                "Dedicated customer service team, always here to help.",
             },
             {
               iconChar: "◎",
               title: "Secure Payments",
               description:
-                "Your transactions are protected with top-tier security.",
+                "Your transactions are protected with top-tier security measures.",
             },
             {
               iconChar: "➤",
               title: "Fast Shipping",
-              description: "Get your orders delivered swiftly and reliably.",
+              description:
+                "Get your orders delivered swiftly and reliably to your doorstep.",
             },
             {
               iconChar: "✧",
               title: "Exclusive Offers",
               description:
-                "Unlock special deals and early access to new arrivals.",
+                "Unlock special deals and early access to new arrivals as a valued customer.",
             },
           ].map((feature, index) => (
             <div
               key={index}
-              className="flex flex-col items-start text-left p-4"
+              className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <span className="text-neutral-900 text-5xl mb-4">
+              <span className="text-indigo-600 text-5xl mb-5">
                 {feature.iconChar}
               </span>
 
-              <h3 className="text-lg font-semibold text-neutral-800 mb-1">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {feature.title}
               </h3>
-              <p className="text-neutral-600 text-sm leading-relaxed">
+              <p className="text-gray-600 text-base font-light leading-relaxed">
                 {feature.description}
               </p>
             </div>
           ))}
         </div>
       </section>
-      <section className="relative bg-white py-16 sm:py-24">
+
+      <section className="relative bg-gray-900 py-20 md:py-32 px-6 md:px-12 lg:px-24">
         <img
           src={landingPage2}
           alt="Kids playhouse and bedroom furniture"
-          className="absolute inset-0 w-full h-full object-cover"
-          width={1000}
-          height={667}
-          loading="eager"
-          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
         />
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 flex">
-          <div className="max-w-xl lg:w-1/2">
-            <h2 className="text-4xl font-light tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+        <div className="relative z-10 mx-auto max-w-7xl flex items-center">
+          <div className="max-w-xl lg:w-1/2 text-white">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6">
               Create Magical Spaces, Delivered Home
             </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-700 font-light">
+            <p className="mt-6 text-xl leading-9 font-light mb-10">
               Discover our thoughtfully crafted furniture — shipping now.
             </p>
             <div className="mt-10">
               <a
                 href="/shop"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-lg bg-white px-8 py-3.5 text-lg font-semibold text-indigo-600 shadow-md hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors"
               >
-                Explore
+                Explore Furniture
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-16 md:py-24 px-6 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+            Become a Maalelo Insider
+          </h2>
+          <p className="mt-6 text-lg leading-8 text-gray-700 font-light">
+            Get exclusive updates, early access to new collections, and special
+            offers delivered right to your inbox.
+          </p>
+          <form className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+            <label htmlFor="email-address" className="sr-only">
+              Email address
+            </label>
+            <input
+              id="email-address"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              className="min-w-0 flex-auto rounded-lg border-gray-300 bg-white px-3.5 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full sm:w-auto"
+              placeholder="Enter your email"
+            />
+            <button
+              type="submit"
+              className="w-full sm:w-auto rounded-lg bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-md hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 border border-black transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </section>
     </>
