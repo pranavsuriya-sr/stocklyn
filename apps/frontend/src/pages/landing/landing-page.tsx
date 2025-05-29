@@ -21,37 +21,35 @@ const LandingPage = () => {
 
         <div className="relative z-10 flex flex-col items-start p-8 md:p-12 lg:p-16 max-w-7xl w-full">
           <div className="md:w-2/3 lg:w-1/2">
-            <div>
-              <FlipText className="text-gray-900 text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6">
-                Maalelo
-              </FlipText>
+            <FlipText className="text-gray-900 text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6">
+              Maalelo
+            </FlipText>
 
-              <p className="text-gray-700 text-2xl sm:text-3xl font-light mb-8">
-                <TextAnimate animation="blurInUp" by="word" duration={2}>
-                  Your Next Favorite Find Awaits.
-                </TextAnimate>
-              </p>
+            <div className="text-gray-700 text-2xl sm:text-3xl font-light mb-8">
+              <TextAnimate animation="blurInUp" by="word" duration={2}>
+                Your Next Favorite Find Awaits.
+              </TextAnimate>
+            </div>
 
-              <p className="text-gray-600 text-lg font-light mb-10 leading-relaxed">
-                Explore a world of unique products & amazing deals on Maalelo.
-                Shop with confidence and discover something new today!
-              </p>
+            <p className="text-gray-600 text-lg font-light mb-10 leading-relaxed">
+              Explore a world of unique products & amazing deals on Maalelo.
+              Shop with confidence and discover something new today!
+            </p>
 
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                <InteractiveHoverButton
-                  onClick={() => navigate("/shop")}
-                  className="border-black hover:text-white px-8 py-3 text-lg rounded-lg"
-                >
-                  Shop now
-                </InteractiveHoverButton>
-                <ShinyButton
-                  onClick={() => navigate("/shop")}
-                  color="indigo"
-                  className="px-8 py-3 text-lg rounded-lg border-black"
-                >
-                  Explore Features
-                </ShinyButton>
-              </div>
+            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+              <InteractiveHoverButton
+                onClick={() => navigate("/shop")}
+                className="border-black hover:text-white px-8 py-3 text-lg rounded-lg"
+              >
+                Shop now
+              </InteractiveHoverButton>
+              <ShinyButton
+                onClick={() => navigate("/shop")}
+                color="indigo"
+                className="px-8 py-3 text-lg rounded-lg border-black"
+              >
+                Explore Features
+              </ShinyButton>
             </div>
           </div>
         </div>
@@ -116,16 +114,20 @@ const LandingPage = () => {
       <section className="bg-white py-16 md:py-24 px-6 md:px-12 lg:px-24">
         <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-x-12 gap-y-10">
           <div className="order-last md:order-first max-w-md text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-gray-900 mb-6">
-              <AuroraText>Discover our Curated Collection</AuroraText>
-            </h2>
+            <AuroraText className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-gray-900 mb-6">
+              Discover our Curated Collection
+            </AuroraText>
 
-            <p className="text-lg text-gray-700 font-light mb-8">
-              <TextAnimate animation="scaleUp" by="word" duration={1}>
-                Explore our carefully selected products for your home and
-                lifestyle.
-              </TextAnimate>
-            </p>
+            <TextAnimate
+              animation="scaleUp"
+              by="word"
+              duration={1}
+              className="text-lg text-gray-700 font-light mb-8"
+            >
+              Explore our carefully selected products for your home and
+              lifestyle.
+            </TextAnimate>
+
             <a
               href="/shop"
               className="inline-flex h-12 items-center justify-center rounded-lg bg-indigo-600 px-8 text-lg font-medium text-white shadow-md transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

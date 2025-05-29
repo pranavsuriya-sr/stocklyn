@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, MotionProps, Variants } from "motion/react";
+import { motion, MotionProps, Variants } from "motion/react";
 
 import { cn } from "@/lib/utils";
 import React, { ElementType } from "react";
@@ -41,22 +41,20 @@ export function FlipText({
 
   return (
     <div className={cn(className)}>
-      <AnimatePresence mode="wait">
-        {characters.map((char, i) => (
-          <MotionComponent
-            key={i}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={variants || defaultVariants}
-            transition={{ duration, delay: i * delayMultiple }}
-            className={cn("origin-center drop-shadow-sm inline-block")}
-            {...props}
-          >
-            {char === " " ? "\u00A0" : char}
-          </MotionComponent>
-        ))}
-      </AnimatePresence>
+      {characters.map((char, i) => (
+        <MotionComponent
+          key={i}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={variants || defaultVariants}
+          transition={{ duration, delay: i * delayMultiple }}
+          className={cn("origin-center drop-shadow-sm inline-block")}
+          {...props}
+        >
+          {char === " " ? "\u00A0" : char}
+        </MotionComponent>
+      ))}
     </div>
   );
 }
