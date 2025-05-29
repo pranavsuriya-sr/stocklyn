@@ -1,4 +1,5 @@
 import landingPage from "@/assets/landingPage1.png";
+import landingPage2 from "@/assets/landingPage2.png";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { FlipText } from "@/components/magicui/flip-text";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
@@ -54,8 +55,19 @@ const SampleLandingPage = () => {
           </div>
         </div>
       </section>
+      <section></section>
+
       <section className="rounded bg-neutral-100 py-8 sm:py-12 ">
         <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-8 px-8 sm:px-16">
+          <img
+            src="https://files.stripe.com/links/MDB8YWNjdF8xT3BaeG5GSmNWbVh6bURsfGZsX3Rlc3RfaDVvWXowdU9ZbWlobUIyaHpNc1hCeDM200NBzvUjqP"
+            alt="Cup of Coffee"
+            width={450}
+            height={450}
+            loading="eager"
+            decoding="async"
+            className="rounded object-cover w-full h-auto max-w-[450px]"
+          />
           <div className="max-w-md space-y-4">
             <h2 className="text-balance text-3xl md:text-4xl font-bold tracking-tight">
               <AuroraText className="text-4xl md:text-5xl lg:text-6xl">
@@ -76,16 +88,6 @@ const SampleLandingPage = () => {
               Explore
             </a>
           </div>
-
-          <img
-            src="https://files.stripe.com/links/MDB8YWNjdF8xT3BaeG5GSmNWbVh6bURsfGZsX3Rlc3RfaDVvWXowdU9ZbWlobUIyaHpNc1hCeDM200NBzvUjqP"
-            alt="Cup of Coffee"
-            width={450}
-            height={450}
-            loading="eager"
-            decoding="async"
-            className="rounded object-cover w-full h-auto max-w-[450px]"
-          />
         </div>
       </section>
       <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white">
@@ -145,6 +147,35 @@ const SampleLandingPage = () => {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+      <section className="relative bg-white py-16 sm:py-24">
+        <img
+          src={landingPage2}
+          alt="Kids playhouse and bedroom furniture"
+          className="absolute inset-0 w-full h-full object-cover"
+          width={1000}
+          height={667}
+          loading="eager"
+          decoding="async"
+        />
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 flex">
+          <div className="max-w-xl lg:w-1/2">
+            <h2 className="text-4xl font-light tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+              Create Magical Spaces, Delivered Home
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-gray-700 font-light">
+              Discover our thoughtfully crafted furniture — shipping now.
+            </p>
+            <div className="mt-10">
+              <a
+                href="/shop"
+                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Explore
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </>
