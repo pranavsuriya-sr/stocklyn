@@ -1,11 +1,17 @@
 import { sellerStatsRoute } from "@/api/api";
 import { AnimatedList } from "@/components/magicui/animated-list";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { useSession } from "@/context/session-context";
 import { useQuery } from "@tanstack/react-query";
 import {
   Activity,
   AlertCircle,
-  BarChart3,
   CreditCard,
   IndianRupee,
   Package,
@@ -15,8 +21,9 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const StatCard: React.FC<{
   title: string;
@@ -76,6 +83,9 @@ const SellerDashboardPage: React.FC = () => {
   const { user } = useSession();
   const navigate = useNavigate();
   const sellerId = user?.id;
+  const [topPerformingProductsInfo, setTopPerformingProductsInfo] = useState<
+    any[]
+  >([]);
 
   const GetSellerDetails = async ({
     sellerId,
@@ -87,6 +97,7 @@ const SellerDashboardPage: React.FC = () => {
     }
     const response = await sellerStatsRoute.get(`/${sellerId}`);
 
+    setTopPerformingProductsInfo(response.data.topPerformingProducts);
     return response.data;
   };
 
@@ -96,7 +107,7 @@ const SellerDashboardPage: React.FC = () => {
     enabled: !!sellerId,
   });
 
-  console.log(data?.topPerformingProducts);
+  // console.log(data?.topPerformingProducts);
 
   const initialActivityItems = [
     {
@@ -150,6 +161,18 @@ const SellerDashboardPage: React.FC = () => {
       subtitle: "now",
       hoverTextColor: "group-hover:text-red-600",
     },
+    {
+      icon: (
+        <PlusCircle
+          size={20}
+          className="text-violet-500 group-hover:text-white transition-colors duration-300"
+        />
+      ),
+      bgColor: "bg-violet-100 group-hover:bg-violet-500",
+      title: "Top seller (admin only)",
+      subtitle: "View your rank among all sellers",
+      hoverTextColor: "group-hover:text-violet-600",
+    },
   ];
 
   const insightWidgets = [
@@ -162,6 +185,45 @@ const SellerDashboardPage: React.FC = () => {
       placeholder: "Demographics chart coming soon.",
     },
   ];
+  console.log(topPerformingProductsInfo);
+
+  const chartDataForTopPerformingProducts = topPerformingProductsInfo.map(
+    (product) => {
+      return {
+        name: product.name,
+        totalSold: product.totalQuantitySold,
+        revenue: product.totalQuantitySold * product.price,
+      };
+    }
+  );
+
+  console.log(chartDataForTopPerformingProducts);
+
+  const chartConfig = {
+    totalSold: {
+      label: "Total Sold",
+      color: "#4f46e5",
+    },
+    revenue: {
+      label: "Revenue",
+      color: "#60a5fa",
+    },
+  } satisfies ChartConfig;
+
+  const SalesChart = () => {
+    return (
+      <ChartContainer config={chartConfig} className="min-h-[150px] w-full">
+        <BarChart accessibilityLayer data={chartDataForTopPerformingProducts}>
+          <CartesianGrid vertical={false} strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis dataKey="totalSold" />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend />
+          <Bar dataKey="totalSold" fill="var(--color-totalSold)" radius={4} />
+        </BarChart>
+      </ChartContainer>
+    );
+  };
 
   if (isLoading) {
     return (
@@ -198,7 +260,7 @@ const SellerDashboardPage: React.FC = () => {
               <QuickActionButton
                 label="Add Product"
                 icon={<PlusCircle size={18} />}
-                onClick={() => navigate("/seller/products/new")}
+                onClick={() => navigate("/seller/sell")}
                 variant="primary"
               />
               <QuickActionButton
@@ -257,49 +319,45 @@ const SellerDashboardPage: React.FC = () => {
             <h2 className="text-xl font-semibold text-neutral-800 mb-6">
               Sales Overview
             </h2>
-            <div className="h-80 bg-neutral-50/70 rounded-xl flex items-center justify-center border border-neutral-200/60">
-              <div className="text-center">
-                <BarChart3 size={40} className="mx-auto text-indigo-400 mb-3" />
-                <p className="text-neutral-600 font-medium">Sales Chart</p>
-                <p className="text-sm text-neutral-400 mt-1">
-                  Detailed visualization coming soon.
-                </p>
-              </div>
+            <div className="h-30 bg-neutral-50/70 rounded-xl flex items-center justify-center border border-neutral-200/60">
+              <SalesChart />
             </div>
           </div>
 
           {/* Recent Activity Feed */}
-          <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-neutral-200/80 hover:shadow-md transition-shadow duration-300 ease-out">
-            <div className="flex justify-between items-baseline mb-6">
-              <h1 className="text-xl font-semibold text-neutral-800">
-                Recent Activity
-              </h1>
-              <button className="text-sm text-indigo-600 font-medium hover:text-indigo-700 transition-colors duration-300 py-2.5 rounded-lg hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-                View all activity
-              </button>
-            </div>
-            <AnimatedList className="space-y-5 w-full">
-              {initialActivityItems.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-start space-x-4 group p-2 -m-2 rounded-lg hover:bg-neutral-50/80 transition-colors duration-200 w-full"
-                >
-                  <div
-                    className={`flex-shrink-0 w-10 h-10 ${item.bgColor} rounded-full flex items-center justify-center transition-colors duration-300`}
+          <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-neutral-200/80 hover:shadow-md transition-shadow duration-300 ease-out flex flex-col">
+            <h1 className="text-xl font-semibold text-neutral-800 mb-6">
+              Recent Activity
+            </h1>
+            <div className="flex-grow overflow-y-auto mb-4">
+              <AnimatedList className="space-y-5 w-full">
+                {initialActivityItems.map((item, index) => (
+                  <li
+                    key={index}
+                    className="flex items-start space-x-4 group p-2 -m-2 rounded-lg hover:bg-neutral-50/80 transition-colors duration-200 w-full"
                   >
-                    {item.icon}
-                  </div>
-                  <div className="flex-1">
-                    <p
-                      className={`text-sm font-medium text-neutral-700 ${item.hoverTextColor} transition-colors duration-300`}
+                    <div
+                      className={`flex-shrink-0 w-10 h-10 ${item.bgColor} rounded-full flex items-center justify-center transition-colors duration-300`}
                     >
-                      {item.title}
-                    </p>
-                    <p className="text-xs text-neutral-500">{item.subtitle}</p>
-                  </div>
-                </li>
-              ))}
-            </AnimatedList>
+                      {item.icon}
+                    </div>
+                    <div className="flex-1">
+                      <p
+                        className={`text-sm font-medium text-neutral-700 ${item.hoverTextColor} transition-colors duration-300`}
+                      >
+                        {item.title}
+                      </p>
+                      <p className="text-xs text-neutral-500">
+                        {item.subtitle}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </AnimatedList>
+            </div>
+            <button className="w-full text-sm text-indigo-600 font-medium hover:text-indigo-700 transition-colors duration-300 py-2.5 rounded-lg hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-300 mt-auto border-t border-neutral-200 pt-4">
+              View all activity
+            </button>
           </div>
         </section>
 
