@@ -1,213 +1,246 @@
-import landingPage from "@/assets/landingPage1.png";
-import landingPage2 from "@/assets/landingPage2.png";
-import { AuroraText } from "@/components/magicui/aurora-text";
-import { FlipText } from "@/components/magicui/flip-text";
-import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import { ShinyButton } from "@/components/magicui/shiny-button";
-import { TextAnimate } from "@/components/magicui/text-animate";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import exchange from "../../assets/exchange_icon.png";
+import quality from "../../assets/quality_icon.png";
+import support from "../../assets/support_img.png";
+import image from "../../assets/woman-2564660_1280.jpg";
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 0.77, 0.47, 0.97],
+    },
+  },
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
 
 const SampleLandingPage = () => {
   const navigate = useNavigate();
+
   return (
-    <>
-      <section className="relative w-full min-h-screen flex items-center justify-center bg-gray-100 mt-16">
+    <div className="overflow-x-hidden font-montserrat">
+      {/* hero section part : - >  */}
+      <motion.div
+        className="relative w-full h-screen pt-16"
+        initial="hidden"
+        animate="visible"
+        variants={fadeIn}
+      >
         <img
-          src={landingPage}
-          alt="Maalelo platform interface"
-          className="absolute inset-0 w-full h-full object-cover object-top"
+          src={image}
+          className="w-full h-full object-cover object-center"
+          alt="Fashionable woman enjoying summer"
         />
 
-        <div className="relative z-10 flex flex-col items-start p-8 md:p-12 lg:p-16 max-w-7xl w-full">
-          <div className="md:w-2/3 lg:w-1/2">
-            <div>
-              <FlipText className="text-gray-900 text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6">
-                Maalelo
-              </FlipText>
+        <motion.div
+          className="absolute inset-0 flex flex-col items-start justify-center text-left px-6 md:px-16 bg-gradient-to-r from-black/60 to-black/20"
+          variants={containerVariants}
+        >
+          <motion.h1
+            className="text-4xl md:text-6xl lg:text-7xl font-bold font-montserrat leading-tight text-indigo-400"
+            variants={itemVariants}
+          >
+            Summer <span className="text-white">Essentials</span>
+          </motion.h1>
 
-              <p className="text-gray-700 text-2xl sm:text-3xl font-light mb-8">
-                <TextAnimate animation="blurInUp" by="word" duration={2}>
-                  Your Next Favorite Find Awaits.
-                </TextAnimate>
-              </p>
+          <motion.p
+            className="mt-4 text-lg md:text-2xl text-gray-200"
+            variants={itemVariants}
+          >
+            Discover our curated collection with up to 40% off
+          </motion.p>
 
-              <p className="text-gray-600 text-lg font-light mb-10 leading-relaxed">
-                Explore a world of unique products & amazing deals on Maalelo.
-                Shop with confidence and discover something new today!
-              </p>
+          <motion.div variants={itemVariants} className="mt-8">
+            <Button
+              className="px-12 py-7 text-lg font-medium rounded-lg hover:scale-105 transition-transform"
+              variant={"indigo"}
+              onClick={() => navigate("/shop")}
+            >
+              Shop Now
+            </Button>
+          </motion.div>
+        </motion.div>
+      </motion.div>
 
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                <InteractiveHoverButton
-                  onClick={() => navigate("/shop")}
-                  className="border-black hover:text-white px-8 py-3 text-lg rounded-lg"
-                >
-                  Shop now
-                </InteractiveHoverButton>
-                <ShinyButton
-                  onClick={() => navigate("/shop")}
-                  color="indigo"
-                  className="px-8 py-3 text-lg rounded-lg border-black"
-                >
-                  Explore Features
-                </ShinyButton>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Collection part of the page */}
 
-      <section className="bg-white py-16 md:py-24 px-6 md:px-12 lg:px-24">
-        <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-x-12 gap-y-10">
-          <div className="order-last md:order-first max-w-md text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-gray-900 mb-6">
-              <AuroraText>Discover our Curated Collection</AuroraText>
+      <section className="rounded bg-neutral-100 py-8 sm:py-12 ">
+        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center justify-items-center gap-8 px-8 sm:px-16">
+          <div className="max-w-md space-y-4">
+            <h2 className="text-balance text-3xl md:text-4xl font-bold tracking-tight">
+              Discover our Curated Collection
             </h2>
-
-            <p className="text-lg text-gray-700 font-light mb-8">
-              <TextAnimate animation="scaleUp" by="word" duration={1}>
-                Explore our carefully selected products for your home and
-                lifestyle.
-              </TextAnimate>
+            <p className="text-pretty text-neutral-600">
+              Explore our carefully selected products for your home and
+              lifestyle.
             </p>
             <a
               href="/shop"
-              className="inline-flex h-12 items-center justify-center rounded-lg bg-indigo-600 px-8 text-lg font-medium text-white shadow-md transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex h-10 items-center justify-center rounded-full bg-indigo-500 px-6 font-medium text-neutral-50 transition-colors hover:bg-neutral-900/90 focus:outline-none focus:ring-2 focus:ring-neutral-950"
             >
-              Explore Collection
+              Explore
             </a>
           </div>
+
           <img
             src="https://files.stripe.com/links/MDB8YWNjdF8xT3BaeG5GSmNWbVh6bURsfGZsX3Rlc3RfaDVvWXowdU9ZbWlobUIyaHpNc1hCeDM200NBzvUjqP"
-            alt="Curated collection item"
-            width={500}
-            height={500}
+            alt="Cup of Coffee"
+            width={450}
+            height={450}
             loading="eager"
             decoding="async"
-            className="rounded-lg shadow-xl object-cover w-full h-auto max-w-lg"
+            className="rounded object-cover w-full h-auto max-w-[450px]"
           />
         </div>
       </section>
 
-      <section className="bg-gray-50 py-16 md:py-24 px-6 md:px-12 lg:px-24">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-900 text-center mb-12 md:mb-16 font-semibold tracking-tight">
-          <TextAnimate animation="blurInUp" by="character" duration={2}>
-            Why You'll Love Shopping With Us
-          </TextAnimate>
-        </h2>
-        <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-10 lg:gap-y-14">
+      {/* Categories part of the page */}
+      <motion.section
+        className="px-6 md:px-12 lg:px-24 py-16 md:py-24 mt-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-12">
+          <motion.h2
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-0"
+            variants={itemVariants}
+          >
+            Shop by Category
+          </motion.h2>
+
+          <motion.button
+            className="text-indigo-600 hover:text-indigo-800 text-sm sm:text-base transition-colors flex items-center"
+            onClick={() => navigate("/home")}
+            variants={itemVariants}
+          >
+            Browse all categories
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 ml-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </motion.button>
+        </div>
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          variants={containerVariants}
+        >
           {[
             {
-              iconChar: "⇆",
+              img: "https://i.imgur.com/KjOYhYn.jpeg",
+              title: "New Arrivals",
+              className: "hover:scale-[1.02]",
+            },
+            {
+              img: "https://i.imgur.com/7p9nZpJ.jpeg",
+              title: "Trending Now",
+              className: "hover:scale-[1.02]",
+            },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              className="relative group overflow-hidden rounded-xl shadow-md"
+              variants={itemVariants}
+              whileHover={{ y: -5 }}
+            >
+              <img
+                src={item.img}
+                alt={item.title}
+                className={`w-full h-full object-cover transition-all duration-500 ${item.className}`}
+              />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors flex items-end p-6">
+                <h3 className="text-white text-xl md:text-2xl font-bold">
+                  {item.title}
+                </h3>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
+
+      {/* Features is below , {*/}
+      <motion.section
+        className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-16 mb-16"
+          variants={containerVariants}
+        >
+          {[
+            {
+              icon: exchange,
               title: "Easy Exchange",
-              description: "Hassle-free exchange policy within 14 days.",
+              description: "Hassle-free exchange policy within 14 days",
             },
             {
-              iconChar: "⊕",
+              icon: quality,
               title: "Quality Guarantee",
-              description: "7-day free return on all products.",
+              description: "7-day free return on all products",
             },
             {
-              iconChar: "☏",
+              icon: support,
               title: "24/7 Support",
-              description:
-                "Dedicated customer service team, always here to help.",
-            },
-            {
-              iconChar: "◎",
-              title: "Secure Payments",
-              description:
-                "Your transactions are protected with top-tier security measures.",
-            },
-            {
-              iconChar: "➤",
-              title: "Fast Shipping",
-              description:
-                "Get your orders delivered swiftly and reliably to your doorstep.",
-            },
-            {
-              iconChar: "✧",
-              title: "Exclusive Offers",
-              description:
-                "Unlock special deals and early access to new arrivals as a valued customer.",
+              description: "Dedicated customer service team",
             },
           ].map((feature, index) => (
-            <div
+            <motion.div
               key={index}
-              className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="flex flex-col items-center text-center p-6 hover:bg-gray-50 rounded-xl transition-colors"
+              variants={itemVariants}
+              whileHover={{ y: -5 }}
             >
-              <span className="text-indigo-600 text-5xl mb-5">
-                {feature.iconChar}
-              </span>
-
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 text-base font-light leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
+              <div className="bg-indigo-100 p-4 rounded-full mb-4">
+                <img
+                  src={feature.icon}
+                  alt={feature.title}
+                  className="w-12 h-12"
+                />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-gray-600">{feature.description}</p>
+            </motion.div>
           ))}
-        </div>
-      </section>
-
-      <section className="relative bg-gray-900 py-20 md:py-32 px-6 md:px-12 lg:px-24">
-        <img
-          src={landingPage2}
-          alt="Kids playhouse and bedroom furniture"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-        />
-        <div className="relative z-10 mx-auto max-w-7xl flex items-center">
-          <div className="max-w-xl lg:w-1/2 text-white">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6">
-              Create Magical Spaces, Delivered Home
-            </h2>
-            <p className="mt-6 text-xl leading-9 font-light mb-10">
-              Discover our thoughtfully crafted furniture — shipping now.
-            </p>
-            <div className="mt-10">
-              <a
-                href="/shop"
-                className="rounded-lg bg-white px-8 py-3.5 text-lg font-semibold text-indigo-600 shadow-md hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors"
-              >
-                Explore Furniture
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-16 md:py-24 px-6 md:px-12 lg:px-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-            Become a Maalelo Insider
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-700 font-light">
-            Get exclusive updates, early access to new collections, and special
-            offers delivered right to your inbox.
-          </p>
-          <form className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
-            <label htmlFor="email-address" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="email-address"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              className="min-w-0 flex-auto rounded-lg border-gray-300 bg-white px-3.5 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full sm:w-auto"
-              placeholder="Enter your email"
-            />
-            <button
-              type="submit"
-              className="w-full sm:w-auto rounded-lg bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-md hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 border border-black transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </section>
-    </>
+        </motion.div>
+      </motion.section>
+    </div>
   );
 };
 
