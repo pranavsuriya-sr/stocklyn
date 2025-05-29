@@ -1,4 +1,5 @@
 import { sellerStatsRoute } from "@/api/api";
+import { AnimatedList } from "@/components/magicui/animated-list";
 import { useSession } from "@/context/session-context";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -85,6 +86,7 @@ const SellerDashboardPage: React.FC = () => {
       return null;
     }
     const response = await sellerStatsRoute.get(`/${sellerId}`);
+
     return response.data;
   };
 
@@ -94,7 +96,9 @@ const SellerDashboardPage: React.FC = () => {
     enabled: !!sellerId,
   });
 
-  const activityItems = [
+  console.log(data?.topPerformingProducts);
+
+  const initialActivityItems = [
     {
       icon: (
         <ShoppingBag
@@ -103,8 +107,11 @@ const SellerDashboardPage: React.FC = () => {
         />
       ),
       bgColor: "bg-indigo-100 group-hover:bg-indigo-500",
-      title: "New order #ORD-2024-07-001",
-      subtitle: "Received from John Doe - 2m ago",
+      title:
+        data && data.recentOrder && data.recentOrder.product
+          ? `Order :${data.recentOrder.orderId} `
+          : "No product",
+      subtitle: `${data?.recentOrder?.order?.createdAt}`,
       hoverTextColor: "group-hover:text-indigo-600",
     },
     {
@@ -115,8 +122,8 @@ const SellerDashboardPage: React.FC = () => {
         />
       ),
       bgColor: "bg-green-100 group-hover:bg-green-500",
-      title: 'Product "Modern Desk Lamp" listed',
-      subtitle: "1 hour ago",
+      title: data?.recentOrder?.product?.name || "No product",
+      subtitle: `Qty: ${data?.recentOrder?.quantity}`,
       hoverTextColor: "group-hover:text-green-600",
     },
     {
@@ -127,8 +134,8 @@ const SellerDashboardPage: React.FC = () => {
         />
       ),
       bgColor: "bg-yellow-100 group-hover:bg-yellow-500",
-      title: "Payout of ₹15,000 processed",
-      subtitle: "Yesterday",
+      title: `Payout of ₹${data?.recentOrder?.order?.total} processed`,
+      subtitle: "from stripe",
       hoverTextColor: "group-hover:text-yellow-600",
     },
     {
@@ -139,8 +146,8 @@ const SellerDashboardPage: React.FC = () => {
         />
       ),
       bgColor: "bg-red-100 group-hover:bg-red-500",
-      title: 'Stock alert: "Wireless Mouse" low',
-      subtitle: "3 days ago",
+      title: `Stock alert:  ${data?.recentOrder?.product?.stockQuantity} left stock`,
+      subtitle: "now",
       hoverTextColor: "group-hover:text-red-600",
     },
   ];
@@ -263,14 +270,19 @@ const SellerDashboardPage: React.FC = () => {
 
           {/* Recent Activity Feed */}
           <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-neutral-200/80 hover:shadow-md transition-shadow duration-300 ease-out">
-            <h2 className="text-xl font-semibold text-neutral-800 mb-6">
-              Recent Activity
-            </h2>
-            <ul className="space-y-5">
-              {activityItems.map((item, index) => (
+            <div className="flex justify-between items-baseline mb-6">
+              <h1 className="text-xl font-semibold text-neutral-800">
+                Recent Activity
+              </h1>
+              <button className="text-sm text-indigo-600 font-medium hover:text-indigo-700 transition-colors duration-300 py-2.5 rounded-lg hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                View all activity
+              </button>
+            </div>
+            <AnimatedList className="space-y-5 w-full">
+              {initialActivityItems.map((item, index) => (
                 <li
                   key={index}
-                  className="flex items-start space-x-4 group p-2 -m-2 rounded-lg hover:bg-neutral-50/80 transition-colors duration-200"
+                  className="flex items-start space-x-4 group p-2 -m-2 rounded-lg hover:bg-neutral-50/80 transition-colors duration-200 w-full"
                 >
                   <div
                     className={`flex-shrink-0 w-10 h-10 ${item.bgColor} rounded-full flex items-center justify-center transition-colors duration-300`}
@@ -287,10 +299,7 @@ const SellerDashboardPage: React.FC = () => {
                   </div>
                 </li>
               ))}
-            </ul>
-            <button className="mt-6 w-full text-sm text-indigo-600 font-medium hover:text-indigo-700 transition-colors duration-300 py-2.5 rounded-lg hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-              View all activity
-            </button>
+            </AnimatedList>
           </div>
         </section>
 

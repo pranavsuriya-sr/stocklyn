@@ -31,6 +31,29 @@ sellerStatsRoute.get(
         order: true,
       },
     });
+    const recentOrder = await prisma.orderItems.findFirst({
+      where: { sellerId: sellerId },
+      orderBy: {
+        order: {
+          createdAt: "desc",
+        },
+      },
+      include: {
+        product: true,
+        order: true,
+      },
+    });
+
+    // const topPerformingProducts = await prisma.orderItems.findMany({
+    //   where: { sellerId: sellerId },
+    //   include: {
+    //     product: true,
+    //   },
+    //   orderBy: {
+    //     quantity: "desc",
+    //   },
+    //   take: 5,
+    // });
 
     const totalCost = orders.reduce((acc, order) => {
       return acc + Number(order.order.total);
@@ -38,9 +61,13 @@ sellerStatsRoute.get(
 
     const totalCountOfItemsSold = totalItemsSold._sum.quantity;
 
-    res
-      .status(200)
-      .json({ totalProducts, totalOrders, totalCountOfItemsSold, totalCost });
+    res.status(200).json({
+      totalProducts,
+      totalOrders,
+      totalCountOfItemsSold,
+      totalCost,
+      recentOrder,
+    });
   }
 );
 
