@@ -47,18 +47,20 @@ const StatCard: React.FC<{
       </div>
     </div>
     <p className="text-3xl font-semibold text-neutral-800 mb-1">{value}</p>
-    {trend && (
-      <p
-        className={`text-xs flex items-center ${trendColor || "text-neutral-500"}`}
-      >
-        {trendColor?.includes("green") && (
-          <TrendingUp size={14} className="mr-1" />
-        )}
-        {trendColor?.includes("red") && (
-          <AlertCircle size={14} className="mr-1" />
-        )}
-        {trend}
-      </p>
+    {trend && value != 0 && (
+      <div>
+        <p
+          className={`text-xs flex items-center ${trendColor || "text-neutral-500"}`}
+        >
+          {trendColor?.includes("green") && (
+            <TrendingUp size={14} className="mr-1" />
+          )}
+          {trendColor?.includes("red") && (
+            <AlertCircle size={14} className="mr-1" />
+          )}
+          {trend}
+        </p>
+      </div>
     )}
   </div>
 );
@@ -121,8 +123,8 @@ const SellerDashboardPage: React.FC = () => {
       title:
         data && data.recentOrder && data.recentOrder.product
           ? `Order :${data.recentOrder.orderId} `
-          : "No product",
-      subtitle: `${data?.recentOrder?.order?.createdAt}`,
+          : "No Order found",
+      subtitle: `${data?.recentOrder?.order?.createdAt || "advertise your product"}`,
       hoverTextColor: "group-hover:text-indigo-600",
     },
     {
@@ -133,8 +135,8 @@ const SellerDashboardPage: React.FC = () => {
         />
       ),
       bgColor: "bg-green-100 group-hover:bg-green-500",
-      title: data?.recentOrder?.product?.name || "No product",
-      subtitle: `Qty: ${data?.recentOrder?.quantity}`,
+      title: data?.recentOrder?.product?.name || "Product detail not found",
+      subtitle: `Qty: ${data?.recentOrder?.quantity || "please add a product"} `,
       hoverTextColor: "group-hover:text-green-600",
     },
     {
@@ -145,7 +147,7 @@ const SellerDashboardPage: React.FC = () => {
         />
       ),
       bgColor: "bg-yellow-100 group-hover:bg-yellow-500",
-      title: `Payout of ₹${data?.recentOrder?.order?.total} processed`,
+      title: `Payout of ₹${data?.recentOrder?.order?.total || "0"} processed`,
       subtitle: "from stripe",
       hoverTextColor: "group-hover:text-yellow-600",
     },
@@ -157,7 +159,7 @@ const SellerDashboardPage: React.FC = () => {
         />
       ),
       bgColor: "bg-red-100 group-hover:bg-red-500",
-      title: `Stock alert:  ${data?.recentOrder?.product?.stockQuantity} left stock`,
+      title: `Stock alert:  ${data?.recentOrder?.product?.stockQuantity || "no"} left stock`,
       subtitle: "now",
       hoverTextColor: "group-hover:text-red-600",
     },
@@ -283,7 +285,7 @@ const SellerDashboardPage: React.FC = () => {
               title="Total Revenue"
               value={`₹${data?.totalCost?.toLocaleString() || 0}`}
               icon={<IndianRupee size={22} />}
-              trend="+5.2% from last month"
+              trend={data?.totalCost > 0 ? "+5.2% from last month" : "0"}
               trendColor="text-green-600"
             />
             <StatCard
@@ -300,7 +302,7 @@ const SellerDashboardPage: React.FC = () => {
               icon={<Package size={22} />}
               trend="2 need attention"
               trendColor="text-yellow-600"
-              onClick={() => navigate("/seller/products")}
+              // onClick={() => navigate("/seller/products")}
             />
             <StatCard
               title="Items Sold"
