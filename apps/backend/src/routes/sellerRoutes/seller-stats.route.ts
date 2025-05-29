@@ -33,27 +33,40 @@ sellerStatsRoute.get(
     });
     const recentOrder = await prisma.orderItems.findFirst({
       where: { sellerId: sellerId },
+      include: { product: true, order: true },
+      orderBy: { order: { createdAt: "desc" } },
+    });
+
+    //top performing products by quantity
+    const topProductsByQuantity = await prisma.orderItems.groupBy({
+      by: ["productId"],
+      where: { sellerId: sellerId },
+      _sum: {
+        quantity: true,
+      },
       orderBy: {
-        order: {
-          createdAt: "desc",
+        _sum: {
+          quantity: "desc",
         },
       },
-      include: {
-        product: true,
-        order: true,
+
+      take: 5,
+    });
+    //getting its ids
+    const productIds = topProductsByQuantity.map((item) => item.productId);
+    //getting the products details
+    const topPerformingProducts = await prisma.products.findMany({
+      where: {
+        id: {
+          in: productIds,
+        },
       },
     });
 
-    // const topPerformingProducts = await prisma.orderItems.findMany({
-    //   where: { sellerId: sellerId },
-    //   include: {
-    //     product: true,
-    //   },
-    //   orderBy: {
-    //     quantity: "desc",
-    //   },
-    //   take: 5,
-    // });
+    const topPerformingProductsWithQuantity = {
+      topPerformingProducts,
+      topProductsByQuantity,
+    };
 
     const totalCost = orders.reduce((acc, order) => {
       return acc + Number(order.order.total);
@@ -67,6 +80,7 @@ sellerStatsRoute.get(
       totalCountOfItemsSold,
       totalCost,
       recentOrder,
+      topPerformingProducts: topPerformingProductsWithQuantity,
     });
   }
 );
