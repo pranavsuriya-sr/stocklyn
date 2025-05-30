@@ -1,40 +1,83 @@
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import {
+  CheckCircleIcon,
+  CubeTransparentIcon,
+  TruckIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 
 const PaymentSuccessPage = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white py-12 px-4 sm:px-6 lg:px-8 pt-32">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-16">
-          <CheckCircleIcon className="h-20 w-20 text-emerald-600 mx-auto animate-bounce" />
-          <h1 className="mt-6 text-4xl font-bold text-gray-900">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 mt-16">
+      <div className="max-w-5xl w-full bg-white rounded-2xl shadow-xl border border-gray-200 p-8 sm:p-10 md:p-12 md:flex">
+        <div className="md:w-2/5 md:pr-8 lg:pr-12 md:border-r md:border-gray-200 flex flex-col justify-center items-center text-center">
+          <CheckCircleIcon className="h-20 w-20 sm:h-24 sm:w-24 text-emerald-500 mx-auto animate-pulse" />
+          <h1 className="mt-6 text-2xl sm:text-3xl font-semibold tracking-tight text-gray-900">
             Payment Successful!
           </h1>
-          <p className="mt-4 text-lg text-gray-600">
-            Thank you for your purchase! Your transaction is complete.
+          <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600 max-w-xs mx-auto">
+            Thank you for your purchase. Your transaction is complete and we're
+            getting your order ready.
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-12">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">
-                What happens next?
-              </h3>
-              <div className="space-y-2 text-gray-600">
-                <p className="flex items-center">
-                  <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2" />
-                  Your order is being processed
-                </p>
-                <p className="flex items-center">
-                  <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2" />
-                  Check your order any time in your account
-                </p>
-                <p className="flex items-center">
-                  <span className="w-2 h-2 bg-emerald-500 rounded-full mr-2" />
-                  Recieve your products at your doorstep
-                </p>
+        <div className="md:w-3/5 md:pl-8 lg:pl-12 mt-10 md:mt-0">
+          <div className="pt-0 md:pt-0">
+            <h3 className="text-lg sm:text-xl font-medium text-gray-900 text-center md:text-left mb-4 sm:mb-6">
+              What Happens Next?
+            </h3>
+            <div className="space-y-5">
+              <div className="flex items-start">
+                <CubeTransparentIcon className="h-6 w-6 sm:h-7 sm:w-7 text-indigo-600 mr-3 sm:mr-4 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-medium sm:font-semibold text-gray-800 text-sm sm:text-base">
+                    Your order is being processed
+                  </h4>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    We're carefully preparing your items for shipment.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <UserCircleIcon className="h-6 w-6 sm:h-7 sm:w-7 text-indigo-600 mr-3 sm:mr-4 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-medium sm:font-semibold text-gray-800 text-sm sm:text-base">
+                    Track your order
+                  </h4>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    You can check the status any time in your account dashboard.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <TruckIcon className="h-6 w-6 sm:h-7 sm:w-7 text-indigo-600 mr-3 sm:mr-4 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-medium sm:font-semibold text-gray-800 text-sm sm:text-base">
+                    Delivery to your doorstep
+                  </h4>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    Expect your items to arrive soon, shipped securely.
+                  </p>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-gray-200 flex flex-col lg:flex-row lg:justify-start gap-3 sm:gap-4">
+            <button
+              onClick={() => navigate("/shop")}
+              className="w-full lg:w-auto inline-flex items-center justify-center px-6 py-2.5 sm:px-8 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+            >
+              Continue Shopping
+            </button>
+            <button
+              onClick={() => navigate("/orderHistory")}
+              className="w-full lg:w-auto inline-flex items-center justify-center px-6 py-2.5 sm:px-8 sm:py-3 border border-gray-300 text-sm sm:text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+            >
+              View My Orders
+            </button>
           </div>
         </div>
       </div>
