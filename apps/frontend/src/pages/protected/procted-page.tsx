@@ -13,7 +13,12 @@ const ProtectedPage = ({ children }: { children: ReactNode }) => {
   }, [isLoading, session, navigate]);
 
   if (isLoading) {
-    return <div className="mt-72">Loading...</div>;
+    return (
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-50/50 backdrop-blur-sm">
+        <div className="h-16 w-16 animate-spin rounded-full border-4 border-solid border-indigo-600 border-t-transparent"></div>
+        <p className="mt-4 text-lg font-medium text-gray-700">Loading...</p>
+      </div>
+    );
   }
 
   if (!isLoading && user?.role == "seller") {
