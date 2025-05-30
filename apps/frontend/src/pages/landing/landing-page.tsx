@@ -96,6 +96,7 @@ const LandingPage = () => {
                   alt={`Image for ${category.name}`}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
                 />
+
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
                 <div className="relative p-6 flex flex-col items-start justify-end h-80">
                   <h3 className="text-2xl font-semibold text-white">
@@ -128,12 +129,12 @@ const LandingPage = () => {
               lifestyle.
             </TextAnimate>
 
-            <a
-              href="/shop"
+            <button
+              onClick={() => navigate("/shop")}
               className="inline-flex h-12 items-center justify-center rounded-lg bg-indigo-600 px-8 text-lg font-medium text-white shadow-md transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Explore Collection
-            </a>
+            </button>
           </div>
           <img
             src="https://files.stripe.com/links/MDB8YWNjdF8xT3BaeG5GSmNWbVh6bURsfGZsX3Rlc3RfaDVvWXowdU9ZbWlobUIyaHpNc1hCeDM200NBzvUjqP"
@@ -206,6 +207,53 @@ const LandingPage = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mx-auto max-w-7xl mt-16 md:mt-24">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-thin tracking-tight text-center text-gray-900 mb-12 md:mb-16">
+            Loved by People Worldwide
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+            {[
+              {
+                quote:
+                  "Maalelo has completely transformed my online shopping experience. The quality and uniqueness of products are unmatched!",
+                name: "Harsh Singh",
+                title: "Verified Shopper",
+              },
+              {
+                quote:
+                  "I was looking for specific home decor items and found exactly what I needed on Maalelo. The fast shipping and great customer service were a huge plus!",
+                name: "Sai Raj",
+                title: "Decor Enthusiast",
+              },
+              {
+                quote:
+                  "Discovering Maalelo was a game-changer. The curated collections make it easy to find stylish pieces, and I always get compliments on my purchases.",
+                name: "Rishit Bakshi",
+                title: "Style Maven",
+              },
+            ].map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col"
+              >
+                <blockquote className="text-lg font-light text-gray-700 leading-relaxed flex-grow">
+                  <span className="text-4xl text-indigo-600 leading-none block mb-3">
+                    “
+                  </span>
+                  {testimonial.quote}
+                </blockquote>
+                <footer className="mt-6 pt-6 border-t border-gray-200">
+                  <p className="text-base font-semibold text-indigo-700">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-sm text-gray-500">{testimonial.title}</p>
+                </footer>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
