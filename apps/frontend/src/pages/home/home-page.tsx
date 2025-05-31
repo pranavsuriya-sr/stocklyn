@@ -2,11 +2,27 @@ import { productRoute } from "@/api/api";
 import ProductCard from "@/pages/product/product-card";
 import { ProductsType } from "@/types/product-type";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
+    []
+  );
+  const [showCategories, setShowCategories] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (e.target instanceof HTMLElement && !e.target.closest("input")) {
+        setShowCategories(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   function handleProductClick({ product }: { product: ProductsType }) {
     navigate(`/product/${product.id}`, { state: product });
   }
@@ -27,6 +43,22 @@ export default function Home() {
     staleTime: 3 * 60 * 1000,
   });
 
+  const searchForCategory = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value;
+    if (searchValue.length == 0) {
+      setCategories([]);
+      return;
+    }
+    const response = await productRoute.get("/getCategoryBySearch", {
+      withCredentials: true,
+      params: {
+        category: searchValue,
+      },
+    });
+    // console.log(response.data.categoriesResponse);
+    setCategories(response.data.categoriesResponse);
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-[calc(100vh-theme(spacing.28))] pt-20 md:pt-28 flex flex-col items-center justify-center text-center p-10 bg-white">
@@ -39,8 +71,6 @@ export default function Home() {
 
   const category = data?.randomCategories ?? [];
   const categoryProducts = data?.categoryProducts ?? [];
-
-  console.log(categoryProducts);
 
   return (
     <div className="min-h-screen bg-white text-gray-800 pt-20 md:pt-28 font-montserrat">
@@ -64,6 +94,42 @@ export default function Home() {
             Shop Collections
           </button>
         </section>
+
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-3xl font-light text-gray-800 mb-6 text-center tracking-tight">
+            Explore Our Product Categories
+          </h2>
+          <div className="flex justify-center items-center text-2xl font-semibold text-gray-700">
+            {" "}
+            <div className="relative w-full max-w-md">
+              <input
+                type="text"
+                onChange={(e) => searchForCategory(e)}
+                placeholder="Search categories..."
+                onFocus={() => setShowCategories(true)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors duration-300 bg-white text-gray-700 placeholder-gray-400"
+              />
+              {showCategories && (
+                <div className="absolute mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-10 flex flex-col gap-1">
+                  {categories !== undefined && categories.length > 0 ? (
+                    categories.map((category: { id: string; name: string }) => (
+                      <button
+                        key={category.id}
+                        className="text-sm text-gray-700 hover:bg-indigo-50 px-4 py-2 text-left w-full transition-colors duration-150"
+                      >
+                        {category.name}
+                      </button>
+                    ))
+                  ) : (
+                    <p className="text-sm text-gray-500 px-4 py-2">
+                      No categories found.
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
 
         <div id="product-collections">
           {category.map((someCategory: string) => (
