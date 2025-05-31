@@ -165,10 +165,23 @@ productRoute.post("/add", async (req, res) => {
 
 productRoute.get("/getbycategory", async (req: Request, res: Response) => {
   const { category } = req.query;
-  console.log(category);
 
   try {
+    let validCategory: string = "";
+
     if (category) {
+      const checkForValidCategory = await prisma.category.findFirst({
+        where: {
+          name: category as string,
+        },
+      });
+
+      if (checkForValidCategory) {
+        validCategory = checkForValidCategory.name;
+      }
+    }
+
+    if (validCategory) {
       const theGivenCategoryProducts = await prisma.products.findMany({
         where: {
           categoryName: category as string,
@@ -182,6 +195,7 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
       });
       return;
     }
+
     const categoriesWithCounts = await prisma.category.findMany({
       select: {
         name: true,
