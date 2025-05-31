@@ -8,11 +8,19 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
-  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
-    []
-  );
+  const [searchValue, setSearchValue] = useState("");
   const [showCategories, setShowCategories] = useState(false);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
+  //debounce this shit
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchValue);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchValue]);
+
+  //clicking outside should stfu the dropdown
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (e.target instanceof HTMLElement && !e.target.closest("input")) {
@@ -43,11 +51,23 @@ export default function Home() {
     staleTime: 3 * 60 * 1000,
   });
 
-  const searchForCategory = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.target.value;
+  const { data: searchSuggestions, isLoading: isSearchLoading } = useQuery({
+    queryKey: ["searchSuggestions", debouncedSearch],
+    queryFn: async () => {
+      if (debouncedSearch) {
+        const response = await searchForCategory(searchValue);
+        return response;
+      }
+      return [];
+    },
+    staleTime: 5000,
+    enabled: !!debouncedSearch,
+    refetchOnWindowFocus: false,
+  });
+
+  const searchForCategory = async (searchValue: String) => {
     if (searchValue.length == 0) {
-      setCategories([]);
-      return;
+      return [];
     }
     const response = await productRoute.get("/getCategoryBySearch", {
       withCredentials: true,
@@ -56,7 +76,7 @@ export default function Home() {
       },
     });
     // console.log(response.data.categoriesResponse);
-    setCategories(response.data.categoriesResponse);
+    return response.data.categoriesResponse;
   };
 
   if (isLoading) {
@@ -104,22 +124,29 @@ export default function Home() {
             <div className="relative w-full max-w-md">
               <input
                 type="text"
-                onChange={(e) => searchForCategory(e)}
+                onChange={(e) => setSearchValue(e.target.value)}
                 placeholder="Search categories..."
                 onFocus={() => setShowCategories(true)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors duration-300 bg-white text-gray-700 placeholder-gray-400"
               />
               {showCategories && (
                 <div className="absolute mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-10 flex flex-col gap-1">
-                  {categories !== undefined && categories.length > 0 ? (
-                    categories.map((category: { id: string; name: string }) => (
-                      <button
-                        key={category.id}
-                        className="text-sm text-gray-700 hover:bg-indigo-50 px-4 py-2 text-left w-full transition-colors duration-150"
-                      >
-                        {category.name}
-                      </button>
-                    ))
+                  {isSearchLoading ? (
+                    <p className="text-sm text-gray-500 px-4 py-2">
+                      Loading...
+                    </p>
+                  ) : searchSuggestions !== undefined &&
+                    searchSuggestions.length > 0 ? (
+                    searchSuggestions.map(
+                      (category: { id: string; name: string }) => (
+                        <button
+                          key={category.id}
+                          className="text-sm text-gray-700 hover:bg-indigo-50 px-4 py-2 text-left w-full transition-colors duration-150"
+                        >
+                          {category.name}
+                        </button>
+                      )
+                    )
                   ) : (
                     <p className="text-sm text-gray-500 px-4 py-2">
                       No categories found.
