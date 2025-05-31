@@ -2,11 +2,11 @@ import { productRoute } from "@/api/api";
 import ProductCard from "@/pages/product/product-card";
 import { ProductsType } from "@/types/product-type";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
-
+  const [queryParams] = useSearchParams();
   function handleProductClick({ product }: { product: ProductsType }) {
     navigate(`/product/${product.id}`, { state: product });
   }
@@ -14,6 +14,9 @@ export default function Home() {
   const fetchProductLists = async () => {
     const response = await productRoute.get("/getbycategory", {
       withCredentials: true,
+      params: {
+        category: queryParams.get("category") || "",
+      },
     });
     return response.data;
   };
@@ -36,6 +39,8 @@ export default function Home() {
 
   const category = data?.randomCategories ?? [];
   const categoryProducts = data?.categoryProducts ?? [];
+
+  console.log(categoryProducts);
 
   return (
     <div className="min-h-screen bg-white text-gray-800 pt-20 md:pt-28 font-montserrat">
