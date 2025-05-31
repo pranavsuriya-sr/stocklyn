@@ -11,28 +11,38 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  //test commit
   imgSrc,
   name,
   price,
   item,
 }) => {
-  const descriptions = [
-    `${name} is the perfect ${item} of quality, innovation, and performance—designed to elevate your everyday life.`,
-    `Discover unmatched value and cutting-edge features with ${name}, your next favorite ${item}.`,
-    `${name} brings together sleek design and powerful ${item} capabilities to enhance your experience.`,
-    `Upgrade your lifestyle with ${name}, a ${item} built to deliver excellence in every detail.`,
-    `${name} redefines what a premium ${item} should be—versatile, reliable, and made for you.`,
-    `Meet ${name}, the ${item} that balances style, substance, and smart functionality effortlessly.`,
-    `Whether at home or on the go, ${name} is your go-to ${item} for convenience and confidence.`,
-    `With ${name}, experience a ${item} that's crafted to match your pace, needs, and expectations.`,
-    `Unleash your potential with ${name}, a ${item} designed to keep up with your ambitions.`,
-    `${name} combines innovation and elegance, making it the ultimate ${item} for modern living.`,
+  const descriptionTemplates = [
+    "Discover the essence of {item} with {name} – a testament to quality, innovation, and performance, designed to elevate your everyday.",
+    "Unveil unmatched value and cutting-edge features with {name}, your next indispensable {item}.",
+    "{name} seamlessly blends sleek design with powerful {item} capabilities, transforming your experience.",
+    "Elevate your lifestyle with {name}, a premium {item} meticulously crafted for excellence in every detail.",
+    "{name} redefines the pinnacle of {item} standards – versatile, dependable, and uniquely yours.",
+    "Introducing {name}: the {item} that masterfully balances style, substance, and intelligent functionality.",
+    "Whether at home or on the move, {name} is the definitive {item} for unparalleled convenience and confidence.",
+    "Experience {name}, a {item} engineered to harmonize with your pace, meet your needs, and exceed expectations.",
+    "Unlock your potential with {name}, a dynamic {item} built to fuel your ambitions and inspire greatness.",
+    "{name} is where innovation meets elegance, making it the ultimate {item} for sophisticated modern living.",
+    "Crafted for the discerning individual, {name} offers a superior {item} experience that's second to none.",
+    "Step into the future with {name}, an advanced {item} that pushes the boundaries of what's possible.",
+    "Simplicity, elevated. {name} delivers a pure and powerful {item} experience without the complexity.",
+    "For those who demand the best, {name} is the {item} that delivers on every promise of quality and style.",
+    "Make a statement with {name}, the {item} that's as unique and bold as you are.",
   ];
 
-  const randomDescription = descriptions[
-    Math.floor(Math.random() * descriptions.length)
-  ].slice(0, 64);
+  const templateIndex = name.length % descriptionTemplates.length;
+  let description = descriptionTemplates[templateIndex]
+    .replace("{name}", name)
+    .replace("{item}", String(item));
+
+  const targetLength = 100;
+  if (description.length > targetLength) {
+    description = description.substring(0, targetLength - 3) + "...";
+  }
 
   const originalPrice = price * 1.2;
   const discountPercentage = 20;
@@ -52,10 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {name}
         </h3>
         <div>
-          <div className="text-gray-500">
-            {randomDescription}
-            ...
-          </div>
+          <div className="text-gray-500">{description}</div>
         </div>
         <hr className="mt-1 mb-2" />
 
