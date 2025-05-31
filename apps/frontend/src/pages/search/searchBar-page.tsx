@@ -81,7 +81,7 @@ const SearchBar = ({ searchValue, setSearchValue }: SearchBarProps) => {
           value={searchValue}
           onFocus={() => setShowSuggestions(true)}
           name="search"
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => handleKeyDown(e)}
           placeholder="Search products..."
         />
         <LucideSearch
