@@ -181,10 +181,11 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
       }
     }
 
+    //if the category is valid , then we will fetch the products for that category and return only the that category products
     if (validCategory) {
       const theGivenCategoryProducts = await prisma.products.findMany({
         where: {
-          categoryName: category as string,
+          categoryName: validCategory,
         },
         take: 100,
       });
@@ -266,6 +267,32 @@ productRoute.get("/getbycategory", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error at /product/getbycategory", error });
   }
 });
+
+productRoute.get(
+  "/getCategoryBySearch",
+  async (req: Request, res: Response) => {
+    const { category } = req.query;
+    if (!category) {
+      res.status(400).json({
+        message:
+          "Required feilds are missing , ie. category at /product/getCategoryBySearch",
+      });
+      return;
+    }
+    try {
+      const categoriesResponse = await prisma.category.findMany({
+        where: { name: { contains: category as string, mode: "insensitive" } },
+      });
+      res
+        .status(200)
+        .json({ message: "Category fetched successfully", categoriesResponse });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error at /product/getCategoryBySearch", error });
+    }
+  }
+);
 
 //pagination
 
