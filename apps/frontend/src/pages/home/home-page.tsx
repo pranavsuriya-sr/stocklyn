@@ -2,7 +2,7 @@ import { productRoute } from "@/api/api";
 import ProductCard from "@/pages/product/product-card";
 import { ProductsType } from "@/types/product-type";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Home() {
@@ -11,6 +11,7 @@ export default function Home() {
   const [searchValue, setSearchValue] = useState("");
   const [showCategories, setShowCategories] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
   //debounce this shit
   useEffect(() => {
@@ -23,7 +24,11 @@ export default function Home() {
   //clicking outside should stfu the dropdown
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (e.target instanceof HTMLElement && !e.target.closest("input")) {
+      if (
+        searchContainerRef.current &&
+        e.target instanceof Node &&
+        !searchContainerRef.current.contains(e.target)
+      ) {
         setShowCategories(false);
       }
     };
@@ -46,7 +51,7 @@ export default function Home() {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["productsByCategory"],
+    queryKey: ["productsByCategory", queryParams.get("category") || ""],
     queryFn: fetchProductLists,
     staleTime: 3 * 60 * 1000,
   });
@@ -121,7 +126,7 @@ export default function Home() {
           </h2>
           <div className="flex justify-center items-center text-2xl font-semibold text-gray-700">
             {" "}
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-md" ref={searchContainerRef}>
               <input
                 type="text"
                 onChange={(e) => setSearchValue(e.target.value)}
@@ -142,6 +147,11 @@ export default function Home() {
                         <button
                           key={category.id}
                           className="text-sm text-gray-700 hover:bg-indigo-50 px-4 py-2 text-left w-full transition-colors duration-150"
+                          onClick={() => {
+                            setShowCategories(false);
+                            setSearchValue("");
+                            navigate(`?category=${category.name}`);
+                          }}
                         >
                           {category.name}
                         </button>
