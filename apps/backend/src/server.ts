@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import { rateLimit } from "express-rate-limit";
 import addressRoute from "./routes/address/address.route";
 import authRoute from "./routes/auth/auth.route";
 import cartItemRoute from "./routes/cart-item/cart-item.route";
@@ -48,6 +49,18 @@ app.use(
     credentials: true,
   })
 );
+
+//imit middleware
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: "Too many requests, please try again later.",
+  statusCode: 429,
+});
+
+app.use(limiter);
 
 //testing purpose
 app.get("/", (req, res) => {
