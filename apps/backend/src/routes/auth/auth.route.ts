@@ -315,7 +315,7 @@ authRoute.get(
   }
 );
 
-authRoute.post("/resetpassword", async (req, res) => {
+authRoute.post("/resetpassword", VerifyJwtMiddleware, async (req, res) => {
   const { password, id, newPassword } = req.body;
 
   if (!password || password.length < 6) {
@@ -323,10 +323,22 @@ authRoute.post("/resetpassword", async (req, res) => {
     return;
   }
 
+  if (!newPassword || newPassword.length < 6) {
+    res.status(403).json({ message: "Please enter a valid new password" });
+    return;
+  }
+
   if (!id) {
     res
       .status(403)
       .json({ message: "User not authorized at auth/resetpassword" });
+    return;
+  }
+
+  if (password === newPassword) {
+    res
+      .status(403)
+      .json({ message: "New password cannot be the same as the old password" });
     return;
   }
 
@@ -341,7 +353,7 @@ authRoute.post("/resetpassword", async (req, res) => {
     const confirmPassword = await bcrypt.compare(password, oldPassword);
 
     if (!confirmPassword) {
-      res.status(401).json({ message: "You have entered the wrong password" });
+      res.status(403).json({ message: "You have entered the wrong password" });
       return;
     }
 
@@ -361,5 +373,28 @@ authRoute.post("/resetpassword", async (req, res) => {
     res.status(500).json({ message: "Error at /auth/resetpassword", error });
   }
 });
+
+authRoute.get(
+  "/nameChange",
+  VerifyJwtMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const { id } = req.query;
+      const { name } = req.query;
+
+      const changeUserName = await prisma.users.update({
+        where: { id: id as string },
+        data: { name: name as string },
+      });
+
+      res
+        .status(200)
+        .json({ message: "Name change successful", user: changeUserName });
+    } catch (error) {
+      console.error("Name change error:", error);
+      res.status(500).json({ error: "Name change failed" });
+    }
+  }
+);
 
 export default authRoute;
