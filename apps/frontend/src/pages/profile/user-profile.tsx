@@ -8,36 +8,43 @@ import UserInfoCard from "./user-info-card";
 const UserProfile = () => {
   const navigate = useNavigate();
   return (
-    <div className="pt-20 h-screen font-montserrat bg-gray-100 text-gray-800">
-      <div className="p-4 mt-5 text-3xl flex justify-center items-center ">
-        <div className="text-5xl font-semibold text-gray-700">Your Account</div>
-      </div>
-      <div className="w-[90%] mx-auto pt-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div className="min-h-screen font-montserrat bg-slate-50 text-gray-800">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <header className="text-center mb-12 md:mb-16">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl mt-16">
+            Your Account
+          </h1>
+          <p className="mt-4 text-lg leading-8 text-slate-600 max-w-2xl mx-auto">
+            Manage your profile, view your orders, and update your preferences.
+          </p>
+        </header>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-8 md:gap-x-8 md:gap-y-10">
           <UserInfoCard
-            name="Location"
-            description="Edit Addresses for orders and gifts"
+            name="Your Addresses"
+            description="Edit, remove, or set default shipping addresses."
             imgUrl={location}
             onClick={() => navigate("/editUserAddress")}
           />
           <UserInfoCard
-            name="Orders"
-            description="Track, Return or Buy again"
+            name="Order History"
+            description="Track your current orders, view past purchases, or start a return."
             imgUrl={orders}
             onClick={() => navigate("/orderHistory")}
           />
           <UserInfoCard
-            name="Authentication"
-            description="Edit login, name, email, password"
+            name="Login & Security"
+            description="Manage your password, email, and account security settings."
             imgUrl={authentication}
-            // onClick={() => navigate("/secureUserAuth")}
+            // onClick={() => navigate("/secureUserAuth")} // Assuming this route exists or will be created
           />
           <UserInfoCard
             name="Contact Us"
-            description="Contact our service by email"
+            description="Get in touch with our support team for any assistance."
             imgUrl={contact}
             onClick={() => navigate("/contact")}
           />
+          {/* You can add more UserInfoCard components here if needed */}
         </div>
       </div>
     </div>
