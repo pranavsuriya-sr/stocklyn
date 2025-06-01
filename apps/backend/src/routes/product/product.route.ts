@@ -444,4 +444,16 @@ productRoute.get(
   }
 );
 
+productRoute.get("/recentlyAdded", async (req: Request, res: Response) => {
+  try {
+    const recentlyAddedProducts = await prisma.products.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 8,
+    });
+    res.status(200).send(recentlyAddedProducts);
+  } catch (error) {
+    res.status(500).json({ message: "Error at /product/recentlyAdded", error });
+  }
+});
+
 export default productRoute;
