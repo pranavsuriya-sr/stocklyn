@@ -30,6 +30,7 @@ model Products {
   orderItems         OrderItems[]
   sellerId           String?
   seller             Users?      @relation("SellerProducts",fields: [sellerId], references: [id])
+  soldProducts       Int         @default(0)
   @@index([categoryName])
   @@index([sellerId])
 }
