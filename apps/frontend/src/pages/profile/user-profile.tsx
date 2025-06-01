@@ -36,6 +36,7 @@ const UserProfile = () => {
             name="Login & Security"
             description="Manage your password, email, and account security settings."
             imgUrl={authentication}
+            onClick={() => navigate("/resetAuth")}
             // onClick={() => navigate("/secureUserAuth")} // Assuming this route exists or will be created
           />
           <UserInfoCard

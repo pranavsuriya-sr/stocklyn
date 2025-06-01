@@ -17,7 +17,7 @@ const LandingPage = () => {
     queryFn: () => productRoute.get("/recentlyAdded"),
   });
 
-  console.log(recentlyAddedProducts);
+  // console.log(recentlyAddedProducts);
 
   return (
     <>

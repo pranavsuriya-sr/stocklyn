@@ -6,6 +6,7 @@ import { useSession } from "./context/session-context";
 import About from "./pages/about/about-page";
 import PolicyPage from "./pages/about/shipping-policy-page";
 import Login from "./pages/auth/login-page";
+import ResetAuthPage from "./pages/auth/reset-auth-page";
 import SellerLogin from "./pages/auth/sellerAuth/seller-login-page";
 import SellerSignUp from "./pages/auth/sellerAuth/seller-signup-page";
 import SignUp from "./pages/auth/signup-page";
@@ -149,6 +150,22 @@ const App = () => {
                     transition={pageTransition}
                   >
                     <ShopPage />
+                  </motion.div>
+                </ProtectedPage>
+              }
+            />
+            <Route
+              path="/resetAuth"
+              element={
+                <ProtectedPage>
+                  <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                  >
+                    <ResetAuthPage />
                   </motion.div>
                 </ProtectedPage>
               }
