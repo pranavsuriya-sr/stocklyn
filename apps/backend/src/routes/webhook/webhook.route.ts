@@ -91,6 +91,36 @@ const webhookHandler = async (req: Request, res: Response) => {
         await prisma.orderItems.createMany({
           data: orderItemsData,
         });
+
+        //now update the stockQuantity in the products table
+        await prisma.products.updateMany({
+          where: {
+            id: { in: cartItems.map((item) => item.productId) },
+          },
+          data: {
+            stockQuantity: {
+              decrement: cartItems.reduce(
+                (acc, item) => acc + item.quantity,
+                0
+              ),
+            },
+          },
+        });
+
+        //now update the soldProducts in the products table
+        await prisma.products.updateMany({
+          where: {
+            id: { in: cartItems.map((item) => item.productId) },
+          },
+          data: {
+            soldProducts: {
+              increment: cartItems.reduce(
+                (acc, item) => acc + item.quantity,
+                0
+              ),
+            },
+          },
+        });
       } catch (error) {
         console.error("Failed to update user:", error);
         res.status(500).json({
