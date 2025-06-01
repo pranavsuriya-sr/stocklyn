@@ -69,7 +69,7 @@ const ResetAuthPage = () => {
       setNewPassword("");
       setConfirmPassword("");
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         variant: "destructive",
         title: "Password change failed",
