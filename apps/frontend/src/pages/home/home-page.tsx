@@ -170,7 +170,10 @@ export default function Home() {
 
         <div id="product-collections">
           {category.map((someCategory: string) => (
-            <div key={someCategory} className="mb-16 md:mb-20">
+            <div
+              key={someCategory}
+              className="mb-16 md:mb-20 bg-gray-50 pt-10 pb-3 rounded-lg"
+            >
               <h2 className="text-3xl md:text-4xl font-light tracking-tight text-gray-800 mb-4 text-center animate-fade-in-up">
                 {`Best ${someCategory} Collection`}
               </h2>

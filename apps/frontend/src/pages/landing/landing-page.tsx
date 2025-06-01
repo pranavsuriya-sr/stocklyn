@@ -1,3 +1,4 @@
+import { productRoute } from "@/api/api";
 import landingPage from "@/assets/landingPage1.png";
 import landingPage2 from "@/assets/landingPage2.png";
 import { AuroraText } from "@/components/magicui/aurora-text";
@@ -6,10 +7,18 @@ import { FlipText } from "@/components/magicui/flip-text";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import { TextAnimate } from "@/components/magicui/text-animate";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const { data: recentlyAddedProducts } = useQuery({
+    queryKey: ["recentlyAddedProducts"],
+    queryFn: () => productRoute.get("/recentlyAdded"),
+  });
+
+  console.log(recentlyAddedProducts);
+
   return (
     <>
       <section className="relative w-full min-h-screen flex items-center justify-center bg-gray-100 mt-16">
@@ -145,6 +154,39 @@ const LandingPage = () => {
             decoding="async"
             className="rounded-lg shadow-xl object-cover w-full h-auto max-w-lg"
           />
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-16 md:py-24 px-6 md:px-12 lg:px-24">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-thin tracking-tight text-gray-900 text-center mb-16">
+          Recently Added Items
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+          {recentlyAddedProducts?.data?.map((product: any) => (
+            <div
+              key={product.id}
+              className="w-full sm:w-72 h-[440px] border border-gray-200 rounded-xl shadow hover:shadow-md transition transform hover:-translate-y-1 duration-300 flex flex-col bg-white hover:cursor-pointer mx-auto"
+              onClick={() =>
+                navigate(`/product/${product.id}`, { state: product })
+              }
+            >
+              <div className="h-3/4 w-full">
+                <img
+                  src={product.displayImage}
+                  alt={product.name}
+                  className="h-full w-full object-cover rounded-t-xl"
+                />
+              </div>
+              <div className="p-4 flex flex-col flex-grow">
+                <h3 className="text-lg font-semibold text-gray-800 mb-1 truncate">
+                  {product.name}
+                </h3>
+                <p className="text-md text-gray-600 mt-auto">
+                  ${product.price}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
