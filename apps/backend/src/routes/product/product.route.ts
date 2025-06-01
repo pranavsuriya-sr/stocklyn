@@ -456,4 +456,16 @@ productRoute.get("/recentlyAdded", async (req: Request, res: Response) => {
   }
 });
 
+productRoute.get("/bestSelling", async (req: Request, res: Response) => {
+  try {
+    const bestSellingProducts = await prisma.products.findMany({
+      orderBy: { soldProducts: "desc" },
+      take: 8,
+    });
+    res.status(200).send(bestSellingProducts);
+  } catch (error) {
+    res.status(500).json({ message: "Error at /product/bestSelling", error });
+  }
+});
+
 export default productRoute;

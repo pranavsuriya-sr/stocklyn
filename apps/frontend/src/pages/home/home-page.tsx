@@ -84,6 +84,16 @@ export default function Home() {
     return response.data.categoriesResponse;
   };
 
+  const { data: recentlyAddedProducts } = useQuery({
+    queryKey: ["recentlyAddedProducts"],
+    queryFn: () => productRoute.get("/recentlyAdded"),
+  });
+
+  const { data: bestSellingProducts } = useQuery({
+    queryKey: ["bestSellingProducts"],
+    queryFn: () => productRoute.get("/bestSelling"),
+  });
+
   if (isLoading) {
     return (
       <div className="min-h-[calc(100vh-theme(spacing.28))] pt-20 md:pt-28 flex flex-col items-center justify-center text-center p-10 bg-white">
@@ -120,17 +130,18 @@ export default function Home() {
           </button>
         </section>
 
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-3xl font-light text-gray-800 mb-6 text-center tracking-tight">
-            Explore Our Product Categories
+        {/* Relocated and Enhanced Category Search Section */}
+        <div className="mb-12 md:mb-16 text-center">
+          <h2 className="text-3xl font-light text-gray-800 mb-6 tracking-tight">
+            Search Our Collections by Category
           </h2>
-          <div className="flex justify-center items-center text-2xl font-semibold text-gray-700">
-            {" "}
+          <div className="flex justify-center items-center">
             <div className="relative w-full max-w-md" ref={searchContainerRef}>
               <input
                 type="text"
+                value={searchValue} // Ensure input is controlled
                 onChange={(e) => setSearchValue(e.target.value)}
-                placeholder="Search categories..."
+                placeholder="Search categories (e.g., Electronics, Apparel)"
                 onFocus={() => setShowCategories(true)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors duration-300 bg-white text-gray-700 placeholder-gray-400"
               />
@@ -149,7 +160,7 @@ export default function Home() {
                           className="text-sm text-gray-700 hover:bg-indigo-50 px-4 py-2 text-left w-full transition-colors duration-150"
                           onClick={() => {
                             setShowCategories(false);
-                            setSearchValue("");
+                            setSearchValue(""); // Clear search input on selection
                             navigate(`?category=${category.name}`);
                           }}
                         >
@@ -165,6 +176,54 @@ export default function Home() {
                 </div>
               )}
             </div>
+          </div>
+          <p className="mt-4 text-sm text-gray-600 max-w-md mx-auto">
+            displayed below the "Recently Added" and "Best Selling" sections.
+          </p>
+        </div>
+
+        <div className="mb-16 md:mb-20">
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-gray-800 mb-4 text-center animate-fade-in-up">
+            {`Recently Added Items`}
+          </h2>
+          <hr className="w-1/2 md:w-1/3 mx-auto border-t border-gray-200 my-8 md:my-10" />
+          <div className="flex overflow-x-auto space-x-6 md:space-x-8 pb-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+            {recentlyAddedProducts?.data?.map((product: ProductsType) => (
+              <div
+                key={product.id}
+                onClick={() => handleProductClick({ product })}
+                className="flex-shrink-0 w-64 sm:w-72 cursor-pointer bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 overflow-hidden group"
+              >
+                <ProductCard
+                  name={product.name}
+                  imgSrc={product.displayImage}
+                  price={product.price}
+                  item={product.categoryName}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mb-16 md:mb-20">
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-gray-800 mb-4 text-center animate-fade-in-up">
+            {`Best Selling Items`}
+          </h2>
+          <hr className="w-1/2 md:w-1/3 mx-auto border-t border-gray-200 my-8 md:my-10" />
+          <div className="flex overflow-x-auto space-x-6 md:space-x-8 pb-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+            {bestSellingProducts?.data?.map((product: ProductsType) => (
+              <div
+                key={product.id}
+                onClick={() => handleProductClick({ product })}
+                className="flex-shrink-0 w-64 sm:w-72 cursor-pointer bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 overflow-hidden group"
+              >
+                <ProductCard
+                  name={product.name}
+                  imgSrc={product.displayImage}
+                  price={product.price}
+                  item={product.categoryName}
+                />
+              </div>
+            ))}
           </div>
         </div>
 
