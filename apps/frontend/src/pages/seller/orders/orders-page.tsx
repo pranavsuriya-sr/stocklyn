@@ -32,7 +32,7 @@ const SellerOrdersPage = () => {
           return (
             <OrdersCard
               key={orderItem.order.id}
-              imageUrl={orderItem.product.imageUrl[0]}
+              imageUrl={orderItem.product.displayImage}
               orderId={orderItem.order.id}
               userId={orderItem.order.order.userId}
               totalPrice={orderItem.product.price}
