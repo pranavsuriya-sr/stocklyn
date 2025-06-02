@@ -5,6 +5,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useSession } from "./context/session-context";
 import About from "./pages/about/about-page";
 import PolicyPage from "./pages/about/shipping-policy-page";
+import AdminLoginPage from "./pages/admin/auth/login-page";
 import Login from "./pages/auth/login-page";
 import ResetAuthPage from "./pages/auth/reset-auth-page";
 import SellerLogin from "./pages/auth/sellerAuth/seller-login-page";
@@ -76,17 +77,16 @@ const App = () => {
   }
 
   if (
-    (!isLoading &&
-      user?.role === "buyer" &&
-      location.pathname.startsWith("/seller")) ||
-    location.pathname.startsWith("/admin")
+    !isLoading &&
+    user?.role === "buyer" &&
+    (location.pathname.startsWith("/seller") ||
+      location.pathname.startsWith("/admin"))
   ) {
     return <Navigate to="/unauthorized" replace />;
   }
 
   return (
     <>
-      {/* {loading && <LoadingPage />} */}
       <Suspense fallback={<FallbackPage />}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
@@ -554,6 +554,22 @@ const App = () => {
                 </SellerProtectedPage>
               }
             ></Route>
+            -----------------------------------Admin
+            Routes---------------------------------------------------
+            <Route
+              path="/admin/login"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <AdminLoginPage />
+                </motion.div>
+              }
+            />
             <Route
               path="*"
               element={
