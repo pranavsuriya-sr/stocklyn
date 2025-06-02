@@ -5,10 +5,6 @@ import { useNavigate } from "react-router-dom";
 const UnauthorizedForSellerPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleSignUp = () => {
-    navigate("/seller/signup");
-  };
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 pt-28">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
