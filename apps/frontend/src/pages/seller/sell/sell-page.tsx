@@ -154,6 +154,7 @@ const SellPage = () => {
     const uploadedAdditionalImageUrls = additionalImagePreviews.filter(
       (url) => url !== null
     ) as string[];
+    uploadedAdditionalImageUrls.push(uploadedDisplayImageUrl as string);
 
     if (!uploadedDisplayImageUrl) {
       alert("Display image is missing.");
@@ -166,6 +167,11 @@ const SellPage = () => {
       displayImage: uploadedDisplayImageUrl,
       imageUrl: uploadedAdditionalImageUrls,
     };
+
+    if (payload.stockQuantity === 0) {
+      alert("Stock quantity cannot be 0");
+      return;
+    }
 
     try {
       const response = await addProductRoute.post("/InsertProduct", payload);
