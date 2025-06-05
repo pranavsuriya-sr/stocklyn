@@ -1,26 +1,23 @@
+import { useSession } from "@/context/session-context";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { adminRoute } from "../../../api/api";
 
 const AdminSignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { adminSignUp, user } = useSession();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const response = await adminRoute.post("/register", {
-        name,
-        email,
-        password,
-      });
-      if (response.status === 201) {
+      await adminSignUp(name, email, password);
+      if (user?.role === "admin") {
         toast({
           title: "Success",
-          description: response.data.message || "Admin created successfully",
+          description: "Admin created successfully",
         });
         setName("");
         setEmail("");
