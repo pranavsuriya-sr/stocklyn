@@ -64,3 +64,9 @@ export const addProductRoute = axios.create({
     ? import.meta.env.VITE_ADD_PRODUCT_ROUTE_PROD
     : import.meta.env.VITE_ADD_PRODUCT_ROUTE,
 });
+
+export const adminRoute = axios.create({
+  baseURL: isProd
+    ? import.meta.env.VITE_ADMIN_ROUTE_PROD
+    : import.meta.env.VITE_ADMIN_ROUTE,
+});
