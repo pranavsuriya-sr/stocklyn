@@ -1,4 +1,5 @@
 import { useSession } from "@/context/session-context";
+import AdminNavbar from "./adminNavbar";
 import Navbar from "./navbar";
 import SellerNavbar from "./seller-navbar";
 
@@ -11,6 +12,10 @@ const DynamicNavbar = () => {
 
   if (user && user.role === "seller") {
     return <SellerNavbar />;
+  }
+
+  if (user && user.role === "admin") {
+    return <AdminNavbar />;
   }
 
   return <Navbar />;
