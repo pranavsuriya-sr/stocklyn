@@ -1,4 +1,4 @@
-import { api } from "@/api/api";
+import { adminRoute, api } from "@/api/api";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, ReactNode, useContext, useState } from "react";
 
@@ -33,6 +33,8 @@ interface SessionContextType {
     email: string,
     password: string
   ) => Promise<void>;
+  adminLogin: (email: string, password: string) => Promise<void>;
+  adminSignUp: (name: string, email: string, password: string) => Promise<void>;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
@@ -140,6 +142,39 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  //admin functions---------------------------------------------------------------------------------------------------------------------
+
+  const adminLogin = async (email: string, password: string) => {
+    try {
+      const response = await adminRoute.post("/login", {
+        email,
+        password,
+      });
+      setUser(response.data.user);
+
+      setSession(true);
+    } catch (error: any) {
+      throw new Error(error.response?.data?.error || "Login failed for admin");
+    }
+  };
+
+  const adminSignUp = async (name: string, email: string, password: string) => {
+    try {
+      const response = await adminRoute.post("/register", {
+        name,
+        email,
+        password,
+      });
+      setUser(response.data.user);
+      setSession(true);
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.error || "Sign Up failed for admin"
+      );
+    }
+  };
+
+  console.log(user);
   return (
     <SessionContext.Provider
       value={{
@@ -152,6 +187,8 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
         checkAuth,
         sellerLogin,
         sellerSignUp,
+        adminLogin,
+        adminSignUp,
       }}
     >
       {children}
