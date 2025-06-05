@@ -1,4 +1,5 @@
 import { useSession } from "@/context/session-context";
+import AdminFooterPage from "./admin-footer-page";
 import FooterPage from "./footer-page";
 import SellerFooterPage from "./seller-footer-page";
 
@@ -11,6 +12,10 @@ const DynamicFooterPage = () => {
 
   if (user?.role === "seller") {
     return <SellerFooterPage />;
+  }
+
+  if (user?.role === "admin") {
+    return <AdminFooterPage />;
   }
 
   return <FooterPage />;
