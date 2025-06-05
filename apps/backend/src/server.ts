@@ -6,6 +6,7 @@ import express from "express";
 import { rateLimit } from "express-rate-limit";
 import addressRoute from "./routes/address/address.route";
 import adminRoute from "./routes/adminRoutes/auth.route";
+import adminUserAnalyticsRoute from "./routes/adminRoutes/usersAnalytic.route";
 import authRoute from "./routes/auth/auth.route";
 import cartItemRoute from "./routes/cart-item/cart-item.route";
 import cartRoute from "./routes/cart/cart.route";
@@ -82,6 +83,7 @@ app.use("/contact", contactRoute);
 app.use("/seller", sellerStatsRoute);
 app.use("/addProduct", addProductRoute);
 app.use("/admin", adminRoute);
+app.use("/admin/users", adminUserAnalyticsRoute);
 
 const PORT = 5000;
 
