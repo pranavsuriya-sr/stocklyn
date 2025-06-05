@@ -6,6 +6,7 @@ import { useSession } from "./context/session-context";
 import About from "./pages/about/about-page";
 import PolicyPage from "./pages/about/shipping-policy-page";
 import AdminLoginPage from "./pages/admin/auth/login-page";
+import AdminSignupPage from "./pages/admin/auth/signup-page";
 import Login from "./pages/auth/login-page";
 import ResetAuthPage from "./pages/auth/reset-auth-page";
 import SellerLogin from "./pages/auth/sellerAuth/seller-login-page";
@@ -567,6 +568,20 @@ const App = () => {
                   transition={pageTransition}
                 >
                   <AdminLoginPage />
+                </motion.div>
+              }
+            />
+            <Route
+              path="/admin/signup"
+              element={
+                <motion.div
+                  initial="initial"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariants}
+                  transition={pageTransition}
+                >
+                  <AdminSignupPage />
                 </motion.div>
               }
             />
