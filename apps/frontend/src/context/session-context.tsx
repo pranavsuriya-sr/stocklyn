@@ -136,25 +136,23 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
       setUser(response.data.user);
       setSession(true);
     } catch (error: any) {
-      throw new Error(
-        error.response?.data?.error || "Sign Up failed for seller"
-      );
+      console.log(error);
     }
   };
 
   //admin functions---------------------------------------------------------------------------------------------------------------------
 
   const adminLogin = async (email: string, password: string) => {
+    console.log(email, password);
     try {
       const response = await adminRoute.post("/login", {
         email,
         password,
       });
       setUser(response.data.user);
-
       setSession(true);
     } catch (error: any) {
-      throw new Error(error.response?.data?.error || "Login failed for admin");
+      console.log(error);
     }
   };
 
@@ -174,7 +172,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  console.log(user);
+  // console.log(user);
   return (
     <SessionContext.Provider
       value={{
