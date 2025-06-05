@@ -1,11 +1,33 @@
+import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { adminRoute } from "../../../api/api";
+
 const AdminLoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Admin Login Attempt:", { email, password });
+
+    try {
+      const response = await adminRoute.post("/login", { email, password });
+      if (response.status === 200) {
+        navigate("/admin/dashboard");
+      } else {
+        toast({
+          title: "Error",
+          description: response.data.message || "Something went wrong",
+          variant: "destructive",
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
