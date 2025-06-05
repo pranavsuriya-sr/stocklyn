@@ -1,3 +1,6 @@
+import { adminRoute } from "@/api/api";
+import { useSession } from "@/context/session-context";
+import { useQuery } from "@tanstack/react-query";
 import {
   ShoppingCart,
   TrendingUp,
@@ -15,35 +18,47 @@ interface StatData {
 }
 
 const UserAnalyticsPage = () => {
+  const { user } = useSession();
+
+  const getUsers = async () => {
+    const response = await adminRoute.get(`/users/analytics/${user?.id}`);
+    return response.data;
+  };
+
+  const { data: users } = useQuery({
+    queryKey: ["users"],
+    queryFn: () => getUsers(),
+  });
+
   const stats: StatData[] = [
     {
       title: "Total Users",
-      value: "10,250",
+      value: users?.userCount,
       icon: <Users size={20} className="text-neutral-400" />,
       trend: "+15%",
     },
     {
       title: "Active Users (24h)",
-      value: "850",
+      value: users?.activeUsers24h,
       icon: <UserCheck size={20} className="text-neutral-400" />,
       trend: "+5%",
       activeToggle: "24h",
     },
     {
       title: "Sellers",
-      value: "1,200",
+      value: users?.sellerCount,
       icon: <ShoppingCart size={20} className="text-neutral-400" />,
       trend: "+2%",
     },
     {
       title: "Buyers",
-      value: "9,050",
+      value: users?.buyerCount,
       icon: <Users size={20} className="text-neutral-400" />,
       trend: "+12%",
     },
     {
       title: "New Signups (Week)",
-      value: "150",
+      value: users?.newSignups,
       icon: <UserPlus size={20} className="text-neutral-400" />,
       trend: "+20%",
     },
