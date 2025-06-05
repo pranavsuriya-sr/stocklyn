@@ -1,24 +1,29 @@
 import { useSession } from "@/context/session-context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AdminLoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { adminLogin, user } = useSession();
+  const { adminLogin, session, user } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      navigate("/admin/dashboard");
+    }
+  }, [session, navigate]);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       await adminLogin(email, password);
-      if (user?.role === "admin") {
-        navigate("/admin/dashboard");
-      }
     } catch (error: any) {
       console.log(error);
     }
   };
+
+  console.log(user);
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 font-montserrat">
