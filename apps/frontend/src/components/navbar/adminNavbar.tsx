@@ -14,7 +14,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const AdminNavbar = () => {
   const location = useLocation();
-  const { user, logout } = useSession(); // Assuming admin session is handled similarly
+  const { user, logout } = useSession();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -26,9 +26,9 @@ const AdminNavbar = () => {
   };
 
   const handleLogout = async () => {
-    await logout(); // Make sure your logout function in useSession handles admin logout
+    await logout();
     setIsMobileMenuOpen(false);
-    navigate("/admin/login"); // Redirect to admin login page
+    navigate("/admin/login");
   };
 
   const toggleMobileMenu = () => {
@@ -90,7 +90,7 @@ const AdminNavbar = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 w-full z-40 bg-gradient-to-r from-slate-900 to-slate-800 shadow-lg" // Darker theme for admin
+      className="fixed top-0 left-0 w-full z-40 bg-gradient-to-r from-slate-900 to-slate-800 shadow-lg"
     >
       <div className="max-w-full mx-auto flex items-center justify-between px-4 sm:px-6 md:px-5 py-3">
         <div className="flex items-center">
@@ -113,8 +113,8 @@ const AdminNavbar = () => {
                 to={link.path}
                 className={`transition-colors duration-200 px-3 py-2 rounded-md flex items-center ${
                   isActive(link.path)
-                    ? "text-sky-300 bg-slate-700 font-medium" // Adjusted active colors
-                    : "text-slate-300 hover:text-sky-300 hover:bg-slate-700" // Adjusted hover colors
+                    ? "text-sky-300 bg-slate-700 font-medium"
+                    : "text-slate-300 hover:text-sky-300 hover:bg-slate-700"
                 }`}
               >
                 {link.icon}
@@ -124,7 +124,7 @@ const AdminNavbar = () => {
           ))}
         </ul>
 
-        {user && ( // Assuming 'user' object is available for admin session
+        {user && (
           <div className="hidden md:flex items-center space-x-4">
             <span className="text-slate-300">
               Welcome, {user.name || "Admin"}
