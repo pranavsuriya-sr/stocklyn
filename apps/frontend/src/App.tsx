@@ -7,6 +7,7 @@ import About from "./pages/about/about-page";
 import PolicyPage from "./pages/about/shipping-policy-page";
 import AdminLoginPage from "./pages/admin/auth/login-page";
 import AdminSignupPage from "./pages/admin/auth/signup-page";
+import UserAnalyticPage from "./pages/admin/users/users-analytics-page";
 import Login from "./pages/auth/login-page";
 import ResetAuthPage from "./pages/auth/reset-auth-page";
 import SellerLogin from "./pages/auth/sellerAuth/seller-login-page";
@@ -24,6 +25,7 @@ import LocationsDisplayPage from "./pages/location/locations-display-page";
 import OrderHistory from "./pages/order/order-history-page";
 import ProductPage from "./pages/product/product-page";
 import UserProfile from "./pages/profile/user-profile";
+import AdminProtectedPage from "./pages/protected/admin-protected-page";
 import ProtectedPage from "./pages/protected/procted-page";
 import SellerProtectedPage from "./pages/protected/seller-protected-page";
 import SampleLandingPage from "./pages/sample/sample-landing-page";
@@ -583,6 +585,14 @@ const App = () => {
                 >
                   <AdminSignupPage />
                 </motion.div>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <AdminProtectedPage>
+                  <UserAnalyticPage />
+                </AdminProtectedPage>
               }
             />
             <Route
