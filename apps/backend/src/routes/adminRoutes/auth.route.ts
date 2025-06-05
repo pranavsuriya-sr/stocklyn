@@ -10,6 +10,16 @@ const adminRoute = Router();
 
 adminRoute.post("/register", async (req, res) => {
   try {
+    const admins = await prisma.users.findMany({
+      where: {
+        role: "admin",
+      },
+    });
+    if (admins.length >= 1) {
+      res.status(400).json({ message: "Maximum number of admins reached" });
+      return;
+    }
+
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
       res.status(400).json({ message: "All fields are required" });
