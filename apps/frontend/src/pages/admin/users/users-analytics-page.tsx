@@ -8,6 +8,7 @@ import {
   UserPlus,
   Users,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface StatData {
   title: string;
@@ -15,11 +16,12 @@ interface StatData {
   icon: React.ReactNode;
   trend: string;
   activeToggle?: "24h" | "7d";
+  onClick?: () => void;
 }
 
 const UserAnalyticsPage = () => {
   const { user } = useSession();
-
+  const navigate = useNavigate();
   const getUsers = async () => {
     const response = await adminRoute.get(`/users/analytics/${user?.id}`);
     return response.data;
@@ -36,6 +38,9 @@ const UserAnalyticsPage = () => {
       value: users?.userCount,
       icon: <Users size={20} className="text-neutral-400" />,
       trend: "+15%",
+      onClick: () => {
+        navigate("/admin/users/UsersStats");
+      },
     },
     {
       title: "Active Users (24h)",
@@ -43,24 +48,36 @@ const UserAnalyticsPage = () => {
       icon: <UserCheck size={20} className="text-neutral-400" />,
       trend: "+5%",
       activeToggle: "24h",
+      onClick: () => {
+        navigate("/admin/users/UsersStats");
+      },
     },
     {
       title: "Sellers",
       value: users?.sellerCount,
       icon: <ShoppingCart size={20} className="text-neutral-400" />,
       trend: "+2%",
+      onClick: () => {
+        navigate("/admin/users/SellersStats");
+      },
     },
     {
       title: "Buyers",
       value: users?.buyerCount,
       icon: <Users size={20} className="text-neutral-400" />,
       trend: "+12%",
+      onClick: () => {
+        navigate("/admin/users/BuyersStats");
+      },
     },
     {
       title: "New Signups (Week)",
       value: users?.newSignups,
       icon: <UserPlus size={20} className="text-neutral-400" />,
       trend: "+20%",
+      onClick: () => {
+        navigate("/admin/users/NewSignupsStats");
+      },
     },
   ];
 
@@ -83,7 +100,7 @@ const UserAnalyticsPage = () => {
             value={stat.value}
             icon={stat.icon}
             trend={stat.trend}
-            activeToggle={stat.activeToggle}
+            onMoreInfo={stat.onClick}
           />
         ))}
       </section>
@@ -115,7 +132,6 @@ interface StatCardProps {
   value: string;
   icon: React.ReactNode;
   trend?: string;
-  activeToggle?: "24h" | "7d";
   onMoreInfo?: () => void;
 }
 
@@ -124,7 +140,6 @@ const StatCard: React.FC<StatCardProps> = ({
   value,
   icon,
   trend,
-  activeToggle,
   onMoreInfo,
 }) => {
   const trendColor = trend?.startsWith("+")
@@ -149,21 +164,6 @@ const StatCard: React.FC<StatCardProps> = ({
         <p className="text-sm text-neutral-400 mb-0.5">{title}</p>
         <h3 className="text-2xl font-semibold text-white">{value}</h3>
       </div>
-
-      {title.includes("Active Users") && (
-        <div className="mt-3.5 text-xs flex items-center space-x-1">
-          <button
-            className={`px-2 py-1 rounded-md transition-colors duration-200 ${activeToggle === "24h" ? "bg-sky-500 text-white" : "bg-neutral-700 hover:bg-neutral-600 text-neutral-300"}`}
-          >
-            24h
-          </button>
-          <button
-            className={`px-2 py-1 rounded-md transition-colors duration-200 ${activeToggle === "7d" ? "bg-sky-500 text-white" : "bg-neutral-700 hover:bg-neutral-600 text-neutral-300"}`}
-          >
-            7d
-          </button>
-        </div>
-      )}
 
       {onMoreInfo && (
         <button
