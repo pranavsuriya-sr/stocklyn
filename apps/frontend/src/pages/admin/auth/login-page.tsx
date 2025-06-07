@@ -6,7 +6,7 @@ const AdminLoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { adminLogin, session, user } = useSession();
+  const { adminLogin, session } = useSession();
 
   useEffect(() => {
     if (session) {
@@ -22,8 +22,6 @@ const AdminLoginPage = () => {
       console.log(error);
     }
   };
-
-  console.log(user);
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 font-montserrat">
