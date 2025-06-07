@@ -71,4 +71,19 @@ adminUserAnalyticsRoute.get(
   }
 );
 
+adminUserAnalyticsRoute.get(
+  "/allUsersInfo",
+  VerifyJwtMiddleware,
+  async (req, res) => {
+    const users = await prisma.users.findMany({
+      take: 10,
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    res.status(200).json(users);
+  }
+);
+
 export default adminUserAnalyticsRoute;
