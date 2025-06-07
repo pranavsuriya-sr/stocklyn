@@ -7,6 +7,7 @@ import About from "./pages/about/about-page";
 import PolicyPage from "./pages/about/shipping-policy-page";
 import AdminLoginPage from "./pages/admin/auth/login-page";
 import AdminSignupPage from "./pages/admin/auth/signup-page";
+import TotalUsersDisplay from "./pages/admin/users/total-user-page";
 import UserAnalyticPage from "./pages/admin/users/users-analytics-page";
 import Login from "./pages/auth/login-page";
 import ResetAuthPage from "./pages/auth/reset-auth-page";
@@ -607,6 +608,14 @@ const App = () => {
                 >
                   <NotFoundPage />
                 </motion.div>
+              }
+            />
+            <Route
+              path="/admin/users/UsersStats"
+              element={
+                <AdminProtectedPage>
+                  <TotalUsersDisplay />
+                </AdminProtectedPage>
               }
             />
           </Routes>
