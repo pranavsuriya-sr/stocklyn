@@ -143,7 +143,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
   //admin functions---------------------------------------------------------------------------------------------------------------------
 
   const adminLogin = async (email: string, password: string) => {
-    console.log(email, password);
+    // console.log(email, password);
     try {
       const response = await adminRoute.post("/login", {
         email,

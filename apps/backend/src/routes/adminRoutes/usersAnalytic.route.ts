@@ -76,6 +76,7 @@ adminUserAnalyticsRoute.get(
   VerifyJwtMiddleware,
   async (req, res) => {
     const page = Number(req.query.page) || 0;
+    // console.log(page);
     const take = 10;
     const skip = page * take;
 
