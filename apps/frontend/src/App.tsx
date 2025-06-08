@@ -8,6 +8,7 @@ import PolicyPage from "./pages/about/shipping-policy-page";
 import AdminLoginPage from "./pages/admin/auth/login-page";
 import AdminSignupPage from "./pages/admin/auth/signup-page";
 import AdminDashboardPage from "./pages/admin/dashboard/admin-dashboard-page";
+import CategoryApprovalPage from "./pages/admin/dashboard/categoryApproval/category-approval-page";
 import TotalUsersDisplay from "./pages/admin/users/total-user-page";
 import UserAnalyticPage from "./pages/admin/users/users-analytics-page";
 import Login from "./pages/auth/login-page";
@@ -602,6 +603,14 @@ const App = () => {
               element={
                 <AdminProtectedPage>
                   <AdminDashboardPage />
+                </AdminProtectedPage>
+              }
+            />
+            <Route
+              path="/admin/categoryApproval"
+              element={
+                <AdminProtectedPage>
+                  <CategoryApprovalPage />
                 </AdminProtectedPage>
               }
             />
