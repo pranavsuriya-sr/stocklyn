@@ -1,207 +1,111 @@
-import { adminRoute } from "@/api/api";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, X } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const statusColorMap = {
-  pending: "bg-[#8b5cf6] hover:bg-[#7c3aed]",
-  approved: "bg-[#10b981] hover:bg-[#059669]",
-  rejected: "bg-red-500 hover:bg-red-600",
-};
-interface CategoryApproval {
-  id: string;
-  reason: string;
-  categoryName: string;
-  estimatedProducts: number;
-  status: "pending" | "approved" | "rejected";
-  createdAt: string;
-  user: {
-    name: string;
-    email: string;
-  };
-}
+const managementCards = [
+  {
+    title: "Category Approvals",
+    description: "Review and manage new category requests.",
+    count: 3,
+    link: "/admin/categoryApproval",
+    accentColor: "sky",
+  },
+  {
+    title: "Product Verification",
+    description: "Verify new products submitted by sellers.",
+    count: 12,
+    link: "/admin/approvals/products",
+    accentColor: "emerald",
+  },
+  {
+    title: "User Reports",
+    description: "Address reports and complaints from users.",
+    count: 5,
+    link: "/admin/reports/users",
+    accentColor: "violet",
+  },
+  {
+    title: "Seller Applications",
+    description: "Approve or deny new seller registrations.",
+    count: 2,
+    link: "/admin/applications/sellers",
+    accentColor: "sky",
+  },
+];
 
 const AdminDashboardPage = () => {
-  const queryClient = useQueryClient();
-
-  const fetchCategoryApprovals = async () => {
-    const response = await adminRoute.get("/approval/category");
-    return response.data;
-  };
-
-  const { data, isLoading } = useQuery<CategoryApproval[]>({
-    queryKey: ["category-approval-requests"],
-    queryFn: fetchCategoryApprovals,
-  });
-
-  const updateRequestStatusMutation = useMutation({
-    mutationFn: ({
-      id,
-      status,
-    }: {
-      id: string;
-      status: "approved" | "rejected";
-    }) => {
-      return adminRoute.patch(`/approval/category/${id}`, { status });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["category-approval-requests"],
-      });
-    },
-  });
-
-  const handleApprove = (id: string) => {
-    updateRequestStatusMutation.mutate({ id, status: "approved" });
-  };
-
-  const handleReject = (id: string) => {
-    updateRequestStatusMutation.mutate({ id, status: "rejected" });
-  };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white p-8 font-sans">
-        <Card className="bg-[#0a0a0a] border border-neutral-800 text-white">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold">
-              Approval Requests
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center p-4 rounded-lg bg-[#1f1f1f] border-b border-neutral-800">
-                <div className="w-1/4">
-                  <Skeleton className="h-4 w-20" />
-                </div>
-                <div className="w-1/4">
-                  <Skeleton className="h-4 w-24" />
-                </div>
-                <div className="w-1/6">
-                  <Skeleton className="h-4 w-16" />
-                </div>
-                <div className="w-1/6">
-                  <Skeleton className="h-4 w-20" />
-                </div>
-                <div className="w-1/4 text-center">
-                  <Skeleton className="h-4 w-16 mx-auto" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                {[...Array(5)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center p-4 rounded-lg bg-[#0a0a0a] border border-neutral-800"
-                  >
-                    <div className="w-1/4 space-y-2">
-                      <Skeleton className="h-4 w-32" />
-                      <Skeleton className="h-4 w-48" />
-                    </div>
-                    <div className="w-1/4">
-                      <Skeleton className="h-4 w-40" />
-                    </div>
-                    <div className="w-1/6">
-                      <Skeleton className="h-8 w-24" />
-                    </div>
-                    <div className="w-1/6">
-                      <Skeleton className="h-4 w-24" />
-                    </div>
-                    <div className="w-1/4 flex justify-center space-x-2">
-                      <Skeleton className="h-8 w-8" />
-                      <Skeleton className="h-8 w-8" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white p-8 font-sans mt-16">
-      <Card className="bg-[#0a0a0a] border border-neutral-800 text-white">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">
-            Approve Category Requests
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-center p-4 rounded-lg bg-[#1f1f1f] border-b border-neutral-800">
-              <div className="w-1/4 font-semibold text-[#a1a1aa]">User</div>
-              <div className="w-1/4 font-semibold text-[#a1a1aa]">
-                Category Name
-              </div>
-              <div className="w-1/6 font-semibold text-[#a1a1aa]">Status</div>
-              <div className="w-1/6 font-semibold text-[#a1a1aa]">Date</div>
-              <div className="w-1/4 font-semibold text-[#a1a1aa] text-center">
-                Actions
-              </div>
-            </div>
+    <div className="min-h-screen bg-black text-white font-sans">
+      <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header className="mb-8">
+          <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
+          <p className="text-neutral-400 mt-1">
+            Overview and management of your platform.
+          </p>
+        </header>
 
-            <div className="space-y-2">
-              {data?.map((request: CategoryApproval) => (
-                <div
-                  key={request.id}
-                  className="flex items-center p-4 rounded-lg bg-[#0a0a0a] border border-neutral-800 hover:bg-[#1f1f1f] transition-colors duration-200"
-                >
-                  <div className="w-1/4 flex items-center">
-                    <div>
-                      <div className="font-medium">{request.user.name}</div>
-                      <div className="text-sm text-[#a1a1aa]">
-                        {request.user.email}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-1/4 text-sm">{request.categoryName}</div>
-                  <div className="w-1/6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {managementCards.map((card) => (
+              <Link to={card.link} key={card.title}>
+                <Card className="bg-neutral-950 border-neutral-800 text-white h-full transition-all duration-300 hover:border-sky-500/50 hover:shadow-[0_0_20px_rgba(14,165,233,0.2)]">
+                  <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle className="text-lg">{card.title}</CardTitle>
                     <Badge
-                      className={`${
-                        statusColorMap[
-                          request.status as keyof typeof statusColorMap
-                        ]
-                      } text-white`}
+                      className={`bg-${card.accentColor}-500/10 text-${card.accentColor}-400 border-${card.accentColor}-500/20`}
                     >
-                      {request.status}
+                      {card.count} Pending
                     </Badge>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-neutral-400 text-sm mb-4">
+                      {card.description}
+                    </p>
+                    <div className="flex items-center text-sm text-sky-400 font-medium">
+                      <span>Go to page</span>
+                      <ArrowRight className="w-4 h-4 ml-1" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+
+          <div className="lg:col-span-1">
+            <Card className="bg-neutral-950 border-neutral-800 text-white h-full shadow-[0_0_20px_rgba(148,163,184,0.1)]">
+              <CardHeader>
+                <CardTitle>Upcoming Features</CardTitle>
+                <CardDescription className="text-neutral-400 pt-2">
+                  More dashboard widgets are coming soon.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col space-y-4 text-neutral-300">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></div>
+                    <span>User Management</span>
                   </div>
-                  <div className="w-1/6 text-sm text-[#a1a1aa]">
-                    {new Date(request.createdAt).toLocaleDateString()}
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span>Content Moderation</span>
                   </div>
-                  <div className="w-1/4 flex justify-center space-x-2">
-                    {request.status === "pending" && (
-                      <>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="text-green-400 hover:bg-green-400"
-                          onClick={() => handleApprove(request.id)}
-                        >
-                          <Check className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="text-red-400 hover:bg-red-400"
-                          onClick={() => handleReject(request.id)}
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </>
-                    )}
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></div>
+                    <span>Platform Analytics</span>
                   </div>
                 </div>
-              ))}
-            </div>
+              </CardContent>
+            </Card>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
