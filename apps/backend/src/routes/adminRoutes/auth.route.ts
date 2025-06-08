@@ -47,6 +47,7 @@ adminRoute.post("/register", async (req, res) => {
         cart: {
           create: {},
         },
+        lastLogin: new Date(),
       },
       include: { cart: true },
     });
@@ -107,6 +108,11 @@ adminRoute.post("/login", async (req, res) => {
   };
 
   const token = GenerateJwtToken(userData);
+
+  await prisma.users.update({
+    where: { id: user.id },
+    data: { lastLogin: new Date() },
+  });
 
   user.hashedPassword = "";
   res.cookie("authToken", token, {

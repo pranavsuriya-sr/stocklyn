@@ -51,6 +51,7 @@ model Users {
   contact        Contact[]
   products       Products[] @relation("SellerProducts")
   sellerOrderItems OrderItems[] @relation("SellerOrderItems")
+  lastLogin        DateTime? 
   categoryRequest CategoryRequest[]
 }
 

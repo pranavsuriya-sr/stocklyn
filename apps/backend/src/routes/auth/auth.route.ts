@@ -46,6 +46,7 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
         cart: {
           create: {},
         },
+        lastLogin: new Date(),
       },
       include: { cart: true },
     });
@@ -123,6 +124,11 @@ authRoute.post("/login", async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
+    await prisma.users.update({
+      where: { id: user.id },
+      data: { lastLogin: new Date() },
+    });
+
     user.hashedPassword = "";
 
     res.status(200).json({
@@ -137,7 +143,7 @@ authRoute.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-authRoute.post("/logout", (req: Request, res: Response) => {
+authRoute.post("/logout", async (req: Request, res: Response) => {
   res.cookie("authToken", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -200,6 +206,10 @@ authRoute.post("/seller/login", async (req: Request, res: Response) => {
     });
 
     user.hashedPassword = "";
+    await prisma.users.update({
+      where: { id: user.id },
+      data: { lastLogin: new Date() },
+    });
 
     res.status(200).json({
       message: "Login successful!",
@@ -253,6 +263,7 @@ authRoute.post("/seller/signup", async (req: Request, res: Response) => {
         cart: {
           create: {},
         },
+        lastLogin: new Date(),
       },
       include: { cart: true },
     });
