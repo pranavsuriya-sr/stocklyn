@@ -29,11 +29,13 @@ const TotalUsersDisplay = () => {
   } = useInfiniteQuery({
     queryKey: ["getUsersInfo"],
     queryFn: getUsers,
+    refetchOnWindowFocus: false,
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length < 10) {
-        return undefined;
+      if (lastPage.length === 0) {
+        return null;
       }
+
       return allPages.length;
     },
   });
@@ -44,9 +46,8 @@ const TotalUsersDisplay = () => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [inView, fetchNextPage]);
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  //Fix the last page issue, idk what to do. It's not working.
   return (
     <div className="min-h-screen bg-black text-white mt-16 px-10">
       <div>
@@ -154,8 +155,8 @@ const TotalUsersDisplay = () => {
             </table>
           </div>
         </div>
-        <div ref={ref} className="h-10" />
       </div>
+      <div ref={ref} className="h-10" />
     </div>
   );
 };
