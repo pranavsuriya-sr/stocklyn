@@ -17,6 +17,7 @@ A full-stack e-commerce application (in development)
 - Add an admin page for authorization of the seller's requests
 - Add filters at the search and category pages.
 - Quality Life Features
+- Request's status at the seller
 
 ## Features
 
