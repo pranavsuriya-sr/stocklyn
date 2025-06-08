@@ -156,7 +156,11 @@ const TotalUsersDisplay = () => {
           </div>
         </div>
       </div>
-      <div ref={ref} className="h-10" />
+      <div ref={ref} className="h-10">
+        {isFetchingNextPage && (
+          <div className="text-center text-neutral-400">Loading...</div>
+        )}
+      </div>
     </div>
   );
 };
