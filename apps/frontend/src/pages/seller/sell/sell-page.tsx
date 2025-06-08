@@ -335,18 +335,16 @@ const SellPage = () => {
                 </p>
               )}
               <div className="mt-2.5 text-xs">
-                <Link
-                  to="/seller/requestCategory"
-                  className="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-500 transition-colors group"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
+                  onClick={() => navigate("/seller/requestCategory")}
+                  className="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-500 transition-colors group cursor-pointer"
                 >
                   Can't find your category? Request a new one
                   <ExternalLink
                     size={12}
                     className="ml-1 opacity-70 group-hover:opacity-100 transition-opacity"
                   />
-                </Link>
+                </div>
               </div>
             </div>
           </div>
