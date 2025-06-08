@@ -18,6 +18,8 @@ import productRoute from "./routes/product/product.route";
 import addProductRoute from "./routes/sellerRoutes/add-product.route";
 import sellerStatsRoute from "./routes/sellerRoutes/seller-stats.route";
 import webhookHandler from "./routes/webhook/webhook.route";
+
+import adminApprovalRoute from "./routes/adminRoutes/approval.route";
 import { AuthenticatedRequest } from "./types/jwt";
 
 declare global {
@@ -84,7 +86,7 @@ app.use("/seller", sellerStatsRoute);
 app.use("/addProduct", addProductRoute);
 app.use("/admin", adminRoute);
 app.use("/admin/users", adminUserAnalyticsRoute);
-
+app.use("/admin/approval", adminApprovalRoute);
 const PORT = 5000;
 
 app.listen(PORT, () => {
