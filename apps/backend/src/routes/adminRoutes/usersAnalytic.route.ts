@@ -35,24 +35,32 @@ adminUserAnalyticsRoute.get(
         },
       });
 
+      const sevenDaysAgo = new Date(
+        new Date().setDate(new Date().getDate() - 7)
+      );
+      sevenDaysAgo.setHours(0, 0, 0, 0);
+
       const newSignups = await prisma.users.count({
         where: {
           createdAt: {
-            gte: new Date(new Date().setDate(new Date().getDate() - 7)),
+            gte: sevenDaysAgo,
           },
         },
       });
 
+      const oneDayAgo = new Date(new Date().setDate(new Date().getDate() - 1));
+      oneDayAgo.setHours(0, 0, 0, 0);
+
       const activeUsers24h = await prisma.users.count({
         where: {
-          updatedAt: {
-            gte: new Date(new Date().setDate(new Date().getDate() - 1)),
+          lastLogin: {
+            gte: oneDayAgo,
           },
         },
       });
       const activeUsers7d = await prisma.users.count({
         where: {
-          updatedAt: {
+          lastLogin: {
             gte: new Date(new Date().setDate(new Date().getDate() - 7)),
           },
         },
