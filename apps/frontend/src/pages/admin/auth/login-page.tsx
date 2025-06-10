@@ -24,23 +24,29 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 font-montserrat">
+    <div
+      className="min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 font-montserrat bg-cover bg-center mt-16"
+      style={{
+        backgroundImage:
+          "url('https://5etc1h1k7l.ufs.sh/f/yirKWcY4mxCceqlp4PgEaBkC5fhUSGXzrNRWiV0mM9eIYn3A')",
+      }}
+    >
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
             Admin Portal Access
           </h1>
-          <p className="mt-2 text-center text-sm text-slate-600">
+          <p className="mt-2 text-center text-sm text-slate-200">
             Please sign in to manage the platform.
           </p>
         </div>
 
-        <div className="bg-white p-8 shadow-xl rounded-xl space-y-6 border border-slate-200">
+        <div className="rounded-xl border border-white/20 bg-white/10 p-8 shadow-xl backdrop-blur-lg space-y-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
+                className="block text-sm font-medium text-slate-200 mb-1.5"
               >
                 Email Address
               </label>
@@ -53,14 +59,14 @@ const AdminLoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="block w-full px-4 py-3 rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 sm:text-sm placeholder-slate-400 transition duration-150 ease-in-out"
+                className="block w-full px-4 py-3 rounded-lg border-white/30 bg-white/20 text-white shadow-sm focus:border-indigo-300 focus:ring-1 focus:ring-indigo-300 sm:text-sm placeholder-slate-300 transition duration-150 ease-in-out"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
+                className="block text-sm font-medium text-slate-200 mb-1.5"
               >
                 Password
               </label>
@@ -73,7 +79,7 @@ const AdminLoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="block w-full px-4 py-3 rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 sm:text-sm placeholder-slate-400 transition duration-150 ease-in-out"
+                className="block w-full px-4 py-3 rounded-lg border-white/30 bg-white/20 text-white shadow-sm focus:border-indigo-300 focus:ring-1 focus:ring-indigo-300 sm:text-sm placeholder-slate-300 transition duration-150 ease-in-out"
               />
             </div>
 
@@ -87,7 +93,7 @@ const AdminLoginPage = () => {
             </div>
           </form>
         </div>
-        <p className="mt-8 text-center text-xs text-slate-500">
+        <p className="mt-8 text-center text-xs text-slate-300">
           &copy; {new Date().getFullYear()} Your Company Name. All rights
           reserved.
         </p>
