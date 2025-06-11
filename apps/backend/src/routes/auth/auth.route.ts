@@ -252,38 +252,51 @@ authRoute.post("/seller/signup", async (req: Request, res: Response) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await prisma.users.create({
+    const sellerApprovalRequest = await prisma.sellerApproval.create({
       data: {
         name,
         email,
+        status: "pending",
         hashedPassword,
-        profileUrl: "",
-        role: "seller",
-        cart: {
-          create: {},
-        },
-        lastLogin: new Date(),
       },
-      include: { cart: true },
-    });
-
-    user.hashedPassword = "";
-
-    const token = GenerateJwtToken(user);
-
-    res.cookie("authToken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production" ? true : false,
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // ---->  7 days session
     });
 
     res.status(201).json({
-      message: "Signup successful!",
-      user,
+      message: "Seller approval request created",
+      sellerApprovalRequest,
     });
+
+    // const user = await prisma.users.create({
+    //   data: {
+    //     name,
+    //     email,
+    //     hashedPassword,
+    //     profileUrl: "",
+    //     role: "seller",
+    //     cart: {
+    //       create: {},
+    //     },
+    //     lastLogin: new Date(),
+    //   },
+    //   include: { cart: true },
+    // });
+
+    // user.hashedPassword = "";
+
+    // const token = GenerateJwtToken(user);
+
+    // res.cookie("authToken", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production" ? true : false,
+    //   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    //   path: "/",
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, // ---->  7 days session
+    // });
+
+    // res.status(201).json({
+    //   message: "Signup successful!",
+    //   user,
+    // });
   } catch (error) {
     console.error("Signup error:", error);
     res.status(500).json({ error: "Failed to create user" });
