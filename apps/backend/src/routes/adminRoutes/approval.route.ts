@@ -101,9 +101,17 @@ adminApprovalRoute.patch(
         await prisma.sellerApproval.delete({
           where: { id: id as string },
         });
+
+        res.status(200).json({ message: "Seller account approved" });
       }
 
-      res.status(200).json(seller);
+      if (status === "rejected") {
+        await prisma.sellerApproval.delete({
+          where: { id: id as string },
+        });
+
+        res.status(200).json({ message: "Seller account rejected" });
+      }
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
     }
