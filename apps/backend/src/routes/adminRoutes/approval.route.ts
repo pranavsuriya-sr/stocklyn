@@ -53,4 +53,60 @@ adminApprovalRoute.patch(
     }
   }
 );
+
+adminApprovalRoute.get(
+  "/unapprovedSellers",
+  VerifyJwtMiddleware,
+  async (req, res) => {
+    try {
+      const sellerApproval = await prisma.sellerApproval.findMany({
+        where: {
+          status: "pending",
+        },
+      });
+      res.status(200).json(sellerApproval);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+adminApprovalRoute.patch(
+  "/seller/:id",
+  VerifyJwtMiddleware,
+  async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    try {
+      const seller = await prisma.sellerApproval.update({
+        where: { id: id as string },
+        data: { status },
+      });
+
+      if (status === "approved") {
+        await prisma.users.create({
+          data: {
+            name: seller.name,
+            email: seller.email,
+            hashedPassword: seller.hashedPassword,
+            profileUrl: "",
+            role: "seller",
+            cart: {
+              create: {},
+            },
+          },
+        });
+
+        await prisma.sellerApproval.delete({
+          where: { id: id as string },
+        });
+      }
+
+      res.status(200).json(seller);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
 export default adminApprovalRoute;
