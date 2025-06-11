@@ -38,6 +38,13 @@ const managementCards = [
     link: "/admin/applications/sellers",
     accentColor: "sky",
   },
+  {
+    title: "Approved Sellers",
+    description: "Approve or deny new seller registrations.",
+    count: 2,
+    link: "/admin/approveSellers",
+    accentColor: "sky",
+  },
 ];
 
 const AdminDashboardPage = () => {

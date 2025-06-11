@@ -9,6 +9,7 @@ import AdminLoginPage from "./pages/admin/auth/login-page";
 import AdminSignupPage from "./pages/admin/auth/signup-page";
 import AdminDashboardPage from "./pages/admin/dashboard/admin-dashboard-page";
 import CategoryApprovalPage from "./pages/admin/dashboard/categoryApproval/category-approval-page";
+import SellerApprovalPage from "./pages/admin/dashboard/sellerApproval/seller-approval-page";
 import TotalUsersDisplay from "./pages/admin/users/total-user-page";
 import UserAnalyticPage from "./pages/admin/users/users-analytics-page";
 import Login from "./pages/auth/login-page";
@@ -611,6 +612,14 @@ const App = () => {
               element={
                 <AdminProtectedPage>
                   <CategoryApprovalPage />
+                </AdminProtectedPage>
+              }
+            />
+            <Route
+              path="/admin/approveSellers"
+              element={
+                <AdminProtectedPage>
+                  <SellerApprovalPage />
                 </AdminProtectedPage>
               }
             />
