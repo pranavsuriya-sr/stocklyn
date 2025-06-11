@@ -1,4 +1,5 @@
 import { adminRoute, api } from "@/api/api";
+import { toast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, ReactNode, useContext, useState } from "react";
 
@@ -128,13 +129,16 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     password: string
   ) => {
     try {
-      const response = await api.post("/auth/seller/signup", {
+      await api.post("/auth/seller/signup", {
         name,
         email,
         password,
       });
-      setUser(response.data.user);
-      setSession(true);
+      toast({
+        title: "Seller account request sent successfully",
+        description: "Please wait for admin approval",
+        variant: "default",
+      });
     } catch (error: any) {
       console.log(error);
     }
