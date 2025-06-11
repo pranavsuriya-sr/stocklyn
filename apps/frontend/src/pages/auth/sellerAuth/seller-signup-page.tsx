@@ -22,7 +22,7 @@ import {
   StoreIcon,
   UserIcon,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -41,10 +41,11 @@ const loginSchema = z.object({
 });
 
 const SellerSignUp = () => {
-  const { session, sellerSignUp } = useSession();
+  const { sellerSignUp } = useSession();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const inputRef = useRef<any>();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -55,27 +56,30 @@ const SellerSignUp = () => {
     },
   });
 
-  useEffect(() => {
-    if (session) {
-      navigate("/seller/dashboard");
-    }
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [session, navigate]);
-
   async function onSubmit(userInfo: z.infer<typeof loginSchema>) {
     const { name, email, password } = userInfo;
 
     try {
       await sellerSignUp(name, email, password);
-      navigate("/seller/onBoarding");
+      loginForm.reset();
     } catch (error: any) {
-      loginForm.setError("root", {
-        message: error.message || "Sign up failed",
-      });
+      if (error.response?.status === 409) {
+        setErrorMessage(
+          error.response?.data?.message ||
+            "A seller account with this email already exists."
+        );
+      } else {
+        setErrorMessage(
+          error.response?.data?.message ||
+            error.message ||
+            "An unexpected error occurred. Please try again."
+        );
+      }
     }
   }
+
+  // some problem with the error message fix later
+  // console.log(errorMessage);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-gray-100 p-4 sm:p-6 md:p-8 mt-16">
@@ -134,10 +138,10 @@ const SellerSignUp = () => {
           <div className="w-full max-w-md space-y-8 mx-auto">
             <div className="text-left">
               <h2 className="text-2xl font-medium text-gray-800">
-                Create Seller Account
+                Request a Seller Account
               </h2>
               <p className="mt-2 text-base text-gray-600">
-                Fill in the details to register as a seller.
+                Fill in the details to request a seller account.
               </p>
             </div>
 
@@ -161,6 +165,11 @@ const SellerSignUp = () => {
                       />
                     </svg>
                     <span>{loginForm.formState.errors.root.message}</span>
+                  </div>
+                )}
+                {errorMessage && (
+                  <div className="px-4 py-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-center">
+                    <span>{errorMessage}</span>
                   </div>
                 )}
 
