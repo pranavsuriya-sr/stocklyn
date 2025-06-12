@@ -52,7 +52,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? allowedOrigins
+        ? "https://trazor.shop"
         : "http://localhost:5173",
     credentials: true,
   })
