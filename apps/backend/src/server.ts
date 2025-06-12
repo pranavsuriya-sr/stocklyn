@@ -42,13 +42,17 @@ app.post(
   webhookHandler
 );
 
-// const allowedOrigins = ["http://localhost:5173", "https://maalelo.vercel.app"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://maalelo.vercel.app",
+  "https://trazor.shop",
+];
 
 app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "https://maalelo.vercel.app"
+        ? allowedOrigins
         : "http://localhost:5173",
     credentials: true,
   })
