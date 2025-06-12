@@ -12,7 +12,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.VM_HOST }}
-          username: maalelo
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: trazor
+          key: ${{ secrets.SSH_PRIVATE_KEY_TRAZOR }}
           passphrase: ""
-          script: bash /home/maalelo/deploy.sh
+          script: bash /home/trazor/deploy.sh

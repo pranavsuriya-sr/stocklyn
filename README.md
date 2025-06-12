@@ -18,6 +18,9 @@ A full-stack e-commerce application (in development)
 - Add filters at the search and category pages.
 - Quality Life Features
 - Request's status at the seller
+- Add an option to download SalesOverview/Insights at seller page as a report
+- Add a return fucntionality on orders for max 2 days after the order
+- Add coupon feature (Gambling)
 
 ## Features
 
