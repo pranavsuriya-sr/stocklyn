@@ -16,5 +16,3 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY_TRAZOR }}
           passphrase: ""
           script: bash /home/trazor/deploy.sh
-
-//test
