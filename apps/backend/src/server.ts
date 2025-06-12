@@ -64,6 +64,7 @@ const limiter = rateLimit({
   statusCode: 429,
 });
 
+app.set("trust proxy", 1);
 app.use(limiter);
 
 //testing purpose
