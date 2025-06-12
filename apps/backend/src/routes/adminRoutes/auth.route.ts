@@ -7,6 +7,7 @@ import { userType } from "../../types/jwt";
 const prisma = new PrismaClient();
 
 const adminRoute = Router();
+//check
 
 adminRoute.post("/register", async (req, res) => {
   try {
