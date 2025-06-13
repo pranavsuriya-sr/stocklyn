@@ -43,6 +43,8 @@ cartItemRoute.post("/insert", async (req: Request, res: Response) => {
     });
     return;
   }
+  // console.log(cartId, productId, price);
+  // return;
 
   try {
     const response = await prisma.cartItems.create({
