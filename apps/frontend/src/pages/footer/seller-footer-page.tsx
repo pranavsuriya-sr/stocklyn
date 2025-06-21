@@ -8,7 +8,7 @@ const SellerFooterPage = () => {
           {/* Logo & Tagline */}
           <div className="md:col-span-4 lg:col-span-3">
             <h3 className="text-2xl font-bold text-indigo-600 mb-2 tracking-tight">
-              Maalelo
+              Trazor
             </h3>
             <p className="text-gray-500 text-sm">
               Empowering Sellers Worldwide
@@ -133,7 +133,7 @@ const SellerFooterPage = () => {
             <h4 className="font-semibold text-gray-800 mb-4 text-base tracking-wide">
               Contact Us
             </h4>
-            <p className="text-gray-500 text-sm mb-1">support@maalelo.com</p>
+            <p className="text-gray-500 text-sm mb-1">support@Trazor.com</p>
             <p className="text-gray-500 text-sm mb-4">+1 (555) 123-4567</p>
 
             <h4 className="font-semibold text-gray-800 mb-3 text-base tracking-wide mt-6">
@@ -170,7 +170,7 @@ const SellerFooterPage = () => {
           {/* Bottom bar */}
           <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-500 gap-4">
             <p>
-              &copy; {new Date().getFullYear()} Maalelo. All Rights Reserved.
+              &copy; {new Date().getFullYear()} Trazor. All Rights Reserved.
             </p>
             <div className="flex space-x-6">
               <a href="#" className="hover:text-indigo-600 transition-colors">

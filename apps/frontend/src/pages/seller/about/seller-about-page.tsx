@@ -15,7 +15,7 @@ const SellerAboutPage = () => {
       <header className="bg-white text-gray-800 py-24 md:py-32 relative overflow-hidden border-b border-gray-200">
         <div className="container mx-auto px-6 text-center z-10 relative">
           <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
-            Partner with <span className="text-indigo-600">Maalelo</span> &
+            Partner with <span className="text-indigo-600">Trazor</span> &
             <br className="hidden md:block" /> Grow Your Business
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mx-auto text-gray-600">
@@ -42,7 +42,7 @@ const SellerAboutPage = () => {
             </h2>
             <div className="w-20 h-1 bg-gray-200 mx-auto mb-6"></div>
             <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-              At Maalelo, our mission is to provide a dynamic and supportive
+              At Trazor, our mission is to provide a dynamic and supportive
               platform where sellers can connect with buyers, showcase their
               products, and grow sustainably. We believe in partnerships that
               create value and success.
@@ -52,7 +52,7 @@ const SellerAboutPage = () => {
 
         <section className="mb-24">
           <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">
-            Why Sell on <span className="text-indigo-600">Maalelo</span>?
+            Why Sell on <span className="text-indigo-600">Trazor</span>?
           </h2>
           <div className="w-20 h-1 bg-gray-200 mx-auto mb-12"></div>
 
@@ -62,7 +62,7 @@ const SellerAboutPage = () => {
                 icon: <Rocket size={28} />,
                 title: "Expansive Customer Reach",
                 description:
-                  "Tap into Maalelo's community of buyers actively searching for quality products.",
+                  "Tap into Trazor's community of buyers actively searching for quality products.",
               },
               {
                 icon: <Wrench size={28} />,
@@ -162,7 +162,7 @@ const SellerAboutPage = () => {
           <div className="w-20 h-1 bg-gray-200 mx-auto mb-6"></div>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
             We're dedicated to your success—offering transparency, tools,
-            community, and support to help you thrive as a seller on Maalelo.
+            community, and support to help you thrive as a seller on Trazor.
           </p>
         </section>
 
@@ -176,19 +176,19 @@ const SellerAboutPage = () => {
               {[
                 {
                   quote:
-                    "Maalelo has been a game-changer for our small business. The platform is easy to use and we've seen a significant increase in sales!",
+                    "Trazor has been a game-changer for our small business. The platform is easy to use and we've seen a significant increase in sales!",
                   author: "Sai Raj ",
                   store: "You Daily AIsol",
                 },
                 {
                   quote:
-                    "The support team is fantastic! They are always responsive and helpful, which makes selling on Maalelo a breeze.",
+                    "The support team is fantastic! They are always responsive and helpful, which makes selling on Trazor a breeze.",
                   author: "Rohit Kothari",
                   store: "ANolAI",
                 },
                 {
                   quote:
-                    "We love the community aspect and the various tools available. Maalelo truly helps us grow and reach new customers.",
+                    "We love the community aspect and the various tools available. Trazor truly helps us grow and reach new customers.",
                   author: "Harsh Singh",
                   store: "Cover Factory",
                 },

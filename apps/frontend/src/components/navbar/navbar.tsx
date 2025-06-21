@@ -67,8 +67,8 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               className="text-3xl sm:text-4xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800"
             >
-              <span className="text-indigo-600 font-bold">Maal</span>
-              <span className="text-lime-500 font-bold">elo</span>
+              <span className="text-indigo-600 font-bold">Tra</span>
+              <span className="text-lime-500 font-bold">Zor</span>
             </motion.h3>
           </Link>
         </div>

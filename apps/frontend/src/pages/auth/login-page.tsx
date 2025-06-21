@@ -75,7 +75,7 @@ const Login = () => {
       <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden  mt-5 mb-16">
         <div className="w-full md:w-1/2 hidden md:flex flex-col justify-center items-start px-10 py-8 bg-slate-50">
           <h1 className="text-3xl font-medium text-gray-800 mb-6">
-            Welcome to Maalelo!
+            Welcome to Trazor!
           </h1>
           <p className="text-base text-gray-600 mb-6 leading-relaxed">
             Discover a seamless experience. If you're new, join our vibrant
@@ -114,7 +114,7 @@ const Login = () => {
             </div>
           </div>
           <p className="mt-8 text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} Maalelo. All rights reserved.
+            &copy; {new Date().getFullYear()} Trazor. All rights reserved.
           </p>
         </div>
         <div className="w-full md:w-1/2 px-10 py-8 flex flex-col justify-center bg-white relative overflow-hidden">
@@ -122,7 +122,7 @@ const Login = () => {
             <div className="text-left">
               <h2 className="text-2xl font-medium text-gray-800">Sign In</h2>
               <p className="mt-2 text-base text-gray-600">
-                Access your Maalelo account.
+                Access your Trazor account.
               </p>
             </div>
 

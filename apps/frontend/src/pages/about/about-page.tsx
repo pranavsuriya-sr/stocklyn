@@ -22,7 +22,7 @@ import tailwind from "../../assets/icons/tailwind.svg";
 import zustand from "../../assets/icons/zustand.svg";
 
 const About = () => {
-  const platforms = ["maalelo", "WooCommerce", "BigCommerce", "Magento"];
+  const platforms = ["Trazor", "WooCommerce", "BigCommerce", "Magento"];
   const features = [
     "Easy store setup",
     "Built-in payment processing",
@@ -31,7 +31,7 @@ const About = () => {
     "Unlimited product listings",
   ];
   const featureAvailability: any = {
-    maalelo: {
+    Trazor: {
       "Easy store setup": true,
       "Built-in payment processing": true,
       "Mobile-friendly themes": true,
@@ -63,7 +63,7 @@ const About = () => {
 
   const navigate = useNavigate();
 
-  const [featuredPlatform, setFeaturedPlatform] = useState("maalelo");
+  const [featuredPlatform, setFeaturedPlatform] = useState("Trazor");
   return (
     <section className="bg-white text-gray-800 pt-20 font-montserrat">
       <div className="container mx-auto px-4 sm:px-6">

@@ -86,7 +86,7 @@ const SignUpPage = () => {
       <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden mt-5 mb-16">
         <div className="w-full md:w-1/2 hidden md:flex flex-col justify-center items-start px-10 py-8 bg-slate-50">
           <h1 className="text-3xl font-medium text-gray-800 mb-6">
-            Join Maalelo Today!
+            Join Trazor Today!
           </h1>
           <p className="text-base text-gray-600 mb-6 leading-relaxed">
             Create your account to explore a world of opportunities and connect
@@ -126,7 +126,7 @@ const SignUpPage = () => {
             </div>
           </div>
           <p className="mt-8 text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} Maalelo. All rights reserved.
+            &copy; {new Date().getFullYear()} Trazor. All rights reserved.
           </p>
         </div>
 

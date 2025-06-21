@@ -774,7 +774,7 @@ const SellPage = () => {
         </form>
         <div className="text-center mt-8 pb-8">
           <p className="text-xs text-neutral-500">
-            By listing a product, you agree to Maalelo's Terms of Service and
+            By listing a product, you agree to Trazor's Terms of Service and
             Seller Policies.
           </p>
         </div>

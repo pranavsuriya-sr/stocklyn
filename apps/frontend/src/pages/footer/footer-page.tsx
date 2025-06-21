@@ -19,7 +19,7 @@ const FooterPage = () => {
           {/* About Us */}
           <div className="md:col-span-2">
             <h2 className="text-xl font-bold mb-4 text-gray-800">
-              About Maalelo
+              About Trazor
             </h2>
             <p className="text-gray-600 mb-4 max-w-lg">
               We are a leading e-commerce platform dedicated to offering premium
@@ -116,7 +116,7 @@ const FooterPage = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
           <div className="mb-4 md:mb-0">
-            © 2025 Maalelo. All rights reserved.
+            © 2025 Trazor. All rights reserved.
           </div>
           <div className="flex space-x-6">
             <a href="#" className="hover:text-gray-700 transition-colors">

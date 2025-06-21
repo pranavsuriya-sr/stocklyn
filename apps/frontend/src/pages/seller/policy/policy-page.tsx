@@ -21,12 +21,12 @@ const SellerPolicyPage = () => {
       <div className="relative text-gray-800 py-20 px-6 md:px-24 border-b border-gray-200">
         <div className="max-w-4xl mx-auto text-center mb-8 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
-            Maalelo Seller Policies
+            Trazor Seller Policies
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             Please read through our policies carefully. These rules are designed
             to foster a safe, reliable, and successful environment for all
-            Maalelo sellers.
+            Trazor sellers.
           </p>
         </div>
       </div>
@@ -89,8 +89,8 @@ const SellerPolicyPage = () => {
                       Recommended
                     </h3>
                     <p className="text-sm text-green-700">
-                      Use Maalelo's integrated shipping partners to ensure
-                      faster delivery and real-time tracking.
+                      Use Trazor's integrated shipping partners to ensure faster
+                      delivery and real-time tracking.
                     </p>
                   </div>
                   <div className="bg-red-50 p-4 rounded-lg flex-1 border border-red-200">
@@ -340,7 +340,7 @@ const SellerPolicyPage = () => {
                   8. Account Enforcement
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
-                  Maalelo reserves the right to issue warnings, impose temporary
+                  Trazor reserves the right to issue warnings, impose temporary
                   holds, or permanently suspend accounts for policy violations.
                 </p>
                 <div className="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">

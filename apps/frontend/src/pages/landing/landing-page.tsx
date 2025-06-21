@@ -24,14 +24,14 @@ const LandingPage = () => {
       <section className="relative w-full min-h-screen flex items-center justify-center bg-gray-100 mt-16">
         <img
           src={landingPage}
-          alt="Maalelo platform interface"
+          alt="Trazor platform interface"
           className="absolute inset-0 w-full h-full object-cover object-top"
         />
 
         <div className="relative z-10 flex flex-col items-start p-8 md:p-12 lg:p-16 max-w-7xl w-full">
           <div className="md:w-2/3 lg:w-1/2">
             <FlipText className="text-gray-900 text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6">
-              Maalelo
+              Trazor
             </FlipText>
 
             <div className="text-gray-700 text-2xl sm:text-3xl font-light mb-8">
@@ -41,8 +41,8 @@ const LandingPage = () => {
             </div>
 
             <p className="text-gray-600 text-lg font-light mb-10 leading-relaxed">
-              Explore a world of unique products & amazing deals on Maalelo.
-              Shop with confidence and discover something new today!
+              Explore a world of unique products & amazing deals on Trazor. Shop
+              with confidence and discover something new today!
             </p>
 
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
@@ -260,19 +260,19 @@ const LandingPage = () => {
             {[
               {
                 quote:
-                  "Maalelo has completely transformed my online shopping experience. The quality and uniqueness of products are unmatched!",
+                  "Trazor has completely transformed my online shopping experience. The quality and uniqueness of products are unmatched!",
                 name: "Harsh Singh",
                 title: "Verified Shopper",
               },
               {
                 quote:
-                  "I was looking for specific home decor items and found exactly what I needed on Maalelo. The fast shipping and great customer service were a huge plus!",
+                  "I was looking for specific home decor items and found exactly what I needed on Trazor. The fast shipping and great customer service were a huge plus!",
                 name: "Sai Raj",
                 title: "Decor Enthusiast",
               },
               {
                 quote:
-                  "Discovering Maalelo was a game-changer. The curated collections make it easy to find stylish pieces, and I always get compliments on my purchases.",
+                  "Discovering Trazor was a game-changer. The curated collections make it easy to find stylish pieces, and I always get compliments on my purchases.",
                 name: "Rishit Bakshi",
                 title: "Style Maven",
               },
@@ -330,7 +330,7 @@ const LandingPage = () => {
         <div className="mx-auto max-w-2xl text-center">
           <BoxReveal boxColor="#5046e6">
             <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-              Become a Maalelo Insider
+              Become a Trazor Insider
             </h2>
           </BoxReveal>
           <p className="mt-6 text-lg leading-8 text-gray-700 font-light">

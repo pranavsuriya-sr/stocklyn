@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Check, ShoppingCart } from "lucide-react";
 import { useMemo } from "react";
 
-const possibleBrands = ["maalelo exclusive", "maalelo"];
+const possibleBrands = ["Trazor exclusive", "Trazor"];
 
 // const getRandomRating = (): number => {
 //   return parseFloat((Math.random() * (5.0 - 3.5) + 3.5).toFixed(1));
