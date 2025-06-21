@@ -48,7 +48,15 @@ const allowedOrigins = [
   "https://trazor.shop",
 ];
 
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://trazor.shop"
+        : "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 //imit middleware
 const limiter = rateLimit({
