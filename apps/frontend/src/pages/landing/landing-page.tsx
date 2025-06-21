@@ -25,7 +25,7 @@ const LandingPage = () => {
         <img
           src={landingPage}
           alt="Trazor platform interface"
-          className="absolute inset-0 w-full h-full object-cover object-top"
+          className="absolute inset-0 w-full h-full object-cover object-[70%_center] md:object-center"
         />
 
         <div className="relative z-10 flex flex-col items-start p-8 md:p-12 lg:p-16 max-w-7xl w-full">
