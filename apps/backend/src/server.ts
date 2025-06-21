@@ -49,11 +49,10 @@ const allowedOrigins = [
 ];
 
 app.use(
+  //testing
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? "https://trazor.shop"
-        : "http://localhost:5173",
+    origin: "https://trazor.shop",
+
     credentials: true,
   })
 );
