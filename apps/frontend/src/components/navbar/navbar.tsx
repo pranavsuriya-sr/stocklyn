@@ -58,7 +58,7 @@ export default function Navbar() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 w-full z-40 bg-gradient-to-r from-white to-gray-50 shadow-md backdrop-blur-sm "
+      className="fixed top-0 left-0 w-full z-40 border-b border-gray-200 bg-white/80 backdrop-blur-sm"
     >
       <div className="max-w-full mx-auto flex items-center justify-between px-4 sm:px-6 md:px-5 py-3">
         <div className="flex items-center ">
@@ -67,8 +67,8 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               className="text-3xl sm:text-4xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800"
             >
-              <span className="text-indigo-600 font-bold">Tra</span>
-              <span className="text-lime-500 font-bold">Zor</span>
+              <span className="text-gray-900 font-bold">tra</span>
+              <span className="text-indigo-600 font-bold">zor</span>
             </motion.h3>
           </Link>
         </div>
