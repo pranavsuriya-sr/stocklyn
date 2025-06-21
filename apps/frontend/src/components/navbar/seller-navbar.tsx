@@ -77,8 +77,8 @@ const SellerNavbar = () => {
               whileHover={{ scale: 1.05 }}
               className="text-3xl sm:text-4xl font-semibold font-montserrat tracking-tight cursor-pointer text-gray-800 flex items-baseline"
             >
-              <span className="text-indigo-600 font-bold ">Maal</span>
-              <span className="text-lime-500 font-bold">elo</span>
+              <span className="text-gray-900 font-bold">tra</span>
+              <span className="text-indigo-600 font-bold">zor</span>
               <span className="text-red-500 font-thin ml-2">Seller</span>
             </motion.h3>
           </Link>

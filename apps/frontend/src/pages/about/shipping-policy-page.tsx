@@ -27,7 +27,7 @@ const PolicyPage = () => {
             Shipping Policy
           </h2>
           <PlaceholderText>
-            At Maalelo, we are committed to delivering your products in a timely
+            At trazor, we are committed to delivering your products in a timely
             and efficient manner. Our shipping policy is designed to be
             transparent and easy to understand.
             <br />

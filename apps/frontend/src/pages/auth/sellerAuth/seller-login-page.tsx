@@ -91,7 +91,7 @@ const SellerLogin = () => {
                 New to Selling?
               </h3>
               <p className="text-sm text-gray-600 mb-4">
-                Create an account to start selling on Maalelo.
+                Create an account to start selling on trazor.
               </p>
               <Button
                 onClick={() => navigate("/seller/signup")}
@@ -108,18 +108,18 @@ const SellerLogin = () => {
                 Looking for Main Site?
               </h3>
               <p className="text-sm text-gray-600 mb-4">
-                Browse products and shop on our main Maalelo platform.
+                Browse products and shop on our main trazor platform.
               </p>
               <Button
                 onClick={() => navigate("/")}
                 className="w-full h-11 px-6 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-medium text-sm shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] flex items-center justify-center"
               >
-                Go to Maalelo.com <HomeIcon className="h-5 w-5 ml-2" />
+                Go to trazor.shop <HomeIcon className="h-5 w-5 ml-2" />
               </Button>
             </div>
           </div>
           <p className="mt-8 text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} Maalelo Seller Central. All rights
+            &copy; {new Date().getFullYear()} trazor Seller Central. All rights
             reserved.
           </p>
         </div>
@@ -254,7 +254,7 @@ const SellerLogin = () => {
             </Form>
 
             <div className="mt-8 text-center text-xs text-gray-600">
-              New to selling on Maalelo?{" "}
+              New to selling on trazor?{" "}
               <button
                 onClick={() => navigate("/seller/signup")}
                 className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline transition-colors duration-150 ease-in-out"

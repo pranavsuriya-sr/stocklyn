@@ -115,7 +115,7 @@ const AdminSignupPage = () => {
           </form>
         </div>
         <p className="mt-8 text-center text-xs text-slate-500">
-          &copy; {new Date().getFullYear()} Maalelo. All rights reserved.
+          &copy; {new Date().getFullYear()} trazor. All rights reserved.
         </p>
       </div>
     </div>

@@ -99,8 +99,8 @@ const AdminNavbar = () => {
               whileHover={{ scale: 1.05 }}
               className="text-3xl sm:text-4xl font-bold font-poppins tracking-tight cursor-pointer text-white flex items-baseline"
             >
-              <span className="text-white">Maal</span>
-              <span className="text-emerald-400">elo</span>
+              <span className="text-white-900 font-bold">tra</span>
+              <span className="text-red-600 font-bold">zor</span>
               <span className="text-sky-400 font-thin ml-2 text-xl">Admin</span>
             </motion.h3>
           </Link>
