@@ -48,14 +48,7 @@ const allowedOrigins = [
   "https://trazor.shop",
 ];
 
-app.use(
-  //testing
-  cors({
-    origin: "https://trazor.shop",
-
-    credentials: true,
-  })
-);
+app.use(cors());
 
 //imit middleware
 const limiter = rateLimit({
