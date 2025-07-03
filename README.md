@@ -1,20 +1,18 @@
 # Stocklyn
 
-![Landing Page](./assets/landingPage1.png)
-![Seller Page](./assets/sellerPage.png)
-![Admin Page](./assets/adminPage.png)
+![Landing Page](./assets/trazorFrontPage.png)
+![Seller Page](./assets/trazorSellerPage.png)
+![Admin Page](./assets/trazorAdminPage.png)
 
 ## Overview
 
-A full-stack e-commerce application (in development)
+A full-stack+Devops e-commerce application
 
 ## Progress
 
-- Completed buyer interface
-- Completed Seller interface
-- Cooking Admin portal
+- Completed The full app , ready to sell
 
-## todo
+## todo ( Extra Features not required for the project as of now)
 
 - Add an admin page for authorization of the seller's requests
 - Add filters at the search and category pages.
@@ -34,8 +32,13 @@ A full-stack e-commerce application (in development)
 - Order management
 - RBAC for sellers and buyers
 - Sell Products
+- Added Seller with Approval
+- Added Category with Approval
 - Get detailed selling stats
-- Cooking more
+- Admin Dashboard
+- Admin level previleges
+- Admin can add/remove/edit/view users, products, categories, orders, and sellers
+- Admin has full control over the app
 
 ## Tech Stack
 
