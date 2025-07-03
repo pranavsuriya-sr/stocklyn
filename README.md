@@ -1,6 +1,8 @@
 # Stocklyn
 
-![Landing Page](./apps/frontend/src/assets/landingPage1.png)
+![Landing Page](./assets/landingPage1.png)
+![Seller Page](./assets/sellerPage.png)
+![Admin Page](./assets/adminPage.png)
 
 ## Overview
 
