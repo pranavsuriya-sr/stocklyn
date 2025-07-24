@@ -153,7 +153,7 @@ const About = () => {
                       {featureAvailability[featuredPlatform][feature] ? (
                         <Check className="mx-auto text-green-500" size={20} />
                       ) : (
-                        <X className="mx-auto text-red-500" size={20} />
+                        <X className="mx-auto text-blue-500" size={20} />
                       )}
                     </td>
                     {platforms
@@ -165,7 +165,7 @@ const About = () => {
                         >
                           {featureAvailability[platform][feature] ? (
                             <Check
-                              className="mx-auto text-green-500"
+                              className="mx-auto text-blue-500"
                               size={20}
                             />
                           ) : (
